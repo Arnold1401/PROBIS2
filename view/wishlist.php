@@ -8,6 +8,7 @@ require_once("head.php");
    
 </head>
 <body class="goto-here">
+   
     <!-- header paling atas -->
     <div class="py-1 bg-primary">
         <div class="container">
@@ -65,139 +66,102 @@ require_once("head.php");
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">PRODUK</h1>
-            <div class="col-md-12 d-flex align-items-center">
-            
-            <!-- Cari Product -->
-            <form action="#" class="subscribe-form">
-              <div class="form-group d-flex">
-                <input type="text" class="form-control" placeholder="Cari Produk">
-                <input name="" id="" class="btn btn-primary" type="button" value="Cari">              
-              </div>
-            </form>
-            <!--End Cari Product -->
+            <h1 class="mb-0 bread">DAFTAR KEINGINAN SAYA</h1>
 
-          </div>
           </div>
         </div>
       </div>
     </div>
 
-    
+    <!-- cart -->
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>&nbsp;</th>                                    
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">                                                                        
+                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
+                                    
+                                    <td class="product-name">
+                                        <h3>Bell Pepper</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries</p>
+                                    </td>
+                                    
+                                    <td class="price">$4.90</td>
+                                    
+                                    <td class="quantity">                                       
+                                        <div class="input-group mb-3">
+                                        <input type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                    </div>
+                                    
+                                    </td>
+                            
+                                    <td class="total">$4.90</td>
 
-    <!-- Jenis Product -->
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-10 mb-5 text-center">
-    				<ul class="product-category">
-    					<li><a href="#" class="active">Semua</a></li>
-    					<li><a href="#">Minuman</a></li>
-    					<li><a href="#">Konsumsi</a></li>
-    					<li><a href="#">Pribadi</a></li>
-    					<li><a href="#">Obat</a></li>
-    				</ul>
-          </div>
-        </div>
-        
-        <!-- row Jenis Product -->
-        <div class="row">
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
-            </div>
-          </div>
+                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                </tr>
 
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
+                                <tr class="text-center">                                                           
+                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
+                                    
+                                    <td class="product-name">
+                                        <h3>Bell Pepper</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries</p>
+                                    </td>
+                                    
+                                    <td class="price">$15.70</td>
+                                    
+                                    <td class="quantity">
+                                        <div class="input-group mb-3">
+                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                    </div>
+                                    </td>
+                            
+                                    <td class="total">$15.70</td>
+                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-          </div>
 
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- end row Jenis Product -->
             
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
+        </div>
+    </section>
+    <!-- end cart -->
+
+    <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+      <div class="container py-4">
+        <div class="row d-flex justify-content-center py-5">
+          <div class="col-md-6">
+          	<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+          	<span>Get e-mail updates about our latest shops and special offers</span>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <form action="#" class="subscribe-form">
+              <div class="form-group d-flex">
+                <input type="text" class="form-control" placeholder="Enter email address">
+                <input type="submit" value="Subscribe" class="submit px-3">
+              </div>
+            </form>
           </div>
         </div>
-    	</div>
+      </div>
     </section>
-    <!-- END Jenis Product -->
 
     <!-- footer -->
     <footer class="ftco-footer ftco-section">
