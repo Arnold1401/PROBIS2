@@ -37,49 +37,48 @@ require_once("head.php");
         <div class="col-md-6 d-flex">
             <form action="#" class="bg-white p-4 contact-form">
                 <div class="form-group">
-                  <h5 for="">Company Profile</h5>
-                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Company Name">
-                  <small id="helpId" class="form-text text-muted">Please fill your company name</small>
+                  <h5 for="">Profil Usaha</h5>
+                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nama Perusahaan/Toko">
+                  <small id="helpId" class="form-text text-muted">Isi Nama Perusahaan/Toko</small>
                 </div>
 
                 <hr>
 
                 <div class="form-group">
-                  <h5 for="">Owner Profile</h5>
-                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Name">
-                  <small id="helpId" class="form-text text-muted">Please fill your name</small>
+                  <h5 for="">Profil Pemilik</h5>
+                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nama Pemilik">
+                  <small id="helpId" class="form-text text-muted">Isi Nama Pemilik</small>
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" name="" id="" placeholder="Citizen Number">
-                    <small id="helpId" class="form-text text-muted">Please fill your Citizen number</small>              
+                    <input type="number" class="form-control" name="" id="" placeholder="Nomor KTP">
+                    <small id="helpId" class="form-text text-muted">Isi Nomor KTP Anda</small>              
                 </div>
 
                 <div class="form-group">
-                    <input type="file" id="myFile" name="filename">
-                    
+                    <input type="file" id="myFile" name="filename">           
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" name="" id="" placeholder="Phone Number">
-                    <small id="helpId" class="form-text text-muted">Please fill your phone number</small>              
+                    <input type="number" class="form-control" name="" id="" placeholder="Nomor Telpon">
+                    <small id="helpId" class="form-text text-muted">Isi Nomor Telpon Anda</small>              
                 </div>
 
                 <div class="form-group">
                     <input type="date" class="form-control" id="" name="bdaytime">
-                    <small id="helpId" class="form-text text-muted">Please fill your birthdate</small>
+                    <small id="helpId" class="form-text text-muted">Isi Tanggal/Bulan/Tahun Lahir Anda</small>
                 </div>
 
                 <div class="form-group">
                   <select class="form-control" name="" id="">
-                    <option>Female</option>
-                    <option>Male</option>                   
+                    <option>Wanita</option>
+                    <option>Pria</option>                   
                   </select>
-                  <small id="helpId" class="form-text text-muted">Select gender</small>
+                  <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
                 </div>
 
                 <div class="form-group">
-                  <label for="">Address</label>
+                  <label for="">Alamat</label>
                   <textarea class="form-control" name="" id="" rows="3"></textarea>
                 </div>
 
@@ -101,18 +100,18 @@ require_once("head.php");
 
                 <div class="form-group">
                   <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
-                  <small id="helpId" class="form-text text-muted">Please fill your email</small>
+                  <small id="helpId" class="form-text text-muted">Isi Email anda sesuai format</small>
                 </div>
 
                 <div class="form-group">
                     <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Username">
-                    <small id="helpId" class="form-text text-muted">Please fill your Username</small>
+                    <small id="helpId" class="form-text text-muted">Isi Username anda</small>
                 </div>
                 <div class="form-group">                   
                     <input type="password" class="form-control" name="" id="" placeholder="Password">                 
                 </div>
                 <div class="form-group">                   
-                    <input type="password" class="form-control" name="" id="" placeholder="Confirm Password">                 
+                    <input type="password" class="form-control" name="" id="" placeholder="Konfirmasi Password">                 
                 </div>
                 <div class="form-group justify-content-center">
                    <button type="button" name="" id="" class="btn btn-primary py-2 px-5">Register</button>
@@ -122,7 +121,7 @@ require_once("head.php");
                 <hr>
 
                 <!-- Go to Register and verification -->
-                <a href="" class="text-center">Dont forget to verify your account. Customer Number will sent to your email </a>
+                <a href="" class="text-center">Jangan Lupa untuk memverifikasi akun melalui email anda</a>
                 <!-- End Go to Register and verification -->
             </form>
 

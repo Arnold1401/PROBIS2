@@ -62,102 +62,45 @@ require_once("head.php");
     </nav>
     <!-- END nav -->
 
-    <section id="home-section" class="hero">
-		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">         	
+            <h1 class="mb-0 bread">PRODUK</h1>
+            <div class="col-md-12 d-flex align-items-center">
+            
+            <!-- Cari Product -->
+            <form action="#" class="subscribe-form">
+              <div class="form-group d-flex">
+                <input type="text" class="form-control" placeholder="Cari Produk">
+                <input name="" id="" class="btn btn-primary" type="button" value="Cari">              
+              </div>
+            </form>
+            <!--End Cari Product -->
 
-	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-
-	      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-    </section>
-
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row no-gutters ftco-services">
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-correct"></span>
+          </div>
+          </div>
         </div>
-        <div class="media-body">
-            <h3 class="heading">Free Shipping</h3>
-            <span>On order over $100</span>
-        </div>
-        </div>      
+      </div>
     </div>
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-diet"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">Always Fresh</h3>
-            <span>Product well package</span>
-        </div>
-        </div>    
-    </div>
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-award"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">High Quality Product</h3>
-            <span>Good Products from reliable company</span>
-        </div>
-        </div>      
-    </div>
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-customer-service"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">Online Support</h3>
-            <span>Call us </span>
-        </div>
-        </div>      
-    </div>
-    </div>
-        </div>
-    </section>
+
+    
 
     <!-- Jenis Product -->
     <section class="ftco-section">
+
     	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Produk Unggulan</span>
-            <h2 class="mb-4">Produk tersedia</h2>
-          </div>
-        </div>   		
+        <div class="row justify-content-center">
+    			<div class="col-md-10 mb-5 text-center">
+    				<ul class="product-category">
+    					<li><a href="#" class="active">Semua</a></li>
+    					<li><a href="#">Minuman</a></li>
+    					<li><a href="#">Konsumsi</a></li>
+    					<li><a href="#">Pribadi</a></li>
+    					<li><a href="#">Obat</a></li>
+    				</ul>
+                </div>
     	</div>
-    	<div class="container">
     		<div class="row">
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
@@ -167,10 +110,12 @@ require_once("head.php");
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="#">Minuman</a></h3>
     						<div class="d-flex">
-    							<div class="pricing"></div>
+    							<div class="pricing">
+                               
+                                </div>
 	    					</div>
 	    					<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
     						</div>
     					</div>
     				</div>
@@ -183,10 +128,12 @@ require_once("head.php");
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="#">Barang Konsumsi</a></h3>
     						<div class="d-flex">
-    							<div class="pricing"></div>
+                                <div class="pricing">
+                                
+                                </div>
 	    					</div>
-    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
     						</div>
     					</div>
     				</div>
@@ -199,10 +146,12 @@ require_once("head.php");
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="#">Perawatan Pribadi</a></h3>
     						<div class="d-flex">
-    							<div class="pricing"></div>
+                                <div class="pricing">
+                                
+                                </div>
 	    					</div>
-    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">Shop</a>
+                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
     						</div>
     					</div>
     				</div>
@@ -215,15 +164,33 @@ require_once("head.php");
     					<div class="text py-3 pb-4 px-3 text-center">
     						<h3><a href="#">Obat-Obatan</a></h3>
     						<div class="d-flex">
-    							<div class="pricing"></div>
+                            <div class="pricing">
+                                
+                                </div>
 	    					</div>
-    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
     						</div>
     					</div>
     				</div>
     			</div>	
-    		</div>
+            </div>
+            
+            <div class="row mt-5">
+          <div class="col text-center">
+            <div class="block-27">
+              <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
     	</div>
     </section>
     <!-- END Jenis Product -->
