@@ -49,7 +49,7 @@ require_once("head.php");
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="shop.html">Status Order</a>
-                    <a class="dropdown-item" href="wishlist.html">History Order</a>
+                    <a class="dropdown-item" href="wishlist.html">Riwayat Order</a>
                     <a class="dropdown-item" href="product-single.html">Piutang</a>
                     <hr>
                     <a class="dropdown-item" href="product-single.html">Profil</a>

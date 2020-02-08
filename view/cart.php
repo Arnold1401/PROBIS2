@@ -62,171 +62,135 @@ require_once("head.php");
     </nav>
     <!-- END nav -->
 
-    <section id="home-section" class="hero">
-		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">         	
+            <h1 class="mb-0 bread">KERANJANG SAYA</h1>
 
-	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-
-	      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-    </section>
-
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row no-gutters ftco-services">
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-correct"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">Free Shipping</h3>
-            <span>On order over $100</span>
-        </div>
-        </div>      
-    </div>
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-diet"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">Always Fresh</h3>
-            <span>Product well package</span>
-        </div>
-        </div>    
-    </div>
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-award"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">High Quality Product</h3>
-            <span>Good Products from reliable company</span>
-        </div>
-        </div>      
-    </div>
-    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-        <div class="media block-6 services mb-md-0 mb-4">
-        <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-customer-service"></span>
-        </div>
-        <div class="media-body">
-            <h3 class="heading">Online Support</h3>
-            <span>Call us </span>
-        </div>
-        </div>      
-    </div>
-    </div>
-        </div>
-    </section>
-
-    <!-- Jenis Product -->
-    <section class="ftco-section">
-    	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Produk Unggulan</span>
-            <h2 class="mb-4">Produk tersedia</h2>
           </div>
-        </div>   		
-    	</div>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-                        <div></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Minuman</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing"></div>
-	    					</div>
-	    					<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Barang Konsumsi</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing"></div>
-	    					</div>
-    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Perawatan Pribadi</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing"></div>
-	    					</div>
-    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">Shop</a>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Obat-Obatan</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing"></div>
-	    					</div>
-    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
-    						</div>
-    					</div>
-    				</div>
-    			</div>	
-    		</div>
-    	</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- cart -->
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr class="text-center">
+                                    <th>&nbsp;</th>                                    
+                                    <th>Nama Produk</th>
+                                    <th>Harga</th>
+                                    <th>Jumlah</th>
+                                    <th>Total</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">                                                                        
+                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
+                                    
+                                    <td class="product-name">
+                                        <h3>Bell Pepper</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries</p>
+                                    </td>
+                                    
+                                    <td class="price">$4.90</td>
+                                    
+                                    <td class="quantity">                                       
+                                        <div class="input-group mb-3">
+                                        <input type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                    </div>
+                                    
+                                    </td>
+                            
+                                    <td class="total">$4.90</td>
+
+                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                </tr>
+
+                                <tr class="text-center">                                                           
+                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
+                                    
+                                    <td class="product-name">
+                                        <h3>Bell Pepper</h3>
+                                        <p>Far far away, behind the word mountains, far from the countries</p>
+                                    </td>
+                                    
+                                    <td class="price">$15.70</td>
+                                    
+                                    <td class="quantity">
+                                        <div class="input-group mb-3">
+                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+                                    </div>
+                                    </td>
+                            
+                                    <td class="total">$15.70</td>
+                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-end">
+                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Estimate shipping and tax</h3>
+                        <p>Enter your destination to get a shipping estimate</p>
+                        <form action="#" class="info">
+
+                            <div class="form-group">
+                            <label for="">Country</label>
+                            <input type="text" class="form-control text-left px-3" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                            <label for="country">State/Province</label>
+                            <input type="text" class="form-control text-left px-3" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                            <label for="country">Zip/Postal Code</label>
+                            <input type="text" class="form-control text-left px-3" placeholder="">
+                            </div>
+                        </form>
+                    </div>
+                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+                </div>
+                <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Cart Totals</h3>
+                        <p class="d-flex">
+                            <span>Subtotal</span>
+                            <span>$20.60</span>
+                        </p>
+                        <p class="d-flex">
+                            <span>Delivery</span>
+                            <span>$0.00</span>
+                        </p>
+                        <p class="d-flex">
+                            <span>Discount</span>
+                            <span>$3.00</span>
+                        </p>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span>Total</span>
+                            <span>$17.60</span>
+                        </p>
+                    </div>
+                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                </div>
+            </div>
+        </div>
     </section>
-    <!-- END Jenis Product -->
+    <!-- end cart -->
 
     <!-- footer -->
     <footer class="ftco-footer ftco-section">
