@@ -7,7 +7,6 @@
         echo "nama belakang tidak ada";
     }
  
-
 ?>
 <html lang="en">
 <head>
