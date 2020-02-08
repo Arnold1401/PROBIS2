@@ -51,8 +51,13 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
-                  <small id="helpId" class="form-text text-muted">Please fill your email</small>
+                    <input type="number" class="form-control" name="" id="" placeholder="Citizen Number">
+                    <small id="helpId" class="form-text text-muted">Please fill your Citizen number</small>              
+                </div>
+
+                <div class="form-group">
+                    <input type="file" id="myFile" name="filename">
+                    
                 </div>
 
                 <div class="form-group">
@@ -73,6 +78,11 @@ require_once("head.php");
                   <small id="helpId" class="form-text text-muted">Select gender</small>
                 </div>
 
+                <div class="form-group">
+                  <label for="">Address</label>
+                  <textarea class="form-control" name="" id="" rows="3"></textarea>
+                </div>
+
                 <!-- Go to fill username and pass -->
                 <a name="" id="" class="btn btn-primary justify-content-end" href="#" role="button"> <span class="icon-arrow-right"></span> </a>
                 <!-- End Go to fill username and pass -->
@@ -88,6 +98,12 @@ require_once("head.php");
                 <div class="form-group">
                     <h5 for="">Account</h5>          
                 </div>
+
+                <div class="form-group">
+                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                  <small id="helpId" class="form-text text-muted">Please fill your email</small>
+                </div>
+
                 <div class="form-group">
                     <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Username">
                     <small id="helpId" class="form-text text-muted">Please fill your Username</small>
