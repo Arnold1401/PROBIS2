@@ -106,7 +106,7 @@ require_once("adminhead.php");
                 <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Barang</strong>
+                                <strong class="card-title">Tambah/Ubah/Aktif-Nonaktif Barang</strong>
                             </div>
                             <div class="card-body card-block">
 
@@ -155,39 +155,16 @@ require_once("adminhead.php");
                                   <div class="form-group">
                                     <label for=""class=" form-control-label">Deskripsi Barang </label>
                                     <textarea class="form-control" name="" id="" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>        
+                                  </div>    
                                   
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Status Barang </label>
-                                    <select name="select" id="select" class="form-control">
-                                        <option value="0">Aktif</option>
-                                        <option value="1">No-aktif</option>
-                                        
-                                      </select>
-                                      <small>(Aktif - Barang akan ditampilkan pada pilihan produk customer)</small>   
-                                      <small>(NonAktif - Barang tidak akan ditampilkan pada pilihan produk customer)</small>   
-                                  </div>
                                  
-
-                                  
-
-                                  <button type="submit" class="btn btn-success btn-md">
-                                    <i class="fa fa-dot-circle-o"></i> Tambahkan
+                                  <button type="submit" class="btn btn-primary btn-md">
+                                    <i class="fa fa-dot-circle-o"></i> Submit
                                   </button>
 
                                   <button type="submit" class="btn btn-danger btn-md">
                                     <i class="fa fa-ban"></i> Reset
                                   </button>
-
-                                  <button type="submit" class="btn btn-warning btn-md float-right">
-                                    <i class="fa fa-ban"></i> Ubah
-                                  </button>
-                                  <br>
-                                  <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
-                                  <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                                  <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
-
-
                                 </form>
                                 <!-- crud barang-->
                             </div>
@@ -201,108 +178,63 @@ require_once("adminhead.php");
                                 <strong class="card-title">List Barang</strong>
                             </div>
                             <div class="card-body">
-                              <small>*Pilih tombol Detail untuk melihat Detail Barang</small><br>
-                              <small>*Pilih tombol Ubah untuk mengubah Barang</small>
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jenis Barang</th>
-                                            <th>Unit Barang</th>
-                                            <th>Harga Barang</th>
-                                            <th>Status Barang</th>
-                                            <th>Action</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Office</th>
+                                            <th>Salary</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td> 1 </td>
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>
                                             <td>Edinburgh</td>
                                             <td>$320,800</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td> 2 </td>
                                             <td>Rhona Davidson</td>
                                             <td>Integration Specialist</td>
                                             <td>Tokyo</td>
                                             <td>$327,900</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>                                      
                                         <tr>
-                                            <td> 3 </td>
                                             <td>Shou Itou</td>
                                             <td>Regional Marketing</td>
                                             <td>Tokyo</td>
                                             <td>$163,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td> 4 </td>
                                             <td>Michelle House</td>
                                             <td>Integration Specialist</td>
                                             <td>Sidney</td>
                                             <td>$95,400</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td> 5 </td>
                                             <td>Suki Burks</td>
                                             <td>Developer</td>
                                             <td>London</td>
                                             <td>$114,500</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td> 6 </td>
                                             <td>Prescott Bartlett</td>
                                             <td>Technical Author</td>
                                             <td>London</td>
                                             <td>$145,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td> 7 </td>
                                             <td>Gavin Cortez</td>
                                             <td>Team Leader</td>
                                             <td>San Francisco</td>
                                             <td>$235,500</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td> 8 </td>
                                             <td>Donna Snider</td>
                                             <td>Customer Support</td>
                                             <td>New York</td>
                                             <td>$112,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
