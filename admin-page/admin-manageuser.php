@@ -168,6 +168,14 @@ require_once("adminhead.php");
                                     <textarea readonly class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
                                   </div>        
                                   
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">Sales Yang bertanggung jawab </label>
+                                    <select readonly name="select" id="select" class="form-control">
+                                        <option value="0">001 - Arnold</option>
+                                        <option value="1">002 - Wily</option>
+                                      </select>
+                                  </div>
+
                                 
                                   <button type="submit" class="btn btn-success btn-md">
                                     <i class="fa fa-dot-circle-o"></i> Valid
@@ -177,10 +185,14 @@ require_once("adminhead.php");
                                     <i class="fa fa-ban"></i> Tidak Valid
                                   </button>
 
+                                  <button type="submit" class="btn btn-warning btn-md float-right">
+                                    <i class="fa fa-ban"></i> Ubah Sales
+                                  </button>
+
                                   <br>
                                   <small>*Pilih tombol Valid untuk mengubah status user jika data yang diinputkan sesuai KTP</small><br>
                                   <small>*Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>
-                                  
+                                  <small>*Pilih tombol Ubah Sales jika user meminta pergantian sales</small><br>
                                 </form>
                                 <!-- crud barang-->
                             </div>

@@ -30,19 +30,19 @@ require_once("adminhead.php");
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
+                <li>
                         <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>User</a>                        
+                    <li>
+                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Sales</a>                      
+                    <li>
+                        <a href="admin-managesales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales </a>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Barang</a>                      
-                    </li>                                                                      
+                    <li>
+                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -96,7 +96,7 @@ require_once("adminhead.php");
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>      
                             <li><a href="#">Master</a></li>                            
-                            <li><a href="#">Barang</a></li>                                                  
+                            <li><a href="#">User</a></li>                                                  
                         </ol>
                     </div>
                 </div>
@@ -109,7 +109,7 @@ require_once("adminhead.php");
                 <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Barang</strong>
+                                <strong class="card-title">Sales</strong>
                             </div>
                             <div class="card-body card-block">
 
@@ -118,7 +118,7 @@ require_once("adminhead.php");
 
                                   <div class="row form-group">
                                     <div class="col col-md-3">
-                                      <label for="file-input" class=" form-control-label">File input</label>
+                                      <label for="file-input" class=" form-control-label">Unggah Foto KTP Anda</label>
                                     </div>
                                       
                                     <div class="col-12 col-md-9">
@@ -127,38 +127,37 @@ require_once("adminhead.php");
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Barang</label>
-                                      <input type="text" id="" name="" placeholder="Isi Nama Barang" class="form-control">
-                                      <small class="help-block">Isi Nama Barang</small>
+                                    <label for="" class=" form-control-label">Nama Sales</label>
+                                      <input type="text" id="" name="" value="fira" class="form-control">
                                   </div>
                                   
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Jumlah Barang </label>
-                                      <input type="number" id="" name="" placeholder="Isi Jumlah Barang" class="form-control">
-                                      <small class="help-block">Isi Jumlah Barang Yang Tersedia</small>
+                                    <label for="" class=" form-control-label">No KTP Sales </label>
+                                      <input type="number" id="" name="" value="9876543215648562" class="form-control">
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Jenis Barang </label>
+                                    <label for="" class=" form-control-label">No Telpon </label>
+                                      <input type="number" id="" name="" value="082288569879" class="form-control">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">Tanggal/Bulan/Tahun Lahir </label>
+                                      <input type="date" id="" name="" value="01/04/1999" class="form-control">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">Jenis Kelamin </label>
                                     <select name="select" id="select" class="form-control">
-                                      <option value="0">Minuman</option>
-                                        <option value="1">Konsumsi</option>
-                                        <option value="2">Obat</option>
-                                        <option value="3">Option #3</option>
+                                        <option value="0">Wanita</option>
+                                        <option value="1">Pria</option>
                                       </select>
-                                      <small>Pilih Jenis Barang</small>                                      
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Harga Barang (Rp)</label>
-                                      <input type="number" id="" name="" placeholder="Isi Harga Barang" class="form-control">
-                                      <small class="help-block">Isi Harga Barang Anda</small>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Deskripsi Barang </label>
-                                    <textarea class="form-control" name="" id="" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>        
+                                    <label for=""class=" form-control-label">Alamat</label>
+                                    <textarea class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
+                                  </div>     
                                   
                                   <div class="form-group">
                                     <label for=""class=" form-control-label">Status Barang </label>
@@ -171,9 +170,6 @@ require_once("adminhead.php");
                                       <small>(NonAktif - Barang tidak akan ditampilkan pada pilihan produk customer)</small>   
                                   </div>
                                  
-
-                                  
-
                                   <button type="submit" class="btn btn-success btn-md">
                                     <i class="fa fa-dot-circle-o"></i> Tambahkan
                                   </button>
@@ -191,6 +187,7 @@ require_once("adminhead.php");
                                   <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
 
 
+                                  
                                 </form>
                                 <!-- crud barang-->
                             </div>
@@ -204,17 +201,17 @@ require_once("adminhead.php");
                                 <strong class="card-title">List Barang</strong>
                             </div>
                             <div class="card-body">
-                              <small>*Pilih tombol Detail untuk melihat Detail Barang</small><br>
-                              <small>*Pilih tombol Ubah untuk mengubah Barang</small>
+                              <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
+                              <small>*Status Valid - data user sesuai</small><br>
+                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jenis Barang</th>
-                                            <th>Unit Barang</th>
-                                            <th>Harga Barang</th>
-                                            <th>Status Barang</th>
+                                            <th>No Pelanggan</th>
+                                            <th>Nama </th>
+                                            <th>Email</th>
+                                            <th>Nomor KTP</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -224,8 +221,9 @@ require_once("adminhead.php");
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>
                                             <td>Edinburgh</td>
-                                            <td>$320,800</td>
-                                            <td>Aktif</td>
+                                            <td>
+                                                <button type="button" name="" id="" class="btn btn-success btn-sm">Valid</button>                                          
+                                            </td>
                                             <td>
                                               <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
                                             </td>
@@ -235,8 +233,9 @@ require_once("adminhead.php");
                                             <td>Rhona Davidson</td>
                                             <td>Integration Specialist</td>
                                             <td>Tokyo</td>
-                                            <td>$327,900</td>
-                                            <td>Aktif</td>
+                                            <td>
+                                                <button type="button" name="" id="" class="btn btn-warning btn-sm">Menunggu</button>                                          
+                                            </td>
                                             <td>
                                               <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
                                             </td>
@@ -245,68 +244,14 @@ require_once("adminhead.php");
                                             <td> 3 </td>
                                             <td>Shou Itou</td>
                                             <td>Regional Marketing</td>
-                                            <td>Tokyo</td>
-                                            <td>$163,000</td>
-                                            <td>Aktif</td>
+                                            <td>Tokyo</td>                                           
+                                            <td>
+                                                <button type="button" name="" id="" class="btn btn-danger btn-sm">Tidak Valid</button>                                          
+                                            </td>
                                             <td>
                                               <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 4 </td>
-                                            <td>Michelle House</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Sidney</td>
-                                            <td>$95,400</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 5 </td>
-                                            <td>Suki Burks</td>
-                                            <td>Developer</td>
-                                            <td>London</td>
-                                            <td>$114,500</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 6 </td>
-                                            <td>Prescott Bartlett</td>
-                                            <td>Technical Author</td>
-                                            <td>London</td>
-                                            <td>$145,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 7 </td>
-                                            <td>Gavin Cortez</td>
-                                            <td>Team Leader</td>
-                                            <td>San Francisco</td>
-                                            <td>$235,500</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 8 </td>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>$112,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
+                                        </tr>                                        
                                     </tbody>
                                 </table>
                             </div>
