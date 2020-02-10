@@ -39,7 +39,7 @@ require_once("head.php");
 
                 <!-- Login -->
                 <div class="form-group">
-                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Username">
+                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Email">
                 </div>
                 <div class="form-group">                   
                     <input type="password" class="form-control" name="" id="" placeholder="Password">                 

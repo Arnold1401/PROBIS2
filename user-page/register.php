@@ -103,10 +103,6 @@ require_once("head.php");
                   <small id="helpId" class="form-text text-muted">Isi Email anda sesuai format</small>
                 </div>
 
-                <div class="form-group">
-                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Username">
-                    <small id="helpId" class="form-text text-muted">Isi Username anda</small>
-                </div>
                 <div class="form-group">                   
                     <input type="password" class="form-control" name="" id="" placeholder="Password">                 
                 </div>

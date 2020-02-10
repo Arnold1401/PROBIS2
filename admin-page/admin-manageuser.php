@@ -29,9 +29,9 @@ require_once("adminhead.php");
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                <li>
-                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+            <ul class="nav navbar-nav">
+                    <li>
+                    <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
                     <li>
@@ -42,6 +42,9 @@ require_once("adminhead.php");
                     </li>
                     <li>
                         <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
+                    </li>
+                    <li>
+                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -118,7 +121,7 @@ require_once("adminhead.php");
 
                                   <div class="row form-group">
                                     <div class="col col-md-3">
-                                      <label for="file-input" class=" form-control-label">File input</label>
+                                      <label for="file-input" class=" form-control-label">Gambar KTP</label>
                                     </div>
                                       
                                     <div class="col-12 col-md-9">
@@ -136,15 +139,20 @@ require_once("adminhead.php");
                                   <h4>Profil Pemilik </h4><hr>
 
                                   <div class="form-group">
+                                    <label for="" class=" form-control-label">No KTP </label>
+                                      <input readonly type="number" id="" name="" value="1234567891023456" class="form-control">
+                                  </div>
+
+                                  <div class="form-group">
                                     <label for="" class=" form-control-label">Nama Pemilik </label>
                                       <input readonly type="text" id="" name="" value="Alfira Jessica" class="form-control">
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">No KTP </label>
-                                      <input readonly type="number" id="" name="" value="1234567891023456" class="form-control">
+                                    <label for="" class=" form-control-label">Email</label>
+                                      <input readonly type="text" id="" name="" value="alfirajessica@gmail.com" class="form-control">
                                   </div>
-
+                                  
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">No Telpon </label>
                                       <input readonly type="number" id="" name="" value="082288569879" class="form-control">

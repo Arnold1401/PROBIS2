@@ -108,137 +108,50 @@ require_once("adminhead.php");
 
         <div class="content mt-3">
             <div class="animated fadeIn">
-                <div class="row">
-                <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Sales</strong>
-                            </div>
-                            <div class="card-body card-block">
 
-                                <!-- crud barang-->
-                                <form action="">
-
-                                  <div class="row form-group">
-                                    <div class="col col-md-3">
-                                      <label for="file-input" class=" form-control-label">Unggah Foto KTP Anda</label>
-                                    </div>
-                                      
-                                    <div class="col-12 col-md-9">
-                                      <input type="file" id="file-input" name="file-input" class="form-control-file">
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Sales</label>
-                                      <input type="text" id="" name="" value="fira" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Email Sales</label>
-                                      <input type="text" id="" name="" value="fira@gmail.com" class="form-control">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">No KTP Sales </label>
-                                      <input type="number" id="" name="" value="9876543215648562" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">No Telpon </label>
-                                      <input type="number" id="" name="" value="082288569879" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Tanggal/Bulan/Tahun Lahir </label>
-                                      <input type="date" id="" name="" value="01/04/1999" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Jenis Kelamin </label>
-                                    <select name="select" id="select" class="form-control">
-                                        <option value="0">Wanita</option>
-                                        <option value="1">Pria</option>
-                                      </select>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Alamat</label>
-                                    <textarea class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
-                                  </div>     
-                                  
-                                                                   
-                                  <button type="submit" class="btn btn-success btn-md">
-                                    <i class="fa fa-dot-circle-o"></i> Tambahkan
-                                  </button>
-
-                                  <button type="submit" class="btn btn-danger btn-md">
-                                    <i class="fa fa-ban"></i> Reset
-                                  </button>
-
-                                  <button type="submit" class="btn btn-warning btn-md float-right">
-                                    <i class="fa fa-ban"></i> Ubah
-                                  </button>
-                                  <br>
-                                  <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
-                                  <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                                  <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
-
-
-                                  
-                                </form>
-                                <!-- crud barang-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Header piutang-->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Barang</strong>
+                                <strong class="card-title">Perusahaan yang memiliki piutang</strong>
                             </div>
                             <div class="card-body">
-                              <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
-                              <small>*Status Valid - data user sesuai</small><br>
-                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
+                              
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id Sales</th>
-                                            <th>Nama </th>
-                                            <th>Email</th>
-                                            <th>Nomor KTP</th>
-                                            
+                                            <th>No Resi</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>Tanggal Jatuh Tempo</th>
+                                            <th>Total Piutang</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td> 1 </td>
+                                            <td>01012020001 </td>
                                             <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
+                                            <td>20/Maret/2010</td>
+                                            <td>Rp20.000,-</td>
                                             <td>
                                               <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td> 2 </td>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                        
+                                            <td>01012020001 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>20/Maret/2010</td>
+                                            <td>Rp20.000,-</td>
                                             <td>
                                               <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
                                             </td>
                                         </tr>                                      
                                         <tr>
-                                            <td> 3 </td>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>                                           
-                                            
+                                            <td>01012020001 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>20/Maret/2010</td>
+                                            <td>Rp20.000,-</td>
                                             <td>
                                               <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
                                             </td>
@@ -248,17 +161,104 @@ require_once("adminhead.php");
                             </div>
                         </div>
                     </div>
-
-
+                    
                 </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
+                <!--End Header piutang-->
 
+                <!-- Detail piutang-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Detail Barang Piutang</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">No Resi</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Jatuh Tempo</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="date" placeholder=".col-md-4" class="form-control">
+                                    </div>
+                                </div>
 
-    </div><!-- /#right-panel -->
+                                <div class="row form-group">
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Nama Perusahaan</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Sales</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="text" placeholder=".col-md-4" class="form-control">
+                                    </div>
+                                </div>
 
-    <!-- Right Panel -->
+                                <div class="row form-group">
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Pembeli</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
+                                    </div>
+                                    
+                                </div>
 
+                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Id Barang </th>
+                                            <th>Nama Barang</th>
+                                            <th>Jumlah Barang</th>                                          
+                                            <th>Harga Satuan</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> 1 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>Rp10000</td>
+                                            <td>Rp10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td> 2 </td>
+                                            <td>Rhona Davidson</td>
+                                            <td>Integration Specialist</td>
+                                            <td>Tokyo</td>
+                                            <td>Rp10000</td>
+                                            <td>Rp10000</td>
+                                        </tr>                                      
+                                        <tr>
+                                            <td> 3 </td>
+                                            <td>Shou Itou</td>
+                                            <td>Regional Marketing</td>
+                                            <td>Tokyo</td>                                           
+                                            <td>Rp10000</td>
+                                            <td>Rp10000</td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Detail piutang-->
+            </div>
+        </div>
+                    
 
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <script src="vendors/popper.js/dist/umd/popper.min.js"></script>

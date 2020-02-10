@@ -29,9 +29,9 @@ require_once("adminhead.php");
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
-                <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav">
                     <li>
-                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
                     <li>
@@ -42,6 +42,9 @@ require_once("adminhead.php");
                     </li>
                     <li>
                         <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
+                    </li>
+                    <li>
+                        <a href="admin-piutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
