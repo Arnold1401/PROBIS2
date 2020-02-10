@@ -74,6 +74,7 @@ require_once("head.php");
                             <div class="nav nav-pills nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">                   
                                 <a class="text-center col-lg-12 col-6 nav-link rounded-0 w-100 py-2 px-0 active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="true">Akun</a>
                                 <a class="text-center col-lg-12 col-6 nav-link rounded-0 w-100 py-2 px-0" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Perusahaan</a>
+                                <a class="text-center col-lg-12 col-6 nav-link rounded-0 w-100 py-2 px-0" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false">Alamat Pengiriman</a>
                             </div>
                         </div>
                          <!-- end tabs -->
@@ -173,6 +174,21 @@ require_once("head.php");
                             </form>                                         
                         </div>
                         <!-- Pengaturan Profil perusahaan dan pemilik -->
+
+                        <!-- Pengaturan alamat pengiriman maksimal 2 alamat -->
+                        <div class="tab-pane fade bg-white p-4 contact-form" id="v-pills-address" role="tabpanel1" aria-labelledby="v-pills-address-tab">
+                            <h4 class="mb-3">Alamat Pengiriman</h4> <hr>
+                            <form action="/user/update/password" method="post">
+
+                                <div class="form-group">
+                                <label for="">Alamat</label>
+                                <textarea value="Jl bratang binangun I" class="form-control" name="" id="" rows="3"></textarea>
+                                </div>
+                           
+                                <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>                      
+                            </form>                                         
+                        </div>
+                        <!-- Pengaturan alamat pengiriman maksimal 2 alamat -->
                     </div>
                 </div>
             </div>

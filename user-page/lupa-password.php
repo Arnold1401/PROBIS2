@@ -33,21 +33,17 @@ require_once("head.php");
         <div class="col-md-6 order-md-last d-flex">    
             <form action="#" class="bg-white p-5 contact-form">
                 <div class="col-md-12 heading-section text-center ftco-animate">
-                    <h3 class="mb-3">Login</h3>
-          	        <span class="subheading">Hello pelanggan, Isi untuk masuk</span>            
+                    
+          	        <span class="subheading">Hello pelanggan, Isi untuk konfirmasi email Anda</span>            
                 </div>
 
                 <!-- Login -->
                 <div class="form-group">
                     <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Email">
                 </div>
-                <div class="form-group">                   
-                    <input type="password" class="form-control" name="" id="" placeholder="Password">  
-                    <a href="lupa-password.php" class="text-center">Lupa Password? Klik disini! </a>               
-                </div>
                
                 <div class="form-group justify-content-center">
-                   <button type="button" name="" id="" class="btn btn-primary py-2 px-5">Login</button>
+                   <button type="button" name="" id="" class="btn btn-primary py-2 px-5">Kirim</button>
                 </div>
                 <!--End Login -->
 

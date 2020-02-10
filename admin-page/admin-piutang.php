@@ -31,7 +31,7 @@ require_once("adminhead.php");
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                    <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="admin-home.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
                     <li>
@@ -99,7 +99,7 @@ require_once("adminhead.php");
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>      
                             <li><a href="#">Master</a></li>                            
-                            <li><a href="#">User</a></li>                                                  
+                            <li><a href="#">Piutang</a></li>                                                  
                         </ol>
                     </div>
                 </div>

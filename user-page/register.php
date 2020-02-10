@@ -95,6 +95,19 @@ require_once("head.php");
             <form action="#" class="bg-white p-4 contact-form">
                 
                 <div class="form-group">
+                    <h5 for="">Pilih Sales</h5>          
+                </div>
+
+                <div class="form-group">
+                    <label for="" class=" form-control-label">Sales Yang bertanggung jawab </label>
+                    <select readonly name="select" id="select" class="form-control">
+                        <option value="0">001 - Arnold</option>
+                        <option value="1">002 - Wily</option>
+                        </select>
+                </div>
+
+
+                <div class="form-group">
                     <h5 for="">Account</h5>          
                 </div>
 
