@@ -30,16 +30,19 @@ require_once("adminhead.php");
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li>
+                <li>
                         <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>User</a>                        
+                    <li>
+                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Barang</a>                      
-                    </li>                                                                      
+                    <li>
+                        <a href="admin-managesales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales </a>
+                    </li>
+                    <li>
+                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -93,7 +96,7 @@ require_once("adminhead.php");
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>      
                             <li><a href="#">Master</a></li>                            
-                            <li><a href="#">Barang</a></li>                                                  
+                            <li><a href="#">User</a></li>                                                  
                         </ol>
                     </div>
                 </div>
@@ -106,7 +109,7 @@ require_once("adminhead.php");
                 <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tambah/Ubah/Aktif-Nonaktif Barang</strong>
+                                <strong class="card-title">User</strong>
                             </div>
                             <div class="card-body card-block">
 
@@ -123,48 +126,61 @@ require_once("adminhead.php");
                                     </div>
                                   </div>
 
+                                  <h4>Profil Usaha </h4><hr>
+
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Barang</label>
-                                      <input type="text" id="" name="" placeholder="Isi Nama Barang" class="form-control">
-                                      <small class="help-block">Isi Nama Barang</small>
+                                    <label for="" class=" form-control-label">Nama Perusahaan/Toko</label>
+                                      <input type="text" id="" name="" value="EMOS" class="form-control" readonly>
                                   </div>
                                   
+                                  <h4>Profil Pemilik </h4><hr>
+
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Jumlah Barang </label>
-                                      <input type="number" id="" name="" placeholder="Isi Jumlah Barang" class="form-control">
-                                      <small class="help-block">Isi Jumlah Barang Yang Tersedia</small>
+                                    <label for="" class=" form-control-label">Nama Pemilik </label>
+                                      <input readonly type="text" id="" name="" value="Alfira Jessica" class="form-control">
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Jenis Barang </label>
-                                    <select name="select" id="select" class="form-control">
-                                      <option value="0">Minuman</option>
-                                        <option value="1">Konsumsi</option>
-                                        <option value="2">Obat</option>
-                                        <option value="3">Option #3</option>
+                                    <label for="" class=" form-control-label">No KTP </label>
+                                      <input readonly type="number" id="" name="" value="1234567891023456" class="form-control">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">No Telpon </label>
+                                      <input readonly type="number" id="" name="" value="082288569879" class="form-control">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">Tanggal/Bulan/Tahun Lahir </label>
+                                      <input readonly type="date" id="" name="" value="01/04/1999" class="form-control">
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">Jenis Kelamin </label>
+                                    <select readonly name="select" id="select" class="form-control">
+                                        <option value="0">Wanita</option>
+                                        <option value="1">Pria</option>
                                       </select>
-                                      <small>Pilih Jenis Barang</small>                                      
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Harga Barang (Rp)</label>
-                                      <input type="number" id="" name="" placeholder="Isi Harga Barang" class="form-control">
-                                      <small class="help-block">Isi Harga Barang Anda</small>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Deskripsi Barang </label>
-                                    <textarea class="form-control" name="" id="" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>    
+                                    <label for=""class=" form-control-label">Alamat</label>
+                                    <textarea readonly class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
+                                  </div>        
                                   
-                                 
-                                  <button type="submit" class="btn btn-primary btn-md">
-                                    <i class="fa fa-dot-circle-o"></i> Submit
+                                
+                                  <button type="submit" class="btn btn-success btn-md">
+                                    <i class="fa fa-dot-circle-o"></i> Valid
                                   </button>
 
                                   <button type="submit" class="btn btn-danger btn-md">
-                                    <i class="fa fa-ban"></i> Reset
+                                    <i class="fa fa-ban"></i> Tidak Valid
                                   </button>
+
+                                  <br>
+                                  <small>*Pilih tombol Valid untuk mengubah status user jika data yang diinputkan sesuai KTP</small><br>
+                                  <small>*Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>
+                                  
                                 </form>
                                 <!-- crud barang-->
                             </div>
@@ -178,64 +194,57 @@ require_once("adminhead.php");
                                 <strong class="card-title">List Barang</strong>
                             </div>
                             <div class="card-body">
+                              <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
+                              <small>*Status Valid - data user sesuai</small><br>
+                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Salary</th>
+                                            <th>No Pelanggan</th>
+                                            <th>Nama </th>
+                                            <th>Email</th>
+                                            <th>Nomor KTP</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td> 1 </td>
                                             <td>Tiger Nixon</td>
                                             <td>System Architect</td>
                                             <td>Edinburgh</td>
-                                            <td>$320,800</td>
+                                            <td>
+                                                <button type="button" name="" id="" class="btn btn-success btn-sm">Valid</button>                                          
+                                            </td>
+                                            <td>
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                            </td>
                                         </tr>
                                         <tr>
+                                            <td> 2 </td>
                                             <td>Rhona Davidson</td>
                                             <td>Integration Specialist</td>
                                             <td>Tokyo</td>
-                                            <td>$327,900</td>
+                                            <td>
+                                                <button type="button" name="" id="" class="btn btn-warning btn-sm">Menunggu</button>                                          
+                                            </td>
+                                            <td>
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                            </td>
                                         </tr>                                      
                                         <tr>
+                                            <td> 3 </td>
                                             <td>Shou Itou</td>
                                             <td>Regional Marketing</td>
-                                            <td>Tokyo</td>
-                                            <td>$163,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michelle House</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Sidney</td>
-                                            <td>$95,400</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suki Burks</td>
-                                            <td>Developer</td>
-                                            <td>London</td>
-                                            <td>$114,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prescott Bartlett</td>
-                                            <td>Technical Author</td>
-                                            <td>London</td>
-                                            <td>$145,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Cortez</td>
-                                            <td>Team Leader</td>
-                                            <td>San Francisco</td>
-                                            <td>$235,500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>$112,000</td>
-                                        </tr>
+                                            <td>Tokyo</td>                                           
+                                            <td>
+                                                <button type="button" name="" id="" class="btn btn-danger btn-sm">Tidak Valid</button>                                          
+                                            </td>
+                                            <td>
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                            </td>
+                                        </tr>                                        
                                     </tbody>
                                 </table>
                             </div>

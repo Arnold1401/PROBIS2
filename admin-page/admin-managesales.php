@@ -34,15 +34,15 @@ require_once("adminhead.php");
                         <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
-                    <li>
-                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>User</a>                        
                     </li>
-                    <li>
-                        <a href="admin-managesales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales </a>
+                    <li class="menu-item-has-children active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Sales</a>                      
                     </li>
-                    <li>
-                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
-                    </li>
+                    <li class="menu-item-has-children active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Barang</a>                      
+                    </li>                                                                      
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -131,46 +131,17 @@ require_once("adminhead.php");
                                       <input type="text" id="" name="" placeholder="Isi Nama Barang" class="form-control">
                                       <small class="help-block">Isi Nama Barang</small>
                                   </div>
-
-                                    <div class="row form-group">
-
-                                        <div class="col col-md-6">
-                                            <label for="" class=" form-control-label">Jenis Satuan Barang </label>
-                                                <select name="select" id="select" class="form-control">
-                                                    <option value="0">Box</option>
-                                                    <option value="1">Pcs</option>
-                                                    <option value="2">Botol</option>
-                                                    <option value="3">Tambah Satuan Baru</option>
-                                                </select>
-                                                <small>*Pilih Satuan Barang</small><br>
-                                                <small>*Pilih Tambahkan Satuan Barang untuk menambah satuan barang yang tidak tertera</small>
-                                        </div>
-
-                                        <div class="col col-md-6">
-                                            <label for="" class=" form-control-label">Satuan Barang Tambahan </label>
-                                            <div class="input-group">
-                                                <input type="email" id="" name="" placeholder="Masukkan Satuan Barang" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary">Tambahkan</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Jumlah Barang </label>
-                                        <input type="number" id="" name="" placeholder="Isi Jumlah Barang" class="form-control">
-                                    <small class="help-block">Isi Jumlah Barang Yang Tersedia</small>                                   
-                                  </div>
                                   
                                   <div class="form-group">
-                                    
+                                    <label for="" class=" form-control-label">Jumlah Barang </label>
+                                      <input type="number" id="" name="" placeholder="Isi Jumlah Barang" class="form-control">
+                                      <small class="help-block">Isi Jumlah Barang Yang Tersedia</small>
                                   </div>
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Jenis Barang </label>
                                     <select name="select" id="select" class="form-control">
-                                        <option value="0">Minuman</option>
+                                      <option value="0">Minuman</option>
                                         <option value="1">Konsumsi</option>
                                         <option value="2">Obat</option>
                                         <option value="3">Option #3</option>
