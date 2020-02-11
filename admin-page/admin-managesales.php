@@ -167,22 +167,28 @@ require_once("adminhead.php");
                                     <textarea class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
                                   </div>     
                                   
-                                                                   
-                                  <button type="submit" class="btn btn-success btn-md">
-                                    <i class="fa fa-dot-circle-o"></i> Tambahkan
-                                  </button>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success btn-md">
+                                        <i class="fa fa-dot-circle-o"></i> Tambahkan
+                                        </button>
 
-                                  <button type="submit" class="btn btn-danger btn-md">
-                                    <i class="fa fa-ban"></i> Reset
-                                  </button>
+                                        <button type="submit" class="btn btn-danger btn-md">
+                                        <i class="fa fa-ban"></i> Reset
+                                        </button>
 
-                                  <button type="submit" class="btn btn-warning btn-md float-right">
-                                    <i class="fa fa-ban"></i> Ubah
-                                  </button>
+                                        <button type="submit" class="btn btn-warning btn-md float-right">
+                                        <i class="fa fa-ban"></i> Ubah
+                                        </button>
+                                    </div>                                
+                                  
                                   <br>
-                                  <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
-                                  <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                                  <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
+
+                                  <div class="form-group">
+                                    <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
+                                    <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
+                                    <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
+                                  </div>
+                                  
 
 
                                   
@@ -202,7 +208,8 @@ require_once("adminhead.php");
                               <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
                               <small>*Status Valid - data user sesuai</small><br>
                               <small>*Status Tidak Valid - data user tidak sesuai</small><br>
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                              <div class="table-responsive">
+                              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Id Sales</th>
@@ -245,6 +252,8 @@ require_once("adminhead.php");
                                         </tr>                                        
                                     </tbody>
                                 </table>
+                              </div>
+                               
                             </div>
                         </div>
                     </div>

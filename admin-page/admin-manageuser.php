@@ -44,7 +44,7 @@ require_once("adminhead.php");
                         <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
                     </li>
                     <li>
-                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
+                        <a href="admin-piutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -184,8 +184,8 @@ require_once("adminhead.php");
                                       </select>
                                   </div>
 
-                                
-                                  <button type="submit" class="btn btn-success btn-md">
+                                <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-md">
                                     <i class="fa fa-dot-circle-o"></i> Valid
                                   </button>
 
@@ -196,11 +196,17 @@ require_once("adminhead.php");
                                   <button type="submit" class="btn btn-warning btn-md float-right">
                                     <i class="fa fa-ban"></i> Ubah Sales
                                   </button>
+                                </div>
+                                 
 
                                   <br>
+
+                                  <div class="form-group">
                                   <small>*Pilih tombol Valid untuk mengubah status user jika data yang diinputkan sesuai KTP</small><br>
                                   <small>*Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>
                                   <small>*Pilih tombol Ubah Sales jika user meminta pergantian sales</small><br>
+                                  </div>
+                                 
                                 </form>
                                 <!-- crud barang-->
                             </div>
@@ -214,10 +220,15 @@ require_once("adminhead.php");
                                 <strong class="card-title">List Barang</strong>
                             </div>
                             <div class="card-body">
-                              <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
+
+                            <div class="form-group">
+                                <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
                               <small>*Status Valid - data user sesuai</small><br>
                               <small>*Status Tidak Valid - data user tidak sesuai</small><br>
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            </div>
+                              
+                              <div class="table-responsive">
+                              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>No Pelanggan</th>
@@ -267,6 +278,8 @@ require_once("adminhead.php");
                                         </tr>                                        
                                     </tbody>
                                 </table>
+                              </div>
+                                
                             </div>
                         </div>
                     </div>

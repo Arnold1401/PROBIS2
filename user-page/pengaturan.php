@@ -40,12 +40,12 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
                 <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
+                <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                     <a class="dropdown-item" href="#">Status Order</a>

@@ -41,10 +41,10 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
+                <li class="nav-item "><a href="home.php" class="nav-link">Home</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                <li class="nav-item cta cta-colored active"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -143,42 +143,44 @@ require_once("head.php");
             <div class="row justify-content-end">
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
-                        <h3>Estimate shipping and tax</h3>
-                        <p>Enter your destination to get a shipping estimate</p>
+                        <h3>Tujuan Pengiriman</h3>
+                        <p>Pilih Alamat Pengiriman Anda</p>
                         <form action="#" class="info">
 
                             <div class="form-group">
-                            <label for="">Country</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
+                              <select class="form-control" name="" id="">
+                                <option>Jl mana 1</option>
+                                <option>Jl mana 2</option>
+                                <option>Jl mana 3</option>
+                              </select>
                             </div>
 
                             <div class="form-group">
-                            <label for="country">State/Province</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
+                              <select class="form-control" name="" id="">
+                                <option>JNE - OKE (6-7 hari) Rp30.000,- </option>
+                                <option>JNE - REG (5-6 hari) Rp38.000,-</option>
+                                <option>Paket Kilat Khusus (2-4 hari) Rp29.500,-</option>
+                                <option>TIKI - ECO (5 hari) Rp28.000,-</option>
+                                <option>ESL - RPX/RDX Rp0,-</option>
+                                <option>J&T - EZ Rp41.000,-</option>
+                                <option>LION - REGPACK (7-10 hari) Rp16.000,-</option>
+                              </select>
                             </div>
 
-                            <div class="form-group">
-                            <label for="country">Zip/Postal Code</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
-                            </div>
                         </form>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
+                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Cek</a></p>
                 </div>
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
-                        <h3>Cart Totals</h3>
+                        <h3>Total Keranjang</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
                             <span>$20.60</span>
                         </p>
                         <p class="d-flex">
-                            <span>Delivery</span>
+                            <span>Ongkir</span>
                             <span>$0.00</span>
-                        </p>
-                        <p class="d-flex">
-                            <span>Discount</span>
-                            <span>$3.00</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
@@ -186,7 +188,7 @@ require_once("head.php");
                             <span>$17.60</span>
                         </p>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Bayar</a></p>
                 </div>
             </div>
         </div>

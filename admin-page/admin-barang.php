@@ -149,12 +149,12 @@ require_once("adminhead.php");
                                                 <small>*Pilih Tambahkan Satuan Barang untuk menambah satuan barang yang tidak tertera</small>
                                         </div>
 
-                                        <div class="col col-md-6">
+                                        <div class="col-auto col-md-6">
                                             <label for="" class=" form-control-label">Satuan Barang Tambahan </label>
-                                            <div class="input-group">
+                                            <div class="input-group prepand">
                                                 <input type="email" id="" name="" placeholder="Masukkan Satuan Barang" class="form-control">
                                                 <div class="input-group-btn">
-                                                    <button class="btn btn-primary">Tambahkan</button>
+                                                    <button class="btn btn-primary">Tambah</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,23 +204,29 @@ require_once("adminhead.php");
                                   </div>
                                  
 
+                                  <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-md">
+                                        <i class="fa fa-dot-circle-o"></i> Tambahkan
+                                    </button>
+
+                                    <button type="submit" class="btn btn-danger btn-md">
+                                        <i class="fa fa-ban"></i> Reset
+                                    </button>
+
+                                    <button type="submit" class="btn btn-warning btn-md float-right">
+                                        <i class="fa fa-ban"></i> Ubah
+                                    </button>
+                                  </div>
+
                                   
-
-                                  <button type="submit" class="btn btn-success btn-md">
-                                    <i class="fa fa-dot-circle-o"></i> Tambahkan
-                                  </button>
-
-                                  <button type="submit" class="btn btn-danger btn-md">
-                                    <i class="fa fa-ban"></i> Reset
-                                  </button>
-
-                                  <button type="submit" class="btn btn-warning btn-md float-right">
-                                    <i class="fa fa-ban"></i> Ubah
-                                  </button>
                                   <br>
+
+                                  <div class="form-group">
                                   <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
                                   <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
                                   <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
+                                  </div>
+
 
 
                                 </form>
@@ -236,9 +242,14 @@ require_once("adminhead.php");
                                 <strong class="card-title">List Barang</strong>
                             </div>
                             <div class="card-body">
-                              <small>*Pilih tombol Detail untuk melihat Detail Barang</small><br>
-                              <small>*Pilih tombol Ubah untuk mengubah Barang</small>
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+
+                            <div class="form-group">
+                                <small>*Pilih tombol Detail untuk melihat Detail Barang</small><br>
+                                <small>*Pilih tombol Ubah untuk mengubah Barang</small>
+                            </div>
+                              
+                              <div class="table-responsive">
+                              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Id Barang</th>
@@ -341,6 +352,8 @@ require_once("adminhead.php");
                                         </tr>
                                     </tbody>
                                 </table>
+                              </div>
+                                
                             </div>
                         </div>
                     </div>

@@ -114,6 +114,7 @@ require_once("adminhead.php");
                                 <strong class="card-title">Data Pembelian</strong>
                             </div>
                             <div class="card-body">
+                            
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>

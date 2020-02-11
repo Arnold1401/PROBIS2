@@ -117,8 +117,8 @@ require_once("adminhead.php");
                                 <strong class="card-title">Perusahaan yang memiliki piutang</strong>
                             </div>
                             <div class="card-body">
-                              
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            <div class="table-responsive">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>No Resi</th>
@@ -158,6 +158,8 @@ require_once("adminhead.php");
                                         </tr>                                        
                                     </tbody>
                                 </table>
+                            </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -213,6 +215,7 @@ require_once("adminhead.php");
                                     
                                 </div>
 
+                                <div class="table-responsive">
                                 <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
@@ -251,6 +254,8 @@ require_once("adminhead.php");
                                         </tr>                                        
                                     </tbody>
                                 </table>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
