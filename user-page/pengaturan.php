@@ -47,6 +47,7 @@ require_once("head.php");
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                     <a class="dropdown-item" href="#">Status Order</a>
                     <a class="dropdown-item" href="#">Riwayat Order</a>
                     <a class="dropdown-item" href="#">Piutang</a>
@@ -83,9 +84,13 @@ require_once("head.php");
                         <div class="tab-content col-12 col-lg-9 py-2" id="v-pills-tabContent">                                                       
                             <div class="tab-pane fade show active bg-white p-4 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
-                                
-                                <div>
+
                                 <form method="POST" action="/vendor/update/name" accept-charset="UTF-8" role="form" id="profile-form" class="form-group" >
+                                    <div class="alert alert-warning" role="alert">
+                                        Silakan verifikasi akun Anda pada email yang telah dikirmkan
+                                        Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
+                                    </div>
+
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
                                     <input value="emos@gmail.com" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
@@ -113,14 +118,23 @@ require_once("head.php");
 
                                     <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>
                                 </form>
+                                
                             </div>
-                        </div>
-                        <!--End Pengaturan Akun dan password -->
+                            <!--End Pengaturan Akun dan password -->
                             
-                        <!-- Pengaturan Profil perusahaan dan pemilik -->
-                        <div class="tab-pane fade bg-white p-4 contact-form" id="v-pills-sports" role="tabpanel" aria-labelledby="v-pills-sports-tab">
-                            <h4 class="mb-3">Pengaturan Perusahaan</h4> <hr>
-                            <form action="/user/update/password" method="post">
+                            <!-- Pengaturan Profil perusahaan dan pemilik -->
+                            <div class="tab-pane fade bg-white p-4 contact-form" id="v-pills-sports" role="tabpanel" aria-labelledby="v-pills-sports-tab">
+                                <h4 class="mb-3">Pengaturan Perusahaan</h4> <hr>
+                                <form action="/user/update/password" method="post">
+
+                                <div class="alert alert-warning" role="alert">
+                                    Data anda belum diverivikasi oleh Admin. Silakan menunggu 2-3 hari kerja.
+                                    Notifikasi ini hanya akan mucul jika data belum diverifikasi.
+                                </div>
+
+                                <div class="alert alert-success" role="alert">
+                                    Anda telah terverifikasi. Notifikasi ini muncul jika admin telah memverifikasi data anda
+                                </div>
 
                                 <div class="form-group">
                                 <h5 for="">Profil Usaha</h5>
@@ -132,6 +146,7 @@ require_once("head.php");
 
                                 <div class="form-group">
                                 <h5 for="">Profil Pemilik</h5>
+                                
 
                                 <div class="form-group">
                                 <input type="file" id="myFile" name="filename">           
@@ -171,25 +186,84 @@ require_once("head.php");
                                 </div>
                            
                                 <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>                      
-                            </form>                                         
-                        </div>
-                        <!-- Pengaturan Profil perusahaan dan pemilik -->
+                                </form>                                         
+                            </div>
+                            <!-- Pengaturan Profil perusahaan dan pemilik -->
 
-                        <!-- Pengaturan alamat pengiriman maksimal 2 alamat -->
-                        <div class="tab-pane fade bg-white p-4 contact-form" id="v-pills-address" role="tabpanel1" aria-labelledby="v-pills-address-tab">
-                            <h4 class="mb-3">Alamat Pengiriman</h4> <hr>
-                            <form action="/user/update/password" method="post">
-
-                                <div class="form-group">
-                                <label for="">Alamat</label>
-                                <textarea value="Jl bratang binangun I" class="form-control" name="" id="" rows="3"></textarea>
-                                </div>
-                           
-                                <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>                      
-                            </form>                                         
-                        </div>
-                        <!-- Pengaturan alamat pengiriman maksimal 2 alamat -->
+                            
                     </div>
+                            <!-- Pengaturan alamat pengiriman maksimal 2 alamat -->
+                            <div class="tab-pane fade bg-white p-4 contact-form" id="v-pills-address" role="tabpanel1" aria-labelledby="v-pills-address-tab">
+                                <h4 class="mb-3">Alamat Pengiriman</h4> <hr>
+                                <form action="" method="post">
+                                   
+                                    <div class="form-group">
+                                    <label for="">Alamat Pengiriman</label>
+                                    <select class="form-control" name="" id="">
+                                        <option>Jl mana 1</option>
+                                        <option>Jl mana 2</option>
+                                        <option>Jl mana 2</option>
+                                    </select>             
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary btn-md">+ Tambah Alamat</button>                      
+                           
+                                    <button type="submit" class="btn btn-warning btn-md ">
+                                        <i class="fa fa-ban"></i> Ubah Alamat
+                                    </button>
+                                    <button type="submit" class="btn btn-danger btn-md float-right">
+                                        <i class="fa fa-ban"></i> Hapus Alamat
+                                    </button>
+
+                                    <div class="form-group"> 
+                                        <small>*Pilih Tambah Alamat untuk menambah list alamat pengiriman</small> <br>
+                                        <small>*Pilih Ubah Alamat untuk mengubah alamat pengiriman dengan memilih salah satu alamat</small> <br>
+                                        <small>*Pilih Hapus Alamat untuk menghapus alamat pengiriman dengan memilih salah satu alamat</small><br>
+                                    </div>
+                                    
+
+                                    <hr>
+                                    
+                                    <div class="form-group">
+                                      <label for="">Provinsi Tujuan</label>
+                                      <select class="form-control" name="" id="">
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Kota Tujuan</label>
+                                      <select class="form-control" name="" id="">
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Kecamatan Tujuan</label>
+                                      <select class="form-control" name="" id="">
+                                        <option></option>
+                                        <option></option>
+                                        <option></option>
+                                      </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Alamat Lengkap</label>
+                                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                      
+                                    </div>
+
+                                    <button type="button" class="btn btn-outline-success">
+                                        <i class="fa fa-ban"></i> Simpan Alamat Baru
+                                    </button>
+                                    
+                                </form>                                         
+                            </div>
+                            <!-- Pengaturan alamat pengiriman maksimal 2 alamat -->
                 </div>
             </div>
         </div>

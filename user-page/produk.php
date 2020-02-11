@@ -47,6 +47,7 @@ require_once("head.php");
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href="wishlist.php">Wishlist</a>
                     <a class="dropdown-item" href="#">Status Order</a>
                     <a class="dropdown-item" href="#">Riwayat Order</a>
                     <a class="dropdown-item" href="#">Piutang</a>
