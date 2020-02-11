@@ -221,7 +221,6 @@ require_once("head.php");
                                         <small>*Pilih Hapus Alamat untuk menghapus alamat pengiriman dengan memilih salah satu alamat</small><br>
                                     </div>
                                     
-
                                     <hr>
                                     
                                     <div class="form-group">
