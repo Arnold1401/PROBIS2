@@ -42,10 +42,6 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
                 <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
                 <li class="nav-item"><a href="register.php" class="nav-link">Register</a></li>
             </ul>

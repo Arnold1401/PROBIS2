@@ -49,12 +49,12 @@ require_once("head.php");
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Wishlist</a>
-                    <a class="dropdown-item" href="#">Status Order</a>
-                    <a class="dropdown-item" href="#">Riwayat Order</a>
-                    <a class="dropdown-item" href="#">Piutang</a>
+                    <a class="dropdown-item" href="status-order.php">Status Order</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
+                    <a class="dropdown-item" href="piutang.php">Piutang</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Profil</a>
-                    <a class="dropdown-item" href="#">Keluar</a>
+                    <a class="dropdown-item" href="index.php">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -80,9 +80,12 @@ require_once("head.php");
             <div class="row">
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list">
-                        <table class="table">
+
+                   
+                    <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
                             <thead class="thead-primary">
-                                <tr class="text-center">
+                                <tr>
                                     <th>Tanggal Order</th>                                    
                                     <th>Nama Produk</th>
                                     <th>Harga/Unit</th>
@@ -92,33 +95,33 @@ require_once("head.php");
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">                                                                                                           
-                                    <td class="product-name">
-                                        <h3>01 Januari 2020</h3>                       
+                                <tr>                                                                                                           
+                                    <td>
+                                        01 Januari 2020                      
                                     </td>
-                                    <td class="product-name">
-                                        <h3>Aqua</h3>
+                                    <td>
+                                        Aqua
                                     </td>
-                                    <td class="price">Rp4.90</td>                                    
-                                    <td class="quantity">                                       
+                                    <td>Rp4.90</td>                                    
+                                    <td>                                       
                                         <div class="input-group mb-3">
                                         <input value="3" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
                                         </div>
                                     </td>                           
                                     <td class="total">Rp12.90</td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm">Selesai</button>
+                                        <label class="text-success">Selesai</label>
                                     </td>
                                 </tr>
 
-                                <tr class="text-center">                                                                                                           
-                                    <td class="product-name">
-                                        <h3>01 Januari 2020</h3>                       
+                                <tr>                                                                                                           
+                                    <td>
+                                        01 Januari 2020                      
                                     </td>
-                                    <td class="product-name">
-                                        <h3>Aqua</h3>
+                                    <td>
+                                        Aqua
                                     </td>
-                                    <td class="price">Rp4.90</td>                                    
+                                    <td>Rp4.90</td>                                    
                                     <td class="quantity">                                       
                                         <div class="input-group mb-3">
                                         <input value="3" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
@@ -126,11 +129,13 @@ require_once("head.php");
                                     </td>                           
                                     <td class="total">Rp12.90</td>
                                     <td>
-                                        <button type="button" class="btn btn-danger btn-sm">Batal</button>
+                                        <label class="text-danger">Batal</label>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                        
                     </div>
                 </div>
             </div>

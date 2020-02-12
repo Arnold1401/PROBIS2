@@ -50,12 +50,12 @@ require_once("head.php");
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Wishlist</a>
-                    <a class="dropdown-item" href="#">Status Order</a>
-                    <a class="dropdown-item" href="#">Riwayat Order</a>
-                    <a class="dropdown-item" href="#">Piutang</a>
+                    <a class="dropdown-item" href="status-order.php">Status Order</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
+                    <a class="dropdown-item" href="piutang.php">Piutang</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Profil</a>
-                    <a class="dropdown-item" href="admin-page/admin-barang.php">Keluar</a>
+                    <a class="dropdown-item" href="index.php">Keluar</a>
                 </div>
                 </li>
             </ul>
