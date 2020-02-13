@@ -1,0 +1,290 @@
+<?php
+require_once("adminhead.php");
+?>
+
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+   
+</head>
+
+<body>
+    <!-- Left Panel -->
+
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                    <a href="admin-home.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    </li>
+                    <h3 class="menu-title">Master</h3><!-- /.menu-title -->
+                    <li>
+                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
+                    </li>
+                    <li>
+                        <a href="admin-managesales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales </a>
+                    </li>
+                    <li>
+                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
+                    </li>
+                    <li>
+                        <a href="admin-piutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+
+            <div class="header-menu">
+                <div class="col-sm-7">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <div class="header-left">                                                                                                     
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                        </a>    
+                        <div class="user-menu dropdown-menu">
+                           
+                            <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                        </div>                   
+                    </div>                   
+                </div>
+            </div>
+
+        </header><!-- /header -->
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>      
+                            <li><a href="#">Master</a></li>                            
+                            <li><a href="#">Piutang</a></li>                                                  
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+
+                <!-- Header piutang-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Perusahaan yang memiliki piutang</strong>
+                            </div>
+                            <div class="card-body">
+                            <div class="table-responsive">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No Resi</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>Tanggal Jatuh Tempo</th>
+                                            <th>Total Piutang</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>01012020001 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>20/Maret/2010</td>
+                                            <td>Rp20.000,-</td>
+                                            <td>
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>01012020001 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>20/Maret/2010</td>
+                                            <td>Rp20.000,-</td>
+                                            <td>
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                            </td>
+                                        </tr>                                      
+                                        <tr>
+                                            <td>01012020001 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>20/Maret/2010</td>
+                                            <td>Rp20.000,-</td>
+                                            <td>
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                            </td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!--End Header piutang-->
+
+                <!-- Detail piutang-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Detail Barang Piutang</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="row form-group">
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">No Resi</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Jatuh Tempo</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="date" placeholder=".col-md-4" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Nama Perusahaan</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
+                                    </div>
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Sales</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="text" placeholder=".col-md-4" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col col-md-2">
+                                        <label for="email-input" class=" form-control-label float-right">Pembeli</label>
+                                    </div>
+                                    <div class="col col-md-4">
+                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="table-responsive">
+                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Id Barang </th>
+                                            <th>Nama Barang</th>
+                                            <th>Jumlah Barang</th>                                          
+                                            <th>Harga Satuan</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> 1 </td>
+                                            <td>Tiger Nixon</td>
+                                            <td>System Architect</td>
+                                            <td>Edinburgh</td>
+                                            <td>Rp10000</td>
+                                            <td>Rp10000</td>
+                                        </tr>
+                                        <tr>
+                                            <td> 2 </td>
+                                            <td>Rhona Davidson</td>
+                                            <td>Integration Specialist</td>
+                                            <td>Tokyo</td>
+                                            <td>Rp10000</td>
+                                            <td>Rp10000</td>
+                                        </tr>                                      
+                                        <tr>
+                                            <td> 3 </td>
+                                            <td>Shou Itou</td>
+                                            <td>Regional Marketing</td>
+                                            <td>Tokyo</td>                                           
+                                            <td>Rp10000</td>
+                                            <td>Rp10000</td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Detail piutang-->
+            </div>
+        </div>
+                    
+
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
+
+
+</body>
+
+</html>
+
