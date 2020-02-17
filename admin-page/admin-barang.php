@@ -182,25 +182,36 @@ require_once("adminhead.php");
                                   </div>
 
                                   <div class="form-group">
-                                    <label for="" class=" form-control-label">Harga Barang (Rp)</label>
-                                      <input type="number" id="" name="" placeholder="Isi Harga Barang" class="form-control">
-                                      <small class="help-block">Isi Harga Barang Anda</small>
+                                    <label for="" class=" form-control-label">Harga Barang Beli (Rp)</label>
+                                      <input type="number" id="" name="" placeholder="Harga Barang Beli" class="form-control">
+                                      <small class="help-block">Isi Harga Barang saat Beli</small>
+                                  </div>
+
+                                  <div class="form-group">
+                                    <label for="" class=" form-control-label">Harga Barang Jual (Rp)</label>
+                                      <input type="number" id="" name="" placeholder="Harga Barang Jual" class="form-control">
+                                      <small class="help-block">Isi Harga Barang saat Jual</small>
                                   </div>
 
                                   <div class="form-group">
                                     <label for=""class=" form-control-label">Deskripsi Barang </label>
                                     <textarea class="form-control" name="" id="" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>        
+                                  </div>     
+
+                                  <div class="form-group">
+                                    <label for="">Masa Kadaluarsa</label>
+                                    <input type="date" name="" id="" class="form-control" placeholder="masa kadaluarsa" aria-describedby="helpId">
+                                  </div>   
                                   
                                   <div class="form-group">
                                     <label for=""class=" form-control-label">Status Barang </label>
-                                    <select name="select" id="select" class="form-control">
+                                    <select disabled name="select" id="select" class="form-control">
                                         <option value="0">Aktif</option>
                                         <option value="1">No-aktif</option>
                                         
                                       </select>
-                                      <small>(Aktif - Barang akan ditampilkan pada pilihan produk customer)</small>   
-                                      <small>(NonAktif - Barang tidak akan ditampilkan pada pilihan produk customer)</small>   
+                                      <small>(Aktif - Barang belum expire)</small>   
+                                      <small>(NonAktif - Barang sudah expire)</small>   
                                   </div>
                                  
 
