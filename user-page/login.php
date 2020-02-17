@@ -1,5 +1,44 @@
 <?php
 require_once("head.php");
+
+session_start();
+include 'conn.php';
+if (isset($_POST["login"])) {
+    # code...
+    $conn = getConn();
+    $sql = "select * from users where email_user='".$_POST["email_user"]."' and password_user = '".$_POST["password_user"]."'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            
+            $_SESSION["nama_user"]=$row["nama_user"];
+            $_SESSION["email_user"]=$row["email_user"];
+            $_SESSION["role_user"]=$row["role_user"];
+            $_SESSION["status_akun"]=$row["status_akun"];
+        }
+
+        // mengetahui siapa yg sedang login (role)
+        // (0 - admin) (1 - reseller)(2 - sales)
+        if ($_SESSION["role_user"] == "0"){
+            header("location: /probis/probis2/admin-page/admin-home.php");
+        }
+
+        if ($_SESSION["role_user"]=="1") {
+            header("location: home.php");
+        }
+
+        if ($_SESSION["role_user"]=="2") {
+            header("location: home.php");
+        }
+        
+    }
+    else {
+        echo "<script>alert('tidak ditemukan');</script>";
+    }
+    $conn->close();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +70,7 @@ require_once("head.php");
         <div class="row block-9 justify-content-center">
         
         <div class="col-md-6 order-md-last d-flex">    
-            <form action="#" class="bg-white p-5 contact-form">
+            <form action="" method="post" class="bg-white p-5 contact-form">
                 <div class="col-md-12 heading-section text-center ftco-animate">
                     <h3 class="mb-3">Login</h3>
           	        <span class="subheading">Hello pelanggan, Isi untuk masuk</span>            
@@ -39,15 +78,15 @@ require_once("head.php");
 
                 <!-- Login -->
                 <div class="form-group">
-                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Email">
+                    <input type="text" class="form-control" name="email_user" id="" aria-describedby="helpId" placeholder="Email">
                 </div>
                 <div class="form-group">                   
-                    <input type="password" class="form-control" name="" id="" placeholder="Password">  
+                    <input type="password" class="form-control" name="password_user" id="" placeholder="Password">  
                     <a href="lupa-password.php" class="text-center">Lupa Password? Klik disini! </a>               
                 </div>
                
                 <div class="form-group justify-content-center">
-                   <button type="button" name="" id="" class="btn btn-primary py-2 px-5">Login</button>
+                   <button type="submit" name="login" id="" class="btn btn-primary py-2 px-5">Login</button>
                 </div>
                 <!--End Login -->
 
@@ -55,7 +94,9 @@ require_once("head.php");
 
                 <!-- Go to Register -->
                 <a href="register.php" class="text-center">Belum punya akun? Register disini! </a>
-                
+
+                <!-- ini contoh link utk ke admin-page -->
+                <!-- <a href="/probis/probis2/admin-page/admin-home.php" class="text-center">Belum punya akun? Register disini! </a> -->
                 <!-- End Go to Register -->
             </form>
 

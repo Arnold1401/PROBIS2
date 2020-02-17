@@ -1,3 +1,4 @@
+<!-- BIASAKAN MEMBUAT NAME PADA SETIAP INPUT ATAUPUN BUTTON SAMA DENGAN NAMA FIELD DALAM TABLENYA -->
 <?php
 require_once("head.php");
 ?>
@@ -35,10 +36,10 @@ require_once("head.php");
 
         <!-- Profile Usaha beserta pemiliknya -->
         <div class="col-md-6 d-flex">
-            <form action="#" class="bg-white p-4 contact-form">
+            <form action="" class="bg-white p-4 contact-form">
                 <div class="form-group">
                   <h5 for="">Profil Usaha</h5>
-                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nama Perusahaan/Toko">
+                  <input type="text" class="form-control" id="nama_perusahaan" aria-describedby="helpId" placeholder="Nama Perusahaan/Toko">
                   <small id="helpId" class="form-text text-muted">Isi Nama Perusahaan/Toko</small>
                 </div>
 
@@ -46,40 +47,40 @@ require_once("head.php");
 
                 <div class="form-group">
                   <h5 for="">Profil Pemilik</h5>
-                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nama Pemilik">
+                  <input type="text" class="form-control" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">
                   <small id="helpId" class="form-text text-muted">Isi Nama Pemilik</small>
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" name="" id="" placeholder="Nomor KTP">
+                    <input type="number" class="form-control" id="nomor_ktp"  placeholder="Nomor KTP">
                     <small id="helpId" class="form-text text-muted">Isi Nomor KTP Anda</small>              
                 </div>
 
                 <div class="form-group">
-                    <input type="file" id="myFile" name="filename">           
+                    <input type="file" id="myFile" id="foto_ktp">           
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" name="" id="" placeholder="Nomor Telpon">
+                    <input type="number" class="form-control" id="telp_user"  placeholder="Nomor Telpon">
                     <small id="helpId" class="form-text text-muted">Isi Nomor Telpon Anda</small>              
                 </div>
 
                 <div class="form-group">
-                    <input type="date" class="form-control" id="" name="bdaytime">
+                    <input type="date" class="form-control" id="lahir_user">
                     <small id="helpId" class="form-text text-muted">Isi Tanggal/Bulan/Tahun Lahir Anda</small>
                 </div>
 
                 <div class="form-group">
-                  <select class="form-control" name="" id="">
-                    <option>Wanita</option>
-                    <option>Pria</option>                   
+                  <select class="form-control" id="jeniskelamin_user">
+                    <option value="0">Wanita</option>
+                    <option value="1">Pria</option>                   
                   </select>
                   <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
                 </div>
 
                 <div class="form-group">
                   <label for="">Alamat</label>
-                  <textarea class="form-control" name="" id="" rows="3"></textarea>
+                  <textarea class="form-control" id="alamat_user" rows="3"></textarea>
                 </div>
 
                 <!-- Go to fill username and pass -->
@@ -100,10 +101,10 @@ require_once("head.php");
 
                 <div class="form-group">
                     <label for="" class=" form-control-label">Sales Yang bertanggung jawab </label>
-                    <select readonly name="select" id="select" class="form-control">
+                    <select id="sales_pilihanuser"  class="form-control">
                         <option value="0">001 - Arnold</option>
                         <option value="1">002 - Wily</option>
-                        </select>
+                    </select>
                 </div>
 
 
@@ -112,18 +113,18 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                  <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                  <input type="text" class="form-control" id="email_user" aria-describedby="helpId" placeholder="example@gmail.com">
                   <small id="helpId" class="form-text text-muted">Isi Email anda sesuai format</small>
                 </div>
 
                 <div class="form-group">                   
-                    <input type="password" class="form-control" name="" id="" placeholder="Password">                 
+                    <input type="password" class="form-control" name="password_user" id="password_user" placeholder="Password">                 
                 </div>
                 <div class="form-group">                   
-                    <input type="password" class="form-control" name="" id="" placeholder="Konfirmasi Password">                 
+                    <input type="password" class="form-control" name="kon_password" id="kon_password" placeholder="Konfirmasi Password">                 
                 </div>
                 <div class="form-group justify-content-center">
-                   <button type="button" name="" id="" class="btn btn-primary py-2 px-5">Register</button>
+                   <button type="button" onclick="register()" id="" class="btn btn-primary py-2 px-5">Register</button>
                 </div>
 
 
@@ -160,3 +161,50 @@ require_once("head.php");
     <script src="js/main.js"></script>
 </body>
 </html>
+
+<script>
+function register() {
+    var namaperusahaan = $("#nama_perusahaan").val();
+    var namauser = $("#nama_user").val();
+    var nomorktp = $("#nomor_ktp").val();
+    var fotoktp = $("#foto_ktp").val();
+    var telpuser = $("#telp_user").val();
+    var lahiruser = $("#lahir_user").val();
+    var jeniskelaminuser = $("#jeniskelamin_user").val();
+    var alamatuser = $("#alamat_user").val();
+    var salespilihanuser = $("#sales_pilihanuser").val();
+
+    var emailuser = $("#email_user").val();
+    var passworduser = $("#password_user").val();
+    var konpassword = $("#kon_password").val();
+
+    // belum pengecekan validasi
+    if (konpassword == passworduser) {
+    $.post("ajax.php",
+        {
+            jenis: "register",
+            nama_perusahaan:namaperusahaan,
+            nama_user:namauser,
+            nomor_ktp:nomorktp,
+            foto_ktp:fotoktp,
+            telp_user:telpuser,
+            lahir_user:lahiruser,
+            jeniskelamin_user:jeniskelaminuser,
+            alamat_user:alamatuser,
+            sales_pilihanuser:salespilihanuser,
+            email_user:emailuser,
+            password_user:passworduser
+        },
+        function (data) {
+            alert(data);
+        });
+
+    }
+
+    else{
+        alert('tidak sama');
+    }
+
+    
+}
+</script>
