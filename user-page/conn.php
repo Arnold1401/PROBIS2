@@ -1,4 +1,3 @@
-<!-- digunakan utk koneksi ke localhost -->
 
 <?php
     function getConn(){
