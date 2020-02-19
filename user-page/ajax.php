@@ -40,6 +40,7 @@ if ($_POST['jenis'] == "register") {
 
         if ($conn->query($sql2)) {
             echo "berhasil register";
+            
         }else{
             // echo "gagal register";
         }

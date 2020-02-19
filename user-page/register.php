@@ -53,7 +53,7 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="nomor_ktp" min="16" max="16" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
+                    <input type="number" class="form-control" id="nomor_ktp" maxlength="16" size="16" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
                     <small id="helpnomor_ktp" class="invalid-feedback">Isi Nomor KTP Anda</small>              
                 </div>
 
@@ -62,7 +62,7 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="telp_user" min="11" max="12" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
+                    <input type="number" class="form-control" id="telp_user" maxlenght="12" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
                     <small id="helptelp_user" class="invalid-feedback">Isi Nomor Telpon Anda</small>              
                 </div>
 
@@ -73,6 +73,7 @@ require_once("head.php");
 
                 <div class="form-group">
                   <select class="form-control" id="jeniskelamin_user" aria-describedby="helpjeniskelamin_user" required>
+                    <option value="">Pilih</option>
                     <option value="0">Wanita</option>
                     <option value="1">Pria</option>                   
                   </select>
@@ -81,8 +82,7 @@ require_once("head.php");
 
                 <div class="form-group">
                   <label for="">Alamat</label>
-                  <textarea class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required>
-                  </textarea>
+                  <textarea class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
                   <small id="helpalamat_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
@@ -105,6 +105,7 @@ require_once("head.php");
                 <div class="form-group">
                     <label for="" class=" form-control-label">Sales Yang bertanggung jawab </label>
                     <select id="sales_pilihanuser"  class="form-control" aria-describedby="helpsales_pilihanuser" required>
+                        <option value="">Pilih</option>
                         <option value="0">001 - Arnold</option>
                         <option value="1">002 - Wily</option>
                     </select>
@@ -135,16 +136,27 @@ require_once("head.php");
                    <button type="button" onclick="register()" id="" class="btn btn-primary py-2 px-5">Register</button>
                 </div>
 
-
                 <hr>
 
                 <!-- Go to Register and verification -->
-                <a href="" class="text-center">Jangan Lupa untuk memverifikasi akun melalui email anda</a>
+                <a href="login.php" class="text-center">Silakan Login disini</a>
                 <!-- End Go to Register and verification -->
             </form>
 
         </div>
         <!--End Account -->
+
+
+            <!-- Small modal -->
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button> -->
+
+            <div id="mymodal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            ...
+            </div>
+            </div>
+            </div>
 
         </div>
       </div>
@@ -187,7 +199,6 @@ function register() {
             event.stopPropagation();
             
         }
-        
         form.classList.add('was-validated');
         }, false);
     });
@@ -209,6 +220,8 @@ function register() {
     var passworduser = $("#password_user").val();
     var konpassword = $("#kon_password").val();
 
+    
+
     if (namaperusahaan == "" || namauser == "" || nomorktp == "" || fotoktp == "" || telpuser == "" || 
     lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || salespilihanuser == "" || emailuser == ""||
     passworduser == "") {
@@ -218,36 +231,35 @@ function register() {
     lahiruser != "" && jeniskelaminuser != "" && alamatuser != "" || salespilihanuser != "" || emailuser != ""||
     passworduser != ""){
 
-        if (konpassword == passworduser) {
-        $.post("ajax.php",
-        {
-            jenis: "register",
-            nama_perusahaan:namaperusahaan,
-            nama_user:namauser,
-            nomor_ktp:nomorktp,
-            foto_ktp:fotoktp,
-            telp_user:telpuser,
-            lahir_user:lahiruser,
-            jeniskelamin_user:jeniskelaminuser,
-            alamat_user:alamatuser,
-            sales_pilihanuser:salespilihanuser,
-            email_user:emailuser,
-            password_user:passworduser
-        },
-        function (data) {
-            alert(data);
-        });
+        if (nomorktp.length >= 16) {
+            if (konpassword == passworduser) {
+                $.post("ajax.php",
+                {
+                    jenis: "register",
+                    nama_perusahaan:namaperusahaan,
+                    nama_user:namauser,
+                    nomor_ktp:nomorktp,
+                    foto_ktp:fotoktp,
+                    telp_user:telpuser,
+                    lahir_user:lahiruser,
+                    jeniskelamin_user:jeniskelaminuser,
+                    alamat_user:alamatuser,
+                    sales_pilihanuser:salespilihanuser,
+                    email_user:emailuser,
+                    password_user:passworduser
+                },
+                function (data) {
+                    alert(data);
+                });
+            }else
+            {alert('tidak sama');}
 
         }
 
-        else{
-        alert('tidak sama');
-        }
-
+        if (nomorktp.length > 16) {
+            
+           alert("Pastikan nomor KTP sesuai") }
     }
-    
-    
-    
     
 }
 </script>
