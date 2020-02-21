@@ -113,7 +113,7 @@ require_once("head.php");
                   </div>
                 
                   <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
+                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
 	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
@@ -132,7 +132,7 @@ require_once("head.php");
                   </div>
                 
                   <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
+                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
 	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
@@ -151,7 +151,7 @@ require_once("head.php");
                   </div>
                 
                   <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
+                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
 	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
@@ -170,7 +170,7 @@ require_once("head.php");
                   </div>
                 
                   <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="#" role="button">Detail</a>
+                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
 	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>

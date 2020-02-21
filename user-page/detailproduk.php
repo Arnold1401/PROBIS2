@@ -129,7 +129,7 @@ require_once("head.php");
                   <p style="color: #000;">Stok tersedia</p>
                 </div>
               </div>
-              <p><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+              <p><a href="cart.html" class="btn btn-black py-3 px-5">Tambah Ke Keranjang</a></p>
             </div>
           </div>
           </div>

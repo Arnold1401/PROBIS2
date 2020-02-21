@@ -136,6 +136,10 @@ require_once("head.php");
                    <button type="button" onclick="register()" id="" class="btn btn-primary py-2 px-5">Register</button>
                 </div>
 
+                <div class="alert alert-success" role="alert" id="cek">
+                   
+                </div>
+
                 <hr>
 
                 <!-- Go to Register and verification -->
@@ -252,12 +256,16 @@ function register() {
                     alert(data);
                 });
             }else
-            {alert('tidak sama');}
+            { alert('tidak sama');
+            //alert("<div class='alert alert-primary' role='alert'>"."This is a primary alert—check it out!</div>")
+            }
 
         }
 
         if (nomorktp.length > 16) {
             
+           // $("#cek").html("cek");
+           // alert("<div class='alert alert-primary' role='alert'>"."This is a primary alert—check it out!</div>")
            alert("Pastikan nomor KTP sesuai") }
     }
     
