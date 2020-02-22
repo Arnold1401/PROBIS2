@@ -48,13 +48,14 @@ require_once("head.php");
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Wishlist</a>
-                    <a class="dropdown-item" href="#">Status Order</a>
-                    <a class="dropdown-item" href="#">Riwayat Order</a>
-                    <a class="dropdown-item" href="#">Piutang</a>
+                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
+                    <a class="dropdown-item" href="status-order.php">Status Order</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
+                    <a class="dropdown-item" href="piutang.php">Piutang</a>
+                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
-                    <a class="dropdown-item" href="pengaturan.php">Profil</a>
-                    <a class="dropdown-item" href="#">Keluar</a>
+                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                    <a class="dropdown-item" href="index.php">Keluar</a>
                 </div>
                 </li>
             </ul>

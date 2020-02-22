@@ -48,12 +48,13 @@ require_once("head.php");
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Wishlist</a>
+                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
                     <a class="dropdown-item" href="status-order.php">Status Order</a>
                     <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
                     <a class="dropdown-item" href="piutang.php">Piutang</a>
+                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
-                    <a class="dropdown-item" href="pengaturan.php">Profil</a>
+                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
                     <a class="dropdown-item" href="index.php">Keluar</a>
                 </div>
                 </li>
@@ -81,16 +82,14 @@ require_once("head.php");
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list">
 
-                   
                     <div class="table-responsive">
                     <table class="table table-striped table-bordered">
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Tanggal Order</th>                                    
-                                    <th>Nama Produk</th>
-                                    <th>Harga/Unit</th>
-                                    <th>Jumlah Beli</th>
-                                    <th>Total</th>
+                                    <th>No Order</th>
+                                    <th>Kurir Pengiriman</th>
+                                    <th>Sales</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -100,14 +99,10 @@ require_once("head.php");
                                         01 Januari 2020                      
                                     </td>
                                     <td>
-                                        Aqua
+                                        <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
                                     </td>
                                     <td>Rp4.90</td>                                    
-                                    <td>                                       
-                                        <div class="input-group mb-3">
-                                        <input value="3" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                        </div>
-                                    </td>                           
+                                    
                                     <td class="total">Rp12.90</td>
                                     <td>
                                         <label class="text-success">Selesai</label>
@@ -115,19 +110,16 @@ require_once("head.php");
                                 </tr>
 
                                 <tr>                                                                                                           
-                                    <td>
+                                <td>
                                         01 Januari 2020                      
                                     </td>
                                     <td>
-                                        Aqua
+                                        <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
                                     </td>
                                     <td>Rp4.90</td>                                    
-                                    <td class="quantity">                                       
-                                        <div class="input-group mb-3">
-                                        <input value="3" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                        </div>
-                                    </td>                           
+                                    
                                     <td class="total">Rp12.90</td>
+                                    
                                     <td>
                                         <label class="text-danger">Batal</label>
                                     </td>
@@ -145,6 +137,74 @@ require_once("head.php");
         </div>
     </section>
     <!-- end cart -->
+
+    <!-- Modal untuk detail order -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Daftar Produk</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>Gambar Produk</th>                                    
+                                    <th>Nama produk</th>
+                                    <th>Aksi</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>                                                                                                           
+                                    <td>
+                                        01 Januari 2020                      
+                                    </td>
+                                    
+                                    <td>Rp4.90</td>                                    
+                                    
+                                    
+                                    <td>
+                                        <!-- <button onclick="ulasan()" type="button" class="btn btn-outline-success"></button> -->
+                                        <a name="" id="" class="btn btn-outline-success" href="ulasan.php" role="button">Tulis Ulasan</a>
+                                    </td>
+                                </tr>
+
+                                <tr>                                                                                                           
+                                <td>
+                                        01 Januari 2020                      
+                                    </td>
+                                    <td>
+                                        <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
+                                    </td>
+                                    <td>Rp4.90</td>                                    
+                                    
+                                    <td class="total">Rp12.90</td>
+                                    
+                                    <td>
+                                        <label class="text-danger">Batal</label>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <!--end Modal -->
+
 
     <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">

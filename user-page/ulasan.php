@@ -72,9 +72,8 @@ require_once("head.php");
                         <!-- tabs -->
                         <div class="col-sm-12 col-12 col-lg-3 p-0 ">
                             <div class="nav nav-pills flex-column flex-sm-row nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">                   
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Profil</a>
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false">Alamat Pengiriman</a>
+                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Menunggu Diulas</a>
+                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Ulasan Saya</a>
                             </div>
                         </div>
                          <!-- end tabs -->
@@ -82,8 +81,36 @@ require_once("head.php");
                          <!-- Pengaturan Akun dan password -->
                         <div class="tab-content col-12 col-lg-9 py-1 px-1" id="v-pills-tabContent">                                                       
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                                <h4 class="mb-4">Pengaturan Akun</h4> <hr>
+                                <p>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="false"
+                                            aria-controls="contentId">
+                                        Show
+                                    </button>
+                                </p>
+                                <div class="collapse" id="contentId">
+                                    yaa
+                                </div>
                                 <form method="POST" action="" class="form-group" >
+
+                                    <h5 class="mb-4">[nama produk]</h5> <hr>
+                                    <img src="" alt="">
+
+                                    <div class="card text-white bg-flat-color-1">
+                                      
+                                      <div class="card-body">
+                                        <p>
+                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="false"
+                                                    aria-controls="contentId">
+                                                Show
+                                            </button>
+                                        </p>
+                                        <div class="collapse" id="contentId">
+                                            yaa
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+
                                     <div class="alert alert-warning" role="alert">
                                         Silakan verifikasi akun Anda pada email yang telah dikirmkan
                                         Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
@@ -182,78 +209,7 @@ require_once("head.php");
                                 <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
                             </div>
-                            <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
-                                <h4 class="mb-4">Alamat Pengiriman</h4> <hr>
-                                <form action="" method="post">
-                                   
-                                    <div class="form-group">
-                                    <label for="">Alamat Pengiriman</label>
-                                    <select class="form-control" name="" id="">
-                                        <option>Jl mana 1</option>
-                                        <option>Jl mana 2</option>
-                                        <option>Jl mana 2</option>
-                                    </select>             
-                                    </div>
-
-                                    <div class="form-group">
-                                    
-                           <button type="submit" class="btn btn-warning btn-md my-2">
-                               <i class="fa fa-ban"></i> Ubah Alamat
-                           </button>
-                           <button type="submit" class="btn btn-danger btn-md">
-                               <i class="fa fa-ban"></i> Hapus Alamat
-                           </button>
-                                    </div>
-
-                                    <br>
-                                    
-
-                                    <div class="form-group"> 
-                                        <small>*Pilih Ubah Alamat untuk mengubah alamat pengiriman dengan memilih salah satu alamat</small> <br>
-                                        <small>*Pilih Hapus Alamat untuk menghapus alamat pengiriman dengan memilih salah satu alamat</small><br>
-                                    </div>
-                                    
-                                    <hr>
-                                    
-                                    <div class="form-group">
-                                      <label for="">Provinsi Tujuan</label>
-                                      <select class="form-control" name="" id="">
-                                        <option></option>
-                                        <option></option>
-                                        <option></option>
-                                      </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                      <label for="">Kota Tujuan</label>
-                                      <select class="form-control" name="" id="">
-                                        <option></option>
-                                        <option></option>
-                                        <option></option>
-                                      </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                      <label for="">Kecamatan Tujuan</label>
-                                      <select class="form-control" name="" id="">
-                                        <option></option>
-                                        <option></option>
-                                        <option></option>
-                                      </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                      <label for="">Alamat Lengkap</label>
-                                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                                      
-                                    </div>
-
-                                    <button type="button" class="btn btn-outline-success">
-                                        <i class="fa fa-ban"></i> Simpan Alamat Baru
-                                    </button>
-                                    
-                                </form>                                         
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
