@@ -4,7 +4,36 @@ require_once("head.php");
 <!DOCTYPE html>
 <html>
 <head>
-    
+<meta charset="UTF-8">
+    <title>Star Rating System</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        .star{
+          color: goldenrod;
+          font-size: 2.0rem;
+          padding: 0 0rem; /* space out the stars */
+        }
+        .star::before{
+          content: '\2606';    /* star outline */
+          cursor: pointer;
+        }
+        .star.rated::before{
+          /* the style for a selected star */
+          content: '\2605';  /* filled star */
+        }
+        
+        .stars{
+            counter-reset: rateme 0;   
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        .star.rated{
+            counter-increment: rateme 1;
+        }
+        .stars::after{
+            content: counter(rateme) '/5';
+        }
+    </style>
 </head>
 <body class="goto-here">
 
@@ -81,62 +110,45 @@ require_once("head.php");
                          <!-- Pengaturan Akun dan password -->
                         <div class="tab-content col-12 col-lg-9 py-1 px-1" id="v-pills-tabContent">                                                       
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                                <p>
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="false"
-                                            aria-controls="contentId">
-                                        Show
-                                    </button>
-                                </p>
-                                <div class="collapse" id="contentId">
-                                    yaa
-                                </div>
+                                
                                 <form method="POST" action="" class="form-group" >
 
                                     <h5 class="mb-4">[nama produk]</h5> <hr>
                                     <img src="" alt="">
 
-                                    <div class="card text-white bg-flat-color-1">
-                                      
-                                      <div class="card-body">
-                                        <p>
-                                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#contentId" aria-expanded="false"
-                                                    aria-controls="contentId">
-                                                Show
-                                            </button>
-                                        </p>
-                                        <div class="collapse" id="contentId">
-                                            yaa
+                                    <div class="form-group">
+                                    <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
+                                     
+                                      <div class="stars" data-rating="0">
+                                        <span class="star">&nbsp;</span>
+                                        <span class="star">&nbsp;</span>
+                                        <span class="star">&nbsp;</span>
+                                        <span class="star">&nbsp;</span>
+                                        <span class="star">&nbsp;</span>
+                                    </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Berikan ulasan untuk produk ini</label>
+                                      <textarea value="" class="form-control" name="" id="" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="">Bagikan foto produk yang Anda terima</label>
+                                      <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                         </div>
-                                      </div>
-                                    </div>
-                                    
-
-                                    <div class="alert alert-warning" role="alert">
-                                        Silakan verifikasi akun Anda pada email yang telah dikirmkan
-                                        Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="">Upload</span>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group">        
-                                    <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="emos@gmail.com" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
-                                    
                                     </div>
-
-                                    <hr>
-
-                                    <h5 for="">Ubah Password</h5>
-                                    <div class="alert alert-danger" role="alert">
-                                        Isi Form dibawah ini hanya bila Anda hendak mengubah password Anda
-                                    </div>
-
-                                    <div class="form-group">                   
-                                    <input type="password" class="form-control" name="" id="" placeholder="Password Baru">                 
-                                    </div>
-                                    <div class="form-group">                   
-                                    <input type="password" class="form-control" name="" id="" placeholder="Konfirmasi Password Baru">                 
-                                    </div>
-
-                                    <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>
+                                   
+                                    <button type="button" class="btn btn-outline-success">Kirim</button>
+                                    <button type="button" class="btn btn-outline-danger">Batal</button>
                                 </form>
                             </div>
 
@@ -233,5 +245,41 @@ require_once("head.php");
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- script utk rating atau stars -->
+    <script>
+        //initial setup
+        document.addEventListener('DOMContentLoaded', function(){
+            let stars = document.querySelectorAll('.star');
+            stars.forEach(function(star){
+                star.addEventListener('click', setRating); 
+            });
+            
+            let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+            let target = stars[rating - 1];
+            target.dispatchEvent(new MouseEvent('click'));
+        });
+
+        function setRating(ev){
+            let span = ev.currentTarget;
+            let stars = document.querySelectorAll('.star');
+            let match = false;
+            let num = 0;
+            stars.forEach(function(star, index){
+                if(match){
+                    star.classList.remove('rated');
+                }else{
+                    star.classList.add('rated');
+                }
+                //are we currently looking at the span that was clicked
+                if(star === span){
+                    match = true;
+                    num = index + 1;
+                }
+            });
+            document.querySelector('.stars').setAttribute('data-rating', num);
+        }
+        
+    </script>
 </body>
 </html>
