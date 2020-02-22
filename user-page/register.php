@@ -53,7 +53,7 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="nomor_ktp" min="16" max="16" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
+                    <input type="number" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
                     <small id="helpnomor_ktp" class="invalid-feedback">Isi Nomor KTP Anda</small>              
                 </div>
 
@@ -70,7 +70,7 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="telp_user" min="11" max="12" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
+                    <input type="number" class="form-control" id="telp_user" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
                     <small id="helptelp_user" class="invalid-feedback">Isi Nomor Telpon Anda</small>              
                 </div>
 
@@ -81,6 +81,7 @@ require_once("head.php");
 
                 <div class="form-group">
                   <select class="form-control" id="jeniskelamin_user" aria-describedby="helpjeniskelamin_user" required>
+                    <option value="">Pilih</option>
                     <option value="0">Wanita</option>
                     <option value="1">Pria</option>                   
                   </select>
@@ -89,8 +90,7 @@ require_once("head.php");
 
                 <div class="form-group">
                   <label for="">Alamat</label>
-                  <textarea class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required>
-                  </textarea>
+                  <textarea class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
                   <small id="helpalamat_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
