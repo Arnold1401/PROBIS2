@@ -168,7 +168,7 @@ require_once("head.php");
 
     <!-- Modal untuk detail order -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Daftar Produk</h5>
@@ -180,7 +180,7 @@ require_once("head.php");
                 <div class="modal-body">
                 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table class="table-sm table-striped table-bordered center">
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Gambar Produk</th>                                    
@@ -192,28 +192,33 @@ require_once("head.php");
                             <tbody>
                                 <tr>                                                                                                           
                                     <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
+                                    </td>              
+                                    <td>[nama produk]</td>                                     
                                     <td>                        
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
                                         
                                     </td>
                                 </tr>
 
                                 <tr>                                                                                                           
                                     <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
+                                    </td>              
+                                    <td>[nama produk]</td>                                     
                                     <td>                        
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
+                                        
+                                    </td>
+                                </tr>
+
+                                <tr>                                                                                                           
+                                    <td>
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
+                                    </td>              
+                                    <td>[nama produk]</td>                                     
+                                    <td>                        
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
                                         
                                     </td>
                                 </tr>
@@ -276,7 +281,7 @@ require_once("head.php");
             </form>
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Kembali</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
         <button type="button" class="btn btn-primary">Kirim Ulasan</button>
         </div>
     </div>

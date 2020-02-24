@@ -53,8 +53,8 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
-                    <small id="helpnomor_ktp" class="invalid-feedback">Isi Nomor KTP Anda</small>              
+                    <input type="text" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
+                    <small id="helpnomor_ktp" class="invalid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>              
                 </div>
 
                 <!-- <div class="form-group">
@@ -70,7 +70,7 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="telp_user" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
+                    <input type="text" onkeydown="return numberhponly(this, event);" onkeyup="javascript:pemisahnohp(this);" class="form-control" id="telp_user" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
                     <small id="helptelp_user" class="invalid-feedback">Isi Nomor Telpon Anda</small>              
                 </div>
 
@@ -180,7 +180,206 @@ require_once("head.php");
 </html>
 
 <script>
+
+    // pemisah no hp
+    function pemisahnohp(b)
+    {
+        var _minus = false;
+        if (b<0) _minus = true;
+        b = b.toString();
+        b=b.replace(".","");
+        b=b.replace("-","");
+        
+        c = "";
+        panjang = b.length;
+        j = 0;
+        for (i = panjang; i > 0; i--)
+        {
+            j = j + 1;
+            
+            if (((j % 3) == 1) && (j != 1))
+            {
+                c = b.substr(i-1,1) + "-" + c;
+            }else
+            {   c = b.substr(i-1,1) + c;    }
+        }
+        
+        if (_minus) c = "-" + c ;
+        return c;
+        
+    }
+
+    function numberhponly(ini, e)
+    {
+    if (e.keyCode>=49)
+    {
+    if(e.keyCode<=57)
+    {
+    a = ini.value.toString().replace(".","");
+    b = a.replace(/[^\d]/g,"");
+    b = (b=="0")?String.fromCharCode(e.keyCode):b + String.fromCharCode(e.keyCode);
+    ini.value = pemisahnohp(b);
+
+    return false;
+    }
+
+    else if(e.keyCode<=105){
+    if(e.keyCode>=96){
+    //e.keycode = e.keycode - 47;
+    a = ini.value.toString().replace(".","");
+    b = a.replace(/[^\d]/g,"");
+    b = (b=="0")?String.fromCharCode(e.keyCode-48):b + String.fromCharCode(e.keyCode-48);
+    ini.value = pemisahnohp(b);
+    //alert(e.keycode);
+    return false;
+    }
+    else {return false;}
+    }else {
+    return false; }
+    }else if (e.keyCode==48){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
+    b = a.replace(/[^\d]/g,"");
+    if (parseFloat(b)!=0){
+    ini.value = pemisahnohp(b);
+    return false;
+    } else {return false;}
+    }else if (e.keyCode==95){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
+    b = a.replace(/[^\d]/g,"");
+    if (parseFloat(b)!=0){
+        ini.value = pemisahnohp(b);
+        return false;
+        } else {return false;}
+    }else if (e.keyCode==8 || e.keycode==46){
+        a = ini.value.replace(".","");
+        b = a.replace(/[^\d]/g,"");
+        b = b.substr(0,b.length -1);
+        
+        if (pemisahnohp(b)!=""){
+            ini.value = pemisahnohp(b);
+        } else {ini.value = "";}
+        
+        return false;
+        } else if (e.keyCode==9){
+        return true;
+        } else if (e.keyCode==17){
+        return true;
+        } else {
+        //alert (e.keyCode);
+        return false;
+        }
+
+    }
+    // end pemisah ktp
+
+    // end pemisah no hp
+    
+    // pemisah ktp
+    function pemisahktp(b)
+    {
+        var _minus = false;
+        if (b<0) _minus = true;
+        b = b.toString();
+        b=b.replace(".","");
+        b=b.replace("-","");
+        
+        c = "";
+        panjang = b.length;
+        j = 0;
+        for (i = panjang; i > 0; i--)
+        {
+            j = j + 1;
+            
+            if (((j % 4) == 1) && (j != 1))
+            {
+                c = b.substr(i-1,1) + "-" + c;
+            }else
+            {   c = b.substr(i-1,1) + c;    }
+        }
+        
+        if (_minus) c = "-" + c ;
+        return c;
+        
+    }
+    
+    function numbersonly(ini, e)
+    {
+    if (e.keyCode>=49)
+    {
+    if(e.keyCode<=57)
+    {
+    a = ini.value.toString().replace(".","");
+    b = a.replace(/[^\d]/g,"");
+    b = (b=="0")?String.fromCharCode(e.keyCode):b + String.fromCharCode(e.keyCode);
+    ini.value = pemisahktp(b);
+
+    return false;
+    }
+
+    else if(e.keyCode<=105){
+    if(e.keyCode>=96){
+    //e.keycode = e.keycode - 47;
+    a = ini.value.toString().replace(".","");
+    b = a.replace(/[^\d]/g,"");
+    b = (b=="0")?String.fromCharCode(e.keyCode-48):b + String.fromCharCode(e.keyCode-48);
+    ini.value = pemisahktp(b);
+    //alert(e.keycode);
+    return false;
+    }
+    else {return false;}
+    }else {
+    return false; }
+    }else if (e.keyCode==48){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
+    b = a.replace(/[^\d]/g,"");
+    if (parseFloat(b)!=0){
+    ini.value = pemisahktp(b);
+    return false;
+    } else {return false;}
+    }else if (e.keyCode==95){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
+    b = a.replace(/[^\d]/g,"");
+    if (parseFloat(b)!=0){
+        ini.value = pemisahktp(b);
+        return false;
+        } else {return false;}
+    }else if (e.keyCode==8 || e.keycode==46){
+        a = ini.value.replace(".","");
+        b = a.replace(/[^\d]/g,"");
+        b = b.substr(0,b.length -1);
+        
+        if (pemisahktp(b)!=""){
+            ini.value = pemisahktp(b);
+        } else {ini.value = "";}
+        
+        return false;
+        } else if (e.keyCode==9){
+        return true;
+        } else if (e.keyCode==17){
+        return true;
+        } else {
+        //alert (e.keyCode);
+        return false;
+        }
+
+    }
+    // end pemisah ktp
+
 function register() {
+    var namaperusahaan = $("#nama_perusahaan").val();
+    var namauser = $("#nama_user").val();
+    var nomorktp = $("#nomor_ktp").val();
+    var fotoktp = $("#foto_ktp").val();
+    var telpuser = $("#telp_user").val();
+    var lahiruser = $("#lahir_user").val();
+    var jeniskelaminuser = $("#jeniskelamin_user").val();
+    var alamatuser = $("#alamat_user").val();
+    var salespilihanuser = $("#sales_pilihanuser").val();
+
+    var emailuser = $("#email_user").val();
+    var passworduser = $("#password_user").val();
+    var konpassword = $("#kon_password").val();
+    alert(telpuser);
 
     //validasi setiap inputan
     (function() {
@@ -204,20 +403,6 @@ function register() {
     })();
 
 
-    var namaperusahaan = $("#nama_perusahaan").val();
-    var namauser = $("#nama_user").val();
-    var nomorktp = $("#nomor_ktp").val();
-    var fotoktp = $("#foto_ktp").val();
-    var telpuser = $("#telp_user").val();
-    var lahiruser = $("#lahir_user").val();
-    var jeniskelaminuser = $("#jeniskelamin_user").val();
-    var alamatuser = $("#alamat_user").val();
-    var salespilihanuser = $("#sales_pilihanuser").val();
-
-    var emailuser = $("#email_user").val();
-    var passworduser = $("#password_user").val();
-    var konpassword = $("#kon_password").val();
-    //alert(emailuser);
 
     if (namaperusahaan == "" || namauser == "" || nomorktp == "" || fotoktp == "" || telpuser == "" || 
     lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || salespilihanuser == "" || emailuser == ""||
