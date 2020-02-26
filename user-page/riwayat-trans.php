@@ -5,7 +5,34 @@ require_once("head.php");
 <!DOCTYPE html>
 <html>
 <head>
-   
+<meta name="viewport" content="width=device-width">
+    <style>
+        .star{
+          color: goldenrod;
+          font-size: 2.0rem;
+          padding: 0 0rem; /* space out the stars */
+        }
+        .star::before{
+          content: '\2606';    /* star outline */
+          cursor: pointer;
+        }
+        .star.rated::before{
+          /* the style for a selected star */
+          content: '\2605';  /* filled star */
+        }
+        
+        .stars{
+            counter-reset: rateme 0;   
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        .star.rated{
+            counter-increment: rateme 1;
+        }
+        .stars::after{
+            content: counter(rateme) '/5';
+        }
+    </style>
 </head>
 <body class="goto-here">
    
@@ -124,6 +151,7 @@ require_once("head.php");
                                         <label class="text-danger">Batal</label>
                                     </td>
                                 </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -140,7 +168,7 @@ require_once("head.php");
 
     <!-- Modal untuk detail order -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Daftar Produk</h5>
@@ -150,8 +178,9 @@ require_once("head.php");
                 </div>
 
                 <div class="modal-body">
+                
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table class="table-sm table-striped table-bordered center">
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Gambar Produk</th>                                    
@@ -163,38 +192,41 @@ require_once("head.php");
                             <tbody>
                                 <tr>                                                                                                           
                                     <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    
-                                    <td>
-                                        <!-- <button onclick="ulasan()" type="button" class="btn btn-outline-success"></button> -->
-                                        <a name="" id="" class="btn btn-outline-success" href="ulasan.php" role="button">Tulis Ulasan</a>
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
+                                    </td>              
+                                    <td>[nama produk]</td>                                     
+                                    <td>                        
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
+                                        
                                     </td>
                                 </tr>
 
                                 <tr>                                                                                                           
-                                <td>
-                                        01 Januari 2020                      
-                                    </td>
                                     <td>
-                                        <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    
-                                    <td>
-                                        <label class="text-danger">Batal</label>
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
+                                    </td>              
+                                    <td>[nama produk]</td>                                     
+                                    <td>                        
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
+                                        
                                     </td>
                                 </tr>
+
+                                <tr>                                                                                                           
+                                    <td>
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
+                                    </td>              
+                                    <td>[nama produk]</td>                                     
+                                    <td>                        
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
+                                        
+                                    </td>
+                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -205,6 +237,57 @@ require_once("head.php");
     
     <!--end Modal -->
 
+    <!--Modal untuk rating dan review-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        
+        <div class="modal-body">
+            <form method="POST" action="" class="form-group" >
+
+                <h5 class="mb-4">[nama produk]</h5> <hr>
+                <img src="" alt="">
+
+                <div class="form-group">
+                <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
+                    
+                    <div class="stars" data-rating="0">
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Berikan ulasan untuk produk ini</label>
+                    <textarea value="" class="form-control" name="" id="" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Bagikan foto produk yang Anda terima</label>
+                    <div class="input-group mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="">Upload</span>
+                    </div>
+                </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+        <button type="button" class="btn btn-primary">Kirim Ulasan</button>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--End Modal untuk rating dan review-->
 
     <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
@@ -318,5 +401,40 @@ require_once("head.php");
   <script src="js/google-map.js"></script>
   <script src="js/main.js"></script>
 
+  <!-- script utk rating atau stars -->
+  <script>
+        //initial setup
+        document.addEventListener('DOMContentLoaded', function(){
+            let stars = document.querySelectorAll('.star');
+            stars.forEach(function(star){
+                star.addEventListener('click', setRating); 
+            });
+            
+            let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+            let target = stars[rating - 1];
+            target.dispatchEvent(new MouseEvent('click'));
+        });
+
+        function setRating(ev){
+            let span = ev.currentTarget;
+            let stars = document.querySelectorAll('.star');
+            let match = false;
+            let num = 0;
+            stars.forEach(function(star, index){
+                if(match){
+                    star.classList.remove('rated');
+                }else{
+                    star.classList.add('rated');
+                }
+                //are we currently looking at the span that was clicked
+                if(star === span){
+                    match = true;
+                    num = index + 1;
+                }
+            });
+            document.querySelector('.stars').setAttribute('data-rating', num);
+        }
+        
+    </script>
 </body>
 </html>
