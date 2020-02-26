@@ -26,7 +26,7 @@ if ($_POST['jenis'] == "register") {
     $result1 = $conn->query($sql1);
     $ctr = 0;
     while ($row1 = $result1->fetch_assoc()) {
-        if ($email_user == $row1["email_user"]) {
+        if ($email_user == $row1["email_users"]) {
             $ctr = 0;
         }
         else{
@@ -36,13 +36,12 @@ if ($_POST['jenis'] == "register") {
     if ($ctr > 0) {
         $id_user.=str_pad(($ctr+1),3,"0",STR_PAD_LEFT);
         
-        $sql2 = "insert into users (id_user,nama_perusahaan,nama_user,nomor_ktp,foto_ktp,telp_user,lahir_user,jeniskelamin_user,alamat_user,sales_pilihanuser,email_user,password_user,role_user,status_akun) values ('$id_user','$nama_perusahaan','$nama_user',$nomor_ktp,$foto_ktp,$telp_user,$lahir_user,$jeniskelamin_user,'$alamat_user','$sales_pilihanuser','$email_user','$password_user',$role_user,$status_akun)";
+        $sql2 = "insert into users (id_user,nama_perusahaan,nama_user,nomor_ktp,foto_ktp,telp_user,lahir_user,jeniskelamin_user,alamat_user,pilih_sales,email_users,password_user,role_user,status_akun) values ('$id_user','$nama_perusahaan','$nama_user',$nomor_ktp,$foto_ktp,$telp_user,$lahir_user,$jeniskelamin_user,'$alamat_user','$sales_pilihanuser','$email_user','$password_user',$role_user,$status_akun)";
 
         if ($conn->query($sql2)) {
             echo "berhasil register";
-            
         }else{
-            // echo "gagal register";
+            echo "gagal register";
         }
     }
     if ($ctr == 0) {
@@ -50,5 +49,13 @@ if ($_POST['jenis'] == "register") {
     }
     $conn->close();
 }
+
+
+
+
+
+
+
+
 
 ?>

@@ -62,12 +62,14 @@ require_once("head.php");
                 </div> -->
 
                 <div class="form-group">
-                  <img src="" id="img" width="100" height="100">
+                  <img src="" id="img" width="200" height="100">
                  </div>
                 <div >
                   <input type="file" id="file" name="file" />
                   <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
                 </div>
+
+                <br>
 
                 <div class="form-group">
                     <input type="number" class="form-control" id="telp_user" min="11" max="12" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
@@ -207,7 +209,7 @@ function register() {
     var namaperusahaan = $("#nama_perusahaan").val();
     var namauser = $("#nama_user").val();
     var nomorktp = $("#nomor_ktp").val();
-    var fotoktp = $("#foto_ktp").val();
+    var fotoktp = $("#file").val();
     var telpuser = $("#telp_user").val();
     var lahiruser = $("#lahir_user").val();
     var jeniskelaminuser = $("#jeniskelamin_user").val();
@@ -218,6 +220,8 @@ function register() {
     var passworduser = $("#password_user").val();
     var konpassword = $("#kon_password").val();
     //alert(emailuser);
+    alert(lahiruser);
+    //alert(fotoktp);
 
     if (namaperusahaan == "" || namauser == "" || nomorktp == "" || fotoktp == "" || telpuser == "" || 
     lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || salespilihanuser == "" || emailuser == ""||
@@ -265,7 +269,7 @@ function upload() {
       var fd = new FormData();
       var files = $('#file')[0].files[0];
       fd.append('file',files);
-
+    alert(files);
       $.ajax({
           url: 'ajaxupload.php',
           type: 'post',
