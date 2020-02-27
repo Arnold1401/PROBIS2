@@ -8,13 +8,12 @@ if ($_POST['jenis'] == "register") {
     $nama_perusahaan = $_POST["nama_perusahaan"];
     $nama_user = $_POST["nama_user"];
     $nomor_ktp = $_POST["nomor_ktp"];
-    // $foto_ktp = $_POST["foto_ktp"]; sementara
     $foto_ktp = 0;
     $telp_user = $_POST["telp_user"];
     $lahir_user = $_POST["lahir_user"];
     $jeniskelamin_user = $_POST["jeniskelamin_user"];
     $alamat_user = $_POST["alamat_user"];
-    $sales_pilihanuser = $_POST["sales_pilihanuser"];
+    $sales_pilihanuser = "null";
     $email_user = $_POST["email_user"];
     $password_user = $_POST["password_user"];
     $role_user = 1; 

@@ -102,140 +102,146 @@ require_once("head.php");
       </div>
     </div>
 
-    <!-- cart -->
+    <!-- RIWAYAT TRANS -->
     <section class="ftco-section ftco-cart">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 ftco-animate">
-                    <div class="cart-list">
+            <div class="content mt-3">
+                <div class="animated fadeIn">
 
-                    <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                            <thead class="thead-primary">
+                    <!-- Header piutang-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="cart-list">
+                            <form>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead class="thead-primary">
+                                    <tr>
+                                        <th>Tanggal Order</th>                                    
+                                        <th>No Order</th>
+                                        <th>Kurir Pengiriman</th>
+                                        <th>Sales</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>                                                                                                           
+                                        <td>
+                                            01 Januari 2020                      
+                                        </td>
+                                        <td>
+                                            <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-xl">00101</a>
+                                        </td>
+                                        <td>Rp4.90</td>                                                                  
+                                        <td class="total">Rp12.90</td>
+                                        <td>
+                                            <label class="text-success">Selesai</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            01 Januari 2020                      
+                                        </td>
+                                        <td>
+                                            <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
+                                        </td>
+                                        <td>Rp4.90</td>                                    
+                                        <td class="total">Rp12.90</td>                     
+                                        <td>
+                                            <label class="text-danger">Batal</label>
+                                        </td>
+                                    </tr>               
+                                    </tbody>
+                                </table>
+                            </div> 
+                            </form>   
+                            </div>  
+                        </div>
+                    </div>
+                        
+                    </div>
+                    <!--End Header piutang-->
+
+                    <!-- Detail piutang-->
+                    <div class="row py-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong class="card-title">Detail Barang Piutang</strong>
+                                </div>
+                                <div class="card-list">
+                                <form>
+                                <div class="table-responsive">
+                                <table class="table table-striped table-bordered center">
+                                <thead class="thead center">
                                 <tr>
-                                    <th>Tanggal Order</th>                                    
-                                    <th>No Order</th>
-                                    <th>Kurir Pengiriman</th>
-                                    <th>Sales</th>
-                                    <th>Status</th>
+                                    <th>Gambar Produk</th>                                    
+                                    <th>Nama produk</th>
+                                    <th>Jumlah Beli</th>
+                                    <th>Total Harga</th>
+                                    <th>Aksi</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 <tr>                                                                                                           
                                     <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    <td>
-                                        <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    <td>
-                                        <label class="text-success">Selesai</label>
+                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="150px">
+                                    </td>              
+                                    <td>[nama produk]</td>    
+                                    <td>[jumlah beri]</td>   
+                                    <td>[total harga]</td>                                    
+                                    <td>                        
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Tulis Ulasan</button>
                                     </td>
                                 </tr>
 
                                 <tr>                                                                                                           
                                 <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    <td>
-                                        <a class="text-info" data-toggle="modal" data-target=".bd-example-modal-lg">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    
-                                    <td>
-                                        <label class="text-danger">Batal</label>
-                                    </td>
+                                <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="150px">
+                                </td>              
+                                <td>[nama produk]</td>                                     
+                                <td>                        
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tulis Ulasan</button>
+                                </td>
                                 </tr>
-                                
-                            </tbody>
-                        </table>
+
+                                <tr>                                                                                                           
+                                <td>
+                                <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="150px">
+                                </td>              
+                                <td>[nama produk]</td>                                     
+                                <td>                        
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tulis Ulasan</button>
+
+                                </td>
+                                </tr>
+
+                                <tr>                                                                                                           
+                                <td>
+                                <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="150px">
+                                </td>              
+                                <td>[nama produk]</td>                                     
+                                <td>                        
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tulis Ulasan</button>
+
+                                </td>
+                                </tr>
+
+                                </tbody>
+                                </table>
+                                </div>
+                                </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                        
-                    </div>
+                    <!-- End Detail piutang-->
                 </div>
             </div>
-
-
-            
-        </div>
+        </div>            
     </section>
-    <!-- end cart -->
-
-    <!-- Modal untuk detail order -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Daftar Produk</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                
-                <div class="table-responsive">
-                    <table class="table-sm table-striped table-bordered center">
-                            <thead class="thead-primary">
-                                <tr>
-                                    <th>Gambar Produk</th>                                    
-                                    <th>Nama produk</th>
-                                    <th>Aksi</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>                                                                                                           
-                                    <td>
-                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
-                                    </td>              
-                                    <td>[nama produk]</td>                                     
-                                    <td>                        
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
-                                        
-                                    </td>
-                                </tr>
-
-                                <tr>                                                                                                           
-                                    <td>
-                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
-                                    </td>              
-                                    <td>[nama produk]</td>                                     
-                                    <td>                        
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
-                                        
-                                    </td>
-                                </tr>
-
-                                <tr>                                                                                                           
-                                    <td>
-                                        <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="200px">
-                                    </td>              
-                                    <td>[nama produk]</td>                                     
-                                    <td>                        
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Tulis Ulasan</button>
-                                        
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    
-    <!--end Modal -->
+    <!-- end RIWAYAT TRANS -->
 
     <!--Modal untuk rating dan review-->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -243,41 +249,40 @@ require_once("head.php");
     <div class="modal-content">
         
         <div class="modal-body">
-            <form method="POST" action="" class="form-group" >
+        <form method="POST" action="" class="form-group" >
 
-                <h5 class="mb-4">[nama produk]</h5> <hr>
-                <img src="" alt="">
+            <h5 class="mb-4">[nama produk]</h5> <hr>
+            <img src="" alt="">
 
-                <div class="form-group">
-                <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
-                    
-                    <div class="stars" data-rating="0">
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                </div>
-                </div>
+            <div class="form-group">
+            <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
+                <div class="stars" data-rating="0">
+                <span class="star">&nbsp;</span>
+                <span class="star">&nbsp;</span>
+                <span class="star">&nbsp;</span>
+                <span class="star">&nbsp;</span>
+                <span class="star">&nbsp;</span>
+            </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="">Berikan ulasan untuk produk ini</label>
-                    <textarea value="" class="form-control" name="" id="" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
-                </div>
+            <div class="form-group">
+                <label for="">Berikan ulasan untuk produk ini</label>
+                <textarea value="" class="form-control" name="" id="" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
+            </div>
 
-                <div class="form-group">
-                    <label for="">Bagikan foto produk yang Anda terima</label>
-                    <div class="input-group mb-3">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                    </div>
-                    <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-                    </div>
+            <div class="form-group">
+                <label for="">Bagikan foto produk yang Anda terima</label>
+                <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                 </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
+                </div>
+            </div>
 
-                </div>
+            </div>
             </form>
         </div>
         <div class="modal-footer">

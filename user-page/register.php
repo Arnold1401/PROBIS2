@@ -29,9 +29,7 @@ require_once("head.php");
 
 
     <section class="ftco-section contact-section bg-light ">
-        <div class="container">
-            
-        
+        <div class="container">   
         <div class="row block-9 justify-content-center">
 
         <!-- Profile Usaha beserta pemiliknya -->
@@ -41,7 +39,7 @@ require_once("head.php");
                 <div class="form-group">
                   <h5 for="">Profil Usaha</h5>
                   <input required type="text" class="form-control" id="nama_perusahaan" aria-describedby="helpnama_perusahaan" placeholder="Nama Perusahaan/Toko">
-                  <small id="helpnama_perusahaan" class="invalid-feedback">Isi Nama Perusahaan/Toko</small> 
+                  <small id="helpnama_perusahaan" class="invalid-feedback">Masukkan Nama Perusahaan/Toko</small> 
                 </div>
 
                 <hr>
@@ -49,12 +47,13 @@ require_once("head.php");
                 <div class="form-group">
                   <h5 for="">Profil Pemilik</h5>
                   <input required type="text" class="form-control" id="nama_user" aria-describedby="helpnama_user" placeholder="Nama Pemilik">
-                  <small id="helpnama_user" class="invalid-feedback">Isi Nama Pemilik</small>
+                  <small id="helpnama_user" class="invalid-feedback">Masukkan Nama Pemilik</small>
                 </div>
 
                 <div class="form-group">
                     <input type="text" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
-                    <small id="helpnomor_ktp" class="invalid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>              
+                    <small id="helpnomor_ktp" class="invalid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>
+                    <small id="helpnomor_ktp" class="valid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>                            
                 </div>
 
                 <!-- <div class="form-group">
@@ -70,13 +69,13 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <input type="text" onkeydown="return numberhponly(this, event);" onkeyup="javascript:pemisahnohp(this);" class="form-control" id="telp_user" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
-                    <small id="helptelp_user" class="invalid-feedback">Isi Nomor Telpon Anda</small>              
+                    <input type="number" class="form-control" id="telp_user" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
+                    <small id="helptelp_user" class="invalid-feedback">Masukkan Nomor Telpon Anda (Contoh: 082288569879)</small>              
                 </div>
 
                 <div class="form-group">
                     <input type="date" class="form-control" id="lahir_user" aria-describedby="helplahir_user" required>
-                    <small id="helplahir_user" class="invalid-feedback">Isi Tanggal/Bulan/Tahun Lahir Anda</small>
+                    <small id="helplahir_user" class="invalid-feedback">Masukkan Tanggal/Bulan/Tahun Lahir Anda</small>
                 </div>
 
                 <div class="form-group">
@@ -88,11 +87,7 @@ require_once("head.php");
                   <small id="helpjeniskelamin_user" class="invalid-feedback">Pilih Jenis Kelamin</small>
                 </div>
 
-                <div class="form-group">
-                  <label for="">Alamat</label>
-                  <textarea class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
-                  <small id="helpalamat_user" class="invalid-feedback">Isi Alamat Anda</small>
-                </div>
+                
 
                 <!-- Go to fill username and pass -->
                 <a name="" id="" class="btn btn-primary float-right" href="#" role="button"> <span class="icon-arrow-right"></span> </a>
@@ -107,24 +102,48 @@ require_once("head.php");
             <form class="bg-white p-4 contact-form was-validated">  
                 
                 <div class="form-group">
-                    <h5 for="">Pilih Sales</h5>          
+                    <h5 for="">Alamat</h5>          
                 </div>
 
                 <div class="form-group">
-                    <label for="" class=" form-control-label">Sales Yang bertanggung jawab </label>
-                    <select id="sales_pilihanuser"  class="form-control" aria-describedby="helpsales_pilihanuser" required>
-                        <option value="">Pilih</option>
-                        <option value="0">001 - Arnold</option>
-                        <option value="1">002 - Wily</option>
+                    
+                    <select class="form-control" name="" id="" aria-describedby="helpprovinsi_user" required>
+                    <option>Provinsi</option>
+                    <option></option>
+                    <option></option>
                     </select>
-                    <small id="helpsales_pilihanuser" class="invalid-feedback">Pilih Sales Anda</small>
+                    <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
+                </div>
+
+                <div class="form-group">
+                    
+                    <select class="form-control" name="" id="" aria-describedby="helpkota_user" required>
+                    <option>Kota</option>
+                    <option></option>
+                    <option></option>
+                    </select>
+                    <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
+                </div>
+
+                <div class="form-group">
+                    
+                    <select class="form-control" name="" id="" aria-describedby="helpkecamatan_user" required>
+                    <option>Kecamatan</option>
+                    <option></option>
+                    <option></option>
+                    </select>
+                    <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
+                </div>
+
+                <div class="form-group">
+                  <textarea placeholder="Alamat Anda" class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
+                  <small id="helpalamat_user" class="invalid-feedback">Masukkan Alamat Anda</small>
                 </div>
 
 
                 <div class="form-group">
                     <h5 for="">Account</h5>          
                 </div>
-
 
                 <div class="form-group">
                   <input type="email" class="form-control" id="email_user" aria-describedby="helpemail_user" required placeholder="example@gmail.com">
@@ -180,111 +199,17 @@ require_once("head.php");
 </html>
 
 <script>
-
-    // pemisah no hp
-    function pemisahnohp(b)
-    {
-        var _minus = false;
-        if (b<0) _minus = true;
-        b = b.toString();
-        b=b.replace(".","");
-        b=b.replace("-","");
-        
-        c = "";
-        panjang = b.length;
-        j = 0;
-        for (i = panjang; i > 0; i--)
-        {
-            j = j + 1;
-            
-            if (((j % 3) == 1) && (j != 1))
-            {
-                c = b.substr(i-1,1) + "-" + c;
-            }else
-            {   c = b.substr(i-1,1) + c;    }
-        }
-        
-        if (_minus) c = "-" + c ;
-        return c;
-        
-    }
-
-    function numberhponly(ini, e)
-    {
-    if (e.keyCode>=49)
-    {
-    if(e.keyCode<=57)
-    {
-    a = ini.value.toString().replace(".","");
-    b = a.replace(/[^\d]/g,"");
-    b = (b=="0")?String.fromCharCode(e.keyCode):b + String.fromCharCode(e.keyCode);
-    ini.value = pemisahnohp(b);
-
-    return false;
-    }
-
-    else if(e.keyCode<=105){
-    if(e.keyCode>=96){
-    //e.keycode = e.keycode - 47;
-    a = ini.value.toString().replace(".","");
-    b = a.replace(/[^\d]/g,"");
-    b = (b=="0")?String.fromCharCode(e.keyCode-48):b + String.fromCharCode(e.keyCode-48);
-    ini.value = pemisahnohp(b);
-    //alert(e.keycode);
-    return false;
-    }
-    else {return false;}
-    }else {
-    return false; }
-    }else if (e.keyCode==48){
-    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
-    b = a.replace(/[^\d]/g,"");
-    if (parseFloat(b)!=0){
-    ini.value = pemisahnohp(b);
-    return false;
-    } else {return false;}
-    }else if (e.keyCode==95){
-    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
-    b = a.replace(/[^\d]/g,"");
-    if (parseFloat(b)!=0){
-        ini.value = pemisahnohp(b);
-        return false;
-        } else {return false;}
-    }else if (e.keyCode==8 || e.keycode==46){
-        a = ini.value.replace(".","");
-        b = a.replace(/[^\d]/g,"");
-        b = b.substr(0,b.length -1);
-        
-        if (pemisahnohp(b)!=""){
-            ini.value = pemisahnohp(b);
-        } else {ini.value = "";}
-        
-        return false;
-        } else if (e.keyCode==9){
-        return true;
-        } else if (e.keyCode==17){
-        return true;
-        } else {
-        //alert (e.keyCode);
-        return false;
-        }
-
-    }
-    // end pemisah ktp
-
-    // end pemisah no hp
-    
     // pemisah ktp
-    function pemisahktp(b)
+    function pemisahktp(noktp)
     {
         var _minus = false;
-        if (b<0) _minus = true;
-        b = b.toString();
-        b=b.replace(".","");
-        b=b.replace("-","");
+        if (noktp<0) _minus = true;
+        noktp=noktp.toString();
+        noktp=noktp.replace(".","");
+        noktp=noktp.replace("-","");
         
         c = "";
-        panjang = b.length;
+        panjang = noktp.length;
         j = 0;
         for (i = panjang; i > 0; i--)
         {
@@ -292,9 +217,9 @@ require_once("head.php");
             
             if (((j % 4) == 1) && (j != 1))
             {
-                c = b.substr(i-1,1) + "-" + c;
+                c = noktp.substr(i-1,1) + "-" + c;
             }else
-            {   c = b.substr(i-1,1) + c;    }
+            {   c = noktp.substr(i-1,1) + c;    }
         }
         
         if (_minus) c = "-" + c ;
@@ -309,9 +234,9 @@ require_once("head.php");
     if(e.keyCode<=57)
     {
     a = ini.value.toString().replace(".","");
-    b = a.replace(/[^\d]/g,"");
-    b = (b=="0")?String.fromCharCode(e.keyCode):b + String.fromCharCode(e.keyCode);
-    ini.value = pemisahktp(b);
+    noktp = a.replace(/[^\d]/g,"");
+    noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
+    ini.value = pemisahktp(noktp);
 
     return false;
     }
@@ -320,9 +245,9 @@ require_once("head.php");
     if(e.keyCode>=96){
     //e.keycode = e.keycode - 47;
     a = ini.value.toString().replace(".","");
-    b = a.replace(/[^\d]/g,"");
-    b = (b=="0")?String.fromCharCode(e.keyCode-48):b + String.fromCharCode(e.keyCode-48);
-    ini.value = pemisahktp(b);
+    noktp = a.replace(/[^\d]/g,"");
+    noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
+    ini.value = pemisahktp(noktp);
     //alert(e.keycode);
     return false;
     }
@@ -331,25 +256,25 @@ require_once("head.php");
     return false; }
     }else if (e.keyCode==48){
     a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
-    b = a.replace(/[^\d]/g,"");
-    if (parseFloat(b)!=0){
-    ini.value = pemisahktp(b);
+    noktp = a.replace(/[^\d]/g,"");
+    if (parseFloat(noktp)!=0){
+    ini.value = pemisahktp(noktp);
     return false;
     } else {return false;}
     }else if (e.keyCode==95){
     a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
-    b = a.replace(/[^\d]/g,"");
-    if (parseFloat(b)!=0){
-        ini.value = pemisahktp(b);
+    noktp = a.replace(/[^\d]/g,"");
+    if (parseFloat(noktp)!=0){
+        ini.value = pemisahktp(noktp);
         return false;
         } else {return false;}
     }else if (e.keyCode==8 || e.keycode==46){
         a = ini.value.replace(".","");
-        b = a.replace(/[^\d]/g,"");
-        b = b.substr(0,b.length -1);
+        noktp = a.replace(/[^\d]/g,"");
+        noktp = noktp.substr(0,noktp.length -1);
         
-        if (pemisahktp(b)!=""){
-            ini.value = pemisahktp(b);
+        if (pemisahktp(noktp)!=""){
+            ini.value = pemisahktp(noktp);
         } else {ini.value = "";}
         
         return false;
@@ -366,20 +291,8 @@ require_once("head.php");
     // end pemisah ktp
 
 function register() {
-    var namaperusahaan = $("#nama_perusahaan").val();
-    var namauser = $("#nama_user").val();
-    var nomorktp = $("#nomor_ktp").val();
-    var fotoktp = $("#foto_ktp").val();
-    var telpuser = $("#telp_user").val();
-    var lahiruser = $("#lahir_user").val();
-    var jeniskelaminuser = $("#jeniskelamin_user").val();
-    var alamatuser = $("#alamat_user").val();
-    var salespilihanuser = $("#sales_pilihanuser").val();
-
-    var emailuser = $("#email_user").val();
-    var passworduser = $("#password_user").val();
-    var konpassword = $("#kon_password").val();
-    alert(telpuser);
+    alert(noktp.length); 
+    //ini nanti hasilnya no telp
 
     //validasi setiap inputan
     (function() {
@@ -403,15 +316,26 @@ function register() {
     })();
 
 
-
+    var namaperusahaan = $("#nama_perusahaan").val();
+    var namauser = $("#nama_user").val();
+    var nomorktp = $("#nomor_ktp").val();
+    var fotoktp = $("#foto_ktp").val();
+    var telpuser = $("#telp_user").val();
+    var lahiruser = $("#lahir_user").val();
+    var jeniskelaminuser = $("#jeniskelamin_user").val();
+    var alamatuser = $("#alamat_user").val();
+    var emailuser = $("#email_user").val();
+    var passworduser = $("#password_user").val();
+    var konpassword = $("#kon_password").val();
+    
     if (namaperusahaan == "" || namauser == "" || nomorktp == "" || fotoktp == "" || telpuser == "" || 
-    lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || salespilihanuser == "" || emailuser == ""||
+    lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || emailuser == ""||
     passworduser == "") {
         return false;
     }
-    if(namaperusahaan != "" && namauser != "" && nomorktp != "" || fotoktp != "" || telpuser != "" || 
-    lahiruser != "" && jeniskelaminuser != "" && alamatuser != "" || salespilihanuser != "" || emailuser != ""||
-    passworduser != ""){
+    if(namaperusahaan != "" && namauser != "" && nomorktp != "" && fotoktp != "" && telpuser != "" && 
+    lahiruser != "" && jeniskelaminuser != "" && alamatuser != "" && emailuser != "" &&
+    passworduser != "" && noktp.length == 16){
 
         if (konpassword == passworduser) {
         $.post("ajax.php",
@@ -425,7 +349,6 @@ function register() {
             lahir_user:lahiruser,
             jeniskelamin_user:jeniskelaminuser,
             alamat_user:alamatuser,
-            sales_pilihanuser:salespilihanuser,
             email_user:emailuser,
             password_user:passworduser
         },
