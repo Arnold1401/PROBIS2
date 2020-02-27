@@ -205,28 +205,6 @@ require_once("head.php");
                                 </td>
                                 </tr>
 
-                                <tr>                                                                                                           
-                                <td>
-                                <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="150px">
-                                </td>              
-                                <td>[nama produk]</td>                                     
-                                <td>                        
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tulis Ulasan</button>
-
-                                </td>
-                                </tr>
-
-                                <tr>                                                                                                           
-                                <td>
-                                <img src="/probis/probis2/images/imageService.png" class="img-fluid" alt="Responsive image" width="150px">
-                                </td>              
-                                <td>[nama produk]</td>                                     
-                                <td>                        
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Tulis Ulasan</button>
-
-                                </td>
-                                </tr>
-
                                 </tbody>
                                 </table>
                                 </div>
