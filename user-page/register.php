@@ -61,12 +61,14 @@ require_once("head.php");
                 </div> -->
 
                 <div class="form-group">
-                  <img src="" id="img" width="100" height="100">
+                  <img src="" id="img" width="200" height="100">
                  </div>
                 <div >
                   <input type="file" id="file" name="file" />
                   <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
                 </div>
+
+                <br>
 
                 <div class="form-group">
                     <input type="number" class="form-control" id="telp_user" placeholder="Nomor Telpon" aria-describedby="helptelp_user" required>
@@ -77,7 +79,7 @@ require_once("head.php");
                     <input type="date" class="form-control" id="lahir_user" aria-describedby="helplahir_user" required>
                     <small id="helplahir_user" class="invalid-feedback">Masukkan Tanggal/Bulan/Tahun Lahir Anda</small>
                 </div>
-
+                <input type="hidden" class="form-control" id="url_user">
                 <div class="form-group">
                   <select class="form-control" id="jeniskelamin_user" aria-describedby="helpjeniskelamin_user" required>
                     <option value="">Pilih</option>
@@ -319,7 +321,7 @@ function register() {
     var namaperusahaan = $("#nama_perusahaan").val();
     var namauser = $("#nama_user").val();
     var nomorktp = $("#nomor_ktp").val();
-    var fotoktp = $("#foto_ktp").val();
+    var fotoktp = $("#file").val();
     var telpuser = $("#telp_user").val();
     var lahiruser = $("#lahir_user").val();
     var jeniskelaminuser = $("#jeniskelamin_user").val();
@@ -350,7 +352,8 @@ function register() {
             jeniskelamin_user:jeniskelaminuser,
             alamat_user:alamatuser,
             email_user:emailuser,
-            password_user:passworduser
+            password_user:passworduser,
+            url:url
         },
         function (data) {
             alert(data);
@@ -373,7 +376,8 @@ function upload() {
       var fd = new FormData();
       var files = $('#file')[0].files[0];
       fd.append('file',files);
-
+      fd.append('id',$("#nomor_ktp").val());
+    alert(files);
       $.ajax({
           url: 'ajaxupload.php',
           type: 'post',
@@ -384,12 +388,26 @@ function upload() {
               if(response != 0){
                   $("#img").attr("src",response); 
                   $(".preview img").show(); // Display image element
+                  $("#url_user").val(response);
+                  alert(response);
               }else{
                   alert('file not uploaded');
               }
           },
       });
     }
+    var ctr_1 = 0;
+    $("#nomor_ktp").on('input',function(){
+        
+        //ctr_1 = $("#nomor_ktp").val().length;
+        ctr_1 = ctr_1 + 1;
+        if(ctr_1 == 5){
+        ctr_1 = 1;
+        len = $("#nomor_ktp").val().length -1;
+        var isi = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
+        $("#nomor_ktp").val(isi);
+        }
+    });
 
 
 </script>
