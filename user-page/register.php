@@ -382,7 +382,7 @@ function register() {
     var passworduser = $("#password_user").val();
     var konpassword = $("#kon_password").val();
     //alert(telpuser);
-
+    //test
     //validasi setiap inputan
     (function() {
     'use strict';
