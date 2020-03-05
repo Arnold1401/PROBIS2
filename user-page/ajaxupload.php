@@ -2,9 +2,10 @@
 
 /* Getting file name */
 $filename = $_FILES['file']['name'];
-
+$id = $_POST['id'];
+$new_id = str_replace("-","",$id);
 /* Location */
-$location = "upload/".$filename;
+$location = "upload/".$new_id.$filename;
 $uploadOk = 1;
 $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
 

@@ -7,9 +7,10 @@ if ($_POST['jenis'] == "register") {
     
     $nama_perusahaan = $_POST["nama_perusahaan"];
     $nama_user = $_POST["nama_user"];
-    $nomor_ktp = $_POST["nomor_ktp"];
+    $nomor_ktp1 = $_POST["nomor_ktp"];
+    $nomor_ktp = str_replace("-","",$nomor_ktp1);
     // $foto_ktp = $_POST["foto_ktp"]; sementara
-    $foto_ktp = 0;
+    $foto_ktp = $_POST["url"];
     $telp_user = $_POST["telp_user"];
     $lahir_user = $_POST["lahir_user"];
     $jeniskelamin_user = $_POST["jeniskelamin_user"];
@@ -36,7 +37,7 @@ if ($_POST['jenis'] == "register") {
     if ($ctr > 0) {
         $id_user.=str_pad(($ctr+1),3,"0",STR_PAD_LEFT);
         
-        $sql2 = "insert into users (id_user,nama_perusahaan,nama_user,nomor_ktp,foto_ktp,telp_user,lahir_user,jeniskelamin_user,alamat_user,pilih_sales,email_users,password_user,role_user,status_akun) values ('$id_user','$nama_perusahaan','$nama_user',$nomor_ktp,$foto_ktp,$telp_user,$lahir_user,$jeniskelamin_user,'$alamat_user','$sales_pilihanuser','$email_user','$password_user',$role_user,$status_akun)";
+        $sql2 = "insert into users (id_user,nama_perusahaan,nama_user,nomor_ktp,foto_ktp,telp_user,lahir_user,jeniskelamin_user,alamat_user,pilih_sales,email_users,password_user,role_user,status_akun) values ('$id_user','$nama_perusahaan','$nama_user','$nomor_ktp','$foto_ktp','$telp_user','$lahir_user',$jeniskelamin_user,'$alamat_user','$sales_pilihanuser','$email_user','$password_user',$role_user,$status_akun)";
 
         if ($conn->query($sql2)) {
             echo "berhasil register";
