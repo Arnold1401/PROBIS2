@@ -381,7 +381,7 @@ function register() {
     var emailuser = $("#email_user").val();
     var passworduser = $("#password_user").val();
     var konpassword = $("#kon_password").val();
-    alert(telpuser);
+    //alert(telpuser);
 
     //validasi setiap inputan
     (function() {
