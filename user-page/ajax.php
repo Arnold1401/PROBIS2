@@ -35,7 +35,7 @@ if ($_POST['jenis'] == "register") {
     if ($ctr > 0) {
         $id_user.=str_pad(($ctr+1),3,"0",STR_PAD_LEFT);
         
-        $sql2 = "insert into users (id_user,nama_perusahaan,nama_user,nomor_ktp,foto_ktp,telp_user,lahir_user,jeniskelamin_user,alamat_user,pilih_sales,email_users,password_user,role_user,status_akun) values ('$id_user','$nama_perusahaan','$nama_user',$nomor_ktp,$foto_ktp,$telp_user,$lahir_user,$jeniskelamin_user,'$alamat_user','$sales_pilihanuser','$email_user','$password_user',$role_user,$status_akun)";
+        $sql2 = "insert into users (id_user,nama_perusahaan,nama_user,nomor_ktp,foto_ktp,telp_user,lahir_user,jeniskelamin_user,alamat_user,pilih_sales,email_users,password_user,role_user,status_akun) values ('$id_user','$nama_perusahaan','$nama_user','$nomor_ktp','$foto_ktp','$telp_user','$lahir_user',$jeniskelamin_user,'$alamat_user','$sales_pilihanuser','$email_user','$password_user',$role_user,$status_akun)";
 
         if ($conn->query($sql2)) {
             echo "berhasil register";

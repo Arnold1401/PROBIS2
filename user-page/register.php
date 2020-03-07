@@ -294,7 +294,22 @@ require_once("head.php");
     function register() {
     alert(noktp.length); 
     //ini nanti hasilnya no telp
+function register() {
+    var namaperusahaan = $("#nama_perusahaan").val();
+    var namauser = $("#nama_user").val();
+    var nomorktp = $("#nomor_ktp").val();
+    var fotoktp = $("#foto_ktp").val();
+    var telpuser = $("#telp_user").val();
+    var lahiruser = $("#lahir_user").val();
+    var jeniskelaminuser = $("#jeniskelamin_user").val();
+    var alamatuser = $("#alamat_user").val();
+    var salespilihanuser = $("#sales_pilihanuser").val();
 
+    var emailuser = $("#email_user").val();
+    var passworduser = $("#password_user").val();
+    var konpassword = $("#kon_password").val();
+    //alert(telpuser);
+    //test
     //validasi setiap inputan
     (function() {
     'use strict';
