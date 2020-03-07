@@ -53,8 +53,7 @@ if ($_POST['jenis'] == "register") {
 
 
 
-
-
+// load barang/produk di produk.php
 
 
 ?>

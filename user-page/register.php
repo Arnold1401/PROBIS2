@@ -108,7 +108,6 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    
                     <select class="form-control" name="" id="" aria-describedby="helpprovinsi_user" required>
                     <option>Provinsi</option>
                     <option></option>
@@ -292,7 +291,7 @@ require_once("head.php");
     }
     // end pemisah ktp
 
-function register() {
+    function register() {
     alert(noktp.length); 
     //ini nanti hasilnya no telp
 
@@ -396,18 +395,18 @@ function upload() {
           },
       });
     }
-    var ctr_1 = 0;
-    $("#nomor_ktp").on('input',function(){
+    // var ctr_1 = 0;
+    // $("#nomor_ktp").on('input',function(){
         
-        //ctr_1 = $("#nomor_ktp").val().length;
-        ctr_1 = ctr_1 + 1;
-        if(ctr_1 == 5){
-        ctr_1 = 1;
-        len = $("#nomor_ktp").val().length -1;
-        var isi = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
-        $("#nomor_ktp").val(isi);
-        }
-    });
+    //     //ctr_1 = $("#nomor_ktp").val().length;
+    //     ctr_1 = ctr_1 + 1;
+    //     if(ctr_1 == 5){
+    //     ctr_1 = 1;
+    //     len = $("#nomor_ktp").val().length -1;
+    //     var isi = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
+    //     $("#nomor_ktp").val(isi);
+    //     }
+    // });
 
 
 </script>
