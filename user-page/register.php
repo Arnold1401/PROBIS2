@@ -108,31 +108,25 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <select class="form-control" name="" id="" aria-describedby="helpprovinsi_user" required>
-                    <option>Provinsi</option>
-                    <option></option>
-                    <option></option>
+                    <select class="form-control" name="" id="cb_prov" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
+                    <!-- isi ajax getprovinsi -->
                     </select>
                     <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="" aria-describedby="helpkota_user" required>
-                    <option>Kota</option>
-                    <option></option>
-                    <option></option>
+                    <select class="form-control" name="" id="cb_kota" onclick="cb_subdistrict()" aria-describedby="helpkota_user" required>
+            <!-- isi ajax kota -->
                     </select>
                     <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="" aria-describedby="helpkecamatan_user" required>
-                    <option>Kecamatan</option>
-                    <option></option>
-                    <option></option>
-                    </select>
+                    <select class="form-control" name="" id="cb_subdistrict" aria-describedby="helpkecamatan_user" required>
+              <!-- isi ajax subdistrict -->
+                </select>
                     <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
@@ -410,6 +404,7 @@ function upload() {
           },
       });
     }
+    }
     // var ctr_1 = 0;
     // $("#nomor_ktp").on('input',function(){
         
@@ -423,5 +418,42 @@ function upload() {
     //     }
     // });
 
+    function cb_prov(){
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getprovince",
+        },
+        function(data){
+            console.log(data);
+            $("#cb_prov").html(data);
+        });
+    }
+
+    cb_prov();
+
+    function cb_city() {
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getcity",
+            province:$("#cb_prov").val(),
+        },
+        function(data){
+            console.log(data);
+            $("#cb_kota").html(data);
+        });
+        $("#cb_kota").val(-1);
+    }
+
+    function cb_subdistrict() {
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getsubdistrict",
+            city:$("#cb_kota").val(),
+        },
+        function(data){
+            console.log(data);
+            $("#cb_subdistrict").html(data);
+        });
+    }
 
 </script>
