@@ -9,7 +9,6 @@ require_once("head.php");
    
 </head>
 <body class="goto-here">
-   
     <!-- header paling atas -->
     <div class="py-1 bg-primary">
         <div class="container">
