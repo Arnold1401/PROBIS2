@@ -116,7 +116,7 @@ require_once("head.php");
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="cb_kota" onclick="cb_subdistrict()" aria-describedby="helpkota_user" required>
+                    <select class="form-control" name="" id="cb_kota" onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
             <!-- isi ajax kota -->
                     </select>
                     <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
@@ -124,7 +124,7 @@ require_once("head.php");
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="cb_subdistrict" aria-describedby="helpkecamatan_user" required>
+                    <select class="form-control" name="" id="cb_kecamatan" aria-describedby="helpkecamatan_user" required>
               <!-- isi ajax subdistrict -->
                 </select>
                     <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
@@ -445,15 +445,18 @@ function upload() {
     }
 
     function cb_subdistrict() {
-        $.post("ajaxs/ajaxregister.php",
-        {
-            jenis:"getsubdistrict",
-            city:$("#cb_kota").val(),
-        },
-        function(data){
-            console.log(data);
-            $("#cb_subdistrict").html(data);
-        });
+        if ($("#cb_kota").val()!=null) {
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getsubdistrict",
+                city:$("#cb_kota").val(),
+            },
+            function(data){
+                console.log(data);
+                $("#cb_kecamatan").html(data);
+            });
+        }
+        
     }
 
 </script>
