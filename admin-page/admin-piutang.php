@@ -172,10 +172,12 @@ require_once("adminhead.php");
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">[no resi]</strong>
+                                <strong class="card-title">[no resi]/[Nama Perusahaan]</strong>
                             </div>
                             <div class="card-body">
                                 <div class="row form-group">
+                                <div class="col-sm-8">[Pembeli atas nama]</div>
+                                <div class="col-sm-4">[tanggal jatuh tempo]</div>
                                     <div class="col col-md-2">
                                         <label for="email-input" class=" form-control-label float-right">No Resi</label>
                                     </div>

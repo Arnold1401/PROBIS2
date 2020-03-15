@@ -108,32 +108,25 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    
-                    <select class="form-control" name="" id="" aria-describedby="helpprovinsi_user" required>
-                    <option>Provinsi</option>
-                    <option></option>
-                    <option></option>
+                    <select class="form-control" name="" id="cb_prov" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
+                    <!-- isi ajax getprovinsi -->
                     </select>
                     <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="" aria-describedby="helpkota_user" required>
-                    <option>Kota</option>
-                    <option></option>
-                    <option></option>
+                    <select class="form-control" name="" id="cb_kota" onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
+            <!-- isi ajax kota -->
                     </select>
                     <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="" aria-describedby="helpkecamatan_user" required>
-                    <option>Kecamatan</option>
-                    <option></option>
-                    <option></option>
-                    </select>
+                    <select class="form-control" name="" id="cb_kecamatan" aria-describedby="helpkecamatan_user" required>
+              <!-- isi ajax subdistrict -->
+                </select>
                     <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
@@ -292,6 +285,9 @@ require_once("head.php");
     }
     // end pemisah ktp
 
+    function register() {
+    alert(noktp.length); 
+    //ini nanti hasilnya no telp
 function register() {
     var namaperusahaan = $("#nama_perusahaan").val();
     var namauser = $("#nama_user").val();
@@ -409,18 +405,59 @@ function upload() {
           },
       });
     }
-    var ctr_1 = 0;
-    $("#nomor_ktp").on('input',function(){
+    }
+    // var ctr_1 = 0;
+    // $("#nomor_ktp").on('input',function(){
         
-        //ctr_1 = $("#nomor_ktp").val().length;
-        ctr_1 = ctr_1 + 1;
-        if(ctr_1 == 5){
-        ctr_1 = 1;
-        len = $("#nomor_ktp").val().length -1;
-        var isi = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
-        $("#nomor_ktp").val(isi);
-        }
-    });
+    //     //ctr_1 = $("#nomor_ktp").val().length;
+    //     ctr_1 = ctr_1 + 1;
+    //     if(ctr_1 == 5){
+    //     ctr_1 = 1;
+    //     len = $("#nomor_ktp").val().length -1;
+    //     var isi = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
+    //     $("#nomor_ktp").val(isi);
+    //     }
+    // });
 
+    function cb_prov(){
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getprovince",
+        },
+        function(data){
+            console.log(data);
+            $("#cb_prov").html(data);
+        });
+    }
+
+    cb_prov();
+
+    function cb_city() {
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getcity",
+            province:$("#cb_prov").val(),
+        },
+        function(data){
+            console.log(data);
+            $("#cb_kota").html(data);
+        });
+        $("#cb_kota").val(-1);
+    }
+
+    function cb_subdistrict() {
+        if ($("#cb_kota").val()!=null) {
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getsubdistrict",
+                city:$("#cb_kota").val(),
+            },
+            function(data){
+                console.log(data);
+                $("#cb_kecamatan").html(data);
+            });
+        }
+        
+    }
 
 </script>

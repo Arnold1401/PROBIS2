@@ -1,5 +1,13 @@
 <?php
 require_once("adminhead.php");
+include_once('adminconn.php');
+
+$isi = 10;
+$page = isset($_GET["isi"])? (int)$_GET["isi"]:1;
+$mulai = ($page>1) ? ($page*$isi) - $isi :0;
+$result = mysqli_query(getConn(), "select * from sales");
+$total = mysqli_num_rows($result);
+$pages = ceil($total/$isi);
 ?>
 
 <!doctype html>
@@ -7,7 +15,7 @@ require_once("adminhead.php");
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
+<html>
 <!--<![endif]-->
 
 <head>
@@ -110,99 +118,99 @@ require_once("adminhead.php");
             <div class="animated fadeIn">
                 <div class="row">
                 <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Sales</strong>
+                    <form class="was-validated">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Nama Sales</label>
+                                <input type="text" id="nama_sales" class="form-control" aria-describedby="helpnama_sales" required>
                             </div>
-                            <div class="card-body card-block">
+                            
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Email Sales</label>
+                                <input type="email" id="email" class="form-control">
+                            </div>
 
-                                <!-- crud barang-->
-                                <form action="">
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">No KTP Sales </label>
+                                <input id="no_ktp" type="text" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
+                                <small id="helpnomor_ktp">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>                            
+                            </div>
 
-                                  <div class="row form-group">
-                                    <div class="col col-md-3">
-                                      <label for="file-input" class=" form-control-label">Unggah Foto KTP Anda</label>
-                                    </div>
-                                      
-                                    <div class="col-12 col-md-9">
-                                      <input type="file" id="file-input" name="file-input" class="form-control-file">
-                                    </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Sales</label>
-                                      <input type="text" id="" name="" value="fira" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Email Sales</label>
-                                      <input type="text" id="" name="" value="fira@gmail.com" class="form-control">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">No KTP Sales </label>
-                                      <input type="number" id="" name="" value="9876543215648562" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">No Telpon </label>
-                                      <input type="number" id="" name="" value="082288569879" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Tanggal/Bulan/Tahun Lahir </label>
-                                      <input type="date" id="" name="" value="01/04/1999" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Jenis Kelamin </label>
-                                    <select name="select" id="select" class="form-control">
-                                        <option value="0">Wanita</option>
-                                        <option value="1">Pria</option>
-                                      </select>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Alamat</label>
-                                    <textarea class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
-                                  </div>     
-                                  
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-success btn-md">
-                                        <i class="fa fa-dot-circle-o"></i> Tambahkan
-                                        </button>
-
-                                        <button type="submit" class="btn btn-danger btn-md">
-                                        <i class="fa fa-ban"></i> Reset
-                                        </button>
-
-                                        <button type="submit" class="btn btn-warning btn-md float-right">
-                                        <i class="fa fa-ban"></i> Ubah
-                                        </button>
-                                    </div>                                
-                                  
-                                  <br>
-
-                                  <div class="form-group">
-                                    <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
-                                    <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                                    <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
-                                  </div>
-                                  
-
-
-                                  
-                                </form>
-                                <!-- crud barang-->
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">No Telpon </label>
+                                <input id="nomor_telepon" type="number" class="form-control">
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <!-- end col 6 -->
+                        
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Provinsi</label>
+                                <select class="form-control" id="provinsi" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
+                                   <!-- isi ajax -->
+                                </select>
+                                <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Kota</label>                   
+                                <select class="form-control" id="kota"  onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
+<!--  -->
+                                </select>
+                                <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
+                            </div>
+
+                            <div class="form-group"> 
+                                <label for="" class=" form-control-label">Kecamatan</label>
+                                <select class="form-control" id="kecamatan" aria-describedby="helpkecamatan_user" required>
+                                <!--  -->
+                                </select>
+                                <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for=""class=" form-control-label">Alamat</label>
+                                <textarea class="form-control" id="alamat" rows="3" class="form-control"></textarea>
+                            </div>  
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <section class="card">                                   
+                                        <button type="button" class="btn btn-success btn-md " onclick="tambahsales()">
+                                            <i class="fa fa-dot-circle-o"></i> Tambahkan
+                                        </button>                                      
+                                    </section>
+                                </div>
+                                <div class="col-md-4">
+                                    <section class="card">
+                                    <button type="submit" class="btn btn-danger btn-md">
+                                            <i class="fa fa-ban"></i> Reset
+                                            </button>
+                                    </section>
+                                </div>
+                                <div class="col-lg-4">
+                                    <section class="card">
+                                    <button type="submit" class="btn btn-warning btn-md float-right">
+                                            <i class="fa fa-ban"></i> Ubah
+                                            </button>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
+                                <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
+                                <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
+                            </div>
+                        </div>
+                        <!-- end col 6 -->
+                    </form>
+                </div> <!-- end col 12 -->
+                </div><!-- end row  -->
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Barang</strong>
+                                <strong class="card-title">List Sales</strong>
                             </div>
                             <div class="card-body">
                               <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
@@ -212,46 +220,39 @@ require_once("adminhead.php");
                               <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id Sales</th>
+                                            <th>#</th>
                                             <th>Nama </th>
                                             <th>Email</th>
-                                            <th>Nomor KTP</th>
-                                            
+                                            <th>Nomor Telepon</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
                                         
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                      
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>                                           
-                                            
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                        
+                                        <?php
+                                            $urutan = 1;
+                                            $res = mysqli_query(getConn(), "select * from sales LIMIT $mulai, $isi");
+                                            if (mysqli_num_rows($res)>0) {
+                                                while ($data = mysqli_fetch_assoc($res)) { ?>
+                                                    <tr> 
+                                                        <td> <?php echo $urutan++; ?> </td>
+                                                        <td> <?php echo $data["nama_sales"]; ?> </td>
+                                                        <td> <?php echo $data["email"]; ?> </td>
+                                                        <td> <?php echo $data["nomor_telepon"]; ?> </td>
+                                                        <td>
+                                                            <button type="button" name="" id="" class="btn btn-primary">Detail</button>         
+                                                            <button type="button" name="" id="" class="btn btn-primary">List Reseller</button>                                                                           
+                                                        </td>
+                                                    </tr>
+                                        <?php     }
+                                            }
+                                        ?>
+                                        
                                     </tbody>
                                 </table>
+
+                                <!-- pagging -->
+                                
                               </div>
                                
                             </div>
@@ -287,8 +288,220 @@ require_once("adminhead.php");
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
-
+    
 </body>
 
 </html>
+<script>
 
+    // API
+
+    
+    function cb_prov(){
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getprovince",
+        },
+        function(data){
+            console.log(data);
+            $("#provinsi").html(data);
+        });
+    }
+
+    cb_prov();
+
+    function cb_city() {
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getcity",
+            province:$("#provinsi").val(),
+        },
+        function(data){
+            console.log(data);
+            $("#kota").html(data);
+        });
+        $("#kota").val(-1);
+    }
+
+    function cb_subdistrict() {
+        if ($("#cb_kota").val()!=null) {
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getsubdistrict",
+                city:$("#kota").val(),
+            },
+            function(data){
+                console.log(data);
+                $("#kecamatan").html(data);
+            });
+        }
+        
+    }
+
+
+    // pemisah ktp
+    function pemisahktp(noktp)
+    {
+        var _minus = false;
+        if (noktp<0) _minus = true;
+        noktp=noktp.toString();
+        noktp=noktp.replace(".","");
+        noktp=noktp.replace("-","");
+        
+        c = "";
+        panjang = noktp.length;
+        j = 0;
+        for (i = panjang; i > 0; i--)
+        {
+            j = j + 1;
+            
+            if (((j % 4) == 1) && (j != 1))
+            {
+                c = noktp.substr(i-1,1) + "-" + c;
+            }else
+            {   c = noktp.substr(i-1,1) + c;    }
+        }
+        
+        if (_minus) c = "-" + c ;
+        return c;
+        
+    }
+    
+    function numbersonly(ini, e)
+    {
+    if (e.keyCode>=49)
+    {
+    if(e.keyCode<=57)
+    {
+    a = ini.value.toString().replace(".","");
+    noktp = a.replace(/[^\d]/g,"");
+    noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
+    ini.value = pemisahktp(noktp);
+
+    return false;
+    }
+
+    else if(e.keyCode<=105){
+    if(e.keyCode>=96){
+    //e.keycode = e.keycode - 47;
+    a = ini.value.toString().replace(".","");
+    noktp = a.replace(/[^\d]/g,"");
+    noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
+    ini.value = pemisahktp(noktp);
+    //alert(e.keycode);
+    return false;
+    }
+    else {return false;}
+    }else {
+    return false; }
+    }else if (e.keyCode==48){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
+    noktp = a.replace(/[^\d]/g,"");
+    if (parseFloat(noktp)!=0){
+    ini.value = pemisahktp(noktp);
+    return false;
+    } else {return false;}
+    }else if (e.keyCode==95){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
+    noktp = a.replace(/[^\d]/g,"");
+    if (parseFloat(noktp)!=0){
+        ini.value = pemisahktp(noktp);
+        return false;
+        } else {return false;}
+    }else if (e.keyCode==8 || e.keycode==46){
+        a = ini.value.replace(".","");
+        noktp = a.replace(/[^\d]/g,"");
+        noktp = noktp.substr(0,noktp.length -1);
+        
+        if (pemisahktp(noktp)!=""){
+            ini.value = pemisahktp(noktp);
+        } else {ini.value = "";}
+        
+        return false;
+        } else if (e.keyCode==9){
+        return true;
+        } else if (e.keyCode==17){
+        return true;
+        } else {
+        //alert (e.keyCode);
+        return false;
+        }
+
+    }
+    // end pemisah ktp
+
+    function tambahsales() {
+
+        //validasi setiap inputan
+        (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+            }
+            
+            form.classList.add('was-validated');
+            }, false);
+        });
+        }, false);
+        })();
+
+        //button tambah
+        
+        // var namasales = 
+        // var emailsales = 
+        // var noktpsales = 
+        // var notelpsales = document.getElementById('nomor_telepon').value;
+        // var provinsisales= document.getElementById('provinsi').value;
+        // var kotasales = document.getElementById('kota').value;
+        // var kecamatansales= document.getElementById('kecamatan').value;
+        // var alamatsales = document.getElementById('alamat').value;
+        // var statussales = $("#status").val();
+
+        // alert(noktp);
+
+        (function($){
+            $.post("adminajax.php",
+        {
+            jenis: "tambah_sales",
+            nama_sales:document.getElementById('nama_sales').value,
+            email:document.getElementById('email').value,
+            no_ktp:noktp,
+            nomor_telepon:document.getElementById('nomor_telepon').value,
+            provinsi:document.getElementById('provinsi').value,
+            kota:document.getElementById('kota').value,
+            kecamatan:document.getElementById('kecamatan').value,
+            alamat:document.getElementById('alamat').value,
+
+        },
+        function (data) {
+            alert(data);
+        });
+            
+        }(jQuery))
+
+        // reset inputan
+        document.getElementById('nama_sales').value="";
+        document.getElementById('email').value = "";
+        document.getElementById('no_ktp').value = "";
+        document.getElementById('nomor_telepon').value="";
+        document.getElementById('provinsi').value = "";
+        document.getElementById('kota').value = "";
+        document.getElementById('kecamatan').value = "";
+        document.getElementById('alamat').value = "";
+
+
+    }
+
+
+
+
+    
+</script>
