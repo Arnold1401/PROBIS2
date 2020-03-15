@@ -8,7 +8,7 @@ if ($_POST['jenis'] == "register") {
     $nama_perusahaan = $_POST["nama_perusahaan"];
     $nama_user = $_POST["nama_user"];
     $nomor_ktp = $_POST["nomor_ktp"];
-    $foto_ktp = 0;
+    $foto_ktp = $_POST["foto_ktp"];
     $telp_user = $_POST["telp_user"];
     $lahir_user = $_POST["lahir_user"];
     $jeniskelamin_user = $_POST["jeniskelamin_user"];
@@ -39,6 +39,7 @@ if ($_POST['jenis'] == "register") {
 
         if ($conn->query($sql2)) {
             echo "berhasil register";
+            
         }else{
             echo "gagal register";
         }

@@ -320,7 +320,7 @@ function register() {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
-            
+            alert("Inputan Tidak Lengkap");
         }
         
         form.classList.add('was-validated');
@@ -333,7 +333,7 @@ function register() {
     var namaperusahaan = $("#nama_perusahaan").val();
     var namauser = $("#nama_user").val();
     var nomorktp = $("#nomor_ktp").val();
-    var fotoktp = $("#file").val();
+    var fotoktp = $("#url_user").val();
     var telpuser = $("#telp_user").val();
     var lahiruser = $("#lahir_user").val();
     var jeniskelaminuser = $("#jeniskelamin_user").val();
@@ -364,8 +364,7 @@ function register() {
             jeniskelamin_user:jeniskelaminuser,
             alamat_user:alamatuser,
             email_user:emailuser,
-            password_user:passworduser,
-            url:url
+            password_user:passworduser
         },
         function (data) {
             alert(data);
@@ -377,6 +376,8 @@ function register() {
         alert('tidak sama');
         }
 
+    }else{
+        alert("input tidak valid");
     }
 
     
