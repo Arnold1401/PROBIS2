@@ -6,16 +6,16 @@ include 'conn.php';
 if (isset($_POST["login"])) {
     # code...
     $conn = getConn();
-    $sql = "select * from users where email_user='".$_POST["email_user"]."' and password_user = '".$_POST["password_user"]."'";
+    $sql = "select * from customer where email='".$_POST["email_user"]."' and password = '".$_POST["password_user"]."'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             
-            $_SESSION["nama_user"]=$row["nama_user"];
-            $_SESSION["email_user"]=$row["email_user"];
-            $_SESSION["role_user"]=$row["role_user"];
-            $_SESSION["status_akun"]=$row["status_akun"];
+            $_SESSION["nama_user"]=$row["nama_pemilik"];
+            $_SESSION["email_user"]=$row["email"];
+            $_SESSION["role_user"]="2";
+            $_SESSION["status_akun"]=$row["status"];
         }
 
         // mengetahui siapa yg sedang login (role)

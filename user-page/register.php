@@ -108,7 +108,7 @@ require_once("head.php");
                 </div>
 
                 <div class="form-group">
-                    <select class="form-control" name="" id="cb_prov" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
+                    <select class="form-control" name="prov" id="cb_prov" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
                     <!-- isi ajax getprovinsi -->
                     </select>
                     <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
@@ -116,7 +116,7 @@ require_once("head.php");
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="cb_kota" onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
+                    <select class="form-control" name="kota" id="cb_kota" onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
             <!-- isi ajax kota -->
                     </select>
                     <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
@@ -124,14 +124,14 @@ require_once("head.php");
 
                 <div class="form-group">
                     
-                    <select class="form-control" name="" id="cb_kecamatan" aria-describedby="helpkecamatan_user" required>
+                    <select class="form-control" name="camat" id="cb_kecamatan" aria-describedby="helpkecamatan_user" required>
               <!-- isi ajax subdistrict -->
                 </select>
                     <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
                 </div>
 
                 <div class="form-group">
-                  <textarea placeholder="Alamat Anda" class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
+                  <textarea placeholder="Alamat Anda" name="alamat" class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
                   <small id="helpalamat_user" class="invalid-feedback">Masukkan Alamat Anda</small>
                 </div>
 
@@ -285,9 +285,6 @@ require_once("head.php");
     }
     // end pemisah ktp
 
-    function register() {
-    alert(noktp.length); 
-    //ini nanti hasilnya no telp
 function register() {
     var namaperusahaan = $("#nama_perusahaan").val();
     var namauser = $("#nama_user").val();
@@ -337,6 +334,9 @@ function register() {
     var emailuser = $("#email_user").val();
     var passworduser = $("#password_user").val();
     var konpassword = $("#kon_password").val();
+    var prov = $("#cb_prov").val();
+    var kota = $("#cb_kota").val();
+    var camat = $("#cb_kecamatan").val();
     
     if (namaperusahaan == "" || namauser == "" || nomorktp == "" || fotoktp == "" || telpuser == "" || 
     lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || emailuser == ""||
@@ -360,10 +360,14 @@ function register() {
             jeniskelamin_user:jeniskelaminuser,
             alamat_user:alamatuser,
             email_user:emailuser,
-            password_user:passworduser
+            password_user:passworduser,
+            prov:prov,
+            kota:kota,
+            camat:camat
         },
         function (data) {
             alert(data);
+            window.location.href = "http://localhost/Probis2/PROBIS2/user-page/login.php";
         });
 
         }
@@ -375,9 +379,6 @@ function register() {
     }else{
         alert("input tidak valid");
     }
-
-    
-    
 }
 
 
@@ -405,7 +406,7 @@ function upload() {
           },
       });
     }
-    }
+    
     // var ctr_1 = 0;
     // $("#nomor_ktp").on('input',function(){
         
