@@ -121,13 +121,15 @@ $pages = ceil($total/$isi);
                     <form class="was-validated">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="" class=" form-control-label">Nama Sales</label>
+                                <label for="" class="form-control-label">Nama Sales</label>
                                 <input type="text" id="nama_sales" class="form-control" aria-describedby="helpnama_sales" required>
+                                <small id="helpnama_sales">Masukkan nama lengkap sales</small>
                             </div>
                             
                             <div class="form-group">
                                 <label for="" class=" form-control-label">Email Sales</label>
-                                <input type="email" id="email" class="form-control">
+                                <input type="email" id="email" class="form-control" placeholder="contoh@gmail.com" aria-describedby="helpemail_sales" required>
+                                <small id="helpemail_sales">Masukkan email sales</small>
                             </div>
 
                             <div class="form-group">
@@ -138,7 +140,8 @@ $pages = ceil($total/$isi);
 
                             <div class="form-group">
                                 <label for="" class=" form-control-label">No Telpon </label>
-                                <input id="nomor_telepon" type="number" class="form-control">
+                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required>
+                                <small id="helpnomor_telepon_sales">Masukkan nomor telepon sales</small>
                             </div>
                         </div>
                         <!-- end col 6 -->
@@ -170,7 +173,8 @@ $pages = ceil($total/$isi);
 
                             <div class="form-group">
                                 <label for=""class=" form-control-label">Alamat</label>
-                                <textarea class="form-control" id="alamat" rows="3" class="form-control"></textarea>
+                                <textarea class="form-control" id="alamat" rows="3" class="form-control" aria-describedby="helpalamat_user" required></textarea>
+                                <small id="helpalamat_user" class="invalid-feedback">Isi Alamat Anda</small>
                             </div>  
                             <div class="row">
                                 <div class="col-md-4">

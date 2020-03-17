@@ -48,7 +48,7 @@ if ($_POST["jenis"] == "detailsales") {
     $email = $_POST["emailsales"];
     $result = mysqli_query(getConn(), "select * from sales where email='".$email."'");
     $trans = mysqli_fetch_array($result);
-
+    echo $email;
     
 }
 

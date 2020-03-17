@@ -26,6 +26,7 @@ require_once("adminhead.php");
                 </button>
                 <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
                 <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -117,7 +118,7 @@ require_once("adminhead.php");
                             <div class="card-body card-block">
 
                                 <!-- crud barang-->
-                                <form action="">
+                                <form class="was-validated">
 
                                   <div class="row form-group">
                                     <div class="col col-md-3">
@@ -127,24 +128,27 @@ require_once("adminhead.php");
                                     <div class="col-12 col-md-9">
                                       <input type="file" id="file-input" name="file-input" class="form-control-file">
                                     </div>
+                                    <small id="helpfile-input" class="invalid-feedback">Isi Alamat Anda</small>
                                   </div>
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Nama Barang</label>
-                                      <input type="text" id="" name="" placeholder="Isi Nama Barang" class="form-control">
-                                      <small class="help-block">Isi Nama Barang</small>
+                                      <input type="text" id="nama_barang" placeholder="Isi Nama Barang" class="form-control" aria-describedby="helpnama_barang" required>
+                                      <small class="helpnama_barang">Isi Nama Barang</small>
                                   </div>
 
                                     <div class="row form-group">
 
                                         <div class="col col-md-6">
                                             <label for="" class=" form-control-label">Jenis Satuan Barang </label>
-                                                <select name="select" id="select" class="form-control">
+                                                <select name="select" id="select" class="form-control" aria-describedby="helpselect_barang" required>
+                                                    <option value="">Pilih</option>
                                                     <option value="0">Box</option>
                                                     <option value="1">Pcs</option>
                                                     <option value="2">Botol</option>
                                                     <option value="3">Tambah Satuan Baru</option>
                                                 </select>
+                                                <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
                                                 <small>*Pilih Satuan Barang</small><br>
                                                 <small>*Pilih Tambahkan Satuan Barang untuk menambah satuan barang yang tidak tertera</small>
                                         </div>
@@ -216,7 +220,7 @@ require_once("adminhead.php");
                                  
 
                                   <div class="form-group">
-                                    <button type="submit" class="btn btn-success btn-md">
+                                    <button type="submit" class="btn btn-success btn-md" onclick="tambahbarang()">
                                         <i class="fa fa-dot-circle-o"></i> Tambahkan
                                     </button>
 
@@ -403,3 +407,28 @@ require_once("adminhead.php");
 
 </html>
 
+<script>
+function tambahbarang() {
+    //validasi setiap inputan
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+            }
+            
+            form.classList.add('was-validated');
+            }, false);
+        });
+        }, false);
+        })();
+
+}
+</script>
