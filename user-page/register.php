@@ -345,7 +345,7 @@ function register() {
     }
     if(namaperusahaan != "" && namauser != "" && nomorktp != "" && fotoktp != "" && telpuser != "" && 
     lahiruser != "" && jeniskelaminuser != "" && alamatuser != "" && emailuser != "" &&
-    passworduser != "" && noktp.length == 16){
+    passworduser != "" && nomorktp.length == 19){
 
         if (konpassword == passworduser) {
         $.post("ajax.php",
@@ -368,6 +368,7 @@ function register() {
         function (data) {
             alert(data);
             window.location.href = "http://localhost/Probis2/PROBIS2/user-page/login.php";
+            
         });
 
         }
