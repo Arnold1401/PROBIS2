@@ -146,20 +146,16 @@ $pages = ceil($total/$isi);
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="" class=" form-control-label">Provinsi</label>
-                                <select class="form-control" id="provinsi" aria-describedby="helpprovinsi_user" required>
-                                    <option>Pilih Provinsi</option>
-                                    <option value="Jawa Timur">Jawa Timur</option>
-                                    <option></option>
+                                <select class="form-control" id="provinsi" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
+                                   <!-- isi ajax -->
                                 </select>
                                 <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
                             </div>
 
                             <div class="form-group">
                                 <label for="" class=" form-control-label">Kota</label>                   
-                                <select class="form-control" id="kota" aria-describedby="helpkota_user" required>
-                                <option>Pilih</option>
-                                <option value="Surabaya">Surabaya</option>
-                                <option></option>
+                                <select class="form-control" id="kota"  onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
+<!--  -->
                                 </select>
                                 <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
                             </div>
@@ -167,9 +163,7 @@ $pages = ceil($total/$isi);
                             <div class="form-group"> 
                                 <label for="" class=" form-control-label">Kecamatan</label>
                                 <select class="form-control" id="kecamatan" aria-describedby="helpkecamatan_user" required>
-                                <option>Pilih</option>
-                                <option value="Gubeng">Gubeng</option>
-                                <option></option>
+                                <!--  -->
                                 </select>
                                 <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
                             </div>
@@ -300,6 +294,52 @@ $pages = ceil($total/$isi);
 
 </html>
 <script>
+
+    // API
+
+    
+    function cb_prov(){
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getprovince",
+        },
+        function(data){
+            console.log(data);
+            $("#provinsi").html(data);
+        });
+    }
+
+    cb_prov();
+
+    function cb_city() {
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getcity",
+            province:$("#provinsi").val(),
+        },
+        function(data){
+            console.log(data);
+            $("#kota").html(data);
+        });
+        $("#kota").val(-1);
+    }
+
+    function cb_subdistrict() {
+        if ($("#cb_kota").val()!=null) {
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getsubdistrict",
+                city:$("#kota").val(),
+            },
+            function(data){
+                console.log(data);
+                $("#kecamatan").html(data);
+            });
+        }
+        
+    }
+
+
     // pemisah ktp
     function pemisahktp(noktp)
     {
