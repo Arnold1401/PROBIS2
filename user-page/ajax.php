@@ -36,7 +36,7 @@ if ($_POST['jenis'] == "register") {
     if ($ctr == 0) {
         $id_user.=str_pad(($ctr+1),3,"0",STR_PAD_LEFT);
         
-        $sql2 = "insert into customer (email,nama_perusahaan,nama_pemilik,foto_ktp,nomor_ktp,tanggal_lahir,jenis_kelamin,password,notelp,status,id_sales) values ('$email_user','$nama_perusahaan','$nama_user','$foto_ktp','$nomor_ktp','$lahir_user','$jeniskelamin_user',$password_user,'$telp_user','0','$sales_pilihanuser')";
+        $sql2 = "insert into customer (email,nama_perusahaan,nama_pemilik,foto_ktp,nomor_ktp,tanggal_lahir,jenis_kelamin,password,notelp,status,id_sales) values ('$email_user','$nama_perusahaan','$nama_user','$foto_ktp','$nomor_ktp','$lahir_user','$jeniskelamin_user','$password_user','$telp_user','0','$sales_pilihanuser')";
         $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas) values ('$email_user','$prov','$kota','$camat','$alamat_user','1')";
 
         if ($conn->query($sql2)) {
