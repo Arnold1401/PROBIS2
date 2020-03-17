@@ -1,6 +1,7 @@
 <?php
 include_once 'adminconn.php';
 
+// admin - master - sales
 if ($_POST["jenis"] == "tambah_sales") {
     
     $nama_sales=$_POST["nama_sales"];
@@ -42,4 +43,22 @@ if ($_POST["jenis"] == "tambah_sales") {
     }
     $conn->close();
 }
+
+if ($_POST["jenis"] == "detailsales") {
+    $email = $_POST["emailsales"];
+    $result = mysqli_query(getConn(), "select * from sales where email='".$email."'");
+    $trans = mysqli_fetch_array($result);
+
+    
+}
+
+if ($_POST["jenis"] == "liatreseller") {
+    $email = $_POST["emailsales"];
+    $result = mysqli_query(getConn(), "select * from customer where id_sales='".$email."'");
+    $trans = mysqli_fetch_array($result);
+
+    echo "";
+}
+
+// end of admin - master - sales
 ?>

@@ -240,8 +240,8 @@ $pages = ceil($total/$isi);
                                                         <td> <?php echo $data["email"]; ?> </td>
                                                         <td> <?php echo $data["nomor_telepon"]; ?> </td>
                                                         <td>
-                                                            <button type="button" name="" id="" class="btn btn-primary">Detail</button>         
-                                                            <button type="button" name="" id="" class="btn btn-primary">List Reseller</button>                                                                           
+                                                            <button type="button" id="detail" class="btn btn-primary" value="<?php echo $data['email']?>" onclick="detail(this,event)">Detail</button>         
+                                                            <button type="button" id="listreseller" class="btn btn-primary" value="<?php echo $data['email']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
                                                         </td>
                                                     </tr>
                                         <?php     }
@@ -269,6 +269,7 @@ $pages = ceil($total/$isi);
 
     <!-- Right Panel -->
 
+    
 
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
@@ -453,20 +454,7 @@ $pages = ceil($total/$isi);
         }, false);
         })();
 
-        //button tambah
-        
-        // var namasales = 
-        // var emailsales = 
-        // var noktpsales = 
-        // var notelpsales = document.getElementById('nomor_telepon').value;
-        // var provinsisales= document.getElementById('provinsi').value;
-        // var kotasales = document.getElementById('kota').value;
-        // var kecamatansales= document.getElementById('kecamatan').value;
-        // var alamatsales = document.getElementById('alamat').value;
-        // var statussales = $("#status").val();
-
-        // alert(noktp);
-
+    
         (function($){
             $.post("adminajax.php",
         {
@@ -497,11 +485,41 @@ $pages = ceil($total/$isi);
         document.getElementById('kecamatan').value = "";
         document.getElementById('alamat').value = "";
 
-
     }
+    // end of function tambah sales
 
+    // function detail sales
+    function detail(element,event) {
+        
+        var email = $(element).val();
+        alert(email);
+        $.ajax({
+            type:"POST",
+            url: "adminajax.php",
+            data:{
+                jenis:"detailsales",
+                emailsales:email
+            },
+            success: function (data) {
+                $("#detail").html(data);
+            }
+        });
+    };
+    // end of function detail sales
 
-
-
-    
+    // function list reseller tanggung jwb sales
+    function listreseller(element, event) {
+        var email = $(element).val();
+        $.ajax({
+            type:"POST",
+            url:"adminajax.php",
+            data:{
+                jenis:"listreseller",
+                emailsales:email
+            },
+            success: function (data) {
+                $("#listreseller").html(data);
+            }
+        });
+    } ;
 </script>
