@@ -58,7 +58,30 @@
          }
       }
 
-      kirimemail("teST 1234 ","arnold.pramudita.wewe@gmail.com","arnold");
+      function testkirim(){
+        $body="<html>
+        <head>
+            <title>Send an Email on Form Submission using PHP with PHPMailer</title>
+            <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+            <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+            <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+        </head>
+        <body>
+            <br />
+            <div class='container'>
+                <div class='row'>
+                    <h1>Test 123</h1>
+                </div>
+            </div>
+        </body>
+    </html>
+    ";
+
+
+        kirimemail($body,"arnold.pramudita.wewe@gmail.com","arnold");
+      }
+     
+      testkirim();
       
     
 
