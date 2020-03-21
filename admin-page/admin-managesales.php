@@ -525,5 +525,7 @@ $pages = ceil($total/$isi);
                 $("#listreseller").html(data);
             }
         });
-    } ;
+    };
+
+
 </script>
