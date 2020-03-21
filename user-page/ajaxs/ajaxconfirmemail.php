@@ -2,6 +2,9 @@
      use PHPMailer\PHPMailer\PHPMailer;
      use PHPMailer\PHPMailer\SMTP;
      use PHPMailer\PHPMailer\Exception;
+
+     include_once "../conn.php";
+
       function kirimemail($body,$sendto,$namauser){
        
          //$body="'This is the HTML message body <b>in bold!</b>'";
@@ -42,7 +45,7 @@
  
              // Content
              $mail->isHTML(true);                                  // Set email format to HTML
-             $mail->Subject = 'Here is the subject';
+             $mail->Subject = 'KONFIRMASI EMAIL';
              $mail->Body    = $body;
              $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
  
@@ -51,6 +54,8 @@
          } catch (Exception $e) {
              $err= "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
          }
+
+
          if ($err=="") {
              echo $kal;
          }else{
@@ -58,32 +63,62 @@
          }
       }
 
-      function testkirim(){
-        $body="<html>
-        <head>
-            <title>Send an Email on Form Submission using PHP with PHPMailer</title>
-            <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-            <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
-            <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-        </head>
-        <body>
-            <br />
-            <div class='container'>
-                <div class='row'>
-                    <h1>Test 123</h1>
+
+        if ($_POST["jenis"]=="konfirmasiemail") {
+          $email=$_POST["email"];
+          $nama="";
+          $token=substr(md5(time()), 0, 5);
+          $kal="";
+          //update user token
+
+          $conn=getConn();
+          $sql = "SELECT * FROM customer where email='$email'";
+          $result = $conn->query($sql);
+          
+          if ($result->num_rows > 0) {
+              // output data of each row
+              while($row = $result->fetch_assoc()) {
+                $nama=$row["nama_pemilik"];
+              }
+              $body="<html>
+            <head>
+                <title>Send an Email on Form Submission using PHP with PHPMailer</title>
+                <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+                <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+                <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+            </head>
+            <body>
+                <br />
+                <div class='container'>
+                    <div class='row'>
+                        <h2>Halo,$nama Token untuk konfirmasi email anda dibawah ini :</h2>
+                        <h3>$token</h3>
+                        <p>Keterangan : Masukan token tersebut apabila anda diarahkan ke halaman request token setelah login</p>
+                    </div>
                 </div>
-            </div>
-        </body>
-    </html>
-    ";
+            </body>
+        </html>
+        ";
+  
+          kirimemail($body,$email,$nama);
+          } else {
+              
+          }
 
+          $conn->close();
+          
+            
+          echo $kal;
+        }
 
-        kirimemail($body,"arnold.pramudita.wewe@gmail.com","arnold");
-      }
-     
-      testkirim();
-      
     
+
+
+
+
+
+
+
 
 
 ?>

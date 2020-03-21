@@ -39,11 +39,11 @@ require_once("head.php");
 
                 <!-- Login -->
                 <div class="form-group">
-                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Email">
+                    <input type="text" class="form-control" name="" id="txtemail" aria-describedby="helpId" placeholder="Email">
                 </div>
                
                 <div class="form-group justify-content-center">
-                   <button type="button" name="" id="" class="btn btn-primary py-2 px-5">Kirim</button>
+                   <button type="button" name="" id="" onclick="kirim()" class="btn btn-primary py-2 px-5">Kirim</button>
                 </div>
                 <!--End Login -->
 
@@ -80,4 +80,25 @@ require_once("head.php");
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
 </body>
+<script>
+
+    function kirim(){
+        $.post("ajaxs/ajaxconfirmemail.php",
+        {
+            jenis:"konfirmasiemail",
+            email:$("#txtemail").val(),
+        },
+        function(data, status){
+            var str = data;
+            var n = str.search("Message has been sent");
+            if (n>0) {
+                alert("Token telah dikirim melalui email :"+$("#txtemail").val());
+            }else{
+                alert("Token tidak terkirim pastikan email yang anda gunakan telah terdaftar");
+            }
+            
+        });
+    }
+
+</script>
 </html>
