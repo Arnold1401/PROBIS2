@@ -206,4 +206,145 @@
         }
       }
 
+
+      if ($_POST['jenis'] == "register") {
+        // (0 - admin) (1 - reseller)(2 - sales) -- role
+        // (0 - menunggu ) (1 - valid ) (2 - tidak valid) -- status akun
+        
+        $nama_perusahaan = $_POST["nama_perusahaan"];
+        $nama_user = $_POST["nama_user"];
+        $nomor_ktp = $_POST["nomor_ktp"];
+        $foto_ktp = $_POST["foto_ktp"];
+        $telp_user = $_POST["telp_user"];
+        $lahir_user = $_POST["lahir_user"];
+        $jeniskelamin_user = $_POST["jeniskelamin_user"];
+        $alamat_user = $_POST["alamat_user"];
+        $sales_pilihanuser = "null";
+        $email_user = $_POST["email_user"];
+        $password_user = $_POST["password_user"];
+        $prov = $_POST["prov"];
+        $kota = $_POST["kota"];
+        $camat = $_POST["camat"];
+        $password_user = $_POST["password_user"];
+        $role_user = 1; 
+        $status_akun = 0;
+        $id_user = substr($nama_user,0,3);
+        $conn = getConn();
+        $token=substr(md5(time()), 0, 5);
+        $sql1 = "select * from customer";
+        $result1 = $conn->query($sql1);
+        $ctr = 0;
+        while ($row1 = $result1->fetch_assoc()) {
+            if ($email_user == $row1["email"]) {
+                $ctr = 1;
+            }
+        }
+        if ($ctr == 0) {
+            $id_user.=str_pad(($ctr+1),3,"0",STR_PAD_LEFT);
+            
+            $sql2 = "insert into customer (email,nama_perusahaan,nama_pemilik,foto_ktp,nomor_ktp,tanggal_lahir,jenis_kelamin,password,notelp,status,id_sales,token) values ('$email_user','$nama_perusahaan','$nama_user','$foto_ktp','$nomor_ktp','$lahir_user','$jeniskelamin_user','$password_user','$telp_user','0','$sales_pilihanuser','$token')";
+            $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas) values ('$email_user','$prov','$kota','$camat','$alamat_user','1')";
+    
+            if ($conn->query($sql2)) {
+                if($conn->query($sql3)){
+                echo "berhasil register";
+
+                
+                $body="<html>
+                <head>
+                    <title>Send an Email on Form Submission using PHP with PHPMailer</title>
+                    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+                    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+                    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+                </head>
+                <body>
+                    <br />
+                    <div class='container'>
+                        <div class='row'>
+                            <h2>Halo,$nama_user Token untuk konfirmasi email anda dibawah ini :</h2>
+                            <h3>$token</h3>
+                            <p>Keterangan : Masukan token tersebut apabila anda diarahkan ke halaman request token setelah login</p>
+                        </div>
+                    </div>
+                </body>
+            </html>
+            ";
+                kirimemail($body,$email_user,$nama_user);
+
+                }
+                
+            }else{
+                echo "gagal register";
+            }
+        }
+        else {
+            echo "email telah digunakan!";
+        }
+        $conn->close();
+    }
+    
+
+    use PHPMailer\PHPMailer\PHPMailer;
+     use PHPMailer\PHPMailer\SMTP;
+     use PHPMailer\PHPMailer\Exception;
+    
+
+     function kirimemail($body,$sendto,$namauser){
+       
+      //$body="'This is the HTML message body <b>in bold!</b>'";
+      // $body=$_POST['isi'];
+      // $sendto=$_POST['to'];
+      // Import PHPMailer classes into the global namespace
+      // These must be at the top of your script, not inside a function
+ 
+      // Load Composer's autoloader
+      require 'mailvendor/autoload.php';
+
+      // Instantiation and passing `true` enables exceptions
+      $mail = new PHPMailer(true);
+      $kal="";
+      $err="";
+      try {
+          //Server settings
+          $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+          $mail->isSMTP();                                            // Send using SMTP
+          $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
+          $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+          $mail->Username   = 'orientherbalnusantara@gmail.com';      // SMTP username
+          $mail->Password   = 'Orientnusantara88';                    // SMTP password
+          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+          $mail->Port       = 587;                                    // TCP port to connect to
+
+          //Recipients
+          $mail->setFrom('orientherbalnusantara@gmail.com', 'Orient Herbal');
+          $mail->addAddress($sendto,$namauser);     // Add a recipient
+          //$mail->addAddress('ellen@example.com');               // Name is optional
+          //$mail->addReplyTo('info@example.com', 'Information');
+          //$mail->addCC('cc@example.com');
+          //$mail->addBCC('bcc@example.com');
+
+          // // Attachments
+          // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+          // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+          // Content
+          $mail->isHTML(true);                                  // Set email format to HTML
+          $mail->Subject = 'KONFIRMASI EMAIL';
+          $mail->Body    = $body;
+          $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+          $mail->send();
+          $kal= 'Message has been sent';
+      } catch (Exception $e) {
+          $err= "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+      }
+
+
+      if ($err=="") {
+          echo $kal;
+      }else{
+          echo $err;
+      }
+   }
+
 ?>

@@ -2,7 +2,7 @@
      use PHPMailer\PHPMailer\PHPMailer;
      use PHPMailer\PHPMailer\SMTP;
      use PHPMailer\PHPMailer\Exception;
-
+    session_start();
      include_once "../conn.php";
 
       function kirimemail($body,$sendto,$namauser){

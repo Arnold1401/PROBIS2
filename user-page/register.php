@@ -348,7 +348,7 @@ function register() {
     passworduser != "" && nomorktp.length == 19){
 
         if (konpassword == passworduser) {
-        $.post("ajax.php",
+        $.post("ajaxs/ajaxregister.php",
         {
             jenis: "register",
             nama_perusahaan:namaperusahaan,
