@@ -140,7 +140,7 @@ require_once("adminhead.php");
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">No KTP </label>
-                                      <input readonly type="number" id="" name="" value="1234567891023456" class="form-control">
+                                    <input id="no_ktp" type="text" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" value="1234567890123456" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
                                   </div>
 
                                   <div class="form-group">
@@ -249,7 +249,8 @@ require_once("adminhead.php");
                                                 <button type="button" name="" id="" class="btn btn-success btn-sm">Valid</button>                                          
                                             </td>
                                             <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
+                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>     
+                                              <button type="button" name="" id="" class="btn btn-primary">Ganti Sales</button>                                                                               
                                             </td>
                                         </tr>
                                         <tr>
@@ -317,4 +318,96 @@ require_once("adminhead.php");
 </body>
 
 </html>
+<script>
+// pemisah ktp
+function pemisahktp(noktp)
+    {
+        var _minus = false;
+        if (noktp<0) _minus = true;
+        noktp=noktp.toString();
+        noktp=noktp.replace(".","");
+        noktp=noktp.replace("-","");
+        
+        c = "";
+        panjang = noktp.length;
+        j = 0;
+        for (i = panjang; i > 0; i--)
+        {
+            j = j + 1;
+            
+            if (((j % 4) == 1) && (j != 1))
+            {
+                c = noktp.substr(i-1,1) + "-" + c;
+            }else
+            {   c = noktp.substr(i-1,1) + c;    }
+        }
+        
+        if (_minus) c = "-" + c ;
+        return c;
+        
+    }
+    
+    function numbersonly(ini, e)
+    {
+    if (e.keyCode>=49)
+    {
+    if(e.keyCode<=57)
+    {
+    a = ini.value.toString().replace(".","");
+    noktp = a.replace(/[^\d]/g,"");
+    noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
+    ini.value = pemisahktp(noktp);
 
+    return false;
+    }
+
+    else if(e.keyCode<=105){
+    if(e.keyCode>=96){
+    //e.keycode = e.keycode - 47;
+    a = ini.value.toString().replace(".","");
+    noktp = a.replace(/[^\d]/g,"");
+    noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
+    ini.value = pemisahktp(noktp);
+    //alert(e.keycode);
+    return false;
+    }
+    else {return false;}
+    }else {
+    return false; }
+    }else if (e.keyCode==48){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
+    noktp = a.replace(/[^\d]/g,"");
+    if (parseFloat(noktp)!=0){
+    ini.value = pemisahktp(noktp);
+    return false;
+    } else {return false;}
+    }else if (e.keyCode==95){
+    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
+    noktp = a.replace(/[^\d]/g,"");
+    if (parseFloat(noktp)!=0){
+        ini.value = pemisahktp(noktp);
+        return false;
+        } else {return false;}
+    }else if (e.keyCode==8 || e.keycode==46){
+        a = ini.value.replace(".","");
+        noktp = a.replace(/[^\d]/g,"");
+        noktp = noktp.substr(0,noktp.length -1);
+        
+        if (pemisahktp(noktp)!=""){
+            ini.value = pemisahktp(noktp);
+        } else {ini.value = "";}
+        
+        return false;
+        } else if (e.keyCode==9){
+        return true;
+        } else if (e.keyCode==17){
+        return true;
+        } else {
+        //alert (e.keyCode);
+        return false;
+        }
+
+    }
+    // end pemisah ktp
+
+</script>

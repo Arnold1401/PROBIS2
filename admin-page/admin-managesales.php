@@ -2,7 +2,8 @@
 require_once("adminhead.php");
 include_once('adminconn.php');
 
-$isi = 10;
+
+$isi = 50;
 $page = isset($_GET["isi"])? (int)$_GET["isi"]:1;
 $mulai = ($page>1) ? ($page*$isi) - $isi :0;
 $result = mysqli_query(getConn(), "select * from sales");
@@ -123,25 +124,29 @@ $pages = ceil($total/$isi);
                             <div class="form-group">
                                 <label for="" class="form-control-label">Nama Sales</label>
                                 <input type="text" id="nama_sales" class="form-control" aria-describedby="helpnama_sales" required>
-                                <small id="helpnama_sales">Masukkan nama lengkap sales</small>
+                                <small id="helpnama_sales" class="invalid-feedback">Masukkan nama lengkap sales</small>
                             </div>
                             
                             <div class="form-group">
                                 <label for="" class=" form-control-label">Email Sales</label>
                                 <input type="email" id="email" class="form-control" placeholder="contoh@gmail.com" aria-describedby="helpemail_sales" required>
-                                <small id="helpemail_sales">Masukkan email sales</small>
+                                <!-- <small id="helpemail_sales">Masukkan email sales</small> -->
                             </div>
 
                             <div class="form-group">
                                 <label for="" class=" form-control-label">No KTP Sales </label>
-                                <input id="no_ktp" type="text" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
-                                <small id="helpnomor_ktp">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>                            
+                                <!-- <input id="no_ktp" type="text" maxlength="10" min="1" class="form-control" pattern="/[^\d]/"/> DO NOT DELETE THIS-->
+
+                                <input id="no_ktp" type="text" maxlength="2" min="1" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required />
+                                <small id="helpnomor_ktp" class="invalid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>                            
                             </div>
 
                             <div class="form-group">
+                            <!-- ^08[0-9]{9,}$ -->
+                            <!-- /^-?\d+\.?\d*$/ -->
                                 <label for="" class=" form-control-label">No Telpon </label>
-                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required>
-                                <small id="helpnomor_telepon_sales">Masukkan nomor telepon sales</small>
+                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required pattern="^08[0-9]{9,}$" onKeyPress="if(this.value.length==12) return false;">
+                                <small id="helpnomor_telepon_sales" class="invalid-feedback">Masukkan nomor telepon sales</small>
                             </div>
                         </div>
                         <!-- end col 6 -->
@@ -152,7 +157,7 @@ $pages = ceil($total/$isi);
                                 <select class="form-control" id="provinsi" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
                                    <!-- isi ajax -->
                                 </select>
-                                <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
+                                <small id="helpprovinsi_user" class="invalid-feedback">Pilih Provinsi </small>
                             </div>
 
                             <div class="form-group">
@@ -160,7 +165,7 @@ $pages = ceil($total/$isi);
                                 <select class="form-control" id="kota"  onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
 <!--  -->
                                 </select>
-                                <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
+                                <small id="helpkota_user" class="invalid-feedback">Pilih Kota</small>
                             </div>
 
                             <div class="form-group"> 
@@ -168,14 +173,15 @@ $pages = ceil($total/$isi);
                                 <select class="form-control" id="kecamatan" aria-describedby="helpkecamatan_user" required>
                                 <!--  -->
                                 </select>
-                                <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
+                                <small id="helpkecamatan_user" class="invalid-feedback">Pilih Kecamatan</small>
                             </div>
 
                             <div class="form-group">
                                 <label for=""class=" form-control-label">Alamat</label>
-                                <textarea class="form-control" id="alamat" rows="3" class="form-control" aria-describedby="helpalamat_user" required></textarea>
-                                <small id="helpalamat_user" class="invalid-feedback">Isi Alamat Anda</small>
+                                <textarea placeholder="Alamat Anda" name="alamat" class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_sales" required></textarea>
+                                <small id="helpalamat_sales" class="invalid-feedback">Masukkan Alamat Anda</small>
                             </div>  
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <section class="card">                                   
@@ -192,11 +198,11 @@ $pages = ceil($total/$isi);
                                     </section>
                                 </div>
                                 <div class="col-lg-4">
-                                    <section class="card">
+                                    <!-- <section class="card">
                                     <button type="submit" class="btn btn-warning btn-md float-right">
                                             <i class="fa fa-ban"></i> Ubah
                                             </button>
-                                    </section>
+                                    </section> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -221,13 +227,15 @@ $pages = ceil($total/$isi);
                               <small>*Status Valid - data user sesuai</small><br>
                               <small>*Status Tidak Valid - data user tidak sesuai</small><br>
                               <div class="table-responsive">
-                              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                              <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Nama </th>
                                             <th>Email</th>
+                                            <th>No KTP</th>
                                             <th>Nomor Telepon</th>
+                                            <th>Alamat</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -242,9 +250,11 @@ $pages = ceil($total/$isi);
                                                         <td> <?php echo $urutan++; ?> </td>
                                                         <td> <?php echo $data["nama_sales"]; ?> </td>
                                                         <td> <?php echo $data["email"]; ?> </td>
+                                                        <td> <?php echo $data["no_ktp"]?></td>
+                                                        <td> <?php echo $data["provinsi"].", ".$data["kota"].", ".$data["kecamatan"].", ".$data["alamat"] ?></td>
                                                         <td> <?php echo $data["nomor_telepon"]; ?> </td>
                                                         <td>
-                                                            <button type="button" id="detail" class="btn btn-primary" value="<?php echo $data['email']?>" onclick="detail(this,event)">Detail</button>         
+                                                           
                                                             <button type="button" id="listreseller" class="btn btn-primary" value="<?php echo $data['email']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
                                                         </td>
                                                     </tr>
@@ -255,8 +265,7 @@ $pages = ceil($total/$isi);
                                     </tbody>
                                 </table>
 
-                                <!-- pagging -->
-                                
+                               
                               </div>
                                
                             </div>
@@ -293,11 +302,31 @@ $pages = ceil($total/$isi);
     <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
     <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
-    
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>    
+
 </body>
 
 </html>
 <script>
+    $(document).ready(function() {
+    var table = $('#example').DataTable( {
+        lengthChange: false,
+        buttons: [ 'copy', 'excel', 'pdf' ]
+    } );
+ 
+    table.buttons().container()
+        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+    } );
 
     // API
 
@@ -369,69 +398,69 @@ $pages = ceil($total/$isi);
         
         if (_minus) c = "-" + c ;
         return c;
-        
+          
     }
     
     function numbersonly(ini, e)
     {
-    if (e.keyCode>=49)
-    {
-    if(e.keyCode<=57)
-    {
-    a = ini.value.toString().replace(".","");
-    noktp = a.replace(/[^\d]/g,"");
-    noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
-    ini.value = pemisahktp(noktp);
-
-    return false;
-    }
-
-    else if(e.keyCode<=105){
-    if(e.keyCode>=96){
-    //e.keycode = e.keycode - 47;
-    a = ini.value.toString().replace(".","");
-    noktp = a.replace(/[^\d]/g,"");
-    noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
-    ini.value = pemisahktp(noktp);
-    //alert(e.keycode);
-    return false;
-    }
-    else {return false;}
-    }else {
-    return false; }
-    }else if (e.keyCode==48){
-    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
-    noktp = a.replace(/[^\d]/g,"");
-    if (parseFloat(noktp)!=0){
-    ini.value = pemisahktp(noktp);
-    return false;
-    } else {return false;}
-    }else if (e.keyCode==95){
-    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
-    noktp = a.replace(/[^\d]/g,"");
-    if (parseFloat(noktp)!=0){
-        ini.value = pemisahktp(noktp);
-        return false;
-        } else {return false;}
-    }else if (e.keyCode==8 || e.keycode==46){
-        a = ini.value.replace(".","");
+        
+        if (e.keyCode>=49)
+        {
+        if(e.keyCode<=57)
+        {
+        a = ini.value.toString().replace(".","");
         noktp = a.replace(/[^\d]/g,"");
-        noktp = noktp.substr(0,noktp.length -1);
-        
-        if (pemisahktp(noktp)!=""){
-            ini.value = pemisahktp(noktp);
-        } else {ini.value = "";}
-        
-        return false;
-        } else if (e.keyCode==9){
-        return true;
-        } else if (e.keyCode==17){
-        return true;
-        } else {
-        //alert (e.keyCode);
+        noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
+        ini.value = pemisahktp(noktp);
+
         return false;
         }
 
+        else if(e.keyCode<=105){
+        if(e.keyCode>=96){
+        //e.keycode = e.keycode - 47;
+        a = ini.value.toString().replace(".","");
+        noktp = a.replace(/[^\d]/g,"");
+        noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
+        ini.value = pemisahktp(noktp);
+        //alert(e.keycode);
+        return false;
+        }
+        else {return false;}
+        }else {
+        return false; }
+        }else if (e.keyCode==48){
+        a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
+        noktp = a.replace(/[^\d]/g,"");
+        if (parseFloat(noktp)!=0){
+        ini.value = pemisahktp(noktp);
+        return false;
+        } else {return false;}
+        }else if (e.keyCode==95){
+        a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
+        noktp = a.replace(/[^\d]/g,"");
+        if (parseFloat(noktp)!=0){
+            ini.value = pemisahktp(noktp);
+            return false;
+            } else {return false;}
+        }else if (e.keyCode==8 || e.keycode==46){
+            a = ini.value.replace(".","");
+            noktp = a.replace(/[^\d]/g,"");
+            noktp = noktp.substr(0,noktp.length -1);
+            
+            if (pemisahktp(noktp)!=""){
+                ini.value = pemisahktp(noktp);
+            } else {ini.value = "";}
+            
+            return false;
+            } else if (e.keyCode==9){
+            return true;
+            } else if (e.keyCode==17){
+            return true;
+            } else {
+            //alert (e.keyCode);
+            return false;
+            }
     }
     // end pemisah ktp
 
@@ -505,7 +534,7 @@ $pages = ceil($total/$isi);
                 emailsales:email
             },
             success: function (data) {
-                $("#detail").html(data);
+                $("#email").html(data);
             }
         });
     };
