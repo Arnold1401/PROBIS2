@@ -1,7 +1,6 @@
 <?php
 require_once("head.php");
 
-session_start();
 include 'conn.php';
 if (isset($_POST["login"])) {
     # code...
@@ -16,6 +15,7 @@ if (isset($_POST["login"])) {
             $_SESSION["email_user"]=$row["email"];
             $_SESSION["role_user"]="2";
             $_SESSION["status_akun"]=$row["status"];
+            $_SESSION["verified"]=$row["verified"];
         }
 
         // mengetahui siapa yg sedang login (role)
@@ -29,6 +29,12 @@ if (isset($_POST["login"])) {
         }
 
         if ($_SESSION["role_user"]=="2") {
+            header("location: home.php");
+        }
+
+        if ($_SESSION["verified"]=="0") {
+            header("location:alertconfirm.php");
+        }else{
             header("location: home.php");
         }
         

@@ -111,7 +111,80 @@
           echo $kal;
         }
 
-    
+    if ($_POST["jenis"]=="kirimulang") {
+        $email=$_SESSION["email_user"];
+        $token=substr(md5(time()), 0, 5);
+        updatetoken($email,$token);
+        $conn=getConn();
+        $sql = "SELECT * FROM customer where email='$email'";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            // output data of each row
+            while($row = $result->fetch_assoc()) {
+              $nama=$row["nama_pemilik"];
+            }
+            $body="<html>
+          <head>
+              <title>Send an Email on Form Submission using PHP with PHPMailer</title>
+              <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+              <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
+              <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+          </head>
+          <body>
+              <br />
+              <div class='container'>
+                  <div class='row'>
+                      <h2>Halo,$nama Token untuk konfirmasi email anda dibawah ini :</h2>
+                      <h3>$token</h3>
+                      <p>Keterangan : Masukan token tersebut apabila anda diarahkan ke halaman request token setelah login</p>
+                  </div>
+              </div>
+          </body>
+      </html>
+      ";
+        kirimemail($body,$email,$nama);
+    }
+}
+
+
+    if ($_POST["jenis"]=="verify") {
+        $email=$_SESSION["email_user"];
+        $token=$_POST["token"];
+
+        $conn=getConn();
+        $sql = "SELECT * FROM customer where email='$email' and token='$token'";
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            echo updatestatus($email);
+        }else{
+            echo "token salah";
+        }
+    }
+
+
+    function updatetoken($email,$token){
+        $conn=getConn();
+        $sql = "update customer set token='$token' where email='$email'";
+        if($conn->query($sql)){
+
+        }else{
+            echo "gagal ";
+        }
+        $conn->close();
+    }
+
+    function updatestatus($email){
+        $conn=getConn();
+        $sql = "update customer set verified='1' where email='$email'";
+        if($conn->query($sql)){
+            return "berhasil";
+        }else{
+            return "gagal ";
+        }
+        $conn->close();
+    }
 
 
 

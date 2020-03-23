@@ -1,7 +1,5 @@
 <?php
 require_once("head.php");
-
-session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,11 +39,11 @@ session_start();
 
                 <div class="form-group">                   
                     <input type="text" class="form-control" id="txttoken" placeholder="Token">  
-                    <a href="lupa-password.php" class="text-center">Kirim ulang email! </a>               
+                    <a href="#" onclick="kirimulang()" class="text-center">Kirim ulang email! </a>               
                 </div>
                
                 <div class="form-group justify-content-center">
-                   <button type="button" name="login" id="" class="btn btn-primary py-2 px-5">Konfirmasi Email</button>
+                   <button type="button" name="login" onclick="verify()" class="btn btn-primary py-2 px-5">Konfirmasi Email</button>
                 </div>
                 <!--End Login -->
 
@@ -84,4 +82,35 @@ session_start();
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
 </body>
+<script>
+    function verify() {
+        $.post("ajaxs/ajaxconfirmemail.php",
+        {
+            jenis:"verify",
+            token:$("#txttoken").val(),
+        },
+        function(data){
+            alert(data);
+            if (data.search("berhasil")) {
+                window.location.href="login.php";
+            }
+        });
+
+
+    }
+
+    function kirimulang() {
+        $.post("ajaxs/ajaxconfirmemail.php",
+        {
+            jenis:"kirimulang",
+        },
+        function(data){
+            var str=data;
+            var n = str.search("Message has been sent");
+            if (n>0) {
+                alert("Token telah dikirim melalui email anda !");
+            }
+        });
+    }
+</script>
 </html>
