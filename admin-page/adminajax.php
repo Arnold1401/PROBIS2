@@ -29,15 +29,18 @@ if ($_POST["jenis"] == "tambah_sales") {
     }
 
     if ($ctr > 0) {
-        $sql2 = "insert into sales(nama_sales, email, no_ktp, nomor_telepon, password, provinsi, kota, kecamatan, alamat, status) values ('$nama_sales','$email',$no_ktp,$nomor_telepon,'$password','$provinsi','$kota','$kecamatan','$alamat','$status')";
+        $ctr=$ctr+1;
+        $sql2 = "insert into sales(id_sales, nama_sales, email, no_ktp, nomor_telepon, password, provinsi, kota, kecamatan, alamat, status) values ('$ctr','$nama_sales','$email',$no_ktp,$nomor_telepon,'$password','$provinsi','$kota','$kecamatan','$alamat','$status')";
 
         if ($conn->query($sql2)) {
-            echo "berhasil tambah sales";
+            echo "berhasil tambah sales"; 
         }
         else {
             echo "gagal tambah sales ";
         }
+
     }
+    
     if ($ctr == 0) {
         echo "akun telah terdaftar";
     }

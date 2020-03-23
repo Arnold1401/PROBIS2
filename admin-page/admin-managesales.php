@@ -157,7 +157,7 @@ $pages = ceil($total/$isi);
                                 <select class="form-control" id="provinsi" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
                                    <!-- isi ajax -->
                                 </select>
-                                <small id="helpprovinsi_user" class="invalid-feedback">Pilih Provinsi </small>
+                                <small id="helpprovinsi_user">Pilih Provinsi </small>
                             </div>
 
                             <div class="form-group">
@@ -230,7 +230,7 @@ $pages = ceil($total/$isi);
                               <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>#ID</th>
                                             <th>Nama </th>
                                             <th>Email</th>
                                             <th>No KTP</th>
@@ -247,7 +247,7 @@ $pages = ceil($total/$isi);
                                             if (mysqli_num_rows($res)>0) {
                                                 while ($data = mysqli_fetch_assoc($res)) { ?>
                                                     <tr> 
-                                                        <td> <?php echo $urutan++; ?> </td>
+                                                        <td> <?php echo $data["id_sales"] ?> </td>
                                                         <td> <?php echo $data["nama_sales"]; ?> </td>
                                                         <td> <?php echo $data["email"]; ?> </td>
                                                         <td> <?php echo $data["no_ktp"]?></td>
@@ -326,6 +326,9 @@ $pages = ceil($total/$isi);
  
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+    
+    $("#example").DataTable();
+    
     } );
 
     // API
@@ -499,7 +502,7 @@ $pages = ceil($total/$isi);
             provinsi:document.getElementById('provinsi').value,
             kota:document.getElementById('kota').value,
             kecamatan:document.getElementById('kecamatan').value,
-            alamat:document.getElementById('alamat').value,
+            alamat:document.getElementById('alamat_user').value,
 
         },
         function (data) {
@@ -516,12 +519,12 @@ $pages = ceil($total/$isi);
         document.getElementById('provinsi').value = "";
         document.getElementById('kota').value = "";
         document.getElementById('kecamatan').value = "";
-        document.getElementById('alamat').value = "";
+        document.getElementById('alamat_user').value = "";
 
     }
     // end of function tambah sales
 
-    // function detail sales
+    // function detail sales --- tidak jadi digunakan --
     function detail(element,event) {
         
         var email = $(element).val();
