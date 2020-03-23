@@ -358,7 +358,7 @@ $pages = ceil($total/$isi);
     }
 
     function cb_subdistrict() {
-        if ($("#cb_kota").val()!=null) {
+        if ($("#kota").val()!=null) {
             $.post("ajaxs/ajaxregister.php",
             {
                 jenis:"getsubdistrict",
