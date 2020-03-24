@@ -2,6 +2,7 @@
 require_once("head.php");
 
 include 'conn.php';
+
 if (isset($_POST["login"])) {
     # code...
     $conn = getConn();
@@ -38,6 +39,9 @@ if (isset($_POST["login"])) {
             header("location: home.php");
         }
         
+    }else if($_POST["email_user"]=="admin"&&$_POST["password_user"]=="admin"){
+            $_SESSION["email_user"]="admin";
+            header("location:../admin-page/admin-home.php");
     }
     else {
         echo "<script>alert('tidak ditemukan');</script>";

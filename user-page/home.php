@@ -1,6 +1,11 @@
 <?php
 require_once("head.php");
 
+if (isset($_SESSION["nama_user"])) {
+    
+}else{
+    header("location:login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +60,7 @@ require_once("head.php");
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a class="dropdown-item" href="index.php">Keluar</a>
+                    <a onclick="keluar()" class="dropdown-item" href="index.php">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -235,4 +240,15 @@ require_once("head.php");
      ?>
    
 </body>
+<script>
+    function keluar(){
+        $.post("ajaxs/ajaxlogin.php",
+        {
+            jenis:"keluar",
+        },
+        function(data){
+            window.location.href="login.php";
+        });
+    }
+</script>
 </html>

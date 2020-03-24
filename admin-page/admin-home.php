@@ -77,7 +77,7 @@ require_once("adminhead.php");
                            
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a onclick="keluar()" class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>                   
                     </div>                   
                 </div>
@@ -505,6 +505,19 @@ require_once("adminhead.php");
 
 
 </body>
+<script>
+  function keluar(){
+         $.post("ajaxs/ajaxlogin.php",
+        {
+            jenis:"keluar",
+        },
+        function(data){
+            window.location.href="../user-page/login.php";
+        });
 
+    
+    }
+
+</script>
 </html>
 

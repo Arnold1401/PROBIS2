@@ -85,7 +85,7 @@ $pages = ceil($total/$isi);
                            
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a onclick="keluar()" class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>                   
                     </div>                   
                 </div>
@@ -558,6 +558,17 @@ $pages = ceil($total/$isi);
             }
         });
     };
+
+    function keluar(){
+    $.post("ajaxs/ajaxlogin.php",
+        {
+            jenis:"keluar",
+        },
+        function(data){
+            window.location.href="../user-page/login.php";
+        });
+
+    }
 
 
 </script>
