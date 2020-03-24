@@ -85,7 +85,7 @@ $pages = ceil($total/$isi);
                            
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a onclick="keluar()" class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>                   
                     </div>                   
                 </div>
@@ -137,7 +137,7 @@ $pages = ceil($total/$isi);
                                 <label for="" class=" form-control-label">No KTP Sales </label>
                                 <!-- <input id="no_ktp" type="text" maxlength="10" min="1" class="form-control" pattern="/[^\d]/"/> DO NOT DELETE THIS-->
 
-                                <input id="no_ktp" type="text" maxlength="2" min="1" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required />
+                                <input id="no_ktp" type="text" maxlength="16" min="16" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required />
                                 <small id="helpnomor_ktp" class="invalid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>                            
                             </div>
 
@@ -254,8 +254,9 @@ $pages = ceil($total/$isi);
                                                         <td> <?php echo $data["provinsi"].", ".$data["kota"].", ".$data["kecamatan"].", ".$data["alamat"] ?></td>
                                                         <td> <?php echo $data["nomor_telepon"]; ?> </td>
                                                         <td>
-                                                           
-                                                            <button type="button" id="listreseller" class="btn btn-primary" value="<?php echo $data['email']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
+                                                        <?php echo "<a href='#myModal' class='btn btn-default btn-small' id='id_sales' data-toggle='modal' data-id=".$data['id_sales'].">Detail</a>"; ?>
+
+                                                            <button type="button" id="listreseller" class="btn btn-primary" value="<?php echo $data['id_sales']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
                                                         </td>
                                                     </tr>
                                         <?php     }
@@ -281,43 +282,63 @@ $pages = ceil($total/$isi);
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
+    <div class="modal" tabindex="-1" id="myModal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="fetched-data"><a>aaa</a></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-    
+   
+    <!-- kumpulan script -->
+        <script src="vendors/jquery/dist/jquery.min.js"></script>
+        <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
+        <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="assets/js/main.js"></script>
 
-    <script src="vendors/jquery/dist/jquery.min.js"></script>
-    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
+        <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+        <script src="vendors/jszip/dist/jszip.min.js"></script>
+        <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+        <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+        <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+        <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+        <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+        <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
 
-
-    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="vendors/jszip/dist/jszip.min.js"></script>
-    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>    
-
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>  
+          
+    <!-- end of kumpulan script -->
 </body>
 
 </html>
 <script>
+    // document ready
     $(document).ready(function() {
     var table = $('#example').DataTable( {
         lengthChange: false,
@@ -327,13 +348,27 @@ $pages = ceil($total/$isi);
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     
-    $("#example").DataTable();
-    
-    } );
+        $('#myModal').on('show.bs.modal', function (e) {
+            console.log("coba");
+            var rowid = $(e.relatedTarget).data('id_sales');
+            console.log(rowid);
+            alert(rowid);
+             //menggunakan fungsi ajax untuk pengambilan data
+             $.ajax({
+                 type : 'post',
+                 url : 'adminajax.php',
+                 data :  'rowid='+ rowid,
+                 success : function(data){
+                 $('.fetched-data').html(data);//menampilkan data ke dalam modal
+                 }
+             });
+         });
+
+    }); 
+    // end of document ready
+
 
     // API
-
-    
     function cb_prov(){
         $.post("ajaxs/ajaxregister.php",
         {
@@ -525,50 +560,42 @@ $pages = ceil($total/$isi);
     // end of function tambah sales
 
     // function detail sales --- tidak jadi digunakan --
-    function detail(element,event) {
-        
-        var email = $(element).val();
-        alert(email);
-        $.ajax({
-            type:"POST",
-            url: "adminajax.php",
-            data:{
-                jenis:"detailsales",
-                emailsales:email
-            },
-            success: function (data) {
-                $("#email").html(data);
-            }
-        });
-    };
+        // function detail(element,event) {
+            
+        //     var email = $(element).val();
+        //     alert(email);
+        //     $.ajax({
+        //         type:"POST",
+        //         url: "adminajax.php",
+        //         data:{
+        //             jenis:"detailsales",
+        //             emailsales:email
+        //         },
+        //         success: function (data) {
+        //             $("#email").html(data);
+        //         }
+        //     });
+        // };
     // end of function detail sales
 
     // function list reseller tanggung jwb sales
     function listreseller(element, event) {
-        var email = $(element).val();
-        $.ajax({
-            type:"POST",
-            url:"adminajax.php",
-            data:{
-                jenis:"listreseller",
-                emailsales:email
-            },
-            success: function (data) {
-                $("#listreseller").html(data);
-            }
-        });
+          var id_sales = $(element).val();
+         // alert(id_sales);
+          $.ajax({
+              type:"POST",
+              url:"adminajax.php",
+              data:{
+                  jenis:"listreseller",
+                  idsales:id_sales
+              },
+              function (data) {
+              alert(data);
+          }
+          });
+
+        
     };
-
-    function keluar(){
-    $.post("ajaxs/ajaxlogin.php",
-        {
-            jenis:"keluar",
-        },
-        function(data){
-            window.location.href="../user-page/login.php";
-        });
-
-    }
 
 
 </script>
