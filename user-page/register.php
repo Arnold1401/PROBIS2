@@ -388,7 +388,7 @@ function upload() {
       var files = $('#file')[0].files[0];
       fd.append('file',files);
       fd.append('id',$("#nomor_ktp").val());
-    alert(files);
+    console.log(files);
       $.ajax({
           url: 'ajaxupload.php',
           type: 'post',
@@ -400,7 +400,8 @@ function upload() {
                   $("#img").attr("src",response); 
                   $(".preview img").show(); // Display image element
                   $("#url_user").val(response);
-                  alert(response);
+                  console.log(response);
+                  alert("file berhasil di upload");
               }else{
                   alert('file not uploaded');
               }
