@@ -1,5 +1,8 @@
 <?php
 require_once("adminhead.php");
+include_once('adminconn.php');
+
+
 ?>
 
 <!doctype html>
@@ -240,43 +243,22 @@ require_once("adminhead.php");
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>
-                                                <button type="button" name="" id="" class="btn btn-success btn-sm">Valid</button>                                          
-                                            </td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>     
-                                              <button type="button" name="" id="" class="btn btn-primary">Ganti Sales</button>                                                                               
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>
-                                                <button type="button" name="" id="" class="btn btn-warning btn-sm">Menunggu</button>                                          
-                                            </td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                      
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>                                           
-                                            <td>
-                                                <button type="button" name="" id="" class="btn btn-danger btn-sm">Tidak Valid</button>                                          
-                                            </td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                        
+                                        <?php
+                                            $urutan = 1;
+                                            $res = mysqli_query(getConn(), "select * from customer");
+                                            if (mysqli_num_rows($res)>0) {
+                                                while($data = mysqli_fetch_assoc($res)){ ?>
+                                                    <tr>
+                                                        <td> <?php echo $urutan++; ?> </td>
+                                                        <td> <?php echo $data["nama_perusahaan"] ?> </td>
+                                                        <td> <?php echo $data["nama_pemilik"] ?> </td>
+                                                        <td> <?php echo $data["email"] ?> </td>
+                                                    </tr>
+                                            <?php    }
+                                            }
+                                        ?>
+                                
+
                                     </tbody>
                                 </table>
                               </div>
@@ -296,25 +278,9 @@ require_once("adminhead.php");
     <!-- Right Panel -->
 
 
-    <script src="vendors/jquery/dist/jquery.min.js"></script>
-    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
-
-
-    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="vendors/jszip/dist/jszip.min.js"></script>
-    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
-
-
+    <!-- kumpulan script luar -->
+    <?php      include_once('kumpulanscriptluar.php'); ?>
+    <!-- end of kumpulan script -->
 </body>
 
 </html>
@@ -420,4 +386,6 @@ function pemisahktp(noktp)
         });
 
 }
+
+//list table
 </script>
