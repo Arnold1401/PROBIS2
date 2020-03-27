@@ -53,6 +53,7 @@ if ($_POST["jenis"] == "tambah_sales") {
     $id = $_POST['rowid'];
     $conn = getConn();
     // mengambil data berdasarkan id
+    echo "xx";
     $sql = "select * from customer where id_sales='$id'";
     $result = $conn->query($sql);
     foreach ($result as $baris) { ?>
@@ -92,7 +93,7 @@ if ($_POST["jenis"] == "listreseller") {
     $id_sales = $_POST["idsales"];
     $result = mysqli_query(getConn(), "select * from customer where id_sales='".$id_sales."'");
     $trans = mysqli_fetch_array($result);
-    echo "ada";
+    echo $id_sales;
     
 }
 

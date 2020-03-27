@@ -256,7 +256,7 @@ $pages = ceil($total/$isi);
                                                         <td>
                                                         <?php echo "<a href='#myModal' class='btn btn-default btn-small' id='id_sales' data-toggle='modal' data-id=".$data['id_sales'].">Detail</a>"; ?>
 
-                                                            <button type="button" id="listreseller" class="btn btn-primary" value="<?php echo $data['id_sales']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
+                                                            <button type="button" id="listreseller" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="<?php echo $data['id_sales']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
                                                         </td>
                                                     </tr>
                                         <?php     }
@@ -283,24 +283,24 @@ $pages = ceil($total/$isi);
 
     <!-- Right Panel -->
     <div class="modal" tabindex="-1" id="myModal" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="fetched-data"><a>aaa</a></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="fetched-data"><a>aaa</a></div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
    
     <!-- kumpulan script luar -->
@@ -320,21 +320,21 @@ $pages = ceil($total/$isi);
     table.buttons().container()
         .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     
-        $('#myModal').on('show.bs.modal', function (e) {
-            console.log("coba");
-            var rowid = $(e.relatedTarget).data('id_sales');
-            console.log(rowid);
-            alert(rowid);
-             //menggunakan fungsi ajax untuk pengambilan data
-             $.ajax({
-                 type : 'post',
-                 url : 'adminajax.php',
-                 data :  'rowid='+ rowid,
-                 success : function(data){
-                 $('.fetched-data').html(data);//menampilkan data ke dalam modal
-                 }
-             });
-         });
+        // $('#myModal').on('show.bs.modal', function (e) {
+        //     // console.log("coba");
+        //     // var rowid = $(e.relatedTarget).data('id_sales');
+        //     // console.log(rowid);
+        //     // alert(rowid);
+        //     //  //menggunakan fungsi ajax untuk pengambilan data
+        //     //  $.ajax({
+        //     //      type : 'post',
+        //     //      url : 'adminajax.php',
+        //     //      data :  'rowid='+ rowid,
+        //     //      success : function(data){
+        //     //      $('.fetched-data').html(rowid);//menampilkan data ke dalam modal
+        //     //      }
+        //     //  });
+        //  });
 
     }); 
     // end of document ready
@@ -562,7 +562,8 @@ $pages = ceil($total/$isi);
                   idsales:id_sales
               },
               function (data) {
-              alert(data);
+                // $('.fetched-data').html(data);
+                alert(id_sales);
           }
           });
 

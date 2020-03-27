@@ -196,9 +196,9 @@ include_once('adminconn.php');
                                     <i class="fa fa-ban"></i> Tidak Valid
                                   </button>
 
-                                  <button type="submit" class="btn btn-warning btn-md float-right">
+                                  <!-- <button type="submit" class="btn btn-warning btn-md float-right">
                                     <i class="fa fa-ban"></i> Ubah Sales
-                                  </button>
+                                  </button> -->
                                 </div>
                                  
 
@@ -238,8 +238,8 @@ include_once('adminconn.php');
                                             <th>Nama </th>
                                             <th>Email</th>
                                             <th>Nomor KTP</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Status & Action</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -253,6 +253,36 @@ include_once('adminconn.php');
                                                         <td> <?php echo $data["nama_perusahaan"] ?> </td>
                                                         <td> <?php echo $data["nama_pemilik"] ?> </td>
                                                         <td> <?php echo $data["email"] ?> </td>
+                                                        <td> <?php 
+                                                                if ($data["status"] == "0") { ?>
+                                                                   <button type="button" name="" id="" class="btn btn-warning btn-sm">
+                                                                    <?php echo $data["status"]="Menunggu"; ?>
+                                                                   </button> 
+                                                                   <button type="button" name="" id="" class="btn btn-outline-info btn-sm" value="<?php echo $data['email'] ?>">
+                                                                    Detail
+                                                                   </button> 
+                                                                <?php  
+                                                                }
+                                                                else if ($data["status"] == "1") { ?>
+                                                                    <button type="button" name="" id="" class="btn btn-success btn-sm">
+                                                                     <?php echo $data["status"]="Valid"; ?>
+                                                                    </button>
+                                                                    <button type="button" name="" id="" class="btn btn-outline-primary btn-sm" value="<?php echo $data['email'] ?>">
+                                                                     Atur Sales
+                                                                    </button>  
+                                                                <?php
+                                                                }
+                                                                else if ($data["status"] == "2") { ?>
+                                                                    <button type="button" name="" id="" class="btn btn-danger btn-sm">
+                                                                     <?php echo $data["status"]="Tidak Valid"; ?>
+                                                                    </button> 
+                                                                    
+                                                                <?php
+                                                                }
+                                                                ?> 
+                                                        </td>
+                                                        
+                                                        <!-- <td> <button type="button" class="btn btn-outline-primary">Ganti sales</button><td> -->
                                                     </tr>
                                             <?php    }
                                             }
