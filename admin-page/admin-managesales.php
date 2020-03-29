@@ -145,7 +145,7 @@ $pages = ceil($total/$isi);
                             <!-- ^08[0-9]{9,}$ -->
                             <!-- /^-?\d+\.?\d*$/ -->
                                 <label for="" class=" form-control-label">No Telpon </label>
-                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required pattern="^08[0-9]{9,}$" onKeyPress="if(this.value.length==12) return false;">
+                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required onKeyPress="if(this.value.length==12) return false;">
                                 <small id="helpnomor_telepon_sales" class="invalid-feedback">Masukkan nomor telepon sales</small>
                             </div>
                         </div>
@@ -241,28 +241,7 @@ $pages = ceil($total/$isi);
                                     </thead>
                                     <tbody>
                                         
-                                        <?php
-                                            $urutan = 1;
-                                            $res = mysqli_query(getConn(), "select * from sales LIMIT $mulai, $isi");
-                                            if (mysqli_num_rows($res)>0) {
-                                                while ($data = mysqli_fetch_assoc($res)) { ?>
-                                                    <tr> 
-                                                        <td> <?php echo $data["id_sales"] ?> </td>
-                                                        <td> <?php echo $data["nama_sales"]; ?> </td>
-                                                        <td> <?php echo $data["email"]; ?> </td>
-                                                        <td> <?php echo $data["no_ktp"]?></td>
-                                                        <td> <?php echo $data["provinsi"].", ".$data["kota"].", ".$data["kecamatan"].", ".$data["alamat"] ?></td>
-                                                        <td> <?php echo $data["nomor_telepon"]; ?> </td>
-                                                        <td>
-                                                        <?php echo "<a href='#myModal' class='btn btn-default btn-small' id='id_sales' data-toggle='modal' data-id=".$data['id_sales'].">Detail</a>"; ?>
-
-                                                            <button type="button" id="listreseller" class="btn btn-primary" data-toggle="modal" data-target="#myModal" value="<?php echo $data['id_sales']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
-                                                        </td>
-                                                    </tr>
-                                        <?php     }
-                                            }
-                                        ?>
-                                        
+                                    
                                     </tbody>
                                 </table>
 
@@ -309,33 +288,57 @@ $pages = ceil($total/$isi);
 </body>
 
 </html>
-<script>
-    // document ready
-    $(document).ready(function() {
-    var table = $('#example').DataTable( {
-        lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf' ]
-    } );
- 
-    table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-    
-        // $('#myModal').on('show.bs.modal', function (e) {
-        //     // console.log("coba");
-        //     // var rowid = $(e.relatedTarget).data('id_sales');
-        //     // console.log(rowid);
-        //     // alert(rowid);
-        //     //  //menggunakan fungsi ajax untuk pengambilan data
-        //     //  $.ajax({
-        //     //      type : 'post',
-        //     //      url : 'adminajax.php',
-        //     //      data :  'rowid='+ rowid,
-        //     //      success : function(data){
-        //     //      $('.fetched-data').html(rowid);//menampilkan data ke dalam modal
-        //     //      }
-        //     //  });
-        //  });
+<script type="text/javascript">
 
+    $(document).ready(function() {
+        var table= "";
+         table = $('#example').DataTable( {
+             "buttons": [ 'copy', 'excel', 'pdf' ],
+             "processing":true,
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_sales.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[
+                 {"data":"id_sales"},
+                 {"data":"nama_sales"},
+                 {"data":"email"},
+                 {"data":"no_ktp"},
+                 {"data":"nomor_telepon"},
+                 {"data":"alamat"},
+                 {"render":function (data, type, row) {
+                     var html = "<a href=''>DETAIL</a>"
+                     html += "<button>list reseller</button>"
+                     return html
+                     }
+                 },
+             ],
+  
+  
+         } );
+         setInterval( function () {
+             table.ajax.reload();
+         }, 30000 );
+         table.buttons().container()
+             .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        
+
+        // $('#example tbody').on( 'click', 'button', function () {
+        //     var data = table.row( $(this).parents('tr') ).data();
+        //     alert( data[0] +"'s salary is: "+ data[ 5 ] );
+        // } );
+        // var table = $('#example').DataTable( {
+        // lengthChange: false,
+        // });
+
+        // table.buttons().container()
+        // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+    
     }); 
     // end of document ready
 
@@ -497,7 +500,7 @@ $pages = ceil($total/$isi);
         }, false);
         })();
 
-    
+
         (function($){
             $.post("adminajax.php",
         {
@@ -513,10 +516,25 @@ $pages = ceil($total/$isi);
 
         },
         function (data) {
-            alert(data);
+            $('#example').DataTable().ajax.reload(); 
+          //  $('#example').html(data);
+        //   $.ajax({
+        //       type:"POST",
+        //       url:"adminajax.php",
+        //       data:{
+        //           jenis:"tablesales",
+        //       },
+        //       function (data) {
+        //         $('#example').html(data);
+        //        // alert(id_sales);
+        //   }
+         //  });
+
+          
         });
             
         }(jQuery))
+
 
         // reset inputan
         document.getElementById('nama_sales').value="";
@@ -528,27 +546,10 @@ $pages = ceil($total/$isi);
         document.getElementById('kecamatan').value = "";
         document.getElementById('alamat_user').value = "";
 
-    }
-    // end of function tambah sales
+        }
+        // end of function tambah sales
 
-    // function detail sales --- tidak jadi digunakan --
-        // function detail(element,event) {
-            
-        //     var email = $(element).val();
-        //     alert(email);
-        //     $.ajax({
-        //         type:"POST",
-        //         url: "adminajax.php",
-        //         data:{
-        //             jenis:"detailsales",
-        //             emailsales:email
-        //         },
-        //         success: function (data) {
-        //             $("#email").html(data);
-        //         }
-        //     });
-        // };
-    // end of function detail sales
+
 
     // function list reseller tanggung jwb sales
     function listreseller(element, event) {

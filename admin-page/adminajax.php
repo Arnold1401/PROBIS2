@@ -48,45 +48,33 @@ if ($_POST["jenis"] == "tambah_sales") {
     $conn->close();
 }
 
-// if ($_POST["jenis"] == "detailsales") {
-/if($_POST['rowid']) {
-    $id = $_POST['rowid'];
+//list table sales
+if ($_POST["jenis"] == "tablesales") {
     $conn = getConn();
-    // mengambil data berdasarkan id
-    echo "xx";
-    $sql = "select * from customer where id_sales='$id'";
-    $result = $conn->query($sql);
-    foreach ($result as $baris) { ?>
-    <table id="example" class="table table-striped table-bordered">
-        <thead>
-            <tr>
-                <th>kode barang</th>
-                <th>Nama barang</th>
-                <th>Deskripsi barang</th>
-            </tr>
-
-        </thead>
-        <tbody>
-            <tr>
-               
-                <td><?php echo $baris['email']; ?></td>
-            </tr>
-            <tr>
-               
-                <td><?php echo $baris['nama_perusahaan']; ?></td>
-            </tr>
-            <tr>
-               
-                <td><?php echo $baris['id_sales']; ?></td>
-            </tr>
-        </tbody>
-
-        </table>
-    <?php 
-
-    }
-    $conn->close();
+    $sql = "SELECT * FROM sales";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+?>	
+		<tr>
+			<td><?=$row['id_sales'];?></td>
+            <td><?=$row['nama_sales'];?></td>
+			<td><?=$row['email'];?></td>
+            <td><?=$row['no_ktp'];?></td>
+			<td><?=$row['nomor_telepon'];?></td>
+            <td><?=$row['alamat'];?></td>
+			
+		</tr>
+<?php	
+	}
+	}
+	else {
+		echo "0 results";
+	}
+	mysqli_close($conn);
 }
+
+// if ($_POST["jenis"] == "detailsales") {
 
 
 if ($_POST["jenis"] == "listreseller") {
