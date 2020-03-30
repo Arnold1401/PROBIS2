@@ -49,6 +49,14 @@ if (isset($_POST["login"])) {
     $conn->close();
 }
 
+if (isset($_SESSION["email_user"])) {
+    if ($_SESSION["email_user"]=="admin") {
+        header("location:../admin-page/admin-home.php");
+    }else {
+        header("location: home.php");
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
