@@ -78,11 +78,29 @@ if ($_POST["jenis"] == "tablesales") {
 
 
 if ($_POST["jenis"] == "listreseller") {
-    $id_sales = $_POST["idsales"];
-    $result = mysqli_query(getConn(), "select * from customer where id_sales='".$id_sales."'");
-    $trans = mysqli_fetch_array($result);
-    echo $id_sales;
     
+    
+    $getId = $_POST["idsales"];
+    $conn = getConn();
+    $sql = "SELECT * FROM customer where id_sales='$getId'";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+?>	
+		<tr>
+			<td><?=$row['email'];?></td>
+            <td><?=$row['nama_perusahaan'];?></td>
+			<td><?=$row['nama_pemilik'];?></td>
+            <td><?=$row['notelp'];?></td>
+			
+		</tr>
+<?php	
+	}
+	}
+	else {
+		echo "0 results";
+	}
+	mysqli_close($conn);
 }
 
 // end of admin - master - sales

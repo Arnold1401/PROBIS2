@@ -271,7 +271,22 @@ $pages = ceil($total/$isi);
                 </button>
                 </div>
                 <div class="modal-body">
-                    <div class="fetched-data"><a>aaa</a></div>
+                   
+                    <table id="fetchDataReseller" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#ID</th>
+                                            <th>Nama </th>
+                                            <th>Email</th>
+                                            <th>Alamat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                                    </tbody>
+                                </table>
+
+                   
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Save changes</button>
@@ -292,7 +307,9 @@ $pages = ceil($total/$isi);
 
     $(document).ready(function() {
         var table= "";
-         table = $('#example').DataTable( {
+        
+        //datatble di list sales
+        table = $('#example').DataTable( {
              "buttons": [ 'copy', 'excel', 'pdf' ],
              "processing":true,
              "serverSide":true,
@@ -311,34 +328,76 @@ $pages = ceil($total/$isi);
                  {"data":"no_ktp"},
                  {"data":"nomor_telepon"},
                  {"data":"alamat"},
-                 {"render":function (data, type, row) {
-                     var html = "<a href=''>DETAIL</a>"
-                     html += "<button>list reseller</button>"
-                     return html
-                     }
-                 },
+                 {
+                   
+                    "target": -1,
+                    "defaultContent": "<button class=\"GetName\" data-toggle='modal' data-target='#myModal'>Name!</button><button class=\"GetPosition\">Position!</button>"
+                },
+                
              ],
   
   
          } );
+
+
          setInterval( function () {
              table.ajax.reload();
          }, 30000 );
          table.buttons().container()
              .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        //end of datatble di list sales
         
 
-        // $('#example tbody').on( 'click', 'button', function () {
-        //     var data = table.row( $(this).parents('tr') ).data();
-        //     alert( data[0] +"'s salary is: "+ data[ 5 ] );
-        // } );
-        // var table = $('#example').DataTable( {
-        // lengthChange: false,
-        // });
+        
 
-        // table.buttons().container()
-        // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-    
+
+             
+        var getId, data, tablelistreseller = "";
+        //tablelistreseller.destroy();
+        $('#example tbody').on( 'click', 'button', function () {
+
+        var action = this.className;
+        data = table.row($(this).closest('tr')).data();
+        
+
+            if (action=='GetName')
+            {
+                getId = data[Object.keys(data)[0]];
+                console.log(getId); //alert(getId);  utk dapatkan id salesnya
+                        
+                //datatble di list reseler -- modal
+                 tablelistreseller = $('#fetchDataReseller').DataTable( {
+                    retrieve: true,
+                      "buttons": [ 'copy', 'excel', 'pdf' ],
+                      "processing":true,
+                      "serverSide":true,
+                      "ordering":true, //set true agar bisa di sorting
+                      "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                      "ajax":{
+                          "url":"datatable_listreseller.php",
+                          "type":"POST",
+                          "data":{"get_id":getId},
+              
+                      },
+                      "deferRender":true,
+                      "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+                      "columns":[
+                          {"data":"email"},
+                          {"data":"nama_perusahaan"},
+                          {"data":"nama_pemilik"},
+                          {"data":"notelp"},
+                      ],
+                  } );
+                //end of datatable di list reseler -- modal
+            }
+
+            if(action == 'GetPosition')
+            {
+                console.log(getId); alert(getId);  //utk dapatkan id salesnya
+                
+            }
+        } );
+       
     }); 
     // end of document ready
 
