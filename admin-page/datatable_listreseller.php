@@ -7,10 +7,10 @@ $limit = $_POST['length']; // Ambil data limit per page
 $start = $_POST['start']; // Ambil data start
 $getId = $_POST['get_id'];
 
-$sql = mysqli_query($connect, "SELECT email FROM customer"); // Query untuk menghitung seluruh data siswa
+$sql = mysqli_query($connect, "SELECT email FROM customer where id_sales=$getId"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
-$query = "SELECT * FROM customer WHERE (nama_perusahaan LIKE '%".$search."%' OR nama_pemilik LIKE '%".$search."%' OR email LIKE '%".$search."%' OR notelp LIKE '%".$search."%') and id_sales='$getId'";
+$query = "SELECT * FROM customer c, alamat_pengiriman al WHERE (c.nama_perusahaan LIKE '%".$search."%' OR al.alamat_lengkap LIKE '%".$search."%' OR c.email LIKE '%".$search."%' OR c.notelp LIKE '%".$search."%') and c.id_sales=$getId";
 $order_field = $_POST['order'][0]['column']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
 $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
 $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;
