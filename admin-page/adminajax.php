@@ -1,6 +1,6 @@
 <?php
 include_once 'adminconn.php';
-
+$conn = getConn();
 // admin - master - sales
 if ($_POST["jenis"] == "tambah_sales") {
     
@@ -33,7 +33,8 @@ if ($_POST["jenis"] == "tambah_sales") {
         $sql2 = "insert into sales(id_sales, nama_sales, email, no_ktp, nomor_telepon, password, provinsi, kota, kecamatan, alamat, status) values ('$ctr','$nama_sales','$email',$no_ktp,$nomor_telepon,'$password','$provinsi','$kota','$kecamatan','$alamat','$status')";
 
         if ($conn->query($sql2)) {
-            echo "berhasil tambah sales"; 
+            // echo "berhasil tambah sales"; 
+            echo "<script> alert($email)</script>";
         }
         else {
             echo "gagal tambah sales ";
@@ -47,20 +48,41 @@ if ($_POST["jenis"] == "tambah_sales") {
     $conn->close();
 }
 
-if ($_POST["jenis"] == "detailsales") {
-    $email = $_POST["emailsales"];
-    $result = mysqli_query(getConn(), "select * from sales where email='".$email."'");
-    $trans = mysqli_fetch_array($result);
-    echo $email;
-    
+//list table sales
+if ($_POST["jenis"] == "tablesales") {
+    $conn = getConn();
+    $sql = "SELECT * FROM sales";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		while($row = $result->fetch_assoc()) {
+?>	
+		<tr>
+			<td><?=$row['id_sales'];?></td>
+            <td><?=$row['nama_sales'];?></td>
+			<td><?=$row['email'];?></td>
+            <td><?=$row['no_ktp'];?></td>
+			<td><?=$row['nomor_telepon'];?></td>
+            <td><?=$row['alamat'];?></td>
+			
+		</tr>
+<?php	
+	}
+	}
+	else {
+		echo "0 results";
+	}
+	mysqli_close($conn);
 }
 
-if ($_POST["jenis"] == "liatreseller") {
-    $email = $_POST["emailsales"];
-    $result = mysqli_query(getConn(), "select * from customer where id_sales='".$email."'");
-    $trans = mysqli_fetch_array($result);
+// if ($_POST["jenis"] == "detailsales") {
 
-    echo "";
+
+if ($_POST["jenis"] == "listreseller") {
+    $id_sales = $_POST["idsales"];
+    $result = mysqli_query(getConn(), "select * from customer where id_sales='".$id_sales."'");
+    $trans = mysqli_fetch_array($result);
+    echo $id_sales;
+    
 }
 
 // end of admin - master - sales

@@ -85,7 +85,7 @@ $pages = ceil($total/$isi);
                            
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
-                            <a onclick="keluar()" class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                            <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
                         </div>                   
                     </div>                   
                 </div>
@@ -137,7 +137,7 @@ $pages = ceil($total/$isi);
                                 <label for="" class=" form-control-label">No KTP Sales </label>
                                 <!-- <input id="no_ktp" type="text" maxlength="10" min="1" class="form-control" pattern="/[^\d]/"/> DO NOT DELETE THIS-->
 
-                                <input id="no_ktp" type="text" maxlength="2" min="1" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required />
+                                <input id="no_ktp" type="text" maxlength="16" min="16" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required />
                                 <small id="helpnomor_ktp" class="invalid-feedback">Masukkan nomor KTP Anda (Contoh: 1234-5678-9123-4567)</small>                            
                             </div>
 
@@ -145,7 +145,7 @@ $pages = ceil($total/$isi);
                             <!-- ^08[0-9]{9,}$ -->
                             <!-- /^-?\d+\.?\d*$/ -->
                                 <label for="" class=" form-control-label">No Telpon </label>
-                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required pattern="^08[0-9]{9,}$" onKeyPress="if(this.value.length==12) return false;">
+                                <input id="nomor_telepon" type="number" class="form-control" aria-describedby="helpnomor_telepon_sales" required onKeyPress="if(this.value.length==12) return false;">
                                 <small id="helpnomor_telepon_sales" class="invalid-feedback">Masukkan nomor telepon sales</small>
                             </div>
                         </div>
@@ -241,27 +241,7 @@ $pages = ceil($total/$isi);
                                     </thead>
                                     <tbody>
                                         
-                                        <?php
-                                            $urutan = 1;
-                                            $res = mysqli_query(getConn(), "select * from sales LIMIT $mulai, $isi");
-                                            if (mysqli_num_rows($res)>0) {
-                                                while ($data = mysqli_fetch_assoc($res)) { ?>
-                                                    <tr> 
-                                                        <td> <?php echo $data["id_sales"] ?> </td>
-                                                        <td> <?php echo $data["nama_sales"]; ?> </td>
-                                                        <td> <?php echo $data["email"]; ?> </td>
-                                                        <td> <?php echo $data["no_ktp"]?></td>
-                                                        <td> <?php echo $data["provinsi"].", ".$data["kota"].", ".$data["kecamatan"].", ".$data["alamat"] ?></td>
-                                                        <td> <?php echo $data["nomor_telepon"]; ?> </td>
-                                                        <td>
-                                                           
-                                                            <button type="button" id="listreseller" class="btn btn-primary" value="<?php echo $data['email']?>" onclick="listreseller(this,event)">List Reseller</button>                                                                           
-                                                        </td>
-                                                    </tr>
-                                        <?php     }
-                                            }
-                                        ?>
-                                        
+                                    
                                     </tbody>
                                 </table>
 
@@ -281,59 +261,89 @@ $pages = ceil($total/$isi);
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
+    <div class="modal" tabindex="-1" id="myModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="fetched-data"><a>aaa</a></div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    
-
-    <script src="vendors/jquery/dist/jquery.min.js"></script>
-    <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/js/main.js"></script>
-
-
-    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="vendors/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="vendors/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-    <script src="vendors/jszip/dist/jszip.min.js"></script>
-    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-    <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>    
-
+   
+    <!-- kumpulan script luar -->
+    <?php      include_once('kumpulanscriptluar.php'); ?>
+    <!-- end of kumpulan script -->
 </body>
 
 </html>
-<script>
+<script type="text/javascript">
+
     $(document).ready(function() {
-    var table = $('#example').DataTable( {
-        lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf' ]
-    } );
- 
-    table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        var table= "";
+         table = $('#example').DataTable( {
+             "buttons": [ 'copy', 'excel', 'pdf' ],
+             "processing":true,
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_sales.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[
+                 {"data":"id_sales"},
+                 {"data":"nama_sales"},
+                 {"data":"email"},
+                 {"data":"no_ktp"},
+                 {"data":"nomor_telepon"},
+                 {"data":"alamat"},
+                 {"render":function (data, type, row) {
+                     var html = "<a href=''>DETAIL</a>"
+                     html += "<button>list reseller</button>"
+                     return html
+                     }
+                 },
+             ],
+  
+  
+         } );
+         setInterval( function () {
+             table.ajax.reload();
+         }, 30000 );
+         table.buttons().container()
+             .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+        
+
+        // $('#example tbody').on( 'click', 'button', function () {
+        //     var data = table.row( $(this).parents('tr') ).data();
+        //     alert( data[0] +"'s salary is: "+ data[ 5 ] );
+        // } );
+        // var table = $('#example').DataTable( {
+        // lengthChange: false,
+        // });
+
+        // table.buttons().container()
+        // .appendTo( '#example_wrapper .col-md-6:eq(0)' );
     
-    $("#example").DataTable();
-    
-    } );
+    }); 
+    // end of document ready
+
 
     // API
-
-    
     function cb_prov(){
         $.post("ajaxs/ajaxregister.php",
         {
@@ -490,7 +500,7 @@ $pages = ceil($total/$isi);
         }, false);
         })();
 
-    
+
         (function($){
             $.post("adminajax.php",
         {
@@ -506,10 +516,25 @@ $pages = ceil($total/$isi);
 
         },
         function (data) {
-            alert(data);
+            $('#example').DataTable().ajax.reload(); 
+          //  $('#example').html(data);
+        //   $.ajax({
+        //       type:"POST",
+        //       url:"adminajax.php",
+        //       data:{
+        //           jenis:"tablesales",
+        //       },
+        //       function (data) {
+        //         $('#example').html(data);
+        //        // alert(id_sales);
+        //   }
+         //  });
+
+          
         });
             
         }(jQuery))
+
 
         // reset inputan
         document.getElementById('nama_sales').value="";
@@ -521,54 +546,30 @@ $pages = ceil($total/$isi);
         document.getElementById('kecamatan').value = "";
         document.getElementById('alamat_user').value = "";
 
-    }
-    // end of function tambah sales
+        }
+        // end of function tambah sales
 
-    // function detail sales --- tidak jadi digunakan --
-    function detail(element,event) {
-        
-        var email = $(element).val();
-        alert(email);
-        $.ajax({
-            type:"POST",
-            url: "adminajax.php",
-            data:{
-                jenis:"detailsales",
-                emailsales:email
-            },
-            success: function (data) {
-                $("#email").html(data);
-            }
-        });
-    };
-    // end of function detail sales
+
 
     // function list reseller tanggung jwb sales
     function listreseller(element, event) {
-        var email = $(element).val();
-        $.ajax({
-            type:"POST",
-            url:"adminajax.php",
-            data:{
-                jenis:"listreseller",
-                emailsales:email
-            },
-            success: function (data) {
-                $("#listreseller").html(data);
-            }
-        });
+          var id_sales = $(element).val();
+         // alert(id_sales);
+          $.ajax({
+              type:"POST",
+              url:"adminajax.php",
+              data:{
+                  jenis:"listreseller",
+                  idsales:id_sales
+              },
+              function (data) {
+                // $('.fetched-data').html(data);
+                alert(id_sales);
+          }
+          });
+
+        
     };
-
-    function keluar(){
-    $.post("ajaxs/ajaxlogin.php",
-        {
-            jenis:"keluar",
-        },
-        function(data){
-            window.location.href="../user-page/login.php";
-        });
-
-    }
 
 
 </script>
