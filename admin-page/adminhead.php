@@ -28,19 +28,20 @@
 </body>
 </html>
 <?php
-    session_start();
-
-    if (isset($_SESSION["email_user"])) {
-        if ($_SESSION["email_user"]=="admin") {
-            
-        }else{
-            session_destroy();
-            header("location:../user-page/login.php");
-        }
-    }else{
-        session_destroy();
+  session_start();
+  
+  if (isset($_SESSION["email_user"])) {
+    if (isset($_SESSION["role"])) {
+      if ($_SESSION["role"]=="salesman") {
+        
+      }else{
         header("location:../user-page/login.php");
+      }
     }
-    
+  }else{
+        header("location:../user-page/login.php");
+  }
+
+  
 
 ?>

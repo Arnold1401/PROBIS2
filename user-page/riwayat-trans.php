@@ -82,7 +82,7 @@ require_once("head.php");
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a class="dropdown-item" href="index.php">Keluar</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -278,6 +278,16 @@ require_once("head.php");
    
   <!-- script utk rating atau stars -->
   <script>
+    function keluar(){
+        $.post("ajaxs/ajaxlogin.php",
+        {
+            jenis:"keluar",
+        },
+        function(data){
+            window.location.href="login.php";
+        });
+    }
+
         //initial setup
         document.addEventListener('DOMContentLoaded', function(){
             let stars = document.querySelectorAll('.star');

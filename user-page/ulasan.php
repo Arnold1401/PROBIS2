@@ -83,7 +83,7 @@ require_once("head.php");
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a class="dropdown-item" href="index.php">Keluar</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
             </ul>

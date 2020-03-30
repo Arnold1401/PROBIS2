@@ -238,11 +238,12 @@ require_once("head.php");
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
-            jenis:"keluar",
+            jenis:"keluar" ,
         },
         function(data){
             window.location.href="login.php";
         });
     }
+    
 </script>
 </html>
