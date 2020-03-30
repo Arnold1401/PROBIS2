@@ -31,8 +31,14 @@
     session_start();
 
     if (isset($_SESSION["email_user"])) {
-        
+        if ($_SESSION["email_user"]=="admin") {
+            
+        }else{
+            session_destroy();
+            header("location:../user-page/login.php");
+        }
     }else{
+        session_destroy();
         header("location:../user-page/login.php");
     }
     
