@@ -226,22 +226,43 @@
         $kota = $_POST["kota"];
         $camat = $_POST["camat"];
         $password_user = $_POST["password_user"];
-        $role_user = 1; 
-        $status_akun = 0;
-        $id_user = substr($nama_user,0,3);
+        
+
+        $status_akun = 0;//menunggu
+        $ctr = 0;//untuk mengetahu kembar email
+
+        
         $conn = getConn();
+        
         $token=substr(md5(time()), 0, 5);
+
         $sql1 = "select * from customer";
         $result1 = $conn->query($sql1);
-        $ctr = 0;
-        while ($row1 = $result1->fetch_assoc()) {
-            if ($email_user == $row1["email"]) {
-                $ctr = 1;
+        if ($result1->num_rows > 0) {
+            while ($row1 = $result1->fetch_assoc()) {
+                if ($email_user == $row1["email"]) {
+                    $ctr = 1;
+                }
             }
         }
+
+        
+        $conn->close();
+
+        $conn = getConn();
+        $sql2 = "select * from email";
+        $result2 = $conn->query($sql2);
+        if ($result2->num_rows > 0) {
+            while ($row2 = $result2->fetch_assoc()) {
+                if ($email_user == $row2["email"]) {
+                    $ctr = 1;
+                }
+            }
+        }
+    
+
+
         if ($ctr == 0) {
-            $id_user.=str_pad(($ctr+1),3,"0",STR_PAD_LEFT);
-            
             $sql2 = "insert into customer (email,nama_perusahaan,nama_pemilik,foto_ktp,nomor_ktp,tanggal_lahir,jenis_kelamin,password,notelp,status,id_sales,token) values ('$email_user','$nama_perusahaan','$nama_user','$foto_ktp','$nomor_ktp','$lahir_user','$jeniskelamin_user','$password_user','$telp_user','0','$sales_pilihanuser','$token')";
             $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas) values ('$email_user','$prov','$kota','$camat','$alamat_user','1')";
     

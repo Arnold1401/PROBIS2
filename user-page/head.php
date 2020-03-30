@@ -1,5 +1,14 @@
 <?php
   session_start();
+  
+  if (isset($_SESSION["role"])) {
+    if ($_SESSION["role"]=="reseller") {
+      
+    }else{
+      header("location:login.php");
+    }
+  }
+
 ?>
 <!DOCTYPE html>
 <html >

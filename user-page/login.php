@@ -1,62 +1,5 @@
 <?php
 require_once("head.php");
-
-include 'conn.php';
-
-if (isset($_POST["login"])) {
-    # code...
-    $conn = getConn();
-    $sql = "select * from customer where email='".$_POST["email_user"]."' and password = '".$_POST["password_user"]."'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            
-            $_SESSION["nama_user"]=$row["nama_pemilik"];
-            $_SESSION["email_user"]=$row["email"];
-            $_SESSION["role_user"]="2";
-            $_SESSION["status_akun"]=$row["status"];
-            $_SESSION["verified"]=$row["verified"];
-        }
-
-        // mengetahui siapa yg sedang login (role)
-        // (0 - admin) (1 - reseller)(2 - sales)
-        if ($_SESSION["role_user"] == "0"){
-            header("location: /probis/probis2/admin-page/admin-home.php");
-        }
-
-        if ($_SESSION["role_user"]=="1") {
-            header("location: home.php");
-        }
-
-        if ($_SESSION["role_user"]=="2") {
-            header("location: home.php");
-        }
-
-        if ($_SESSION["verified"]=="0") {
-            header("location:alertconfirm.php");
-        }else{
-            header("location: home.php");
-        }
-        
-    }else if($_POST["email_user"]=="admin"&&$_POST["password_user"]=="admin"){
-            $_SESSION["email_user"]="admin";
-            header("location:../admin-page/admin-home.php");
-    }
-    else {
-        echo "<script>alert('tidak ditemukan');</script>";
-    }
-    $conn->close();
-}
-
-if (isset($_SESSION["email_user"])) {
-    if ($_SESSION["email_user"]=="admin") {
-        header("location:../admin-page/admin-home.php");
-    }else {
-        header("location: home.php");
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,15 +39,15 @@ if (isset($_SESSION["email_user"])) {
 
                 <!-- Login -->
                 <div class="form-group">
-                    <input type="text" class="form-control" name="email_user" id="" aria-describedby="helpId" placeholder="Email">
+                    <input type="text" class="form-control" name="email_user" id="txt_user" aria-describedby="helpId" placeholder="Email">
                 </div>
                 <div class="form-group">                   
-                    <input type="password" class="form-control" name="password_user" id="" placeholder="Password">  
+                    <input type="password" class="form-control" name="password_user" id="txt_pass" placeholder="Password">  
                     <a href="lupa-password.php" class="text-center">Lupa Password? Klik disini! </a>               
                 </div>
                
                 <div class="form-group justify-content-center">
-                   <button type="submit" name="login" id="" class="btn btn-primary py-2 px-5">Login</button>
+                   <button type="button" onclick="login()" class="btn btn-primary py-2 px-5">Login</button>
                 </div>
                 <!--End Login -->
 
@@ -125,7 +68,7 @@ if (isset($_SESSION["email_user"])) {
       </div>
         </div>
     </section>
-
+    
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -142,5 +85,24 @@ if (isset($_SESSION["email_user"])) {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
+    <script>
+        function login() {
+            $.post("ajaxs/ajaxlogin.php",
+            {
+                jenis:"login",
+                user:$("#txt_user").val(),
+                pass:$("#txt_pass").val(),
+            },
+            function(data){
+                if (data.search("admin salah password")>0||data.search("data tidak ditemukan")>0) {
+                    
+                }else{
+                    window.location.href=data;
+                }
+            });
+        }
+    </script>
+
+   
 </body>
 </html>

@@ -134,7 +134,7 @@ require_once("adminhead.php");
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Nama Barang</label>
-                                      <input type="text" id="nama_barang" placeholder="Isi Nama Barang" class="form-control" aria-describedby="helpnama_barang" required>
+                                      <input type="text" id="txt_namabarang" placeholder="Isi Nama Barang" class="form-control" aria-describedby="helpnama_barang" required>
                                       <small class="helpnama_barang">Isi Nama Barang</small>
                                   </div>
 
@@ -142,7 +142,7 @@ require_once("adminhead.php");
 
                                         <div class="col col-md-6">
                                             <label for="" class=" form-control-label">Jenis Satuan Barang </label>
-                                                <select name="select" id="select" class="form-control" aria-describedby="helpselect_barang" required>
+                                                <select name="select" id="cb_satuan" class="form-control" aria-describedby="helpselect_barang" required>
                                                     <option value="">Pilih</option>
                                                     <option value="0">Box</option>
                                                     <option value="1">Pcs</option>
@@ -157,7 +157,7 @@ require_once("adminhead.php");
                                         <div class="col-auto col-md-6">
                                             <label for="" class=" form-control-label">Satuan Barang Tambahan </label>
                                             <div class="input-group prepand">
-                                                <input type="email" id="" name="" placeholder="Masukkan Satuan Barang" class="form-control">
+                                                <input type="text" id="txt_satuan" name="" placeholder="Masukkan Satuan Barang" class="form-control">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-primary">Tambah</button>
                                                 </div>
@@ -167,7 +167,7 @@ require_once("adminhead.php");
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Jumlah Barang </label>
-                                        <input type="number" id="" name="" placeholder="Isi Jumlah Barang" class="form-control">
+                                        <input type="number" id="txt_jum" name="" placeholder="Isi Jumlah Barang" class="form-control">
                                     <small class="help-block">Isi Jumlah Barang Yang Tersedia</small>                                   
                                   </div>
                                   
@@ -177,7 +177,7 @@ require_once("adminhead.php");
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Jenis Barang </label>
-                                    <select name="select" id="select" class="form-control">
+                                    <select name="select" id="cb_jenis" class="form-control">
                                         <option value="0">Minuman</option>
                                         <option value="1">Konsumsi</option>
                                         <option value="2">Obat</option>
@@ -188,29 +188,29 @@ require_once("adminhead.php");
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Harga Barang Beli (Rp)</label>
-                                      <input type="number" id="" name="" placeholder="Harga Barang Beli" class="form-control">
+                                      <input type="number" id="txt_hargabeli" name="" placeholder="Harga Barang Beli" class="form-control">
                                       <small class="help-block">Isi Harga Barang saat Beli</small>
                                   </div>
 
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Harga Barang Jual (Rp)</label>
-                                      <input type="number" id="" name="" placeholder="Harga Barang Jual" class="form-control">
+                                      <input type="number" id="txt_hargajual" name="" placeholder="Harga Barang Jual" class="form-control">
                                       <small class="help-block">Isi Harga Barang saat Jual</small>
                                   </div>
 
-                                  <div class="form-group">
+                                  <!-- <div class="form-group">
                                     <label for=""class=" form-control-label">Deskripsi Barang </label>
-                                    <textarea class="form-control" name="" id="" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>     
+                                    <textarea class="form-control" name="" id="txt_deskripsi" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
+                                  </div>      -->
 
                                   <div class="form-group">
                                     <label for="">Masa Kadaluarsa</label>
-                                    <input type="date" name="" id="" class="form-control" placeholder="masa kadaluarsa" aria-describedby="helpId">
+                                    <input type="date" name="" id="txt_exp" class="form-control" placeholder="masa kadaluarsa" aria-describedby="helpId">
                                   </div>   
                                   
                                   <div class="form-group">
                                     <label for=""class=" form-control-label">Status Barang </label>
-                                    <select disabled name="select" id="select" class="form-control">
+                                    <select disabled name="select" id="cb_status" class="form-control">
                                         <option value="0">Aktif</option>
                                         <option value="1">No-aktif</option>
                                         
@@ -420,16 +420,35 @@ function tambahbarang() {
             if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
-                
             }
-            
             form.classList.add('was-validated');
             }, false);
         });
         }, false);
-        })();
+        })(
+
+        );
+
+        $.post("ajaxs/ajaxbarang.php",
+        {
+            jenis:"insertbarang",
+            nmbarang:$("#txt_namabarang").val(),
+            satuan:$("#cb_satuan").val(),
+            jumlah:$("#txt_jum").val(),
+            cbjenis:$("#cb_jenis").val(),
+            hargabeli:$("#txt_hargabeli").val(),
+            hargajual:$("#txt_hargajual").val(),
+            exp:$("#txt_exp").val(),
+            status:$("#cb_status").val(),
+        },
+        function(data){
+            alert(data);
+        });
+
 
 }
+
+
 
 
 
