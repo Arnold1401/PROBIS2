@@ -157,7 +157,7 @@ require_once("adminhead.php");
                                         <div class="col-auto col-md-6">
                                             <label for="" class=" form-control-label">Satuan Barang Tambahan </label>
                                             <div class="input-group prepand">
-                                                <input type="email" id="txt_satuan" name="" placeholder="Masukkan Satuan Barang" class="form-control">
+                                                <input type="text" id="txt_satuan" name="" placeholder="Masukkan Satuan Barang" class="form-control">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-primary">Tambah</button>
                                                 </div>
@@ -431,7 +431,15 @@ function tambahbarang() {
 
         $.post("ajaxs/ajaxbarang.php",
         {
-            jenis:"insert",
+            jenis:"insertbarang",
+            nmbarang:$("#txt_namabarang").val(),
+            satuan:$("#cb_satuan").val(),
+            jumlah:$("#txt_jum").val(),
+            cbjenis:$("#cb_jenis").val(),
+            hargabeli:$("#txt_hargabeli").val(),
+            hargajual:$("#txt_hargajual").val(),
+            exp:$("#txt_exp").val(),
+            status:$("#cb_status").val(),
         },
         function(data){
             alert(data);
