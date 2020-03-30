@@ -82,7 +82,7 @@ require_once("head.php");
                 <input type="hidden" class="form-control" id="url_user">
                 <div class="form-group">
                   <select class="form-control" id="jeniskelamin_user" aria-describedby="helpjeniskelamin_user" required>
-                    <option value="">Pilih</option>
+                    <option value="">~Pilih~</option>
                     <option value="0">Wanita</option>
                     <option value="1">Pria</option>                   
                   </select>
@@ -366,13 +366,20 @@ function register() {
             camat:camat
         },
         function (data) {
-            alert(data);
-            window.location.href = "http://localhost/Probis2/PROBIS2/user-page/login.php";
-            
+            if (data.search("berhasil register")>0) {
+                alert("Berhasil Register");
+                setTimeout(() => {
+                    window.location.href = "http://localhost/Probis2/PROBIS2/user-page/login.php";
+                }, 3000);
+            }else  if (data.search("email telah digunakan!")>0) {
+                alert("Email telah digunakan!");
+            }else{
+                alert(data);
+            }
+           
         });
 
         }
-
         else{
         alert('tidak sama');
         }

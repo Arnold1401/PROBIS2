@@ -198,10 +198,10 @@ require_once("adminhead.php");
                                       <small class="help-block">Isi Harga Barang saat Jual</small>
                                   </div>
 
-                                  <div class="form-group">
+                                  <!-- <div class="form-group">
                                     <label for=""class=" form-control-label">Deskripsi Barang </label>
                                     <textarea class="form-control" name="" id="txt_deskripsi" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>     
+                                  </div>      -->
 
                                   <div class="form-group">
                                     <label for="">Masa Kadaluarsa</label>

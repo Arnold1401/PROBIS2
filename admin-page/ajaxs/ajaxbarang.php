@@ -4,14 +4,14 @@
 
     if ($_POST["jenis"]=="insertbarang") {
         $conn=getConn();
-        $id="ss01";
+        $id="ss04";
         $nama=$_POST["nmbarang"];
         $idkat=$_POST["cbjenis"];
-        $harga=$_POST["nmbarang"];
+        $harga=$_POST["hargabeli"];
         $idsatuan=$_POST["satuan"];
-        $foto=$_SESSION["foto"];
+        $foto="testfoto";
         $desk="";
-        $status=$_POST["status"];
+        $status="1";
         $rating="0";
 
 
