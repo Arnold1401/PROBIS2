@@ -32,7 +32,7 @@
   
   if (isset($_SESSION["email_user"])) {
     if (isset($_SESSION["role"])) {
-      if ($_SESSION["role"]=="salesman") {
+      if ($_SESSION["role"]=="admin") {
         
       }else{
         header("location:../user-page/login.php");

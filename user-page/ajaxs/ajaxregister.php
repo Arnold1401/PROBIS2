@@ -20,6 +20,25 @@
         
       }
 
+      if ($_POST["jenis"]=="getnamaprovince") {
+        $idprov=$_POST["id_prov"];
+        $kal="";
+        $arrprovince=getprovince();
+        if ($arrprovince=="error") {
+            $kal="error get nama api err";
+        }else{
+            
+            for ($i=0; $i <count($arrprovince); $i++) { 
+                $id=$arrprovince[$i]->province_id;
+                if ($id==$idprov) {
+                    $nama=$arrprovince[$i]->province;
+                }
+            }
+            $kal=$nama;
+        }
+        echo $kal;
+      }
+
       function getprovince(){
         $curl = curl_init();
         curl_setopt_array($curl, array(
