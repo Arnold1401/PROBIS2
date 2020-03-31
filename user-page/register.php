@@ -1,6 +1,6 @@
 <!-- BIASAKAN MEMBUAT NAME PADA SETIAP INPUT ATAUPUN BUTTON SAMA DENGAN NAMA FIELD DALAM TABLENYA -->
 <?php
-require_once("head.php");
+require_once("headlogin.php");
 ?>
 <!DOCTYPE html>
 <html>
