@@ -627,4 +627,16 @@ $pages = ceil($total/$isi);
             });
         }
         cityname();
+
+        function provincename() {
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getprovincename",
+                idprovince:"2",
+            },
+            function(data){
+                console.log(data);
+            });
+        }
+        provincename();
 </script>

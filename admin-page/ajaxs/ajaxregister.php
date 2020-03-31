@@ -45,7 +45,7 @@
         } else 
         {  
             $arr=json_decode($response);
-            $resultnya=$arr->rajaongkir->results;
+            $resultnya=$arr->rajaongkir->results->province;
             return $resultnya;
         }
       }
