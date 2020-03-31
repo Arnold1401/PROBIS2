@@ -1,5 +1,5 @@
 <?php
-require_once("head.php");
+require_once("headlogin.php");
 ?>
 <!DOCTYPE html>
 <html>

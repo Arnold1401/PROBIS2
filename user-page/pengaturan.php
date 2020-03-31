@@ -45,7 +45,7 @@ require_once("head.php");
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
                 <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[nama Toko/Perusahaan]</a>
+                <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
                     <a class="dropdown-item" href="status-order.php">Status Order</a>
@@ -54,7 +54,7 @@ require_once("head.php");
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a class="dropdown-item" href="index.php">Keluar</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -127,7 +127,7 @@ require_once("head.php");
 
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
-                                        <small id="helpId" class="form-text text-muted">Nama Perusahaan/Toko</small>                            
+                                        <small id="helpId" class="form-text text-muted"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></small>                            
                                         <input value="emos"  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="emos">  
                                     </div>
                                     <hr>
@@ -260,22 +260,19 @@ require_once("head.php");
             </div>
         </div>
     </section>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
+<?php
+    include_once "justfooter.php";
+?>
+    <script>
+    function keluar(){
+        $.post("ajaxs/ajaxlogin.php",
+        {
+            jenis:"keluar",
+        },
+        function(data){
+            window.location.href="login.php";
+        });
+    }
+</script>
 </body>
 </html>

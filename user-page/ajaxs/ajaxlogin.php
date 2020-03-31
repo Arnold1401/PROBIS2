@@ -37,7 +37,6 @@
             }
         }
 
-
         $sql2="select * from sales where email='$email' and password='$pass'";
         $result2 = $conn->query($sql2);
         if ($result2->num_rows > 0) {
@@ -71,6 +70,7 @@
             if ($email=="admin") {
                 if ($pass=="admin") {
                     $ctr=1;
+                    $_SESSION["role"]="admin";
                     $_SESSION["email_user"]="admin";
                     echo "../admin-page/admin-home.php";
                 }else{
