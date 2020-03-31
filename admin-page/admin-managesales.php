@@ -98,7 +98,7 @@ $pages = ceil($total/$isi);
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>Master Sales</h1>
                     </div>
                 </div>
             </div>
@@ -206,9 +206,9 @@ $pages = ceil($total/$isi);
                                 </div>
                             </div>
                             <div class="form-group">
-                                <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
+                                <small>*Pilih tombol Tambahkan untuk menambah sales baru</small><br>
                                 <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                                <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
+                               
                             </div>
                         </div>
                         <!-- end col 6 -->
@@ -223,9 +223,9 @@ $pages = ceil($total/$isi);
                                 <strong class="card-title">List Sales</strong>
                             </div>
                             <div class="card-body">
-                              <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
-                              <small>*Status Valid - data user sesuai</small><br>
-                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
+                              <small>*Tombol List Reseller - list reseller yang dibebani oleh setiap sales</small><br>
+                              <small>*Tombol Detail - Detail dari setiap sales</small><br>
+                              <small>*Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
                               <div class="table-responsive">
                               <table id="example" class="table table-striped table-bordered">
                                     <thead>
@@ -235,66 +235,53 @@ $pages = ceil($total/$isi);
                                             <th>Email</th>
                                             <th>No KTP</th>
                                             <th>Nomor Telepon</th>
-                                            <th>Alamat</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-                                    
                                     </tbody>
                                 </table>
-
-                               
                               </div>
-                               
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
-
-
     </div><!-- /#right-panel -->
 
-    <!-- Right Panel -->
-    <div class="modal" tabindex="-1" id="myModal" role="dialog">
-        <div class="modal-dialog" role="document">
+    <!-- Modal utk list reseller -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">List Reseller</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <div class="modal-body">
-                   
+                <div class="modal-body">               
                     <table id="fetchDataReseller" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#ID</th>
-                                            <th>Nama </th>
-                                            <th>Email</th>
-                                            <th>Alamat</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    
-                                    </tbody>
-                                </table>
-
-                   
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Email</th>
+                            <th>Nama Perusahaan </th>
+                            <th>No Telpon</th>
+                            <th>Alamat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    <!--end of Modal utk list reseller -->
 
    
     <!-- kumpulan script luar -->
@@ -305,11 +292,36 @@ $pages = ceil($total/$isi);
 </html>
 <script type="text/javascript">
 
+    //function detail di fetchDataReseller
+    function format ( d ) {
+        // `d` is the original data object for the row
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%">'+
+            '<tr>'+
+                '<td>Provinsi</td>'+
+                '<td>'+d.provinsi+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Kota</td>'+
+                '<td>'+d.kota+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Kecamatan</td>'+
+                '<td>'+d.kecamatan+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Alamat</td>'+
+                '<td>'+d.alamat+'</td>'+
+            '</tr>'+
+        '</table>';
+    }
+    //function detail di fetchDataReseller
+
     $(document).ready(function() {
         var table= "";
         
-        //datatble di list sales
-        table = $('#example').DataTable( {
+        //datatable di list sales
+        table = $('#example').DataTable( 
+        {
              "buttons": [ 'copy', 'excel', 'pdf' ],
              "processing":true,
              "serverSide":true,
@@ -322,52 +334,44 @@ $pages = ceil($total/$isi);
              "deferRender":true,
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[
+                
                  {"data":"id_sales"},
                  {"data":"nama_sales"},
                  {"data":"email"},
                  {"data":"no_ktp"},
                  {"data":"nomor_telepon"},
-                 {"data":"alamat"},
-                 {
-                   
+                 {                   
                     "target": -1,
-                    "defaultContent": "<button class=\"GetName\" data-toggle='modal' data-target='#myModal'>Name!</button><button class=\"GetPosition\">Position!</button>"
-                },
-                
+                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button> <button id=\"GetListReseller\" class='btn btn-outline-primary' data-toggle='modal' data-target='#myModal'>List Reseller</button>"
+                },              
              ],
-  
-  
-         } );
+        } );
 
 
-         setInterval( function () {
+        setInterval( function () {
              table.ajax.reload();
-         }, 30000 );
-         table.buttons().container()
+        }, 30000 );
+        table.buttons().container()
              .appendTo( '#example_wrapper .col-md-6:eq(0)' );
         //end of datatble di list sales
         
 
-        
-
-
-             
+        //function onclick untuk button list reseller dan details pada datatable list sales 
         var getId, data, tablelistreseller = "";
-        //tablelistreseller.destroy();
         $('#example tbody').on( 'click', 'button', function () {
-
-        var action = this.className;
-        data = table.row($(this).closest('tr')).data();
+            var action = this.id;
+            data = table.row($(this).closest('tr')).data();
         
-
-            if (action=='GetName')
+            //action button List Reseller
+            if (action=='GetListReseller')
             {
                 getId = data[Object.keys(data)[0]];
                 console.log(getId); //alert(getId);  utk dapatkan id salesnya
                         
-                //datatble di list reseler -- modal
-                 tablelistreseller = $('#fetchDataReseller').DataTable( {
-                    retrieve: true,
+                //datatable di list reseler -- show modal
+                tablelistreseller = $('#fetchDataReseller').DataTable( {
+                    // retrieve: true,
+                    destroy: true, //destroy dulu biar ngerefresh pas ganti2 
                       "buttons": [ 'copy', 'excel', 'pdf' ],
                       "processing":true,
                       "serverSide":true,
@@ -377,26 +381,43 @@ $pages = ceil($total/$isi);
                           "url":"datatable_listreseller.php",
                           "type":"POST",
                           "data":{"get_id":getId},
-              
                       },
                       "deferRender":true,
                       "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
                       "columns":[
+                          {"data":"id_cust"},
                           {"data":"email"},
-                          {"data":"nama_perusahaan"},
-                          {"data":"nama_pemilik"},
+                          {"data":"nama_perusahaan"},                         
                           {"data":"notelp"},
+                          {"data":"alamat_lengkap"},
                       ],
                   } );
-                //end of datatable di list reseler -- modal
+                //end of datatable di list reseler -- show modal                
             }
-
-            if(action == 'GetPosition')
+            //end of action button List Reseller
+            
+            //action button Detail
+            if(action == 'GetDetail')
             {
-                console.log(getId); alert(getId);  //utk dapatkan id salesnya
+                getId = data[Object.keys(data)[0]];
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
                 
+                if ( row.child.isShown() ) 
+                {   // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }       
+                else 
+                {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
             }
+            //end of action button Detail
         } );
+        //end of function onclick untuk button list reseller dan details pada datatable list sales 
        
     }); 
     // end of document ready
@@ -443,6 +464,7 @@ $pages = ceil($total/$isi);
         }
         
     }
+    //end of API
 
 
     // pemisah ktp
@@ -536,7 +558,9 @@ $pages = ceil($total/$isi);
     }
     // end pemisah ktp
 
-    function tambahsales() {
+    //function button onclick TAMBAHSALES
+    function tambahsales() 
+    {
 
         //validasi setiap inputan
         (function() {
@@ -550,7 +574,6 @@ $pages = ceil($total/$isi);
             if (form.checkValidity() === false) {
                 event.preventDefault();
                 event.stopPropagation();
-                
             }
             
             form.classList.add('was-validated');
@@ -562,38 +585,24 @@ $pages = ceil($total/$isi);
 
         (function($){
             $.post("adminajax.php",
-        {
-            jenis: "tambah_sales",
-            nama_sales:document.getElementById('nama_sales').value,
-            email:document.getElementById('email').value,
-            no_ktp:noktp,
-            nomor_telepon:document.getElementById('nomor_telepon').value,
-            provinsi:document.getElementById('provinsi').value,
-            kota:document.getElementById('kota').value,
-            kecamatan:document.getElementById('kecamatan').value,
-            alamat:document.getElementById('alamat_user').value,
+            {
+                jenis: "tambah_sales",
+                nama_sales:document.getElementById('nama_sales').value,
+                email:document.getElementById('email').value,
+                no_ktp:noktp,
+                nomor_telepon:document.getElementById('nomor_telepon').value,
+                provinsi:document.getElementById('provinsi').value,
+                kota:document.getElementById('kota').value,
+                kecamatan:document.getElementById('kecamatan').value,
+                alamat:document.getElementById('alamat_user').value,
 
-        },
-        function (data) {
-            $('#example').DataTable().ajax.reload(); 
-          //  $('#example').html(data);
-        //   $.ajax({
-        //       type:"POST",
-        //       url:"adminajax.php",
-        //       data:{
-        //           jenis:"tablesales",
-        //       },
-        //       function (data) {
-        //         $('#example').html(data);
-        //        // alert(id_sales);
-        //   }
-         //  });
-
-          
+            },
+            function (data) {
+                alert('Anda berhasil Tambah Sales');
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
         });
             
         }(jQuery))
-
 
         // reset inputan
         document.getElementById('nama_sales').value="";
@@ -605,30 +614,7 @@ $pages = ceil($total/$isi);
         document.getElementById('kecamatan').value = "";
         document.getElementById('alamat_user').value = "";
 
-        }
-        // end of function tambah sales
-
-
-
-    // function list reseller tanggung jwb sales
-    function listreseller(element, event) {
-          var id_sales = $(element).val();
-         // alert(id_sales);
-          $.ajax({
-              type:"POST",
-              url:"adminajax.php",
-              data:{
-                  jenis:"listreseller",
-                  idsales:id_sales
-              },
-              function (data) {
-                // $('.fetched-data').html(data);
-                alert(id_sales);
-          }
-          });
-
-        
-    };
-
+    }
+    //END OF function button onclick TAMBAHSALES
 
 </script>
