@@ -20,24 +20,37 @@
         
       }
 
-      if ($_POST["jenis"]=="getnamaprovince") {
-        $idprov=$_POST["id_prov"];
-        $kal="";
-        $arrprovince=getprovince();
-        if ($arrprovince=="error") {
-            $kal="error get nama api err";
-        }else{
-            
-            for ($i=0; $i <count($arrprovince); $i++) { 
-                $id=$arrprovince[$i]->province_id;
-                if ($id==$idprov) {
-                    $nama=$arrprovince[$i]->province;
-                }
-            }
-            $kal=$nama;
-        }
-        echo $kal;
+      if ($_POST["jenis"]=="getcityname") {
+         echo getcityname($_POST["idcity"]);
       }
+
+      function getcityname($idcity){
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=$idcity",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "key:8ccbf31cdb56de646092992e32819d09"
+          ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+          echo "cURL Error #:" . $err;
+        } else {
+            $arr=json_decode($response);
+            $kota=$arr->rajaongkir->results->city_name;
+            $provinsi=$arr->rajaongkir->results->province;
+            return $kota;
+        }
+      }
+
 
       function getprovince(){
         $curl = curl_init();
