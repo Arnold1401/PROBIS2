@@ -267,17 +267,7 @@ require_once("head.php");
             document.querySelector('.stars').setAttribute('data-rating', num);
         }
 
-        function cityname() {
-            $.post("ajaxs/ajaxregister.php",
-            {
-                jenis:"getcityname",
-                idcity:"444",
-            },
-            function(data){
-                console.log(data);
-            });
-        }
-        cityname();
+     
 
     </script>
 </body>

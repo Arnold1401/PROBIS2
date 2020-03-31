@@ -616,5 +616,15 @@ $pages = ceil($total/$isi);
 
     }
     //END OF function button onclick TAMBAHSALES
-
+    function cityname() {
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getcityname",
+                idcity:"444",
+            },
+            function(data){
+                console.log(data);
+            });
+        }
+        cityname();
 </script>
