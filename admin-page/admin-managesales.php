@@ -644,11 +644,12 @@ $pages = ceil($total/$isi);
         $.post("ajaxs/ajaxregister.php",
         {
             jenis:"getsubdistrictname",
-            idsub:"2114",
+            idsub:"1465",
+            idcity:"106",
         },
         function(data){
             console.log(data);
         });
     }
-    provincename();
+    getsubdistrictname();
 </script>

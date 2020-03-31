@@ -165,13 +165,13 @@
       }
 
       if ($_POST["jenis"]=="getsubdistrictname") {
-        echo getcityname($_POST["idsub"]);
+        echo getsubdistrictname($_POST["idsub"],$_POST["idcity"]);
      }
      
-     function getsubdistrictname($idsub){
+     function getsubdistrictname($idsub,$idcity){
        $curl = curl_init();
        curl_setopt_array($curl, array(
-         CURLOPT_URL => "https://api.rajaongkir.com/starter/subdistrict?id=$idsub",
+         CURLOPT_URL => "https://pro.rajaongkir.com/api/subdistrict?city=$idcity&id=$idsub",
          CURLOPT_RETURNTRANSFER => true,
          CURLOPT_ENCODING => "",
          CURLOPT_MAXREDIRS => 10,
@@ -189,8 +189,8 @@
          echo "cURL Error #:" . $err;
        } else {
            $arr=json_decode($response);
-           $kota=$arr->rajaongkir->results->subdistrict_name;
-           return $kota;
+           $subdistrict=$arr->rajaongkir->results->subdistrict_name;
+           return $subdistrict;
        }
      }
 
