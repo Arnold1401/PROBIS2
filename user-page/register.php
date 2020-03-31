@@ -369,7 +369,7 @@ function register() {
             if (data.search("berhasil register")>0) {
                 alert("Berhasil Register");
                 setTimeout(() => {
-                    window.location.href = "http://localhost/Probis2/PROBIS2/user-page/login.php";
+                    window.location.href = "http://localhost/probis/PROBIS2/user-page/login.php";
                 }, 3000);
             }else  if (data.search("email telah digunakan!")>0) {
                 alert("Email telah digunakan!");

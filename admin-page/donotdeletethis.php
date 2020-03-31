@@ -63,3 +63,52 @@
     }
     $conn->close();
 }
+
+
+
+
+<?php
+                                            $urutan = 1;
+                                            $res = mysqli_query(getConn(), "select * from customer");
+                                            if (mysqli_num_rows($res)>0) {
+                                                while($data = mysqli_fetch_assoc($res)){ ?>
+                                                    <tr>
+                                                        <td> <?php echo $urutan++; ?> </td>
+                                                        <td> <?php echo $data["nama_perusahaan"] ?> </td>
+                                                        <td> <?php echo $data["nama_pemilik"] ?> </td>
+                                                        <td> <?php echo $data["email"] ?> </td>
+                                                        <td> <?php 
+                                                                if ($data["status"] == "0") { ?>
+                                                                   <button type="button" name="" id="" class="btn btn-warning btn-sm">
+                                                                    <?php echo $data["status"]="Menunggu"; ?>
+                                                                   </button> 
+                                                                   <button type="button" name="" id="" class="btn btn-outline-info btn-sm" value="<?php echo $data['email'] ?>">
+                                                                    Detail
+                                                                   </button> 
+                                                                <?php  
+                                                                }
+                                                                else if ($data["status"] == "1") { ?>
+                                                                    <button type="button" name="" id="" class="btn btn-success btn-sm">
+                                                                     <?php echo $data["status"]="Valid"; ?>
+                                                                    </button>
+                                                                    <button type="button" name="" id="" class="btn btn-outline-primary btn-sm" value="<?php echo $data['email'] ?>">
+                                                                     Atur Sales
+                                                                    </button>  
+                                                                <?php
+                                                                }
+                                                                else if ($data["status"] == "2") { ?>
+                                                                    <button type="button" name="" id="" class="btn btn-danger btn-sm">
+                                                                     <?php echo $data["status"]="Tidak Valid"; ?>
+                                                                    </button> 
+                                                                    
+                                                                <?php
+                                                                }
+                                                                ?> 
+                                                        </td>
+                                                        
+                                                        <!-- <td> <button type="button" class="btn btn-outline-primary">Ganti sales</button><td> -->
+                                                    </tr>
+                                            <?php    }
+                                            }
+                                        ?>
+                                

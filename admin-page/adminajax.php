@@ -48,60 +48,31 @@ if ($_POST["jenis"] == "tambah_sales") {
     $conn->close();
 }
 
-//list table sales
-if ($_POST["jenis"] == "tablesales") {
+if ($_POST["jenis"] == "data_valid") {
     $conn = getConn();
-    $sql = "SELECT * FROM sales";
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-?>	
-		<tr>
-			<td><?=$row['id_sales'];?></td>
-            <td><?=$row['nama_sales'];?></td>
-			<td><?=$row['email'];?></td>
-            <td><?=$row['no_ktp'];?></td>
-			<td><?=$row['nomor_telepon'];?></td>
-            <td><?=$row['alamat'];?></td>
-			
-		</tr>
-<?php	
-	}
-	}
-	else {
-		echo "0 results";
-	}
-	mysqli_close($conn);
+    $id_cust = $_POST['id_cust'];
+    $status_id = 1;
+    $sql = "update customer set status=$status_id where id_cust='$id_cust'";
+    if ($conn->query($sql)) {
+        echo "berhasil";
+    }else{
+        echo "gagal validasi";
+    }
+    //echo $id_cust;
+    $conn->close();
 }
 
-// if ($_POST["jenis"] == "detailsales") {
-
-
-if ($_POST["jenis"] == "listreseller") {
-    
-    
-    $getId = $_POST["idsales"];
+if ($_POST["jenis"] == "data_tdkvalid") {
     $conn = getConn();
-    $sql = "SELECT * FROM customer where id_sales='$getId'";
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		while($row = $result->fetch_assoc()) {
-?>	
-		<tr>
-			<td><?=$row['email'];?></td>
-            <td><?=$row['nama_perusahaan'];?></td>
-			<td><?=$row['nama_pemilik'];?></td>
-            <td><?=$row['notelp'];?></td>
-			
-		</tr>
-<?php	
-	}
-	}
-	else {
-		echo "0 results";
-	}
-	mysqli_close($conn);
+    $id_cust = $_POST['id_cust'];
+    $status_id = 2;
+    $sql = "update customer set status=$status_id where id_cust='$id_cust'";
+    if ($conn->query($sql)) {
+        echo "berhasil";
+    }else{
+        echo "gagal validasi";
+    }
+    //echo $id_cust;
+    $conn->close();
 }
-
-// end of admin - master - sales
 ?>

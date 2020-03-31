@@ -92,7 +92,7 @@ include_once('adminconn.php');
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>Master Customer</h1>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@ include_once('adminconn.php');
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>      
                             <li><a href="#">Master</a></li>                            
-                            <li><a href="#">User</a></li>                                                  
+                            <li><a href="#">Customer</a></li>                                                  
                         </ol>
                     </div>
                 </div>
@@ -114,105 +114,8 @@ include_once('adminconn.php');
                 <div class="row">
                 <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">User</strong>
-                            </div>
-                            <div class="card-body card-block">
 
-                                <!-- crud barang-->
-                                <form action="">
-
-                                  <div class="row form-group">
-                                    <div class="col col-md-3">
-                                      <label for="file-input" class=" form-control-label">Gambar KTP</label>
-                                    </div>
-                                      
-                                    <div class="col-12 col-md-9">
-                                      <input type="file" id="file-input" name="file-input" class="form-control-file">
-                                    </div>
-                                  </div>
-
-                                  <h4>Profil Usaha </h4><hr>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Perusahaan/Toko</label>
-                                      <input type="text" id="" name="" value="EMOS" class="form-control" readonly>
-                                  </div>
-                                  
-                                  <h4>Profil Pemilik </h4><hr>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">No KTP </label>
-                                    <input id="no_ktp" type="text" onkeydown="return numbersonly(this, event);" onkeyup="javascript:pemisahktp(this);" class="form-control" value="1234567890123456" id="nomor_ktp" placeholder="Nomor KTP" aria-describedby="helpnomor_ktp" required>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Pemilik </label>
-                                      <input readonly type="text" id="" name="" value="Alfira Jessica" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Email</label>
-                                      <input readonly type="text" id="" name="" value="alfirajessica@gmail.com" class="form-control">
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">No Telpon </label>
-                                      <input readonly type="number" id="" name="" value="082288569879" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Tanggal/Bulan/Tahun Lahir </label>
-                                      <input readonly type="date" id="" name="" value="01/04/1999" class="form-control">
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Jenis Kelamin </label>
-                                    <select readonly name="select" id="select" class="form-control">
-                                        <option value="0">Wanita</option>
-                                        <option value="1">Pria</option>
-                                      </select>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Alamat</label>
-                                    <textarea readonly class="form-control" name="" id="" rows="3" placeholder="Jl Bratang Binangun I no 73" class="form-control"></textarea>
-                                  </div>        
-                                  
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Sales Yang bertanggung jawab </label>
-                                    <select readonly name="select" id="select" class="form-control">
-                                        <option value="0">001 - Arnold</option>
-                                        <option value="1">002 - Wily</option>
-                                      </select>
-                                  </div>
-
-                                <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-md">
-                                    <i class="fa fa-dot-circle-o"></i> Valid
-                                  </button>
-
-                                  <button type="submit" class="btn btn-danger btn-md">
-                                    <i class="fa fa-ban"></i> Tidak Valid
-                                  </button>
-
-                                  <!-- <button type="submit" class="btn btn-warning btn-md float-right">
-                                    <i class="fa fa-ban"></i> Ubah Sales
-                                  </button> -->
-                                </div>
-                                 
-
-                                  <br>
-
-                                  <div class="form-group">
-                                  <small>*Pilih tombol Valid untuk mengubah status user jika data yang diinputkan sesuai KTP</small><br>
-                                  <small>*Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>
-                                  <small>*Pilih tombol Ubah Sales jika user meminta pergantian sales</small><br>
-                                  </div>
-                                 
-                                </form>
-                                <!-- crud barang-->
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -220,7 +123,7 @@ include_once('adminconn.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Barang</strong>
+                                <strong class="card-title">List Customer</strong>
                             </div>
                             <div class="card-body">
 
@@ -231,64 +134,19 @@ include_once('adminconn.php');
                             </div>
                               
                               <div class="table-responsive">
-                              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                              <table id="tableusers" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>No Pelanggan</th>
-                                            <th>Nama </th>
-                                            <th>Email</th>
-                                            <th>Nomor KTP</th>
-                                            <th>Status & Action</th>
-                                            
+                                            <th>#ID customer</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th>Nama Pemilik</th>
+                                            <th>Nomor KTP </th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                            $urutan = 1;
-                                            $res = mysqli_query(getConn(), "select * from customer");
-                                            if (mysqli_num_rows($res)>0) {
-                                                while($data = mysqli_fetch_assoc($res)){ ?>
-                                                    <tr>
-                                                        <td> <?php echo $urutan++; ?> </td>
-                                                        <td> <?php echo $data["nama_perusahaan"] ?> </td>
-                                                        <td> <?php echo $data["nama_pemilik"] ?> </td>
-                                                        <td> <?php echo $data["email"] ?> </td>
-                                                        <td> <?php 
-                                                                if ($data["status"] == "0") { ?>
-                                                                   <button type="button" name="" id="" class="btn btn-warning btn-sm">
-                                                                    <?php echo $data["status"]="Menunggu"; ?>
-                                                                   </button> 
-                                                                   <button type="button" name="" id="" class="btn btn-outline-info btn-sm" value="<?php echo $data['email'] ?>">
-                                                                    Detail
-                                                                   </button> 
-                                                                <?php  
-                                                                }
-                                                                else if ($data["status"] == "1") { ?>
-                                                                    <button type="button" name="" id="" class="btn btn-success btn-sm">
-                                                                     <?php echo $data["status"]="Valid"; ?>
-                                                                    </button>
-                                                                    <button type="button" name="" id="" class="btn btn-outline-primary btn-sm" value="<?php echo $data['email'] ?>">
-                                                                     Atur Sales
-                                                                    </button>  
-                                                                <?php
-                                                                }
-                                                                else if ($data["status"] == "2") { ?>
-                                                                    <button type="button" name="" id="" class="btn btn-danger btn-sm">
-                                                                     <?php echo $data["status"]="Tidak Valid"; ?>
-                                                                    </button> 
-                                                                    
-                                                                <?php
-                                                                }
-                                                                ?> 
-                                                        </td>
-                                                        
-                                                        <!-- <td> <button type="button" class="btn btn-outline-primary">Ganti sales</button><td> -->
-                                                    </tr>
-                                            <?php    }
-                                            }
-                                        ?>
-                                
-
+                                        
                                     </tbody>
                                 </table>
                               </div>
@@ -315,8 +173,83 @@ include_once('adminconn.php');
 
 </html>
 <script>
-// pemisah ktp
-function pemisahktp(noktp)
+
+    //function detail di list customer
+    function format ( d ) {
+        // `d` is the original data object for the row
+        var jenis_kelamin = "";
+        if(d.jenis_kelamin == "0"){
+            jenis_kelamin = "Wanita";
+        }else{
+            jenis_kelamin = "Pria";
+        }
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%;">'+
+            '<tr>'+
+                '<td>Foto KTP</td>'+
+                '<td> <img src="../user-page/'+d.foto_ktp+'" width:"100px" ></img></td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Tanggal Lahir</td>'+
+                '<td>'+d.tanggal_lahir+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Jenis Kelamin</td>'+
+                '<td>'+ jenis_kelamin+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>No Telepon</td>'+
+                '<td>'+d.notelp+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Email</td>'+
+                '<td>'+d.email+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Alamat</td>'+
+                '<td>'+d.provinsi + ', ' + d.kota + ', ' + d.kecamatan + ', ' + d.alamat_lengkap +'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Apakah Data Valid?</td>'+
+                '<td>'+
+                    '<button onclick="datavalid('+d.id_cust+')" type="submit" class="btn btn-success btn-md"><i class="fa fa-dot-circle-o"></i> Valid </button>' + '  ' +
+                    '<button onclick="datatdkvalid('+d.id_cust+')" type="submit" class="btn btn-danger btn-md"><i class="fa fa fa-ban"></i> Tidak Valid </button> <br>' +
+                    '<small>*Pilih tombol Valid untuk mengubah status user jika data yang diinputkan sesuai KTP</small><br>'+
+                    '<small>*Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>' +
+                '</td>'+
+            
+            '</tr>'+
+        '</table>';
+    }
+    //end of function detail di list customer
+
+    function datavalid(id_cust) {
+        
+        $.post("adminajax.php",
+        {
+            jenis:"data_valid", 
+            id_cust :id_cust,
+        },
+        function(data){
+            alert(data);
+            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
+        });
+    }
+
+    function datatdkvalid(id_cust) {
+        
+        $.post("adminajax.php",
+        {
+            jenis:"data_tdkvalid", 
+            id_cust :id_cust,
+        },
+        function(data){
+            alert(data);
+            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
+        });
+    }
+
+    // pemisah ktp
+    function pemisahktp(noktp)
     {
         var _minus = false;
         if (noktp<0) _minus = true;
@@ -342,57 +275,57 @@ function pemisahktp(noktp)
         return c;
         
     }
-    
+
     function numbersonly(ini, e)
     {
-    if (e.keyCode>=49)
-    {
-    if(e.keyCode<=57)
-    {
-    a = ini.value.toString().replace(".","");
-    noktp = a.replace(/[^\d]/g,"");
-    noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
-    ini.value = pemisahktp(noktp);
+        if (e.keyCode>=49)
+        {
+        if(e.keyCode<=57)
+        {
+        a = ini.value.toString().replace(".","");
+        noktp = a.replace(/[^\d]/g,"");
+        noktp = (noktp=="0")?String.fromCharCode(e.keyCode):noktp + String.fromCharCode(e.keyCode);
+        ini.value = pemisahktp(noktp);
 
-    return false;
-    }
+        return false;
+        }
 
-    else if(e.keyCode<=105){
-    if(e.keyCode>=96){
-    //e.keycode = e.keycode - 47;
-    a = ini.value.toString().replace(".","");
-    noktp = a.replace(/[^\d]/g,"");
-    noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
-    ini.value = pemisahktp(noktp);
-    //alert(e.keycode);
-    return false;
-    }
-    else {return false;}
-    }else {
-    return false; }
-    }else if (e.keyCode==48){
-    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
-    noktp = a.replace(/[^\d]/g,"");
-    if (parseFloat(noktp)!=0){
-    ini.value = pemisahktp(noktp);
-    return false;
-    } else {return false;}
-    }else if (e.keyCode==95){
-    a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
-    noktp = a.replace(/[^\d]/g,"");
-    if (parseFloat(noktp)!=0){
+        else if(e.keyCode<=105){
+        if(e.keyCode>=96){
+        //e.keycode = e.keycode - 47;
+        a = ini.value.toString().replace(".","");
+        noktp = a.replace(/[^\d]/g,"");
+        noktp = (noktp=="0")?String.fromCharCode(e.keyCode-48):noktp + String.fromCharCode(e.keyCode-48);
+        ini.value = pemisahktp(noktp);
+        //alert(e.keycode);
+        return false;
+        }
+        else {return false;}
+        }else {
+        return false; }
+        }else if (e.keyCode==48){
+        a = ini.value.replace(".","") + String.fromCharCode(e.keyCode);
+        noktp = a.replace(/[^\d]/g,"");
+        if (parseFloat(noktp)!=0){
         ini.value = pemisahktp(noktp);
         return false;
         } else {return false;}
-    }else if (e.keyCode==8 || e.keycode==46){
+        }else if (e.keyCode==95){
+        a = ini.value.replace(".","") + String.fromCharCode(e.keyCode-48);
+        noktp = a.replace(/[^\d]/g,"");
+        if (parseFloat(noktp)!=0){
+        ini.value = pemisahktp(noktp);
+        return false;
+        } else {return false;}
+        }else if (e.keyCode==8 || e.keycode==46){
         a = ini.value.replace(".","");
         noktp = a.replace(/[^\d]/g,"");
         noktp = noktp.substr(0,noktp.length -1);
-        
+
         if (pemisahktp(noktp)!=""){
             ini.value = pemisahktp(noktp);
         } else {ini.value = "";}
-        
+
         return false;
         } else if (e.keyCode==9){
         return true;
@@ -402,9 +335,134 @@ function pemisahktp(noktp)
         //alert (e.keyCode);
         return false;
         }
-
     }
     // end pemisah ktp
+
+    //document ready
+    $(document).ready(function () {
+        var tableuser="";
+
+        //datatable di list user
+        tableuser = $('#tableusers').DataTable( 
+        {
+             "buttons": [ 'copy', 'excel', 'pdf' ],
+             "processing":true,
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_users.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[ 
+                {"data":"id_cust"},               
+                {"data":"nama_perusahaan"},                         
+                {"data":"nama_pemilik"},
+                {"data":"nomor_ktp"},
+                {"data":"status",
+                    "searchable": false,
+                    "orderable":false,
+                    "render": function (data, type, row) {  
+                        if (row.status == '0') {
+                            return "<button type='button' class='btn btn-warning btn-sm'>Menunggu</button>";
+                        }
+                        else if (row.status == '1') {
+                            return "<button type='button' class='btn btn-success btn-sm'>Valid</button>";
+                        }
+                        else if (row.status == '2') {
+                            return "<button type='button' class='btn btn-danger btn-sm'>Tidak Valid</button>";
+                        }
+                        
+                    }
+                },
+                {"data":"status",
+                    "searchable": false,
+                    "orderable":false,
+                    "render": function (data, type, row) {  
+                        if (row.status == '1') {
+                            return "<button type='button' id=\"Atur_Sales\" class='btn btn-outline-primary btn-sm'>Atur Sales</button>";
+                                
+                            
+                        }
+                        else if (row.status == '0' || row.status == '2') {
+                            return "<button type='button' id=\"GetDetail\" class='btn btn-outline-info btn-sm'>Detail</button>";
+                        }
+                        
+                    },
+                    "target":-1,
+                },
+                          
+             ],
+        } );
+
+        //function onclick untuk button atur sales dan detail pada datatable list customer 
+        var getId, data, tablelistreseller = "";
+        $('#tableusers tbody').on( 'click', 'button', function () {
+            var action = this.id;
+            data = tableuser.row($(this).closest('tr')).data();
+        
+            //action button List Reseller
+            if (action=='Atur_Sales')
+            {
+                getId = data[Object.keys(data)[0]];
+                console.log(getId); //alert(getId);  utk dapatkan id customer
+                        
+                //datatable di list reseler -- show modal
+                // tablelistreseller = $('#fetchDataReseller').DataTable( {
+                //     // retrieve: true,
+                //     destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                //       "buttons": [ 'copy', 'excel', 'pdf' ],
+                //       "processing":true,
+                //       "serverSide":true,
+                //       "ordering":true, //set true agar bisa di sorting
+                //       "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                //       "ajax":{
+                //           "url":"datatable_listreseller.php",
+                //           "type":"POST",
+                //           "data":{"get_id":getId},
+                //       },
+                //       "deferRender":true,
+                //       "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+                //       "columns":[
+                //           {"data":"id_cust"},
+                //           {"data":"email"},
+                //           {"data":"nama_perusahaan"},                         
+                //           {"data":"notelp"},
+                //           {"data":"alamat_lengkap"},
+                //       ],
+                //   } );
+                //end of datatable di list reseler -- show modal                
+            }
+            //end of action button List Reseller
+            
+            //action button Detail
+            if(action == 'GetDetail')
+            {
+                getId = data[Object.keys(data)[0]];
+                console.log(getId); //alert(getId);  utk dapatkan id customer
+
+                var tr = $(this).closest('tr');
+                var row = tableuser.row( tr );
+                
+                if ( row.child.isShown() ) 
+                {   // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }       
+                else 
+                {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
+            }
+            //end of action button Detail
+        } );
+        //end of function onclick untuk button atur sales dan detail pada datatable list customer 
+    });
+    //end of document ready
 
     function keluar(){
     $.post("ajaxs/ajaxlogin.php",
@@ -417,5 +475,4 @@ function pemisahktp(noktp)
 
 }
 
-//list table
 </script>
