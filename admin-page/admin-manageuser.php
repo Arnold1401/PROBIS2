@@ -140,7 +140,7 @@ include_once('adminconn.php');
                                             <th>#ID customer</th>
                                             <th>Nama Perusahaan</th>
                                             <th>Nama Pemilik</th>
-                                            <th>Nomor KTP </th>
+                                            <th>Asal</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -159,12 +159,41 @@ include_once('adminconn.php');
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
-
-
     </div><!-- /#right-panel -->
 
-    <!-- Right Panel -->
-
+    <!-- Modal utk list sales -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">List Sales Terdekat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">               
+                    <table id="listSalesNear" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#ID</th>
+                            <th>Email</th>
+                            <th>Nama Sales </th>
+                            <th>Provinsi</th>
+                            <th>Kota</th>
+                            <th>Kecamatan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of Modal utk list sales -->
 
     <!-- kumpulan script luar -->
     <?php      include_once('kumpulanscriptluar.php'); ?>
@@ -178,6 +207,8 @@ include_once('adminconn.php');
     function format ( d ) {
         // `d` is the original data object for the row
         var jenis_kelamin = "";
+        var lahir = moment(d.tanggal_lahir).format("DD MMMM Y");          
+
         if(d.jenis_kelamin == "0"){
             jenis_kelamin = "Wanita";
         }else{
@@ -190,7 +221,11 @@ include_once('adminconn.php');
             '</tr>'+
             '<tr>'+
                 '<td>Tanggal Lahir</td>'+
-                '<td>'+d.tanggal_lahir+'</td>'+
+                '<td>'+d.nomor_ktp+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Tanggal Lahir</td>'+
+                '<td>'+lahir +'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Jenis Kelamin</td>'+
@@ -360,7 +395,7 @@ include_once('adminconn.php');
                 {"data":"id_cust"},               
                 {"data":"nama_perusahaan"},                         
                 {"data":"nama_pemilik"},
-                {"data":"nomor_ktp"},
+                {"data":"provinsi"},
                 {"data":"status",
                     "searchable": false,
                     "orderable":false,
@@ -382,7 +417,7 @@ include_once('adminconn.php');
                     "orderable":false,
                     "render": function (data, type, row) {  
                         if (row.status == '1') {
-                            return "<button type='button' id=\"Atur_Sales\" class='btn btn-outline-primary btn-sm'>Atur Sales</button>";
+                            return "<button type='button' id=\"Atur_Sales\" data-toggle='modal' data-target='#myModal' class='btn btn-outline-primary btn-sm'>Atur Sales</button>";
                                 
                             
                         }
@@ -398,42 +433,43 @@ include_once('adminconn.php');
         } );
 
         //function onclick untuk button atur sales dan detail pada datatable list customer 
-        var getId, data, tablelistreseller = "";
+        var getId, data, listSalesNear = "";
         $('#tableusers tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = tableuser.row($(this).closest('tr')).data();
         
-            //action button List Reseller
+            //action button List sales dimana hanya menunjukkan sales yang provinsinya sama dengan customer tersebut
             if (action=='Atur_Sales')
             {
-                getId = data[Object.keys(data)[0]];
-                console.log(getId); //alert(getId);  utk dapatkan id customer
+                getId = data[Object.keys(data)[15]];
+                console.log(getId); //alert(getId);  utk dapatkan id provinsi
                         
                 //datatable di list reseler -- show modal
-                // tablelistreseller = $('#fetchDataReseller').DataTable( {
-                //     // retrieve: true,
-                //     destroy: true, //destroy dulu biar ngerefresh pas ganti2 
-                //       "buttons": [ 'copy', 'excel', 'pdf' ],
-                //       "processing":true,
-                //       "serverSide":true,
-                //       "ordering":true, //set true agar bisa di sorting
-                //       "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-                //       "ajax":{
-                //           "url":"datatable_listreseller.php",
-                //           "type":"POST",
-                //           "data":{"get_id":getId},
-                //       },
-                //       "deferRender":true,
-                //       "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-                //       "columns":[
-                //           {"data":"id_cust"},
-                //           {"data":"email"},
-                //           {"data":"nama_perusahaan"},                         
-                //           {"data":"notelp"},
-                //           {"data":"alamat_lengkap"},
-                //       ],
-                //   } );
-                //end of datatable di list reseler -- show modal                
+                listSalesNear = $('#listSalesNear').DataTable( {
+                     // retrieve: true,
+                     destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                       "buttons": [ 'copy', 'excel', 'pdf' ],
+                       "processing":true,
+                       "serverSide":true,
+                       "ordering":true, //set true agar bisa di sorting
+                       "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                       "ajax":{
+                           "url":"datatable_listSalesNear.php",
+                           "type":"POST",
+                           "data":{"get_provinsi":getId},
+                       },
+                       "deferRender":true,
+                       "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+                       "columns":[
+                           {"data":"id_sales"},
+                           {"data":"email"},
+                           {"data":"nama_sales"},                         
+                           {"data":"provinsi"},
+                           {"data":"kota"},
+                           {"data":"kecamatan"},
+                       ],
+                   } );
+                //end of datatable di list sales -- show modal                
             }
             //end of action button List Reseller
             

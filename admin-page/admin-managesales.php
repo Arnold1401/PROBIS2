@@ -561,7 +561,6 @@ $pages = ceil($total/$isi);
     //function button onclick TAMBAHSALES
     function tambahsales() 
     {
-
         //validasi setiap inputan
         (function() {
         'use strict';
@@ -598,7 +597,7 @@ $pages = ceil($total/$isi);
 
             },
             function (data) {
-                alert('Anda berhasil Tambah Sales');
+                alert(data);
                 $('#example').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
         });
             
@@ -616,40 +615,5 @@ $pages = ceil($total/$isi);
 
     }
     //END OF function button onclick TAMBAHSALES
-    function cityname() {
-            $.post("ajaxs/ajaxregister.php",
-            {
-                jenis:"getcityname",
-                idcity:"444",
-            },
-            function(data){
-                console.log(data);
-            });
-        }
-        cityname();
 
-    function provincename() {
-        $.post("ajaxs/ajaxregister.php",
-        {
-            jenis:"getprovincename",
-            idprovince:"2",
-        },
-        function(data){
-            console.log(data);
-        });
-    }
-    provincename();
-    
-    function getsubdistrictname() {
-        $.post("ajaxs/ajaxregister.php",
-        {
-            jenis:"getsubdistrictname",
-            idsub:"1465",
-            idcity:"106",
-        },
-        function(data){
-            console.log(data);
-        });
-    }
-    getsubdistrictname();
 </script>
