@@ -19,6 +19,37 @@
         }
         
       }
+      if ($_POST["jenis"]=="getprovincename") {
+        echo getprovincename($_POST["idprovince"]);
+       }
+
+       function getprovincename($idprovince){
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/province?id=$idprovince",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+           "key: 8ccbf31cdb56de646092992e32819d09"
+        ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            return "error";
+        } else 
+        {  
+            $arr=json_decode($response);
+            $resultnya=$arr->rajaongkir->results->province;
+            return $resultnya;
+        }
+      }
+
 
       if ($_POST["jenis"]=="getcityname") {
          echo getcityname($_POST["idcity"]);
@@ -178,6 +209,35 @@
         }
       }
 
+      if ($_POST["jenis"]=="getsubdistrictname") {
+        echo getsubdistrictname($_POST["idsub"],$_POST["idcity"]);
+     }
+     
+     function getsubdistrictname($idsub,$idcity){
+       $curl = curl_init();
+       curl_setopt_array($curl, array(
+         CURLOPT_URL => "https://pro.rajaongkir.com/api/subdistrict?city=$idcity&id=$idsub",
+         CURLOPT_RETURNTRANSFER => true,
+         CURLOPT_ENCODING => "",
+         CURLOPT_MAXREDIRS => 10,
+         CURLOPT_TIMEOUT => 30,
+         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+         CURLOPT_CUSTOMREQUEST => "GET",
+         CURLOPT_HTTPHEADER => array(
+           "key:8ccbf31cdb56de646092992e32819d09"
+         ),
+       ));
+       $response = curl_exec($curl);
+       $err = curl_error($curl);
+       curl_close($curl);
+       if ($err) {
+         echo "cURL Error #:" . $err;
+       } else {
+           $arr=json_decode($response);
+           $subdistrict=$arr->rajaongkir->results->subdistrict_name;
+           return $subdistrict;
+       }
+     }
       if ($_POST["jenis"]=="getharga") {
         $corigin=$_POST["corigin"];
         $sdestination=$_POST["sdestination"];
