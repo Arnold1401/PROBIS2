@@ -260,6 +260,11 @@
         $password_user = $_POST["password_user"];
         
 
+        $prov=getprovincename($prov);
+        $kota=getcityname($kota);
+        $camat=getsubdistrictname($camat,$_POST["kota"]);
+
+
         $status_akun = 0;//menunggu
         $ctr = 0;//untuk mengetahu kembar email
 
