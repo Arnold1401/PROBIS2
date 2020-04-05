@@ -127,8 +127,8 @@ require_once("head.php");
 
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
-                                        <small id="helpId" class="form-text text-muted"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></small>                            
-                                        <input value="emos"  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="emos">  
+                                        <small id="helpId" class="form-text text-muted">Nama Perusahaan</small>                            
+                                        <input value="<?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?>"  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="emos">  
                                     </div>
                                     <hr>
 
@@ -148,7 +148,7 @@ require_once("head.php");
 
                                     <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
-                                <input value="Alfira Jessica" type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nama Pemilik">                               
+                                <input value="<?php echo $_SESSION["nama_user"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
                                 </div>
 
                                 <div class="form-group">
@@ -179,7 +179,7 @@ require_once("head.php");
                                 <textarea value="Jl bratang binangun I" class="form-control" name="" id="" rows="3"></textarea>
                                 </div>
                            
-                                <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>                      
+                                <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
@@ -273,6 +273,22 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+
+    function simpan() {
+        console.log($("#nama_user").val());
+            $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"update",
+                nama_user:$("#nama_user").val(),//# ini dari id component
+            },
+            function(data){
+                if (data.search("update berhasil")>0) {
+                    alert("update berhasil");
+                }else{
+                    alert("gagal");
+                }
+            });
+        }
 </script>
 </body>
 </html>
