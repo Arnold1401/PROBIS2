@@ -266,7 +266,9 @@ require_once("head.php");
             });
             document.querySelector('.stars').setAttribute('data-rating', num);
         }
-        
+
+     
+
     </script>
 </body>
 </html>

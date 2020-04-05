@@ -19,25 +19,69 @@
         }
         
       }
+      if ($_POST["jenis"]=="getprovincename") {
+        echo getprovincename($_POST["idprovince"]);
+       }
 
-      if ($_POST["jenis"]=="getnamaprovince") {
-        $idprov=$_POST["id_prov"];
-        $kal="";
-        $arrprovince=getprovince();
-        if ($arrprovince=="error") {
-            $kal="error get nama api err";
-        }else{
-            
-            for ($i=0; $i <count($arrprovince); $i++) { 
-                $id=$arrprovince[$i]->province_id;
-                if ($id==$idprov) {
-                    $nama=$arrprovince[$i]->province;
-                }
-            }
-            $kal=$nama;
+       function getprovincename($idprovince){
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/province?id=$idprovince",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+           "key: 8ccbf31cdb56de646092992e32819d09"
+        ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            return "error";
+        } else 
+        {  
+            $arr=json_decode($response);
+            $resultnya=$arr->rajaongkir->results->province;
+            return $resultnya;
         }
-        echo $kal;
       }
+
+
+      if ($_POST["jenis"]=="getcityname") {
+         echo getcityname($_POST["idcity"]);
+      }
+
+      function getcityname($idcity){
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id=$idcity",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "key:8ccbf31cdb56de646092992e32819d09"
+          ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+          echo "cURL Error #:" . $err;
+        } else {
+            $arr=json_decode($response);
+            $kota=$arr->rajaongkir->results->city_name;
+            $provinsi=$arr->rajaongkir->results->province;
+            return $kota;
+        }
+      }
+
 
       function getprovince(){
         $curl = curl_init();
@@ -165,6 +209,35 @@
         }
       }
 
+      if ($_POST["jenis"]=="getsubdistrictname") {
+        echo getsubdistrictname($_POST["idsub"],$_POST["idcity"]);
+     }
+     
+     function getsubdistrictname($idsub,$idcity){
+       $curl = curl_init();
+       curl_setopt_array($curl, array(
+         CURLOPT_URL => "https://pro.rajaongkir.com/api/subdistrict?city=$idcity&id=$idsub",
+         CURLOPT_RETURNTRANSFER => true,
+         CURLOPT_ENCODING => "",
+         CURLOPT_MAXREDIRS => 10,
+         CURLOPT_TIMEOUT => 30,
+         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+         CURLOPT_CUSTOMREQUEST => "GET",
+         CURLOPT_HTTPHEADER => array(
+           "key:8ccbf31cdb56de646092992e32819d09"
+         ),
+       ));
+       $response = curl_exec($curl);
+       $err = curl_error($curl);
+       curl_close($curl);
+       if ($err) {
+         echo "cURL Error #:" . $err;
+       } else {
+           $arr=json_decode($response);
+           $subdistrict=$arr->rajaongkir->results->subdistrict_name;
+           return $subdistrict;
+       }
+     }
       if ($_POST["jenis"]=="getharga") {
         $corigin=$_POST["corigin"];
         $sdestination=$_POST["sdestination"];
@@ -246,6 +319,11 @@
         $camat = $_POST["camat"];
         $password_user = $_POST["password_user"];
         
+
+        $prov=getprovincename($prov);
+        $kota=getcityname($kota);
+        $camat=getsubdistrictname($camat,$_POST["kota"]);
+
 
         $status_akun = 0;//menunggu
         $ctr = 0;//untuk mengetahu kembar email
@@ -350,13 +428,13 @@
           $mail->isSMTP();                                            // Send using SMTP
           $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
           $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-          $mail->Username   = 'orientherbalnusantara@gmail.com';      // SMTP username
-          $mail->Password   = 'Orientnusantara88';                    // SMTP password
+          $mail->Username   = 'emosmart@gmail.com';      // SMTP username
+          $mail->Password   = 'probis2@';                    // SMTP password
           $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
           $mail->Port       = 587;                                    // TCP port to connect to
 
           //Recipients
-          $mail->setFrom('orientherbalnusantara@gmail.com', 'Orient Herbal');
+          $mail->setFrom('oemosmart@gmail.com', 'Emos Mart');
           $mail->addAddress($sendto,$namauser);     // Add a recipient
           //$mail->addAddress('ellen@example.com');               // Name is optional
           //$mail->addReplyTo('info@example.com', 'Information');

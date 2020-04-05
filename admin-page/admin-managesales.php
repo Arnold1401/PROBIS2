@@ -561,7 +561,6 @@ $pages = ceil($total/$isi);
     //function button onclick TAMBAHSALES
     function tambahsales() 
     {
-
         //validasi setiap inputan
         (function() {
         'use strict';
@@ -598,7 +597,7 @@ $pages = ceil($total/$isi);
 
             },
             function (data) {
-                alert('Anda berhasil Tambah Sales');
+                alert(data);
                 $('#example').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
         });
             
