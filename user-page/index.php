@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(isset($_SESSION["role"])){
-    header("Location: http://localhost/Probis2/PROBIS2/user-page/home.php");
-}
-require_once("head.php");
+// session_start();
+// if(isset($_SESSION["role"])){
+//     header("Location: http://localhost/Probis2/PROBIS2/user-page/home.php");
+// }
+// require_once("head.php");
 
 ?>
 

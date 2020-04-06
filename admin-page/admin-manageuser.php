@@ -14,7 +14,19 @@ include_once('adminconn.php');
 <!--<![endif]-->
 
 <head>
-   
+   <style>
+    .modal-dialog,
+    .modal-content {
+        /* 80% of window height */
+        height: 90%;
+    }
+
+    .modal-body {
+        /* 100% = dialog height, 120px = header + footer */
+        max-height: calc(100% - 120px);
+        overflow-y: scroll;
+    }
+   </style>
 </head>
 
 <body>
@@ -162,11 +174,11 @@ include_once('adminconn.php');
     </div><!-- /#right-panel -->
 
     <!-- Modal utk list sales -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" style="overflow-y:scroll;">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title">List Sales Terdekat</h5>
+                <h5 class="modal-title">Atur Sales untuK Customer ini</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -174,7 +186,7 @@ include_once('adminconn.php');
                 <div class="modal-body"> 
                     <h5> Sales yang bertanggung jawab atas Customer sekarang </h5>
 
-                    <table id="sales_bertanggungjawab" class="table table-striped table-bordered" width="100%">
+                    <table id="sales_bertanggungjawab" class="table table-striped table-bordered" width="100%" >
                     <thead>
                         <tr class="clickable-row">
                             <th>#ID</th>
@@ -192,7 +204,10 @@ include_once('adminconn.php');
 
                     <br>
 
-
+                    <h5> List Sales Terdaftar </h5>
+                    <small><i> List yang ditampilkan adalah sales yang memiliki alamat Provinsi sama dengan customer ini</i></small><br>
+                    <small><i> Isi Textboxt pencarian jika ingin mencari sales yang ber-alamat Kota maupun Kecamatan yang sama dengan Customer</i></small><br>
+                    <br>
                     <table id="listSalesNear" class="table table-striped table-bordered" width="100%">
                     <thead>
                         <tr class="clickable-row">
@@ -208,7 +223,11 @@ include_once('adminconn.php');
                     </tbody>
                     </table>
                     <br>
-                    
+                    <div class="form-group">
+                        <small>Cara atur sales yang bertanggung jawab untuk customer ini</small><br>
+                        <small>1. Pilih salah satu sales pada <b> List Sales Terdaftar </b> diatas</small><br>
+                        <small>2. Tekan tombol <b> Jadikan Sales untuk customer ini </b> </small>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="jadikansalescustini" class="btn btn-outline-primary">Jadikan Sales untuk customer ini</button> 
@@ -406,6 +425,20 @@ include_once('adminconn.php');
         {
              "buttons": [ 'copy', 'excel', 'pdf' ],
              "processing":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+                },
              "serverSide":true,
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
@@ -478,6 +511,20 @@ include_once('adminconn.php');
                         destroy: true, //destroy dulu biar ngerefresh pas ganti2 
                         "buttons": [ 'copy', 'excel', 'pdf' ],
                         "select":true,
+                        "language": {
+                        "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                        "zeroRecords": "Maaf Data yang dicari tidak ada",
+                        "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                        "infoEmpty": "Tidak ada data",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search":"Cari",
+                        "paginate": {
+                        "first":      "Pertama",
+                        "last":       "terakhir",
+                        "next":       "Selanjutnya",
+                        "previous":   "Sebelumnya"
+                        },
+                        },
                         "processing":true,
                         "serverSide":true,
                         "ordering":true, //set true agar bisa di sorting
