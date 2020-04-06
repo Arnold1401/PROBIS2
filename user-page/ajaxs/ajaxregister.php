@@ -267,6 +267,7 @@
 
       }
 
+      //buat get harga
       function getharga($corigin,$sdestination,$weight,$courier){
         $curl = curl_init();
         curl_setopt_array($curl, array(
