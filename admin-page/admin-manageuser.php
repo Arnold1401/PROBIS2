@@ -171,10 +171,31 @@ include_once('adminconn.php');
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <div class="modal-body">               
-                    <table id="listSalesNear" class="table table-striped table-bordered">
+                <div class="modal-body"> 
+                    <h5> Sales yang bertanggung jawab atas Customer sekarang </h5>
+
+                    <table id="sales_bertanggungjawab" class="table table-striped table-bordered" width="100%">
                     <thead>
-                        <tr>
+                        <tr class="clickable-row">
+                            <th>#ID</th>
+                            <th>Email</th>
+                            <th>Nama Sales </th>
+                            
+                            <th>Provinsi</th>
+                            <th>Kota</th>
+                            <th>Kecamatan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    </table>
+
+                    <br>
+
+
+                    <table id="listSalesNear" class="table table-striped table-bordered" width="100%">
+                    <thead>
+                        <tr class="clickable-row">
                             <th>#ID</th>
                             <th>Email</th>
                             <th>Nama Sales </th>
@@ -186,9 +207,12 @@ include_once('adminconn.php');
                     <tbody>
                     </tbody>
                     </table>
+                    <br>
+                    
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="jadikansalescustini" class="btn btn-outline-primary">Jadikan Sales untuk customer ini</button> 
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -433,7 +457,7 @@ include_once('adminconn.php');
         } );
 
         //function onclick untuk button atur sales dan detail pada datatable list customer 
-        var getId, data, listSalesNear = "";
+        var getId, data, listSalesNear,datal, salesbertanggungjwb, getsaltId, getCustId = "";
         $('#tableusers tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = tableuser.row($(this).closest('tr')).data();
@@ -441,35 +465,107 @@ include_once('adminconn.php');
             //action button List sales dimana hanya menunjukkan sales yang provinsinya sama dengan customer tersebut
             if (action=='Atur_Sales')
             {
-                getId = data[Object.keys(data)[15]];
-                console.log(getId); //alert(getId);  utk dapatkan id provinsi
+                getId = data[Object.keys(data)[15]]; //utk dapatkan id provinsi customer
+                getCustId = data[Object.keys(data)[0]]; //utk dapatkan id customer
+                getsaltId = data[Object.keys(data)[11]]; //utk dapatkan id salesnya
+
+                console.log(getsaltId); 
                         
                 //datatable di list reseler -- show modal
-                listSalesNear = $('#listSalesNear').DataTable( {
-                     // retrieve: true,
-                     destroy: true, //destroy dulu biar ngerefresh pas ganti2 
-                       "buttons": [ 'copy', 'excel', 'pdf' ],
-                       "processing":true,
-                       "serverSide":true,
-                       "ordering":true, //set true agar bisa di sorting
-                       "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-                       "ajax":{
-                           "url":"datatable_listSalesNear.php",
-                           "type":"POST",
-                           "data":{"get_provinsi":getId},
-                       },
-                       "deferRender":true,
-                       "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-                       "columns":[
-                           {"data":"id_sales"},
-                           {"data":"email"},
-                           {"data":"nama_sales"},                         
-                           {"data":"provinsi"},
-                           {"data":"kota"},
-                           {"data":"kecamatan"},
-                       ],
-                   } );
+                    //datable di list sales sesuai provinsi customer
+                    listSalesNear = $('#listSalesNear').DataTable( {
+                        // retrieve: true,
+                        destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                        "buttons": [ 'copy', 'excel', 'pdf' ],
+                        "select":true,
+                        "processing":true,
+                        "serverSide":true,
+                        "ordering":true, //set true agar bisa di sorting
+                        "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                        "ajax":{
+                            "url":"datatable_listSalesNear.php",
+                            "type":"POST",
+                            "data":{"get_provinsi":getId},
+                        },
+                        "deferRender":true,
+                        "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+                        "columns":[
+                            {"data":"id_sales"},
+                            {"data":"email"},
+                            {"data":"nama_sales"},                         
+                            {"data":"provinsi"},
+                            {"data":"kota"},
+                            {"data":"kecamatan"},
+                        ],
+                    } );
+                    //end of datable di list sales sesuai provinsi customer
+
+                    //event jika sales dipilih/diclick -- utk mendapatkan id sales
+                    var gt = "";
+                    $('#listSalesNear tbody').on('click', 'tr', function () {
+                        var action = this.id;
+                        
+                        datal = listSalesNear.row($(this).closest('tr')).data();
+                        gt = datal[Object.keys(datal)[0]];  //utk dapatkan id sales yang ada di listsalesnear
+
+                        $(this).addClass('bg-info').siblings().removeClass('bg-info');
+                        
+                    // alert( 'You clicked on '+gt+'\'s row' );
+                    } );
+                    //end of event jika sales dipilih/diclick -- utk mendapatkan id sales
+
+                    //datatable di sales yang bertanggung jawab aas customer sekarang
+                    salesbertanggungjwb = $('#sales_bertanggungjawab').DataTable( {
+                        // retrieve: true,
+                        destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                        "select":true,
+                        "processing":true,
+                        "serverSide":true,
+                        "ordering":true, //set true agar bisa di 
+                        "info":false,
+                        "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                        "ajax":{
+                            "url":"datatable_salestanggungjwb.php",
+                            "type":"POST",
+                            "data":{"get_idsal":getsaltId},
+                        },
+                        "deferRender":true,
+                        "lengthChange": false,
+                        "sDom": 't', //hanya menampilkan table, menghilangkan search, paging, and filter row
+                        "columns":[
+                            {"data":"id_sales"},
+                            {"data":"email"},
+                            {"data":"nama_sales"},                         
+                            {"data":"provinsi"},
+                            {"data":"kota"},
+                            {"data":"kecamatan"},
+                        ],
+                    } );
+                    //end of datatable di sales yang bertanggung jawab aas customer sekarang
+
+                    $('#jadikansalescustini').click( function () {
+                        // table.row('.selected').remove().draw( false );
+                        console.log(gt);
+                        console.log(getCustId);
+                        $.post("adminajax.php",
+                        {
+                            jenis:"jadikan_sales_utkcustini", 
+                            id_cust : getCustId,
+                            id_sales : gt,
+                        },
+                        function(data){
+                            alert(data);
+                           // $("#myModal").load();
+                            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
+                            $('#sales_bertanggungjawab').DataTable().ajax.reload(); //reload ajax datatable sales yang bertanggung jawab di customer ini
+                        });
+                    } );
+
+                    
+
+
                 //end of datatable di list sales -- show modal                
+                
             }
             //end of action button List Reseller
             
@@ -497,6 +593,20 @@ include_once('adminconn.php');
             //end of action button Detail
         } );
         //end of function onclick untuk button atur sales dan detail pada datatable list customer 
+
+
+//  $('#listSalesNear tbody').on( 'click', 'tr', function () {
+//  if ( $(this).hasClass('selected') ) {
+//  $(this).removeClass('selected');
+//  }
+//  else {
+//  listSalesNear.$('tr.selected').removeClass('selected');
+//  $(this).addClass('selected');
+//  }
+//  } );
+
+ 
+
     });
     //end of document ready
 

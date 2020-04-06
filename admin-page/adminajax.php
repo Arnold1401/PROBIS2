@@ -158,7 +158,7 @@ if ($_POST["jenis"] == "data_valid") {
     $conn = getConn();
     $id_cust = $_POST['id_cust'];
     $status_id = 1;
-    $sql = "update customer set status=$status_id where id_cust='$id_cust'";
+    $sql = "update customer set status=$status_id where id_cust=$id_cust";
     if ($conn->query($sql)) {
         echo "berhasil";
     }else{
@@ -172,11 +172,26 @@ if ($_POST["jenis"] == "data_tdkvalid") {
     $conn = getConn();
     $id_cust = $_POST['id_cust'];
     $status_id = 2;
-    $sql = "update customer set status=$status_id where id_cust='$id_cust'";
+    $sql = "update customer set status=$status_id where id_cust=$id_cust";
     if ($conn->query($sql)) {
         echo "berhasil";
     }else{
         echo "gagal validasi";
+    }
+    //echo $id_cust;
+    $conn->close();
+}
+
+if ($_POST["jenis"] == "jadikan_sales_utkcustini") {
+    $conn = getConn();
+    $id_cust = $_POST['id_cust'];
+    $id_sales = $_POST['id_sales'];
+    
+    $sql = "update customer set id_sales=$id_sales where id_cust=$id_cust";
+    if ($conn->query($sql)) {
+        echo "Berhasil";
+    }else{
+        echo "gagal update";
     }
     //echo $id_cust;
     $conn->close();
