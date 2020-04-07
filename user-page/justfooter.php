@@ -81,7 +81,7 @@
     </footer>
     <!-- END Footer -->
     
-  <!-- <script src="js/jquery.min.js"></script>
+   <script src="js/jquery.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -94,7 +94,7 @@
   <script src="js/jquery.animateNumber.min.js"></script>
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/scrollax.min.js"></script>
-  <script src="js/main.js"></script> -->
+  <script src="js/main.js"></script> 
 
   <script src="vendors/jquery/dist/jquery.min.js"></script>
         <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
