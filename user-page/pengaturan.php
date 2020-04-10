@@ -83,7 +83,7 @@ require_once("head.php");
                         <div class="tab-content col-12 col-lg-9 py-1 px-1" id="v-pills-tabContent">                                                       
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
-                                <form method="POST" action="" class="form-group" >
+                                <form >
                                     <div class="alert alert-warning" role="alert">
                                         Silakan verifikasi akun Anda pada email yang telah dikirmkan
                                         Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
@@ -91,7 +91,7 @@ require_once("head.php");
 
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="emos@gmail.com" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                                    <input value="<?php if(isset($_SESSION["email_user"])){echo $_SESSION["email_user"];}?>" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
                                     
                                     </div>
 
@@ -103,13 +103,13 @@ require_once("head.php");
                                     </div>
 
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="" id="" placeholder="Password Baru">                 
+                                    <input type="password" class="form-control" name="pass"   id="pass" placeholder="Password Baru">                 
                                     </div>
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="" id="" placeholder="Konfirmasi Password Baru">                 
+                                    <input type="password" class="form-control" name="cpass" id="cpass" placeholder="Konfirmasi Password Baru">                 
                                     </div>
 
-                                    <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>
+                                    <button type="button" onclick="gantipass()" class="btn btn-outline-success">Simpan Perubahan</button>
                                 </form>
                             </div>
 
@@ -168,9 +168,10 @@ require_once("head.php");
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
-                                <select class="form-control" name="" id="">
-                                <option>Wanita</option>
-                                <option>Pria</option>                   
+                                <select class="form-control" name=""  id="">
+                                <option value="-1">~Pilih Jenis Kelamin~</option>
+                                <option value="0">Wanita</option>
+                                <option value="1">Pria</option>                   
                                 </select>                               
                                 </div>
 
@@ -188,7 +189,7 @@ require_once("head.php");
                                    
                                     <div class="form-group">
                                     <label for="">Alamat Pengiriman</label>
-                                    <select class="form-control" name="" id="">
+                                    <select class="form-control" name="" id="alamat">
                                         <option>Jl mana 1</option>
                                         <option>Jl mana 2</option>
                                         <option>Jl mana 2</option>
@@ -275,20 +276,37 @@ require_once("head.php");
     }
 
     function simpan() {
-        console.log($("#nama_user").val());
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
                 nama_user:$("#nama_user").val(),//# ini dari id component
             },
             function(data){
-                if (data.search("update berhasil")>0) {
-                    alert("update berhasil");
+                if (data=="berhasil") {
+                    alert("Berhasil menyimpan perubahan !");
                 }else{
                     alert("gagal");
                 }
             });
+    }
+
+    function gantipass() {
+        console.log("pass:"+$("#pass").val());
+        console.log("cpass:"+$("#cpass").val());
+        if ($("#pass").val()==$("#cpass").val()) {
+            $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"gantipass",
+                password:$("#pass").val(),
+            },
+            function(data){
+                alert(data);
+            });
+        }else{
+            alert("Password dan Konfirmasi password harus sama !");
         }
+    }
+        
 </script>
 </body>
 </html>
