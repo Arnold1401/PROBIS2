@@ -83,7 +83,7 @@ require_once("head.php");
                         <div class="tab-content col-12 col-lg-9 py-1 px-1" id="v-pills-tabContent">                                                       
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
-                                <form >
+                                <form  method="POST" action="#" class="form-group" >
                                     <div class="alert alert-warning" role="alert">
                                         Silakan verifikasi akun Anda pada email yang telah dikirmkan
                                         Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
@@ -185,14 +185,12 @@ require_once("head.php");
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
                                 <h4 class="mb-4">Alamat Pengiriman</h4> <hr>
-                                <form action="" method="post">
+                                <form >
                                    
                                     <div class="form-group">
                                     <label for="">Alamat Pengiriman</label>
-                                    <select class="form-control" name="" id="alamat">
-                                        <option>Jl mana 1</option>
-                                        <option>Jl mana 2</option>
-                                        <option>Jl mana 2</option>
+                                    <select class="form-control" name="alamat" id="alamat">
+                                        <!-- diisi ajax -->
                                     </select>             
                                     </div>
 
@@ -201,8 +199,8 @@ require_once("head.php");
                            <button type="submit" class="btn btn-warning btn-md my-2">
                                <i class="fa fa-ban"></i> Ubah Alamat
                            </button>
-                           <button type="submit" class="btn btn-danger btn-md">
-                               <i class="fa fa-ban"></i> Hapus Alamat
+                           <button type="button" class="btn btn-danger btn-md">
+                               <i class="fa fa-ban" onclick="hapusalamat()" ></i> Hapus Alamat
                            </button>
                                     </div>
 
@@ -265,6 +263,28 @@ require_once("head.php");
     include_once "justfooter.php";
 ?>
     <script>
+
+        //load alamat
+        $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"loadalamat",
+            },
+            function(data){
+                $("#alamat").html(data);
+            });
+        
+    function hapusalamat(){
+        $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"hapusalamat",
+                ida:$("#alamat").val(),
+            },
+            function(data){
+               alert(data);
+            });
+    }
+
+
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
