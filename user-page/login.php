@@ -1,3 +1,7 @@
+<?php
+session_start();
+require_once("headlogin.php");
+?>
 <!DOCTYPE html>
 <html>
 <head>
