@@ -359,7 +359,9 @@ $pages = ceil($total/$isi);
                     "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button> <button id=\"GetListReseller\" class='btn btn-outline-primary' data-toggle='modal' data-target='#myModal'>List Reseller</button>"
                 },              
              ],
-        } );
+        } 
+        
+        );
 
 
         setInterval( function () {
@@ -378,7 +380,7 @@ $pages = ceil($total/$isi);
         
             //action button List Reseller
             if (action=='GetListReseller')
-            {
+            {   
                 getId = data[Object.keys(data)[0]];
                 console.log(getId); //alert(getId);  utk dapatkan id salesnya
                         

@@ -270,10 +270,16 @@ require_once("adminhead.php");
                                     <thead>
                                         <tr>
                                             <th>#ID</th>
-                                            <th>Nama </th>
-                                            <th>Email</th>
-                                            <th>No KTP</th>
-                                            <th>Nomor Telepon</th>
+                                            <th>Nama Barang </th>
+                                            <th>Harga</th>
+                                            <th>Jenis Barang</th>
+                                            
+                                            <!--
+                                            <th>Jenis Barang</th>
+                                            
+                                            <th>Satuan</th>
+
+                                            -->
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -303,6 +309,136 @@ require_once("adminhead.php");
 
 <script>
 
+
+
+/*
+
+
+utama id, nama, harga,rating 
+
+
+detail jenis barang,deskripsi barang, kadaluarsa 
+
+
+
+
+
+
+;
+
+
+*/
+
+function format ( d ) {
+        // `d` is the original data object for the row
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%">'+
+            '<tr>'+
+                '<td>Jenis Barang</td>'+
+                '<td>'+d.jenis_barang+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Deskripsi Barang</td>'+
+                '<td>'+d.deskripsi_barang+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Kadaluwarsa</td>'+
+                '<td>'+d.tanggal_kadaluwarsa+'</td>'+
+            '</tr>'+
+        '</table>';
+    }
+
+
+$(document).ready(function() {
+
+
+
+    var table="";
+
+    table = $('#example').DataTable( 
+        {
+             "buttons": [ 'copy', 'excel', 'pdf' ],
+             "processing":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+                },
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_barang.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[
+                
+                 {"data":"id_barang"},
+                 {"data":"nama_barang"},
+                 {"data":"harga"},
+                 {"data":"jenis_barang"},
+                 {                   
+                    "target": -1,
+                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button>"
+                },              
+             ],
+        } 
+        
+        );
+
+        setInterval( function () {
+             table.ajax.reload();
+        }, 30000 );
+        table.buttons().container()
+             .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+
+
+        
+         //function onclick untuk button list reseller dan details pada datatable list sales 
+         var getId, data, tablelistreseller = "";
+        $('#example tbody').on( 'click', 'button', function () {
+            var action = this.id;
+            data = table.row($(this).closest('tr')).data();
+        
+           
+            
+            //action button Detail
+            if(action == 'GetDetail')
+            {
+                getId = data[Object.keys(data)[0]];
+                var tr = $(this).closest('tr');
+                var row = table.row( tr );
+                
+                if ( row.child.isShown() ) 
+                {   // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }       
+                else 
+                {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
+            }
+            //end of action button Detail
+        } );
+    
+
+
+
+
+})
 function keluar(){
     $.post("ajaxs/ajaxlogin.php",
         {
