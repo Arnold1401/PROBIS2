@@ -1,10 +1,13 @@
 <?php
+<<<<<<< HEAD
 session_start();
 if(isset($_SESSION["role"])){
  //   header("Location: http://localhost/Probis2/PROBIS2/user-page/home.php");
  header("Location: http://localhost/PROBIS2/user-page/home.php");
 
 }
+=======
+>>>>>>> f17b53c2b4dfabae52073da6c01eaf4f7066b4fa
 require_once("headlogin.php");
 ?>
 <!DOCTYPE html>
@@ -75,22 +78,9 @@ require_once("headlogin.php");
         </div>
     </section>
     
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
+  <?php
+    include_once "scriptonly.php";
+  ?>
     <script>
         function login() {
             $.post("ajaxs/ajaxlogin.php",

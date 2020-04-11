@@ -33,6 +33,8 @@
                 $_SESSION["email_user"]=$row1["email"];
                 $_SESSION["status_akun"]=$row1["status"];
                 $_SESSION["token"]=$row1["token"];
+                $_SESSION["idcust"]=$row1["id_cust"];
+
                 $status=$row1["verified"];
             }
         }
