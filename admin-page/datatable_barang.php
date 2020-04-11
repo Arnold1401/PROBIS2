@@ -8,8 +8,6 @@ $connect=getConn();
 
 
 
-
-
 $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
 $limit = $_POST['length']; // Ambil data limit per page
 $start = $_POST['start']; // Ambil data start
@@ -22,7 +20,6 @@ $sql=mysqli_query($connect,"select id_barang from barang");
 
 
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
-
 
 
 $query="
