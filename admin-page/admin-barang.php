@@ -394,6 +394,7 @@ require_once("adminhead.php");
 </html>
 
 <script>
+
 function keluar(){
     $.post("ajaxs/ajaxlogin.php",
         {
@@ -447,7 +448,6 @@ function tambahbarang() {
 
 
 }
-
 
 
 
