@@ -178,10 +178,10 @@ require_once("adminhead.php");
                                   <div class="form-group">
                                     <label for="" class=" form-control-label">Jenis Barang </label>
                                     <select name="select" id="cb_jenis" class="form-control">
-                                        <option value="0">Minuman</option>
-                                        <option value="1">Konsumsi</option>
-                                        <option value="2">Obat</option>
-                                        <option value="3">Option #3</option>
+                                        <option value="Minuman">Minuman</option>
+                                        <option value="Makanan Ringan">Makanan Ringan</option>
+                                        <option value="Perawatan Diri">Perawatan Diri</option>
+                                        <option value="Obatan">Obatan</option>
                                       </select>
                                       <small>Pilih Jenis Barang</small>                                      
                                   </div>
@@ -198,10 +198,10 @@ require_once("adminhead.php");
                                       <small class="help-block">Isi Harga Barang saat Jual</small>
                                   </div>
 
-                                  <!-- <div class="form-group">
+                                   <div class="form-group">
                                     <label for=""class=" form-control-label">Deskripsi Barang </label>
                                     <textarea class="form-control" name="" id="txt_deskripsi" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>      -->
+                                  </div>  
 
                                   <div class="form-group">
                                     <label for="">Masa Kadaluarsa</label>
@@ -263,125 +263,33 @@ require_once("adminhead.php");
                                 <small>*Pilih tombol Detail untuk melihat Detail Barang</small><br>
                                 <small>*Pilih tombol Ubah untuk mengubah Barang</small>
                             </div>
-                              
-                              <div class="table-responsive">
-                              <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            
+                            <!-- datatable barang -->
+                            <div class="table-responsive">
+                                <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Id Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jenis Barang</th>
-                                            <th>Unit Barang</th>
-                                            <th>Harga Barang</th>
-                                            <th>Status Barang</th>
+                                            <th>#ID</th>
+                                            <th>Nama </th>
+                                            <th>Email</th>
+                                            <th>No KTP</th>
+                                            <th>Nomor Telepon</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>$320,800</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>$327,900</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                      
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>
-                                            <td>$163,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 4 </td>
-                                            <td>Michelle House</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Sidney</td>
-                                            <td>$95,400</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 5 </td>
-                                            <td>Suki Burks</td>
-                                            <td>Developer</td>
-                                            <td>London</td>
-                                            <td>$114,500</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 6 </td>
-                                            <td>Prescott Bartlett</td>
-                                            <td>Technical Author</td>
-                                            <td>London</td>
-                                            <td>$145,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 7 </td>
-                                            <td>Gavin Cortez</td>
-                                            <td>Team Leader</td>
-                                            <td>San Francisco</td>
-                                            <td>$235,500</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 8 </td>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>$112,000</td>
-                                            <td>Aktif</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
-                              </div>
-                                
+                            </div>
+                            <!-- end of datatable barang -->
+
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
-
-
     </div><!-- /#right-panel -->
-
     <!-- Right Panel -->
 
 
@@ -407,47 +315,49 @@ function keluar(){
     }
 
 
-
-function tambahbarang() {
-    //validasi setiap inputan
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-            if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add('was-validated');
+    //function tambah barang
+    function tambahbarang() {
+        //validasi setiap inputan
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+                }, false);
+            });
             }, false);
-        });
-        }, false);
-        })(
+            })();
 
-        );
+            (function($){
+                $.post("adminajax.php",
+                {
+                    jenis:"insertbarang",
+                    nmbarang:$("#txt_namabarang").val(),
+                    satuan:$("#cb_satuan").val(),
+                    jumlah:$("#txt_jum").val(),
+                    cbjenis:$("#cb_jenis").val(),
+                    hargabeli:$("#txt_hargabeli").val(),
+                    hargajual:$("#txt_hargajual").val(),
+                    exp:$("#txt_exp").val(),
+                    status:$("#cb_status").val(),
+                },
+                function (data) {
+                    alert(data);
+               
+            });
+            }(jQuery))
 
-        $.post("ajaxs/ajaxbarang.php",
-        {
-            jenis:"insertbarang",
-            nmbarang:$("#txt_namabarang").val(),
-            satuan:$("#cb_satuan").val(),
-            jumlah:$("#txt_jum").val(),
-            cbjenis:$("#cb_jenis").val(),
-            hargabeli:$("#txt_hargabeli").val(),
-            hargajual:$("#txt_hargajual").val(),
-            exp:$("#txt_exp").val(),
-            status:$("#cb_status").val(),
-        },
-        function(data){
-            alert(data);
-        });
-
-
-}
+           
+    }
+    //end of function tambah barang
 
 
 

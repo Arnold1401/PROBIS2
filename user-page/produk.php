@@ -5,7 +5,15 @@ require_once("head.php");
 <!DOCTYPE html>
 <html>
 <head>
-   
+<style>
+#loading
+{
+	text-align:center; 
+	background: url('loader.gif') no-repeat center; 
+	height: 150px;
+}
+</style>
+
 </head>
 <body class="goto-here">
     <!-- header paling atas -->
@@ -100,84 +108,46 @@ require_once("head.php");
     					<li><a href="#">Obat</a></li>
     				</ul>
           </div>
+          
         </div>
         
         <!-- row Jenis Product -->
         <div class="row">
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
-            </div>
-          </div>
+          <!-- filter product -->
+          <div class="col-md-3">                				
+            <div class="list-group">
+              <h3>Price</h3>
+              <input type="hidden" id="hidden_minimum_price" value="0" />
+              <input type="hidden" id="hidden_maximum_price" value="65000" />
+              <p id="price_show">Rp1000 - 65000</p>
+                <div id="price_range"></div>
+            </div>				
+            
+            <div class="list-group">
+              <h3>Kategori</h3>
+              <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
+              <?php
 
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
-            </div>
-          </div>
+                    $query = "SELECT DISTINCT(product_brand) FROM product WHERE product_status = '1' ORDER BY product_id DESC";
+                    $statement = $connect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll();
+                    foreach($result as $row)
+                    {
+                    ?>
+                    <div class="list-group-item checkbox">
+                        <label><input type="checkbox" class="common_selector brand" value="<?php echo $row['product_brand']; ?>"  > <?php echo $row['product_brand']; ?></label>
+                    </div>
+                    <?php
+                    }
 
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
+                    ?>
               </div>
             </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template"></a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-                <h3><a href="#">Minuman</a></h3>
-                  <div class="d-flex">
-                    <div class="pricing"></div>
-                  </div>
-                
-                  <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                    <a name="" id="" class="btn btn-primary" href="detailproduk.php" role="button">Detail</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-3">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-                  </div>
-              </div>
-            </div>
+          <!-- end of filter product -->
+          <div class="col-md-9">
+              <br />
+                <div class="row filter_data"></div>
           </div>
         </div>
         <!-- end row Jenis Product -->
@@ -214,6 +184,34 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+
+    // document ready
+    $(document).ready(function () {
+      $.post("ajaxreseller.php",
+      {
+          jenis:"show_product_catalog_semua", 
+      },
+      function(data){
+          alert(data);
+      });
+
+      $('#price_range').slider({
+        range:true,
+        min:1000,
+        max:65000,
+        values:[1000, 65000],
+        step:500,
+        stop:function(event, ui)
+        {
+            $('#price_show').html(ui.values[0] + ' - ' + ui.values[1]);
+            $('#hidden_minimum_price').val(ui.values[0]);
+            $('#hidden_maximum_price').val(ui.values[1]);
+            
+        }
+    });
+    });
+    //end of document ready
+
 </script>
 </body>
 </html>
