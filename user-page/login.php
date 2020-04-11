@@ -1,13 +1,10 @@
 <?php
-<<<<<<< HEAD
 session_start();
 if(isset($_SESSION["role"])){
  //   header("Location: http://localhost/Probis2/PROBIS2/user-page/home.php");
  header("Location: http://localhost/PROBIS2/user-page/home.php");
 
 }
-=======
->>>>>>> f17b53c2b4dfabae52073da6c01eaf4f7066b4fa
 require_once("headlogin.php");
 ?>
 <!DOCTYPE html>
