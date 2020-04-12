@@ -83,7 +83,7 @@ require_once("head.php");
                         <div class="tab-content col-12 col-lg-9 py-1 px-1" id="v-pills-tabContent">                                                       
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
-                                <form method="POST" action="" class="form-group" >
+                                <form  method="POST" action="#" class="form-group" >
                                     <div class="alert alert-warning" role="alert">
                                         Silakan verifikasi akun Anda pada email yang telah dikirmkan
                                         Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
@@ -91,7 +91,7 @@ require_once("head.php");
 
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="emos@gmail.com" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                                    <input value="<?php if(isset($_SESSION["email_user"])){echo $_SESSION["email_user"];}?>" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
                                     
                                     </div>
 
@@ -103,13 +103,13 @@ require_once("head.php");
                                     </div>
 
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="" id="" placeholder="Password Baru">                 
+                                    <input type="password" class="form-control" name="pass"   id="pass" placeholder="Password Baru">                 
                                     </div>
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="" id="" placeholder="Konfirmasi Password Baru">                 
+                                    <input type="password" class="form-control" name="cpass" id="cpass" placeholder="Konfirmasi Password Baru">                 
                                     </div>
 
-                                    <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>
+                                    <button type="button" onclick="gantipass()" class="btn btn-outline-success">Simpan Perubahan</button>
                                 </form>
                             </div>
 
@@ -172,6 +172,10 @@ require_once("head.php");
                                 <select option value="<?php echo $_SESSION["jeniskelamin_user"]; ?>" class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
                                 <option>Wanita</option>
                                 <option>Pria</option>                   
+                                <select class="form-control" name=""  id="">
+                                <option value="-1">~Pilih Jenis Kelamin~</option>
+                                <option value="0">Wanita</option>
+                                <option value="1">Pria</option>                   
                                 </select>                               
                                 </div>
 
@@ -185,14 +189,12 @@ require_once("head.php");
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
                                 <h4 class="mb-4">Alamat Pengiriman</h4> <hr>
-                                <form action="" method="post">
+                                <form >
                                    
                                     <div class="form-group">
                                     <label for="">Alamat Pengiriman</label>
-                                    <select class="form-control" name="" id="">
-                                        <option>Jl mana 1</option>
-                                        <option>Jl mana 2</option>
-                                        <option>Jl mana 2</option>
+                                    <select class="form-control" name="alamat" id="alamat">
+                                        <!-- diisi ajax -->
                                     </select>             
                                     </div>
 
@@ -201,8 +203,8 @@ require_once("head.php");
                            <button type="submit" class="btn btn-warning btn-md my-2">
                                <i class="fa fa-ban"></i> Ubah Alamat
                            </button>
-                           <button type="submit" class="btn btn-danger btn-md">
-                               <i class="fa fa-ban"></i> Hapus Alamat
+                           <button type="button" class="btn btn-danger btn-md">
+                               <i class="fa fa-ban" onclick="hapusalamat()" ></i> Hapus Alamat
                            </button>
                                     </div>
 
@@ -265,6 +267,28 @@ require_once("head.php");
     include_once "justfooter.php";
 ?>
     <script>
+
+        //load alamat
+        $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"loadalamat",
+            },
+            function(data){
+                $("#alamat").html(data);
+            });
+        
+    function hapusalamat(){
+        $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"hapusalamat",
+                ida:$("#alamat").val(),
+            },
+            function(data){
+               alert(data);
+            });
+    }
+
+
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -276,7 +300,6 @@ require_once("head.php");
     }
 
     function simpan() {
-        console.log($("#nama_user").val());
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
@@ -288,13 +311,31 @@ require_once("head.php");
                 jeniskelmain_user:$("#jeniskelamin_user").val(),
             },
             function(data){
-                if (data.search("update berhasil")>0) {
-                    alert("update berhasil");
+                if (data=="berhasil") {
+                    alert("Berhasil menyimpan perubahan !");
                 }else{
                     alert("gagal");
                 }
             });
+    }
+
+    function gantipass() {
+        console.log("pass:"+$("#pass").val());
+        console.log("cpass:"+$("#cpass").val());
+        if ($("#pass").val()==$("#cpass").val()) {
+            $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"gantipass",
+                password:$("#pass").val(),
+            },
+            function(data){
+                alert(data);
+            });
+        }else{
+            alert("Password dan Konfirmasi password harus sama !");
         }
+    }
+        
 </script>
 </body>
 </html>

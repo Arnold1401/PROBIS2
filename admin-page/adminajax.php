@@ -158,7 +158,7 @@ if ($_POST["jenis"] == "data_valid") {
     $conn = getConn();
     $id_cust = $_POST['id_cust'];
     $status_id = 1;
-    $sql = "update customer set status=$status_id where id_cust='$id_cust'";
+    $sql = "update customer set status=$status_id where id_cust=$id_cust";
     if ($conn->query($sql)) {
         echo "berhasil";
     }else{
@@ -172,7 +172,7 @@ if ($_POST["jenis"] == "data_tdkvalid") {
     $conn = getConn();
     $id_cust = $_POST['id_cust'];
     $status_id = 2;
-    $sql = "update customer set status=$status_id where id_cust='$id_cust'";
+    $sql = "update customer set status=$status_id where id_cust=$id_cust";
     if ($conn->query($sql)) {
         echo "berhasil";
     }else{
@@ -181,4 +181,44 @@ if ($_POST["jenis"] == "data_tdkvalid") {
     //echo $id_cust;
     $conn->close();
 }
+
+if ($_POST["jenis"] == "jadikan_sales_utkcustini") {
+    $conn = getConn();
+    $id_cust = $_POST['id_cust'];
+    $id_sales = $_POST['id_sales'];
+    
+    $sql = "update customer set id_sales=$id_sales where id_cust=$id_cust";
+    if ($conn->query($sql)) {
+        echo "Berhasil";
+    }else{
+        echo "gagal update";
+    }
+    //echo $id_cust;
+    $conn->close();
+}
+
+//ajax untuk tambah barang
+if ($_POST["jenis"]=="insertbarang") {
+    $conn=getConn();
+    $id="ss04";
+    $nama=$_POST["nmbarang"];
+    $idkat=$_POST["cbjenis"];
+    $harga=$_POST["hargabeli"];
+    $idsatuan=$_POST["satuan"];
+    $foto="testfoto";
+    $desk="";
+    $status="1";
+    $rating="0";
+
+
+    $sql="INSERT INTO `barang`(`id_barang`, `nama_barang`, `jenis_barang`, `harga`, `id_satuan`, `foto_barang`, `deskripsi_barang`, `status_barang`, `rating`) VALUES ('$id','$nama','$idkat','$harga','$idsatuan','$foto','$desk','$status','$rating')";
+    if ($conn->query($sql)) {
+        echo "berhasil";
+    }else{
+        echo "gagal";
+    }
+
+    $conn->close();
+}
+
 ?>

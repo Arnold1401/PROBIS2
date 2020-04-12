@@ -1,4 +1,4 @@
-<script src="vendors/jquery/dist/jquery.min.js"></script>
+        <script src="vendors/jquery/dist/jquery.min.js"></script>
         <script src="vendors/popper.js/dist/umd/popper.min.js"></script>
         <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="assets/js/main.js"></script>
@@ -14,8 +14,10 @@
         <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
         <script src="vendors/datatables.net-buttons/js/buttons.colVis.min.js"></script>
         <script src="assets/js/init-scripts/data-table/datatables-init.js"></script>
-
+        
+        
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
@@ -27,5 +29,7 @@
         <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>
 
         

@@ -261,7 +261,7 @@ $pages = ceil($total/$isi);
                 </button>
                 </div>
                 <div class="modal-body">               
-                    <table id="fetchDataReseller" class="table table-striped table-bordered">
+                    <table id="fetchDataReseller" class="table table-striped table-bordered" width="100%">
                     <thead>
                         <tr>
                             <th>#ID</th>
@@ -324,6 +324,20 @@ $pages = ceil($total/$isi);
         {
              "buttons": [ 'copy', 'excel', 'pdf' ],
              "processing":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+                },
              "serverSide":true,
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
@@ -345,7 +359,9 @@ $pages = ceil($total/$isi);
                     "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button> <button id=\"GetListReseller\" class='btn btn-outline-primary' data-toggle='modal' data-target='#myModal'>List Reseller</button>"
                 },              
              ],
-        } );
+        } 
+        
+        );
 
 
         setInterval( function () {
@@ -364,7 +380,7 @@ $pages = ceil($total/$isi);
         
             //action button List Reseller
             if (action=='GetListReseller')
-            {
+            {   
                 getId = data[Object.keys(data)[0]];
                 console.log(getId); //alert(getId);  utk dapatkan id salesnya
                         
@@ -374,6 +390,20 @@ $pages = ceil($total/$isi);
                     destroy: true, //destroy dulu biar ngerefresh pas ganti2 
                       "buttons": [ 'copy', 'excel', 'pdf' ],
                       "processing":true,
+                        "language": {
+                        "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                        "zeroRecords": "Maaf Data yang dicari tidak ada",
+                        "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                        "infoEmpty": "Tidak ada data",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search":"Cari",
+                        "paginate": {
+                            "first":      "Pertama",
+                            "last":       "terakhir",
+                            "next":       "Selanjutnya",
+                            "previous":   "Sebelumnya"
+                            },
+                        },
                       "serverSide":true,
                       "ordering":true, //set true agar bisa di sorting
                       "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama

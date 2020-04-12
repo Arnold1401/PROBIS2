@@ -238,6 +238,7 @@
            return $subdistrict;
        }
      }
+     
       if ($_POST["jenis"]=="getharga") {
         $corigin=$_POST["corigin"];
         $sdestination=$_POST["sdestination"];
@@ -267,6 +268,7 @@
 
       }
 
+      //buat get harga
       function getharga($corigin,$sdestination,$weight,$courier){
         $curl = curl_init();
         curl_setopt_array($curl, array(

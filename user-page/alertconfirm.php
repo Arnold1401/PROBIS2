@@ -64,6 +64,7 @@ require_once("head.php");
       </div>
         </div>
     </section>
+    <?php include_once "scriptonly.php"; ?>
 </body>
 <script>
     function verify() {

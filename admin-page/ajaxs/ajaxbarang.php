@@ -15,7 +15,7 @@
         $rating="0";
 
 
-        $sql="INSERT INTO `barang`(`id_barang`, `nama_barang`, `id_kategori`, `harga`, `id_satuan`, `foto_barang`, `deskripsi_barang`, `status_barang`, `rating`) VALUES ('$id','$nama','$idkat','$harga','$idsatuan','$foto','$desk','$status','$rating')";
+        $sql="INSERT INTO `barang`(`id_barang`, `nama_barang`, `jenis_barang`, `harga`, `id_satuan`, `foto_barang`, `deskripsi_barang`, `status_barang`, `rating`) VALUES ('$id','$nama','$idkat','$harga','$idsatuan','$foto','$desk','$status','$rating')";
         if ($conn->query($sql)) {
             echo "berhasil";
         }else{

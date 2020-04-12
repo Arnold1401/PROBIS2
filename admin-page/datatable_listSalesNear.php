@@ -11,7 +11,7 @@ $getId = $_POST['get_provinsi'];
 $sql = mysqli_query($connect, "SELECT email FROM sales where provinsi='$getId'"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
-$query = "SELECT * FROM sales WHERE (nomor_telepon LIKE '%".$search."%' OR nama_sales LIKE '%".$search."%' OR email LIKE '%".$search."%' OR no_ktp LIKE '%".$search."%') and provinsi='$getId'";
+$query = "SELECT * FROM sales WHERE (nomor_telepon LIKE '%".$search."%' OR nama_sales LIKE '%".$search."%' OR email LIKE '%".$search."%' OR kota LIKE '%".$search."%'OR provinsi LIKE '%".$search."%' OR kecamatan LIKE '%".$search."%') and provinsi='$getId'";
 $order_field = $_POST['order'][0]['column']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
 $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
 $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;
