@@ -128,7 +128,7 @@ require_once("head.php");
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
                                         <small id="helpId" class="form-text text-muted">Nama Perusahaan</small>                            
-                                        <input value="<?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?>"  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="emos">  
+                                        <input value="<?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?>"  type="text" class="form-control" name="nama_perusahaan" id="nama_perusahaan" aria-describedby="helpId" placeholder="emos">  
                                     </div>
                                     <hr>
 
@@ -153,21 +153,25 @@ require_once("head.php");
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="1234567891023456" type="number" class="form-control" name="" id="" placeholder="Nomor KTP">                               
+                                <input value="<?php echo $_SESSION["nomor_ktp"]; ?>" type="number" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
                                 </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nomor Telpon Anda</small>              
-                                <input value="082288569879" type="number" class="form-control" name="" id="" placeholder="Nomor Telpon">                        
+                                <input value="<?php echo $_SESSION["telp_user"]; ?>" type="number" class="form-control" name="telp_user" id="telp_user" placeholder="Nomor Telpon">                        
                                 </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
-                                <input type="date" class="form-control" id="" name="bdaytime">                        
+                                <input value="<?php echo $_SESSION["lahir_user"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
                                 </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
+                                <!-- belum selesai -->
+                                <select option value="<?php echo $_SESSION["jeniskelamin_user"]; ?>" class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
+                                <option>Wanita</option>
+                                <option>Pria</option>                   
                                 <select class="form-control" name=""  id="">
                                 <option value="-1">~Pilih Jenis Kelamin~</option>
                                 <option value="0">Wanita</option>
@@ -177,7 +181,7 @@ require_once("head.php");
 
                                 <div class="form-group">
                                 <label for="">Alamat</label>
-                                <textarea value="Jl bratang binangun I" class="form-control" name="" id="" rows="3"></textarea>
+                                <textarea value="<?php echo $_SESSION["cb_prov"]; ?>" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
                                 </div>
                            
                                 <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
@@ -299,7 +303,12 @@ require_once("head.php");
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
+                nama_perusahaan:$("#nama_perusahaan").val(),
                 nama_user:$("#nama_user").val(),//# ini dari id component
+                nomor_ktp:$("#nomor_ktp").val(),
+                telp_user:$("#telp_user").val(),
+                lahir_user:$("#lahir_user").val(),
+                jeniskelmain_user:$("#jeniskelamin_user").val(),
             },
             function(data){
                 if (data=="berhasil") {
