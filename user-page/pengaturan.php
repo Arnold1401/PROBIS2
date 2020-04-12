@@ -131,7 +131,7 @@ require_once("head.php");
                                         <input value="<?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?>"  type="text" class="form-control" name="nama_perusahaan" id="nama_perusahaan" aria-describedby="helpId" placeholder="emos">  
                                     </div>
                                     <hr>
-
+                                    <!-- belum selesai -->
                                     <div class="form-group">
                                         <h5 for="">Profil Pemilik</h5>
                                     </div>
@@ -142,7 +142,7 @@ require_once("head.php");
                                             <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
-                                            <span class="input-group-text" id="">Upload</span>
+                                            <span class="input-group-text" id="upbutton" >Upload</span>
                                         </div>
                                     </div>
 
@@ -171,14 +171,10 @@ require_once("head.php");
                                 <!-- belum selesai -->
                                 <select option value="<?php echo $_SESSION["jeniskelamin_user"]; ?>" class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
                                 <option>Wanita</option>
-                                <option>Pria</option>                   
-                                <select class="form-control" name=""  id="">
-                                <option value="-1">~Pilih Jenis Kelamin~</option>
-                                <option value="0">Wanita</option>
-                                <option value="1">Pria</option>                   
+                                <option>Pria</option>                                     
                                 </select>                               
                                 </div>
-
+                                <!-- belum selesai -->
                                 <div class="form-group">
                                 <label for="">Alamat</label>
                                 <textarea value="<?php echo $_SESSION["cb_prov"]; ?>" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
@@ -304,19 +300,45 @@ require_once("head.php");
             {
                 jenis:"update",
                 nama_perusahaan:$("#nama_perusahaan").val(),
-                nama_user:$("#nama_user").val(),//# ini dari id component
+                nama_user:$("#nama_user").val(),
                 nomor_ktp:$("#nomor_ktp").val(),
                 telp_user:$("#telp_user").val(),
                 lahir_user:$("#lahir_user").val(),
-                jeniskelmain_user:$("#jeniskelamin_user").val(),
+                jeniskelamin_user:$("#jeniskelamin_user").val(),
             },
             function(data){
-                if (data=="berhasil") {
-                    alert("Berhasil menyimpan perubahan !");
-                }else{
-                    alert("gagal");
-                }
+                alert(data);
             });
+    }
+
+    $("#upbutton").click(function(){
+        var fd = new FormData();
+      var files = $('#inputGroupFile02')[0].files[0];
+      fd.append('file',files);
+      fd.append('id',$("#nomor_ktp").val());
+    console.log(files);
+      $.ajax({
+          url: 'ajaxupload.php',
+          type: 'post',
+          data: fd,
+          contentType: false,
+          processData: false,
+          success: function(response){
+              if(response != 0){
+                  $("#img").attr("src",response); 
+                  $(".preview img").show(); // Display image element
+                  $("#url_user").val(response);
+                  console.log(response);
+                  alert("file berhasil di upload");
+              }else{
+                  alert('file not uploaded');
+              }
+          },
+      });
+    });
+
+    function upload() {
+      
     }
 
     function gantipass() {

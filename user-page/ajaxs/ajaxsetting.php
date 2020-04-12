@@ -12,9 +12,16 @@
     $jeniskelamin_user = $_POST['jeniskelamin_user'];
     $conn = getConn();
     $sql = "update customer set nama_perusahaan = '$nama_perusahaan', nama_pemilik = '$nama_user', nomor_ktp = '$nomor_ktp', notelp = '$telp_user', tanggal_lahir = '$lahir_user', jenis_kelamin = '$jeniskelamin_user' where email = '".$_SESSION['email_user']."'";
-    $sql = "update customer set nama_pemilik='$nama_user where email = '".$_SESSION['email_user']."'";
+    //$sql = "update customer set nama_pemilik='$nama_user' where email = '".$_SESSION['email_user']."'";
+    //echo $nama_user;
         if ($conn->query($sql)) {   
             echo "berhasil";
+            $_SESSION["nama_user"] = $nama_user;
+            $_SESSION["nomor_ktp"] = $nomor_ktp;
+            $_SESSION["telp_user"] = $telp_user;
+            $_SESSION["lahir_user"] = $lahir_user;
+            $_SESSION["jeniskelamin_user"] = $jeniskelamin_user;
+            $_SESSION["nama_perusahaan"] = $nama_perusahaan;
         }
     $conn->close();
     }
