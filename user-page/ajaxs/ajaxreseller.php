@@ -12,11 +12,12 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
     foreach($result as $row)
     {
         $nama= $row['nama_barang'] ;
-        $harga=$row['harga'];
+        $harga=$row['harga_jual']; 
+        $foto=$row['foto_barang']; 
         $brand="";
         $kal.= "<div class='col-sm-4 col-lg-3 col-md-3'>
         <div style='border:1px solid #ccc; border-radius:5px; padding:16px; margin-bottom:16px; height:450px;'>
-            <img src='' alt='' class='img-responsive' >
+            <img src=\"../images/$foto\" alt='' class='img-responsive' >
             <p align='center'><strong><a href=''>$nama</a></strong></p>
             <h4 style='text-align:center;' class='text-danger' >$harga</h4>
             Brand :$brand <br />

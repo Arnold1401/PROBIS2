@@ -149,7 +149,7 @@ $conn = getConn();
           <!-- end of filter product -->
           <div class="col-md-9">
               <br />
-                <div class="row filter_data"></div>
+                <div class="row filter_data" id="disini"></div>
           </div>
         </div>
         <!-- end row Jenis Product -->
@@ -194,28 +194,28 @@ $conn = getConn();
           jenis:"show_product_catalog_semua", 
       },
       function(data){
-          alert(data);
+          $("#disini").html(data);
       });
 
       filter_data();
 
-    function filter_data()
-    {
-        $('.filter_data').html('<div id="loading" style="" ></div>');
-        var jenis = 'filter';
-        var minimum_price = $('#hidden_minimum_price').val();
-        var maximum_price = $('#hidden_maximum_price').val();
-        var brand = get_filter('brand');
+    // function filter_data()
+    // {
+    //     $('.filter_data').html('<div id="loading" style="" ></div>');
+    //     var jenis = 'filter';
+    //     var minimum_price = $('#hidden_minimum_price').val();
+    //     var maximum_price = $('#hidden_maximum_price').val();
+    //     var brand = get_filter('brand');
         
-        $.ajax({
-            url:"ajaxs/ajaxreseller.php",
-            method:"POST",
-            data:{jenis:"filter", minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
-            success:function(data){
-                $('.filter_data').html(data);
-            }
-        });
-    }
+    //     $.ajax({
+    //         url:"ajaxs/ajaxreseller.php",
+    //         method:"POST",
+    //         data:{jenis:"filter", minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+    //         success:function(data){
+    //             $('.filter_data').html(data);
+    //         }
+    //     });
+    // }
 
     function get_filter(class_name)
     {
