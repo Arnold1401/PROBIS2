@@ -117,9 +117,9 @@ require_once("head.php");
                                 <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
                                 <thead>
                                     <tr>
+                                        <th>Id Hutang</th>
                                         <th>No Pesanan</th>
-                                        <th>Tanggal Pesanan</th>
-                                        <th>Tanggal Jatuh tempo</th>
+                                        <th>Tanggal Pelunasan</th>
                                         <th>Total</th>
                                         
                                     </tr>
@@ -199,7 +199,7 @@ require_once("head.php");
              "columns":[ 
                 {"data":"id_piutang"},               
                 {"data":"id_hjual"},                         
-                {"data":"tanggal_jatuh_tempo", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},
+                {"data":"tanggal_pelunasan", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},
                 {"data":"sisa_tagihan", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                 
              ],

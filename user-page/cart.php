@@ -412,7 +412,16 @@ require_once("head.php");
                 
            
         }
-
+        function CekTglExpireSemuaBarang(){
+        $.post("ajaxs/ajaxexpire.php",{
+            jenis:"CekTglExpireSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+    }
 
         
 

@@ -10,7 +10,7 @@ $getIdHjual = $_POST['get_idhjual'];
 $sql = mysqli_query($connect, "SELECT id_djual FROM djual where id_hjual='$getIdHjual'"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
-$query = "SELECT * FROM djual d, barang b, hjual h, detail_barang x WHERE (d.id_djual LIKE '%".$search."%' OR d.kuantiti LIKE '%".$search."%' OR d.id_detail_barang LIKE '%".$search."%' OR b.nama_barang LIKE '%".$search."%' OR d.id_ulasan LIKE '%".$search."%') and d.id_detail_barang=x.id_detail_barang and x.id_barang=b.id_barang and h.id_hjual=d.id_hjual and d.id_hjual='$getIdHjual'";
+$query = "SELECT d.id_djual, b.nama_barang, d.kuantiti, x.harga_jual, d.subtotal, h.status_order FROM djual d, barang b, hjual h, detail_barang x WHERE (d.id_djual LIKE '%".$search."%' OR d.kuantiti LIKE '%".$search."%' OR d.id_detail_barang LIKE '%".$search."%' OR b.nama_barang LIKE '%".$search."%' OR d.id_ulasan LIKE '%".$search."%') and d.id_detail_barang=x.id_detail_barang and x.id_barang=b.id_barang and h.id_hjual=d.id_hjual and d.id_hjual='$getIdHjual'";
 
 // $query = "SELECT * FROM djual d, barang b, hjual h WHERE (d.id_djual LIKE '%".$search."%' OR d.kuantiti LIKE '%".$search."%' OR d.id_barang LIKE '%".$search."%' OR b.nama_barang LIKE '%".$search."%' OR d.id_ulasan LIKE '%".$search."%') and d.id_barang=b.id_barang and h.id_hjual=d.id_hjual and d.id_hjual='$getIdHjual'";
 

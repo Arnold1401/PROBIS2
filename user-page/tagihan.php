@@ -837,7 +837,7 @@ require_once("head.php");
     hitunguntung();
 
     function CekTglExpireSemuaBarang(){
-        $.post("ajaxs/ajaxtagihan.php",{
+        $.post("ajaxs/ajaxexpire.php",{
             jenis:"CekTglExpireSemuaBarang",
             CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
             },
