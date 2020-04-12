@@ -382,11 +382,7 @@ $(document).ready(function() {
                  {"data":"id_barang"},
                  {"data":"nama_barang"},
                  {"data":"harga"},
-<<<<<<< HEAD
                  {"data":"nama_satuan"},
-=======
-                 {"data":"jenis_barang"},
->>>>>>> cee6cfdb6e6a2333527cb772ea5c519e1a60a2b1
                  {                   
                     "target": -1,
                     "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button>"
