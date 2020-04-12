@@ -98,7 +98,7 @@ require_once("head.php");
     <!-- Jenis Product -->
     <section class="ftco-section">
       <div class="container">
-        <div class="row justify-content-center">
+        <!-- <div class="row justify-content-center">
           <div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
     					<li><a href="#" class="active">Semua</a></li>
@@ -110,7 +110,7 @@ require_once("head.php");
           </div>
           
         </div>
-        
+         -->
         <!-- row Jenis Product -->
         <div class="row">
           <!-- filter product -->
@@ -126,22 +126,29 @@ require_once("head.php");
             <div class="list-group">
               <h3>Kategori</h3>
               <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
-              <?php
 
-                    $query = "SELECT DISTINCT(product_brand) FROM product WHERE product_status = '1' ORDER BY product_id DESC";
-                    $statement = $connect->prepare($query);
-                    $statement->execute();
-                    $result = $statement->fetchAll();
-                    foreach($result as $row)
-                    {
-                    ?>
-                    <div class="list-group-item checkbox">
-                        <label><input type="checkbox" class="common_selector brand" value="<?php echo $row['product_brand']; ?>"  > <?php echo $row['product_brand']; ?></label>
-                    </div>
-                    <?php
-                    }
+                <?php
+                  include_once "conn.php";
+                  $conn=getConn();
 
-                    ?>
+                  $kal="";
+
+                  $sql="select * from kategori";
+                  $result = $conn->query($sql);
+                  while($row = $result->fetch_assoc()) {
+                    $id=$row['id_kategori'];
+                    $nama=$row['nama_kategori'];
+                    $kal.="<div class='list-group-item checkbox'>
+                    <label><input type='checkbox' class='common_selector brand' value='' onclick=\"getkat('$id')\"  >$nama</label>
+                </div>";
+                  }
+
+                  $conn->close();
+                  echo $kal;
+                ?>
+
+                
+
               </div>
             </div>
           <!-- end of filter product -->
@@ -187,12 +194,12 @@ require_once("head.php");
 
     // document ready
     $(document).ready(function () {
-      $.post("ajaxreseller.php",
+      $.post("ajaxs/ajaxproduk.php",
       {
-          jenis:"show_product_catalog_semua", 
+          jenis:"load", 
       },
       function(data){
-          alert(data);
+          console.log(data);
       });
 
       $('#price_range').slider({
