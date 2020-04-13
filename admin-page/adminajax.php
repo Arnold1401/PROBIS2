@@ -197,28 +197,84 @@ if ($_POST["jenis"] == "jadikan_sales_utkcustini") {
     $conn->close();
 }
 
+//ngload satuan barang
+if ($_POST["jenis"]=="satuan_barang") {
+    $sql = "select * from satuan";
+    $result = $conn->query($sql);
+    while($data=$result->fetch_assoc()){
+        echo "<option value=$data[id_satuan]>$data[nama_satuan]</option>";
+    }
+    
+}
+//end of ngload satuan barang
+
+//tambah satuan baru
+if ($_POST["jenis"]=="tambah_satuan_baru") {
+    $namasatuanbaru = strtolower($_POST["namasatuan"]);
+    $sql = "select * from satuan";
+    $result = $conn->query($sql);
+    $ctr=0;
+    while ($row = $result->fetch_assoc()) {
+        if (ucfirst($namasatuanbaru) == $row["nama_satuan"]) {
+            $ctr = -1;
+        }
+    }
+
+    if ($ctr == 0) {
+        $namasatuanbaru = ucfirst($namasatuanbaru);
+        $sqlinsert = "insert into satuan (id_satuan, nama_satuan) values (null,'$namasatuanbaru')";
+
+        if ($conn->query($sqlinsert)) {
+            echo "berhasil tambah baru";
+        }else {
+            echo "gagal";
+        }
+
+    }
+
+    if ($ctr == -1) {
+        echo "Satuan ".$namasatuanbaru ." sudah ada";
+    }
+    $conn->close();
+}
+//end of tambah satuan baru
+
 //ajax untuk tambah barang
 if ($_POST["jenis"]=="insertbarang") {
     $conn=getConn();
-    $id="ss04";
-    $nama=$_POST["nmbarang"];
-    $idkat=$_POST["cbjenis"];
-    $harga=$_POST["hargabeli"];
-    $idsatuan=$_POST["satuan"];
-    $foto="testfoto";
-    $desk="";
+    $namabarang=$_POST["namabarang"];
+    $descbarang=$_POST["descbarang"];
+    $jenisbarang=$_POST["jenisbarang"];
+    $satuanbarang=$_POST["satuanbarang"];
+    $tanggalmasuk=$_POST["tanggalmasuk"];
+    $tanggalkadaluarsa=$_POST["tanggalkadaluarsa"];
+    $kuantiti=$_POST["kuantiti"];
+    $hargabeli=$_POST["hargabeli"];
+    $hargajual=$_POST["hargajual"];
+
+    $foto="0";
     $status="1";
     $rating="0";
+    $sisa = $kuantiti;
 
 
-    $sql="INSERT INTO `barang`(`id_barang`, `nama_barang`, `jenis_barang`, `harga`, `id_satuan`, `foto_barang`, `deskripsi_barang`, `status_barang`, `rating`) VALUES ('$id','$nama','$idkat','$harga','$idsatuan','$foto','$desk','$status','$rating')";
+    $sql = "insert into barang (nama_barang, deskripsi_barang, jenis_barang, id_satuan, harga_beli, harga_jual, foto_barang, status_barang, rating) values ('$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$hargabeli','$hargajual','$foto','$status','$rating')";
+
     if ($conn->query($sql)) {
-        echo "berhasil";
+
+         $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
+        
+         if ($conn->query($sql2)) {
+            echo "berhasil";
+         }else {
+             echo "gagal insert detail";
+         }
+        
     }else{
         echo "gagal";
     }
 
     $conn->close();
 }
-
+//end of untuk tambah barang
 ?>

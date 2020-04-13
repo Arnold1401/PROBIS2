@@ -112,179 +112,153 @@ require_once("adminhead.php");
             <div class="animated fadeIn">
                 <div class="row">
                 <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Barang</strong>
+                    <form class="was-validated">
+                        <div class="col-sm-6" style="border=10px;">
+                            <div class="form-group">
+                                <label for="" class="form-control-label">Masukkan Gambar</label>
+                                <input type="file" id="file-input" name="file-input" class="form-control-file">
+                                <small id="helpnama_sales" class="invalid-feedback">Masukkan nama lengkap sales</small>
                             </div>
-                            <div class="card-body card-block">
 
-                                <!-- crud barang-->
-                                <form class="was-validated">
+                            <div class="form-group">
+                                <label for="" class="form-control-label">Nama Barang</label>
+                                <input type="text" id="nama_barang" class="form-control" aria-describedby="helpnama_barang" required>
+                                <small id="helpnama_barang" class="invalid-feedback">Masukkan nama barang</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Desripsi barang</label>
+                                <textarea class="form-control" name="" id="desk_barang" rows="3" placeholder="Deskripsi..." class="form-control" aria-describedby="helpdesk_barang" required></textarea>
+                                <small id="helpdesk_barang" class="invalid-feedback">Masukkan deskripsi barang</small>
+                            </div>
 
-                                  <div class="row form-group">
-                                    <div class="col col-md-3">
-                                      <label for="file-input" class=" form-control-label">File input</label>
-                                    </div>
-                                      
-                                    <div class="col-12 col-md-9">
-                                      <input type="file" id="file-input" name="file-input" class="form-control-file">
-                                    </div>
-                                    <small id="helpfile-input" class="invalid-feedback">Isi Alamat Anda</small>
-                                  </div>
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Jenis Barang</label>
+                                <select name="select" id="cb_jenisbarang" class="form-control" required aria-describedby="helpcb_jenisbarang">
+                                    <option value="">~Pilih~</option>
+                                    <option value="Minuman">Minuman</option>
+                                    <option value="Makanan Ringan">Makanan Ringan</option>
+                                    <option value="Perawatan Diri">Perawatan Diri</option>
+                                    <option value="Obatan">Obatan</option>
+                                </select>
+                                <small id="helpcb_jenisbarang" class="invalid-feedback">Pilih Jenis kategori barang</small>                            
+                            </div>
 
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Nama Barang</label>
-                                      <input type="text" id="txt_namabarang" placeholder="Isi Nama Barang" class="form-control" aria-describedby="helpnama_barang" required>
-                                      <small class="helpnama_barang">Isi Nama Barang</small>
-                                  </div>
+                            <div class="form-group">
+                            <label for="" class=" form-control-label">Satuan Barang</label>
+                                <select name="select" id="cb_satuanbarang" class="form-control" required aria-describedby="helpcb_satuanbarang">                                  
+                                    <!-- select dari db -->
+                                </select>
+                                <small id="helpcb_satuanbarang" class="invalid-feedback">Pilih Satuan barang</small>  <br>
+                            </div>
 
-                                    <div class="row form-group">
-
-                                        <div class="col col-md-6">
-                                            <label for="" class=" form-control-label">Jenis Satuan Barang </label>
-                                                <select name="select" id="cb_satuan" class="form-control" aria-describedby="helpselect_barang" required>
-                                                    <option value="">Pilih</option>
-                                                    <option value="0">Box</option>
-                                                    <option value="1">Pcs</option>
-                                                    <option value="2">Botol</option>
-                                                    <option value="3">Tambah Satuan Baru</option>
-                                                </select>
-                                                <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
-                                                <small>*Pilih Satuan Barang</small><br>
-                                                <small>*Pilih Tambahkan Satuan Barang untuk menambah satuan barang yang tidak tertera</small>
-                                        </div>
-
-                                        <div class="col-auto col-md-6">
-                                            <label for="" class=" form-control-label">Satuan Barang Tambahan </label>
-                                            <div class="input-group prepand">
-                                                <input type="text" id="txt_satuan" name="" placeholder="Masukkan Satuan Barang" class="form-control">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary">Tambah</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Jumlah Barang </label>
-                                        <input type="number" id="txt_jum" name="" placeholder="Isi Jumlah Barang" class="form-control">
-                                    <small class="help-block">Isi Jumlah Barang Yang Tersedia</small>                                   
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                    
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Jenis Barang </label>
-                                    <select name="select" id="cb_jenis" class="form-control">
-                                        <option value="Minuman">Minuman</option>
-                                        <option value="Makanan Ringan">Makanan Ringan</option>
-                                        <option value="Perawatan Diri">Perawatan Diri</option>
-                                        <option value="Obatan">Obatan</option>
-                                      </select>
-                                      <small>Pilih Jenis Barang</small>                                      
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Harga Barang Beli (Rp)</label>
-                                      <input type="number" id="txt_hargabeli" name="" placeholder="Harga Barang Beli" class="form-control">
-                                      <small class="help-block">Isi Harga Barang saat Beli</small>
-                                  </div>
-
-                                  <div class="form-group">
-                                    <label for="" class=" form-control-label">Harga Barang Jual (Rp)</label>
-                                      <input type="number" id="txt_hargajual" name="" placeholder="Harga Barang Jual" class="form-control">
-                                      <small class="help-block">Isi Harga Barang saat Jual</small>
-                                  </div>
-
-                                   <div class="form-group">
-                                    <label for=""class=" form-control-label">Deskripsi Barang </label>
-                                    <textarea class="form-control" name="" id="txt_deskripsi" rows="3" placeholder="Deskripsi..." class="form-control"></textarea>
-                                  </div>  
-
-                                  <div class="form-group">
-                                    <label for="">Masa Kadaluarsa</label>
-                                    <input type="date" name="" id="txt_exp" class="form-control" placeholder="masa kadaluarsa" aria-describedby="helpId">
-                                  </div>   
-                                  
-                                  <div class="form-group">
-                                    <label for=""class=" form-control-label">Status Barang </label>
-                                    <select disabled name="select" id="cb_status" class="form-control">
-                                        <option value="0">Aktif</option>
-                                        <option value="1">No-aktif</option>
-                                        
-                                      </select>
-                                      <small>(Aktif - Barang belum expire)</small>   
-                                      <small>(NonAktif - Barang sudah expire)</small>   
-                                  </div>
-                                 
-
-                                  <div class="form-group">
-                                    <button type="submit" class="btn btn-success btn-md" onclick="tambahbarang()">
-                                        <i class="fa fa-dot-circle-o"></i> Tambahkan
-                                    </button>
-
-                                    <button type="submit" class="btn btn-danger btn-md">
-                                        <i class="fa fa-ban"></i> Reset
-                                    </button>
-
-                                    <button type="submit" class="btn btn-warning btn-md float-right">
-                                        <i class="fa fa-ban"></i> Ubah
-                                    </button>
-                                  </div>
-
-                                  
-                                  <br>
-
-                                  <div class="form-group">
-                                  <small>*Pilih tombol Tambahkan untuk menambah data barang baru</small><br>
-                                  <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                                  <small>*Pilih tombol Ubah untuk menambah data barang baru. Tombol Ubah dapat dipilih jika data barang pernah diinputkan</small><br>
-                                  </div>
-
-
-
-                                </form>
-                                <!-- crud barang-->
+                            <div class="form-group">
+                                <a href="#" style="color:blue;" data-toggle="modal" data-target="#myModal">+ Tambah Satuan Barang baru</a>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <!-- end col 6 -->
+                        
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Tanggal Masuk</label>
+                                <input type="date" name="" id="tgl_masuk" class="form-control" aria-describedby="helptgl_masuk" required>
+                                <small id="helptgl_masuk" class="invalid-feedback">Tanggal Masuk Barang </small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Tanggal Kadaluarsa Barang</label>
+                                <input type="date" name="" id="tgl_kadaluarsa" class="form-control" aria-describedby="helptgl_kadaluarsa" required>
+                                <small id="helptgl_kadaluarsa" class="invalid-feedback">Tanggal Kadularsa Barang </small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Kuantiti/Jumlah Barang</label>
+                                <input type="number" id="jumlah_barang" name="" class="form-control" aria-describedby="helpjumlah_barang" required>
+                                <small id="helpjumlah_barang" class="invalid-feedback">Masukkan kuantiti/jumlah barang masuk</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Harga Beli Barang</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Rp</div>
+                                        </div>
+                                        <input type="number" id="hrgbeli_barang" name="" class="form-control" aria-describedby="helphrgbeli_barang" required>
+                                        <small id="helphrgbeli_barang" class="invalid-feedback">Masukkan Harga Beli barang</small>
+                                    </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Harga Jual Barang</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">Rp</div>
+                                        </div>
+                                        <input type="number" id="hrgjual_barang" name="" class="form-control" aria-describedby="helphrgjual_barang" required>
+                                        <small id="helphrgjual_barang" class="invalid-feedback">Masukkan Harga Jual barang</small>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <section class="card">                                   
+                                        <button type="button" class="btn btn-success btn-md " onclick="tambahbarang()">
+                                            <i class="fa fa-dot-circle-o"></i> Tambahkan
+                                        </button>                                      
+                                    </section>
+                                </div>
+                                <div class="col-md-4">
+                                    <section class="card">
+                                    <button type="submit" class="btn btn-danger btn-md">
+                                            <i class="fa fa-ban"></i> Reset
+                                            </button>
+                                    </section>
+                                </div>
+                                <div class="col-lg-4">
+                                    <section class="card">
+                                    <button type="submit" class="btn btn-warning btn-md float-right">
+                                            <i class="fa fa-ban"></i> Ubah
+                                            </button>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <small>*Pilih tombol Tambahkan untuk menambah sales baru</small><br>
+                                <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
+                               
+                            </div>
+                        </div>
+                        <!-- end col 6 -->
+                    </form>
+                </div> <!-- end col 12 -->
+                </div><!-- end row  -->
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Barang</strong>
+                                <strong class="card-title">List Sales</strong>
                             </div>
                             <div class="card-body">
-
-                            <div class="form-group">
-                                <small>*Pilih tombol Detail untuk melihat Detail Barang</small><br>
-                                <small>*Pilih tombol Ubah untuk mengubah Barang</small>
-                            </div>
-                            
-                            <!-- datatable barang -->
-                            <div class="table-responsive">
-                                <table id="example" class="table table-striped table-bordered">
+                              <small>*Tombol List Reseller - list reseller yang dibebani oleh setiap sales</small><br>
+                              <small>*Tombol Detail - Detail dari setiap sales</small><br>
+                              <small>*Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
+                              <div class="table-responsive">
+                              <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>#ID</th>
-                                            <th>Nama Barang </th>
-                                            <th>Harga</th>
-
-                                            <th>Satuan Barang</th>
-
-       
+                                            <th>Nama </th>
+                                            <th>Email</th>
+                                            <th>No KTP</th>
+                                            <th>Nomor Telepon</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
-                            </div>
-                            <!-- end of datatable barang -->
-
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -293,6 +267,36 @@ require_once("adminhead.php");
         </div><!-- .content -->
     </div><!-- /#right-panel -->
     <!-- Right Panel -->
+
+    <!-- Modal utk list reseller -->
+    <div class="modal fade " tabindex="-1" id="myModal" role="dialog">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">List Reseller</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">               
+                    <form>
+                        <div class="form-group">
+                            <label class="col-form-label">Nama Satuan</label>
+                            <input type="text" class="form-control" id="satuan_tambahan">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" id="peringatan"></label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="tambahsatuanbaru" class="btn btn-outline-primary">Tambahkan</button> 
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end of Modal utk list reseller -->
 
 
     <!-- kumpulan script luar -->
@@ -304,138 +308,16 @@ require_once("adminhead.php");
 </html>
 
 <script>
+    $(document).ready(function() {
+        getdataSatuan();
 
-
-
-/*
-
-
-utama id, nama, harga,rating 
-
-
-detail jenis barang,deskripsi barang, kadaluarsa 
-
-
-
-
-
-
-;
-
-
-*/
-
-function format ( d ) {
-        // `d` is the original data object for the row
-        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%">'+
-            '<tr>'+
-                '<td>Jenis Barang</td>'+
-                '<td>'+d.jenis_barang+'</td>'+
-            '</tr>'+
-            '<tr>'+
-                '<td>Deskripsi Barang</td>'+
-                '<td>'+d.deskripsi_barang+'</td>'+
-            '</tr>'+
-            '<tr>'+
-                '<td>Kadaluwarsa</td>'+
-                '<td>'+d.tanggal_kadaluwarsa+'</td>'+
-            '</tr>'+
-        '</table>';
-    }
-
-
-$(document).ready(function() {
-
-
-
-    var table="";
-
-    table = $('#example').DataTable( 
-        {
-             "buttons": [ 'copy', 'excel', 'pdf' ],
-             "processing":true,
-             "language": {
-                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
-                "zeroRecords": "Maaf Data yang dicari tidak ada",
-                "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                "infoEmpty": "Tidak ada data",
-                "infoFiltered": "(filtered from _MAX_ total records)",
-                "search":"Cari",
-                "paginate": {
-                    "first":      "Pertama",
-                    "last":       "terakhir",
-                    "next":       "Selanjutnya",
-                    "previous":   "Sebelumnya"
-                    },
-                },
-             "serverSide":true,
-             "ordering":true, //set true agar bisa di sorting
-             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-             "ajax":{
-                 "url":"datatable_barang.php",
-                 "type":"POST"
-             },
-             "deferRender":true,
-             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-             "columns":[
-                
-                 {"data":"id_barang"},
-                 {"data":"nama_barang"},
-                 {"data":"harga"},
-                 {"data":"nama_satuan"},
-                 {                   
-                    "target": -1,
-                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button>"
-                },              
-             ],
-        } 
-        
-        );
-
-        setInterval( function () {
-             table.ajax.reload();
-        }, 30000 );
-        table.buttons().container()
-             .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-
-
-        
-         //function onclick untuk button list reseller dan details pada datatable list sales 
-         var getId, data, tablelistreseller = "";
-        $('#example tbody').on( 'click', 'button', function () {
-            var action = this.id;
-            data = table.row($(this).closest('tr')).data();
-        
-           
-            
-            //action button Detail
-            if(action == 'GetDetail')
-            {
-                getId = data[Object.keys(data)[0]];
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
-                
-                if ( row.child.isShown() ) 
-                {   // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }       
-                else 
-                {
-                    // Open this row
-                    row.child( format(row.data()) ).show();
-                    tr.addClass('shown');
-                }
-            }
-            //end of action button Detail
-        } );
+        $('#tambahsatuanbaru').click( function () {
+            tambahsatuanbaru();
+            getdataSatuan();
+        });
+    })
     
-
-
-
-
-})
-function keluar(){
+    function keluar(){
     $.post("ajaxs/ajaxlogin.php",
         {
             jenis:"keluar",
@@ -443,9 +325,37 @@ function keluar(){
         function(data){
             window.location.href="../user-page/login.php";
         });
-
     }
 
+    function getdataSatuan(){
+        $.post("adminajax.php",{
+            jenis:"satuan_barang",
+        },
+        function(data){
+            $("#cb_satuanbarang").html(data);
+        });
+    }
+
+    // function getsatuan() {
+    //     var getsatuan = document.getElementById('cb_satuanbarang').value;
+    //     if (getsatuan == 0) {
+    //         document.getElementById("satuan_tambahan").disabled = false;
+    //         document.getElementById("tambah_satuan").disabled = false;
+    //     }else{
+    //         document.getElementById("satuan_tambahan").disabled = true;
+    //         document.getElementById("tambah_satuan").disabled = true;
+    //     }
+    // }
+
+    function tambahsatuanbaru() {
+        $.post("adminajax.php",{
+            jenis:"tambah_satuan_baru",
+            namasatuan : document.getElementById("satuan_tambahan").value
+            },
+            function(data){
+                alert(data);
+            })
+    }
 
     //function tambah barang
     function tambahbarang() {
@@ -472,14 +382,16 @@ function keluar(){
                 $.post("adminajax.php",
                 {
                     jenis:"insertbarang",
-                    nmbarang:$("#txt_namabarang").val(),
-                    satuan:$("#cb_satuan").val(),
-                    jumlah:$("#txt_jum").val(),
-                    cbjenis:$("#cb_jenis").val(),
-                    hargabeli:$("#txt_hargabeli").val(),
-                    hargajual:$("#txt_hargajual").val(),
-                    exp:$("#txt_exp").val(),
-                    status:$("#cb_status").val(),
+                    namabarang:$("#nama_barang").val(),
+                    descbarang:$("#desk_barang").val(),
+                    jenisbarang:$("#cb_jenisbarang").val(),
+                    satuanbarang:$("#cb_satuanbarang").val(),
+                    tanggalmasuk:$("#tgl_masuk").val(),
+                    tanggalkadaluarsa:$("#tgl_kadaluarsa").val(),
+                    kuantiti:$("#jumlah_barang").val(),
+                    hargabeli:$("#hrgbeli_barang").val(),
+                    hargajual:$("#hrgjual_barang").val()
+                    
                 },
                 function (data) {
                     alert(data);
@@ -490,7 +402,6 @@ function keluar(){
            
     }
     //end of function tambah barang
-
 
 
 
