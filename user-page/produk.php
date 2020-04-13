@@ -195,7 +195,7 @@ $conn = getConn();
 
     // document ready
     $(document).ready(function() {
-      $.post("ajaxs/ajaxreseller.php", {
+      $.post("ajaxs/ajaxproduk.php", {
           jenis: "show_product_catalog_semua",
         },
         function(data) {
@@ -253,6 +253,42 @@ $conn = getConn();
       });
     });
     //end of document ready
+
+
+    // FUNCTION BARANG
+
+    function addcart(params) {
+      $.ajax({
+          url: "ajaxs/ajaxcart.php",
+          method: "POST",
+          data: {
+            jenis: 'add',
+          },
+          success: function(data) {
+            console.log(data);
+          }
+        });
+    }
+
+    function more(params) {
+      $.ajax({
+          url: "ajaxs/ajaxproduk.php",
+          method: "POST",
+          data: {
+            jenis: 'more',
+          },
+          success: function(data) {
+            console.log(data);
+          }
+        });
+    }
+
+
+
+
+
+
+
   </script>
 </body>
 
