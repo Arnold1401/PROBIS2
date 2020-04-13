@@ -1,5 +1,7 @@
 <?php
 require_once("head.php");
+include_once("conn.php");
+$conn = getConn();
 ?>
 
 <!DOCTYPE html>
@@ -128,15 +130,15 @@ require_once("head.php");
               <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
               <?php
 
-                    $query = "SELECT DISTINCT(product_brand) FROM product WHERE product_status = '1' ORDER BY product_id DESC";
-                    $statement = $connect->prepare($query);
+                    $query = "SELECT * from kategori";
+                    $statement = $conn->prepare($query);
                     $statement->execute();
-                    $result = $statement->fetchAll();
+                    $result = $statement->get_result();
                     foreach($result as $row)
                     {
                     ?>
                     <div class="list-group-item checkbox">
-                        <label><input type="checkbox" class="common_selector brand" value="<?php echo $row['product_brand']; ?>"  > <?php echo $row['product_brand']; ?></label>
+                        <label><input type="checkbox" class="common_selector brand" value="<?php echo $row['id_kategori']; ?>"  > <?php echo $row['nama_kategori']; ?></label>
                     </div>
                     <?php
                     }
@@ -147,7 +149,7 @@ require_once("head.php");
           <!-- end of filter product -->
           <div class="col-md-9">
               <br />
-                <div class="row filter_data"></div>
+                <div class="row filter_data" id="disini"></div>
           </div>
         </div>
         <!-- end row Jenis Product -->
@@ -187,13 +189,47 @@ require_once("head.php");
 
     // document ready
     $(document).ready(function () {
-      $.post("ajaxreseller.php",
+      $.post("ajaxs/ajaxreseller.php",
       {
           jenis:"show_product_catalog_semua", 
       },
       function(data){
-          alert(data);
+          $("#disini").html(data);
       });
+
+      filter_data();
+
+    // function filter_data()
+    // {
+    //     $('.filter_data').html('<div id="loading" style="" ></div>');
+    //     var jenis = 'filter';
+    //     var minimum_price = $('#hidden_minimum_price').val();
+    //     var maximum_price = $('#hidden_maximum_price').val();
+    //     var brand = get_filter('brand');
+        
+    //     $.ajax({
+    //         url:"ajaxs/ajaxreseller.php",
+    //         method:"POST",
+    //         data:{jenis:"filter", minimum_price:minimum_price, maximum_price:maximum_price, brand:brand},
+    //         success:function(data){
+    //             $('.filter_data').html(data);
+    //         }
+    //     });
+    // }
+
+    function get_filter(class_name)
+    {
+        var filter = [];
+        $('.'+class_name+':checked').each(function(){
+            filter.push($(this).val());
+        });
+        return filter;
+    }
+
+    $('.common_selector').click(function(){
+        filter_data();
+    });
+
 
       $('#price_range').slider({
         range:true,
