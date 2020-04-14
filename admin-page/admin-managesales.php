@@ -276,7 +276,7 @@ $pages = ceil($total/$isi);
                     </table>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -449,6 +449,18 @@ $pages = ceil($total/$isi);
         } );
         //end of function onclick untuk button list reseller dan details pada datatable list sales 
        
+       //event jika sales dipilih/diclick 
+       $('#example tbody').on('click', 'tr', function () {
+            
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika sales dipilih/diclick 
+
+        //event jika list reseller dipilih/diclick 
+        $('#fetchDataReseller tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list reseller dipilih/diclick 
     }); 
     // end of document ready
 

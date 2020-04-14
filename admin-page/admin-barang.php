@@ -91,7 +91,7 @@ require_once("adminhead.php");
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>Master Barang</h1>
                     </div>
                 </div>
             </div>
@@ -123,14 +123,7 @@ require_once("adminhead.php");
                             <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
                             </div>
                             <input type="hidden" class="form-control" id="url_user">
-                            <!-- <div class="form-group">
-                                <label for="" class="form-control-label">Masukkan Gambar</label>
-                                <input type="file" id="foto_barang" name="file-input" class="form-control-file">
-                                <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
-                                <small id="helpnama_sales" class="invalid-feedback">Sisipkan Gmabr Barang</small>
-                                <img src="" id="img" width="200" height="100">
-                            </div> -->
-
+                          
                             <div class="form-group">
                                 <label for="" class="form-control-label">Nama Barang</label>
                                 <input type="text" id="nama_barang" class="form-control" aria-describedby="helpnama_barang" required>
@@ -161,11 +154,11 @@ require_once("adminhead.php");
                                 <select name="select" id="cb_satuanbarang" class="form-control" required aria-describedby="helpcb_satuanbarang">                                  
                                     <!-- select dari db -->
                                 </select>
-                                <small id="helpcb_satuanbarang" class="invalid-feedback">Pilih Satuan barang</small>  <br>
+                                <small id="helpcb_satuanbarang" class="invalid-feedback">Pilih Satuan barang</small>
                             </div>
 
                             <div class="form-group">
-                                <a href="#" style="color:blue;" data-toggle="modal" data-target="#myModal">+ Tambah Satuan Barang baru</a>
+                                <a href="#" style="color:blue;" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="right" title="Klik untuk menambahkan Satuan baru">+ Tambah Satuan Barang baru</a>
                             </div>
                         </div>
                         <!-- end col 6 -->
@@ -235,9 +228,9 @@ require_once("adminhead.php");
                                 </div>
                             </div>
                             <div class="form-group">
-                                <small>*Pilih tombol Tambahkan untuk menambah sales baru</small><br>
-                                <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
-                               
+                                <small>*Pilih Tombol Tambahkan untuk menambah barang baru</small><br>
+                                <small>*Pilih Tombol Reset untuk mereset isi inputan diatas</small><br>
+                                <small>*Pilih Tombol Ubah untuk mengubah/megupdate data yang telah dipilih</small><br>
                             </div>
                         </div>
                         <!-- end col 6 -->
@@ -249,11 +242,10 @@ require_once("adminhead.php");
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Sales</strong>
+                                <strong class="card-title">List Barang</strong>
                             </div>
-                            <div class="card-body">
-                              <small>*Tombol List Reseller - list reseller yang dibebani oleh setiap sales</small><br>
-                              <small>*Tombol Detail - Detail dari setiap sales</small><br>
+                            <div class="card-body">                           
+                              <small>*Tombol Detail - Detail dari setiap barang</small><br>
                               <small>*Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
                               <div class="table-responsive">
                               <table id="example" class="table table-striped table-bordered">
@@ -295,15 +287,13 @@ require_once("adminhead.php");
                         <div class="form-group">
                             <label class="col-form-label">Nama Satuan</label>
                             <input type="text" class="form-control" id="satuan_tambahan">
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label" id="peringatan"></label>
+                            <label class="col-form-label text-danger" id="warning"></label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="tambahsatuanbaru" class="btn btn-outline-primary">Tambahkan</button> 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -332,7 +322,8 @@ require_once("adminhead.php");
         });
 
         //otomatis ajax menghitung muncul barang jika sudah mau expire atau telah expire
-        CekTglExpireSemuaBarang();CekTglAvailableSemuaBarang();
+        CekTglExpireSemuaBarang();
+        CekTglAvailableSemuaBarang();
         //end of otomatis ajax menghitung muncul barang jika sudah mau expire atau telah expire
 
         //datatable list barang
@@ -369,7 +360,7 @@ require_once("adminhead.php");
                  {"data":"id_barang"},
                  {"data":"nama_barang"},
                  {"data":"jenis_barang"},
-                 {"data":"harga_jual"},
+                 {"data":"harga_jual", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                  {"data":"status_barang",
                     "searchable": false,
                     "orderable":false,
@@ -385,7 +376,7 @@ require_once("adminhead.php");
                 },
                  {                   
                     "target": -1,
-                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button>"
+                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-primary'>Detail</button>"
                 },              
              ],
         }) 
@@ -396,7 +387,7 @@ require_once("adminhead.php");
         $('#example tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = table.row($(this).closest('tr')).data();
-        
+            
             //action button Detail
             if(action == 'GetDetail')
             {
@@ -443,6 +434,12 @@ require_once("adminhead.php");
             //end of action button Detail
         } );
         //end of function onclick untuk button list reseller dan details pada datatable list sales 
+
+        //event jika list barang dipilih/diclick 
+        $('#example tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list barang dipilih/diclick 
     })
     
     function keluar(){
@@ -476,8 +473,8 @@ require_once("adminhead.php");
         }
         else if (files != null){
             
-    console.log(files);
-      $.ajax({
+        console.log(files);
+        $.ajax({
           url: 'ajaxupload.php',
           type: 'post',
           data: fd,
@@ -524,14 +521,22 @@ require_once("adminhead.php");
 
 
     function tambahsatuanbaru() {
-        $.post("adminajax.php",{
+        var inputan = document.getElementById("satuan_tambahan").value;
+        if (inputan == "") {
+            $('#warning').html("Masukkan satuan baru!");
+        }
+        else if (inputan != ""){
+            $('#warning').html("");
+            $.post("adminajax.php",{
             jenis:"tambah_satuan_baru",
-            namasatuan : document.getElementById("satuan_tambahan").value
+            namasatuan : inputan,
             },
             function(data){
                 alert(data);
                 $('#example').DataTable().ajax.reload(); //reload ajax datatable 
             })
+        }
+        
     }
 
     //function tambah barang

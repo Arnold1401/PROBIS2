@@ -231,7 +231,7 @@ include_once('adminconn.php');
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="jadikansalescustini" class="btn btn-outline-primary">Jadikan Sales untuk customer ini</button> 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
@@ -419,7 +419,7 @@ include_once('adminconn.php');
     //document ready
     $(document).ready(function () {
         var tableuser="";
-
+        
         //datatable di list user
         tableuser = $('#tableusers').DataTable( 
         {
@@ -555,7 +555,7 @@ include_once('adminconn.php');
                         datal = listSalesNear.row($(this).closest('tr')).data();
                         gt = datal[Object.keys(datal)[0]];  //utk dapatkan id sales yang ada di listsalesnear
 
-                        $(this).addClass('bg-info').siblings().removeClass('bg-info');
+                        $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
                         
                     // alert( 'You clicked on '+gt+'\'s row' );
                     } );
@@ -601,10 +601,10 @@ include_once('adminconn.php');
                             id_sales : gt,
                         },
                         function(data){
-                            alert(data);
-                           // $("#myModal").load();
-                            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
                             $('#sales_bertanggungjawab').DataTable().ajax.reload(); //reload ajax datatable sales yang bertanggung jawab di customer ini
+                            alert(data);
+                            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
+                            
                         });
                     } );
 
@@ -641,16 +641,13 @@ include_once('adminconn.php');
         } );
         //end of function onclick untuk button atur sales dan detail pada datatable list customer 
 
-
-//  $('#listSalesNear tbody').on( 'click', 'tr', function () {
-//  if ( $(this).hasClass('selected') ) {
-//  $(this).removeClass('selected');
-//  }
-//  else {
-//  listSalesNear.$('tr.selected').removeClass('selected');
-//  $(this).addClass('selected');
-//  }
-//  } );
+        //event jika list user dipilih/diclick 
+        $('#tableusers tbody').on('click', 'tr', function () {
+            
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        
+        } );
+        //end of event jika list user dipilih/diclick 
 
  
 

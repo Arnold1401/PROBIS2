@@ -201,6 +201,7 @@ if ($_POST["jenis"] == "jadikan_sales_utkcustini") {
 if ($_POST["jenis"]=="satuan_barang") {
     $sql = "select * from satuan";
     $result = $conn->query($sql);
+    echo "<option value=''>~Pilih~</option>";
     while($data=$result->fetch_assoc()){
         echo "<option value=$data[id_satuan]>$data[nama_satuan]</option>";
     }
