@@ -2,53 +2,21 @@
 include "adminconn.php"; // Load file koneksi.php
 $connect=getConn();
 
-
-
-
-
-
-
 $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
 $limit = $_POST['length']; // Ambil data limit per page
 $start = $_POST['start']; // Ambil data start
+//$getId = $_POST['get_id'];
 
-
-$sql=mysqli_query($connect,"select id_barang from barang");
-
-
-
-
-
+$sql = mysqli_query($connect, "SELECT id_detail_barang FROM detail_barang"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
+ //$query="select b.id_barang,b.nama_barang,b.jenis_barang,b.harga,b.deskripsi_barang,b.rating,d.tanggal_kadaluwarsa,s.nama_satuan from barang b, detail_barang d,satuan s where b.id_barang=d.id_barang and b.id_satuan=s.id_satuan and b.nama_barang LIKE '%".$search."%' OR b.jenis_barang LIKE '%".$search."%' OR s.nama_satuan LIKE '%".$search."%' group by b.id_barang";
 
-$query="
+$query = "SELECT * FROM barang b, satuan s WHERE (b.nama_barang LIKE '%".$search."%' OR b.jenis_barang LIKE '%".$search."%' OR s.nama_satuan LIKE '%".$search."%' OR b.harga_jual LIKE '%".$search."%') and b.id_satuan=s.id_satuan";
 
-select b.id_barang,b.nama_barang,b.jenis_barang,b.harga,b.deskripsi_barang,b.rating,d.tanggal_kadaluwarsa,s.nama_satuan
-
-
- 
-
-from barang b, detail_barang d,satuan s
-
-where b.id_barang=d.id_barang and b.id_satuan=s.id_satuan and
-
-
-b.nama_barang LIKE '%".$search."%' OR b.jenis_barang LIKE '%".$search."%' OR s.nama_satuan LIKE '%".$search."%' 
-
-
-group by b.id_barang
-
-
-
-";
-
-
-
-
-
-
-
+// $query = "SELECT * FROM [barang] O 
+// JOIN satuan S ON O.id_satuan = S.id_satuan 
+// JOIN detail_barang D ON D.id_barang = O.id_barang";
 
 $order_field = $_POST['order'][0]['column']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
 $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
@@ -68,9 +36,4 @@ $callback = array(
 
 header('Content-Type: application/json');
 echo json_encode($callback); // Convert array $callback ke json
-
-
-
-
-
 ?>

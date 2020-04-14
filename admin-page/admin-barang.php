@@ -114,15 +114,27 @@ require_once("adminhead.php");
                 <div class="col-md-12">
                     <form class="was-validated">
                         <div class="col-sm-6" style="border=10px;">
+
                             <div class="form-group">
-                                <label for="" class="form-control-label">Masukkan Gambar</label>
-                                <input type="file" id="file-input" name="file-input" class="form-control-file">
-                                <small id="helpnama_sales" class="invalid-feedback">Masukkan nama lengkap sales</small>
+                            <img src="" id="img" width="200" height="100">
                             </div>
+                            <div >
+                            <input type="file" id="file" name="file" />
+                            <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
+                            </div>
+                            <input type="hidden" class="form-control" id="url_user">
+                            <!-- <div class="form-group">
+                                <label for="" class="form-control-label">Masukkan Gambar</label>
+                                <input type="file" id="foto_barang" name="file-input" class="form-control-file">
+                                <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
+                                <small id="helpnama_sales" class="invalid-feedback">Sisipkan Gmabr Barang</small>
+                                <img src="" id="img" width="200" height="100">
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="" class="form-control-label">Nama Barang</label>
                                 <input type="text" id="nama_barang" class="form-control" aria-describedby="helpnama_barang" required>
+                                
                                 <small id="helpnama_barang" class="invalid-feedback">Masukkan nama barang</small>
                             </div>
                             
@@ -202,21 +214,21 @@ require_once("adminhead.php");
                             <div class="row">
                                 <div class="col-md-4">
                                     <section class="card">                                   
-                                        <button type="button" class="btn btn-success btn-md " onclick="tambahbarang()">
+                                    <button type="button" class="btn btn-success btn-md" onclick="tambahbarang()">
                                             <i class="fa fa-dot-circle-o"></i> Tambahkan
                                         </button>                                      
                                     </section>
                                 </div>
                                 <div class="col-md-4">
                                     <section class="card">
-                                    <button type="submit" class="btn btn-danger btn-md">
+                                    <button type="button" class="btn btn-danger btn-md" onclick="reset()">
                                             <i class="fa fa-ban"></i> Reset
                                             </button>
                                     </section>
                                 </div>
                                 <div class="col-lg-4">
                                     <section class="card">
-                                    <button type="submit" class="btn btn-warning btn-md float-right">
+                                    <button type="button" class="btn btn-warning btn-md float-right" onclick="Updatebarang()">
                                             <i class="fa fa-ban"></i> Ubah
                                             </button>
                                     </section>
@@ -247,11 +259,11 @@ require_once("adminhead.php");
                               <table id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#ID</th>
-                                            <th>Nama </th>
-                                            <th>Email</th>
-                                            <th>No KTP</th>
-                                            <th>Nomor Telepon</th>
+                                            <th>#ID Barang</th>
+                                            <th>Nama Barang </th>
+                                            <th>Jenis Barang</th>
+                                            <th>Harga Jual</th>
+                                            <th>Status Barang</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -308,6 +320,9 @@ require_once("adminhead.php");
 </html>
 
 <script>
+
+
+    var saveIdbarangUpdate = "";
     $(document).ready(function() {
         getdataSatuan();
 
@@ -315,6 +330,119 @@ require_once("adminhead.php");
             tambahsatuanbaru();
             getdataSatuan();
         });
+
+        //otomatis ajax menghitung muncul barang jika sudah mau expire atau telah expire
+        CekTglExpireSemuaBarang();CekTglAvailableSemuaBarang();
+        //end of otomatis ajax menghitung muncul barang jika sudah mau expire atau telah expire
+
+        //datatable list barang
+        var table= "";
+        table = $('#example').DataTable( 
+        {
+             "buttons": [ 'copy', 'excel', 'pdf' ],
+             "processing":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+                },
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_barang.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[
+                
+                 {"data":"id_barang"},
+                 {"data":"nama_barang"},
+                 {"data":"jenis_barang"},
+                 {"data":"harga_jual"},
+                 {"data":"status_barang",
+                    "searchable": false,
+                    "orderable":false,
+                    "render": function (data, type, row) {  
+                        if (row.status_barang == '1') {
+                            return "<button type='button' class='btn btn-success btn-sm'>Aktif</button>";
+                        }
+                        else if (row.status_barang == '2') {
+                            return "<button type='button' class='btn btn-warning btn-sm'>Expire</button>";
+                        }
+                       
+                    }
+                },
+                 {                   
+                    "target": -1,
+                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button>"
+                },              
+             ],
+        }) 
+        //end of datatble list barang
+
+        //function onclick untuk button list reseller dan details pada datatable list sales 
+        var getId, getNamaBarang,  getDeskBarang, getJenisBarang, getIdSatuan,getHargaBeli,getHargaJual,getFotoBarang, getStatusBarang, getRatingBarang, data, tablelistreseller = "";
+        $('#example tbody').on( 'click', 'button', function () {
+            var action = this.id;
+            data = table.row($(this).closest('tr')).data();
+        
+            //action button Detail
+            if(action == 'GetDetail')
+            {
+                saveIdbarangUpdate = data[Object.keys(data)[0]]; //id barang
+                 getNamaBarang = data[Object.keys(data)[1]]; //nama barang
+                 getDeskBarang = data[Object.keys(data)[2]]; //deskripsi barang
+                 getJenisBarang = data[Object.keys(data)[3]]; //jenis barang
+                 getIdSatuan = data[Object.keys(data)[4]]; //id satuan barang
+               
+                 getHargaBeli = data[Object.keys(data)[5]]; //harga beli barang
+                 getHargaJual = data[Object.keys(data)[6]]; //harga jual barang
+                 getFotoBarang = data[Object.keys(data)[7]]; //foto barang
+                 getStatusBarang = data[Object.keys(data)[8]]; //status barang
+                 getRatingBarang = data[Object.keys(data)[9]]; //rating barang
+                
+
+                $.post("adminajax.php",{
+                    jenis:"detail_barang",
+                    getId : data[Object.keys(data)[0]], //id barang
+                },
+                function(data){
+                    var res = $.parseJSON(data[0]);
+                    var masuk = moment(data[1]).format("YYYY-MM-DD");
+                    var kadaluarsa = moment(data[2]).format("YYYY-MM-DD");
+                
+                    document.getElementById("tgl_masuk").value = masuk;
+                    document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
+                    document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
+
+                });
+
+                document.getElementById("nama_barang").value = getNamaBarang;
+                document.getElementById("desk_barang").value = getDeskBarang;
+                document.getElementById("cb_jenisbarang").value = getJenisBarang;
+                document.getElementById("cb_satuanbarang").value = getIdSatuan;
+          
+                document.getElementById("hrgbeli_barang").value = getHargaBeli;
+                document.getElementById("hrgjual_barang").value = getHargaJual;
+                document.getElementById("img").src = getFotoBarang;
+                console.log(getFotoBarang);
+
+           
+            }
+            //end of action button Detail
+        } );
+        //end of function onclick untuk button list reseller dan details pada datatable list sales 
     })
     
     function keluar(){
@@ -336,16 +464,64 @@ require_once("adminhead.php");
         });
     }
 
-    // function getsatuan() {
-    //     var getsatuan = document.getElementById('cb_satuanbarang').value;
-    //     if (getsatuan == 0) {
-    //         document.getElementById("satuan_tambahan").disabled = false;
-    //         document.getElementById("tambah_satuan").disabled = false;
-    //     }else{
-    //         document.getElementById("satuan_tambahan").disabled = true;
-    //         document.getElementById("tambah_satuan").disabled = true;
-    //     }
-    // }
+    function upload() {
+
+        var fd = new FormData();
+      var files = $('#file')[0].files[0];
+      fd.append('file',files);
+      fd.append('id',$("#nama_barang").val());
+
+        if (files == null) {
+            alert("pilih gambar terlebih dahulu")
+        }
+        else if (files != null){
+            
+    console.log(files);
+      $.ajax({
+          url: 'ajaxupload.php',
+          type: 'post',
+          data: fd,
+          contentType: false,
+          processData: false,
+          success: function(response){
+              if(response != 0){
+                  $("#img").attr("src",response); 
+                  $(".preview img").show(); // Display image element
+                  $("#url_user").val(response);
+                  console.log(response);
+                  alert("file berhasil di upload");
+              }else{
+                  alert('file not uploaded');
+              }
+          },
+      });
+        }
+      
+    }
+
+    function CekTglExpireSemuaBarang(){
+        $.post("adminajax.php",{
+            jenis:"CekTglExpireSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+    }
+
+    function CekTglAvailableSemuaBarang(){
+        $.post("adminajax.php",{
+            jenis:"CekTglAvailableSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+    }
+
+
 
     function tambahsatuanbaru() {
         $.post("adminajax.php",{
@@ -354,6 +530,7 @@ require_once("adminhead.php");
             },
             function(data){
                 alert(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
             })
     }
 
@@ -378,30 +555,85 @@ require_once("adminhead.php");
             }, false);
             })();
 
-            (function($){
-                $.post("adminajax.php",
-                {
-                    jenis:"insertbarang",
-                    namabarang:$("#nama_barang").val(),
-                    descbarang:$("#desk_barang").val(),
-                    jenisbarang:$("#cb_jenisbarang").val(),
-                    satuanbarang:$("#cb_satuanbarang").val(),
-                    tanggalmasuk:$("#tgl_masuk").val(),
-                    tanggalkadaluarsa:$("#tgl_kadaluarsa").val(),
-                    kuantiti:$("#jumlah_barang").val(),
-                    hargabeli:$("#hrgbeli_barang").val(),
-                    hargajual:$("#hrgjual_barang").val()
-                    
-                },
-                function (data) {
-                    alert(data);
-               
-            });
-            }(jQuery))
+            //pengecekan tanggal kadaluarsa > tgl hari ini
+            var tglkadaluarsa = $("#tgl_kadaluarsa").val();
+            var CurrentDate = new Date();
+            tglkadaluarsa = new Date(tglkadaluarsa);
+            var files = $('#file')[0].files[0];
+            if(tglkadaluarsa > CurrentDate && files != null){
+                (function($){
 
-           
+                    $.post("adminajax.php",
+                    {
+                        jenis:"insertbarang",
+                        namabarang:$("#nama_barang").val(),
+                        descbarang:$("#desk_barang").val(),
+                        jenisbarang:$("#cb_jenisbarang").val(),
+                        satuanbarang:$("#cb_satuanbarang").val(),
+                        tanggalmasuk:$("#tgl_masuk").val(),
+                        tanggalkadaluarsa:$("#tgl_kadaluarsa").val(),
+                        kuantiti:$("#jumlah_barang").val(),
+                        hargabeli:$("#hrgbeli_barang").val(),
+                        hargajual:$("#hrgjual_barang").val(),
+                        fotobarang:$("#url_user").val(),
+                
+                    },
+                    function (data) {
+                        alert(data); 
+                        $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+                        reset();
+                    });
+                }(jQuery))
+            }else if(files == null){
+                alert('foto barang belum diupload');
+            }
+                else{
+                alert('Tanggal kadaluarsa lebih kecil dari hari ini');
+            }
     }
     //end of function tambah barang
+
+    //function reset
+    function reset() {
+        document.getElementById("nama_barang").value = null;
+        document.getElementById("desk_barang").value = null;
+        document.getElementById("cb_jenisbarang").value = 0;
+        document.getElementById("cb_satuanbarang").value = 0;
+        document.getElementById("tgl_masuk").value = null;
+        document.getElementById("tgl_kadaluarsa").value = null;
+        document.getElementById("jumlah_barang").value = null;
+        document.getElementById("hrgbeli_barang").value = null;
+        document.getElementById("hrgjual_barang").value = null;
+        document.getElementById("url_user").value = null;
+        
+    }
+    //end of function reset
+
+    //function update barang
+    function Updatebarang() {
+        $.post("adminajax.php",
+        {
+            jenis:"UpdateBarang",
+            idbarang :saveIdbarangUpdate,
+            namabarang:$("#nama_barang").val(),
+            descbarang:$("#desk_barang").val(),
+            jenisbarang:$("#cb_jenisbarang").val(),
+            satuanbarang:$("#cb_satuanbarang").val(),
+            tanggalmasuk:$("#tgl_masuk").val(),
+            tanggalkadaluarsa:$("#tgl_kadaluarsa").val(),
+            kuantiti:$("#jumlah_barang").val(),
+            hargabeli:$("#hrgbeli_barang").val(),
+            hargajual:$("#hrgjual_barang").val(),
+            fotobarang:$("#url_user").val(),
+    
+        },
+        function (data) {
+            alert(data); 
+            $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            reset();
+        });
+    }
+    //end of function update barang
 
 
 
