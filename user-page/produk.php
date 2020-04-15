@@ -2,6 +2,10 @@
 require_once("head.php");
 include_once("conn.php");
 $conn = getConn();
+//$message=$_REQUEST["type"];//jenis produk yang di pilih 
+
+
+//echo "<script type='text/javascript'>alert('$message');</script>";
 ?>
 <!-- test comit -->
 <!DOCTYPE html>
@@ -195,6 +199,19 @@ $conn = getConn();
 
     // document ready
     $(document).ready(function() {
+      
+/*
+      var type = <?php// echo json_encode($_REQUEST['type']); ?>;
+      var selector =".common_selector brand:".type."th-child";
+     // alert(tx);
+      if($(".common_selector brand:nth-child('2')").is(":checked")){
+        alert('hai')
+      }
+    /*  if ($("input[type=checkbox]").is( 
+                      ":checked")) */
+     // $(".common_selector brand:nth-child(1) ").prop("checked", "true");
+     // $(".el:nth-child(3) ").attr("checked", true);
+          
       $.post("ajaxs/ajaxproduk.php", {
           jenis: "show_product_catalog_semua",
         },
