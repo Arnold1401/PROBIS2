@@ -85,46 +85,18 @@ require_once("head.php");
                       <small id="helpId" class="text-muted">*Pilih No order untuk melihat detail order Anda</small>
                     </div>
                     <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
+                    <table id="example" class="table table-striped table-bordered" >
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Tanggal Order</th>                                    
                                     <th>No Order</th>
-                                    <th>Kurir Pengiriman</th>
+                                  <!--  <th>Kurir Pengiriman</th>--->
                                     <th>Sales</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>                                                                                                           
-                                    <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    <td>
-                                        <a class="text-info" data-toggle="modal" data-target="#exampleModalCenter">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    <td>
-                                        <label class="text-danger">Proses</label>
-                                    </td>
-                                </tr>
-
-                                <tr>                                                                                                           
-                                <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    <td>
-                                        <a class="text-info" data-toggle="modal" data-target="#exampleModalCenter">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    <td>
-                                        <label class="text-warning">Sedang Perjalanan</label>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -165,6 +137,62 @@ require_once("head.php");
      ?>
      
    <script>
+
+    $(document).ready(function() {
+
+        var table= "";
+        
+        //datatable di list sales
+        table = $('#example').DataTable( 
+        {
+             "buttons": [ 'copy', 'excel', 'pdf' ],
+             "processing":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+                },
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_order.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[
+            
+                 {"data":"h.tanggal"},
+                 {"data":"h.id_hjual"},
+                 {"data":"s.nama_sales"},
+                 {"data":"o.status_order"},
+                 {                   
+                    "target": -1,
+                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button> <button id=\"GetListReseller\" class='btn btn-outline-primary' data-toggle='modal' data-target='#myModal'>List Reseller</button>"
+                },              
+             ],
+        } 
+        
+        );
+
+
+        setInterval( function () {
+             table.ajax.reload();
+        }, 30000 );
+        table.buttons().container()
+             .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+
+    });
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
