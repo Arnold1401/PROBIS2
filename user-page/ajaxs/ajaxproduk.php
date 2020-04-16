@@ -18,16 +18,26 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 		$foto=$row['foto_barang']; 
 		$fharga=number_format($harga);
 		$brand="";
-		$kal.="<div class='card col-sm-4 col-lg-3 col-md-3' >
-		<img class='card-img-top' src=\"../images/$foto\" alt='Card image cap'>
-		<div class='card-body'>
-		<p class='d-flex text-success'><strong><a >$nama</a></strong></p>
-		<p class='d-flex'><a class='text-dark'>Rp.$fharga</a></p>
-		<span class='icon-shopping_cart text-warning' onclick=\"addcart('$id')\">Cart</span>&nbsp;&nbsp;<span class='icon-eye text-warning' onclick=\"more('$id')\">Detail</span>
-		</div>
+		$kal.="
+		<div class='col-md-6 col-lg-3 my-1'>
+			<div class='product'>
+			<a href='#' class='img-prod'><img class='img-fluid' src='\"../images/$foto\"' alt='Card image cap'></a>
+			<div class='text py-3 pb-4 px-3 text-center'>
+				<h3><strong><a >$nama</a></strong></h3>
+				<h3><strong><a >Rp$fharga</a></strong></h3> <br>
+				<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
+					<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>
+					<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
+						<span><i class='ion-ios-cart'></i></span>
+					</a>
+				</div>
+			</div>
+			</div>
 	  </div>";
         
-    }
+	}
+	
+	
     echo $kal;
     $conn->close();
 }
