@@ -148,7 +148,14 @@ require_once("head.php");
         </div>
     </section>
 
-    <!-- Jenis Product -->
+    <!-- Jenis Product
+    
+        jika type =1 artinya minuman
+            type=2 barang konsumsi
+            type=3 perawatan pribadi
+            type=4 obat obat an 
+    
+     -->
     <section class="ftco-section">
     	<div class="container">
 				<div class="row justify-content-center mb-3 pb-3">
@@ -171,7 +178,7 @@ require_once("head.php");
     							<div class="pricing"></div>
 	    					</div>
 	    					<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=1" role="button">shop</a>	    						
     						</div>
     					</div>
     				</div>
@@ -187,7 +194,7 @@ require_once("head.php");
     							<div class="pricing"></div>
 	    					</div>
     						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=2" role="button">shop</a>	    						
     						</div>
     					</div>
     				</div>
@@ -203,7 +210,7 @@ require_once("head.php");
     							<div class="pricing"></div>
 	    					</div>
     						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">Shop</a>
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=3" role="button">Shop</a>
     						</div>
     					</div>
     				</div>
@@ -219,7 +226,7 @@ require_once("head.php");
     							<div class="pricing"></div>
 	    					</div>
     						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=4" role="button">shop</a>	    						
     						</div>
     					</div>
     				</div>

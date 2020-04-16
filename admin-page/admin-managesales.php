@@ -367,8 +367,14 @@ $pages = ceil($total/$isi);
         setInterval( function () {
              table.ajax.reload();
         }, 30000 );
+
+        
         table.buttons().container()
              .appendTo( '#example_wrapper .col-md-6:eq(0)' );
+       
+    
+
+
         //end of datatble di list sales
         
 
