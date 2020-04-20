@@ -1,5 +1,8 @@
 <?php
 require_once("head.php");
+include("conn.php");
+
+$id=1;
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +100,72 @@ require_once("head.php");
                                 </tr>
                             </thead>
                             <tbody>
+
+
+                            <?php
+                                $query="select h.tanggal,h.id_hjual,s.nama_sales,o.status_order from hjual h, orders o, sales s 
+                                        where h.id_hjual=o.id_hjual and s.id_sales=o.id_hjual and s.id_sales=$id";
+                                            $data = mysqli_query(getConn(),$query);
+                                            while($row = mysqli_fetch_array($data))
+                                            {
+                            ?>
+                                <tr>
+                                    <td><?php echo $row[0];?></td>
+                                    <td><?php echo $row[1];?></td>
+
+                                    <td><?php echo $row[2];?></td>
+
+                                    <td>
+
+                                    <!--
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">HTML</a></li>
+                                                <li><a href="#">CSS</a></li>
+                                        <li><a href="#">JavaScript</a></li>
+                                    </ul>
+                                    --->
+                                    <?php
+                                            if($row[3]==0){
+                                                echo"
+                                                <select>
+                                                    <option value=0>Proses pengiriman</option>
+                                                    <option value=1>Terkirim</option>
+                                                </select>
+                                                ";
+
+                                            }else{
+                                                echo"
+                                                <select>
+                                                    <option value=1>Terkirim</option>
+                                                    <option value=0>Proses pengiriman</option>
+                                                    
+                                                </select>
+                                                ";
+
+                                            }
+                                    ?>
+                                  
+
+
+
+
+                                    </td>
+
+                                    <td>
+                                        <button>Update</button>
+
+                                    </td>
+                                </tr>
+                        <?php
+                                            }
+                        
+                        ?>
+
+
+                                    
+                                    
                             </tbody>
                         </table>
                     </div>
@@ -133,66 +202,15 @@ require_once("head.php");
     <!--end Modal -->
 
     <?php
-    include_once('justfooter.php')
+    include_once('justfooter.php');
      ?>
      
    <script>
 
-    $(document).ready(function() {
-
-        var table= "";
-        
-        //datatable di list sales
-        table = $('#example').DataTable( 
-        {
-             "buttons": [ 'copy', 'excel', 'pdf' ],
-             "processing":true,
-             "language": {
-                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
-                "zeroRecords": "Maaf Data yang dicari tidak ada",
-                "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                "infoEmpty": "Tidak ada data",
-                "infoFiltered": "(filtered from _MAX_ total records)",
-                "search":"Cari",
-                "paginate": {
-                    "first":      "Pertama",
-                    "last":       "terakhir",
-                    "next":       "Selanjutnya",
-                    "previous":   "Sebelumnya"
-                    },
-                },
-             "serverSide":true,
-             "ordering":true, //set true agar bisa di sorting
-             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-             "ajax":{
-                 "url":"datatable_order.php",
-                 "type":"POST"
-             },
-             "deferRender":true,
-             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-             "columns":[
-            
-                 {"data":"h.tanggal"},
-                 {"data":"h.id_hjual"},
-                 {"data":"s.nama_sales"},
-                 {"data":"o.status_order"},
-                 {                   
-                    "target": -1,
-                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-success'>Detail</button> <button id=\"GetListReseller\" class='btn btn-outline-primary' data-toggle='modal' data-target='#myModal'>List Reseller</button>"
-                },              
-             ],
-        } 
-        
-        );
+ 
 
 
-        setInterval( function () {
-             table.ajax.reload();
-        }, 30000 );
-        table.buttons().container()
-             .appendTo( '#example_wrapper .col-md-6:eq(0)' );
 
-    });
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
