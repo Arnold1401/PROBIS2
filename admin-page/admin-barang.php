@@ -330,6 +330,7 @@ require_once("adminhead.php");
         var table= "";
         table = $('#example').DataTable( 
         {
+            dom: 'Bfrtip',
              "buttons": [ 'copy', 'excel', 'pdf' ],
              "processing":true,
              "language": {

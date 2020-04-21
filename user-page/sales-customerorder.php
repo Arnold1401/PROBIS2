@@ -6,8 +6,8 @@ require_once("head.php");
 <html>
 <head>
    <style>
-   #table{
-       color:black;
+   #table thead th{
+    background-color:green;
    }
    </style>
 </head>
@@ -107,8 +107,8 @@ require_once("head.php");
                             </div>
                               
                               <div class="table-responsive">
-                              <table id="tableusers" class="table table-striped table-bordered" width="100%">
-                                    <thead>
+                              <table id="tableusers" class="table table-striped table-bordered table-dark" width="100%">
+                                    <thead class="thead-dark">
                                         <tr>
                                             <th>#ID customer</th>
                                             <th>Nama Perusahaan</th>

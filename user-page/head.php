@@ -1,6 +1,6 @@
 <?php
   session_start();
-  /*
+  
   if (isset($_SESSION["email_user"])) {
     if (isset($_SESSION["role"])) {
       if ($_SESSION["role"]=="reseller") {
@@ -12,7 +12,6 @@
   }else{
         header("location:login.php");
   }
-  */
   
 
 ?>
@@ -42,13 +41,13 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="js/jquery-ui.js">
+    <!-- <link rel="stylesheet" href="js/jquery-ui.js"> -->
    
    
     <link rel="stylesheet" href="vendors/selectFX/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="vendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="vendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
    
     
 </head>

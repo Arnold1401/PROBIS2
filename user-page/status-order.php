@@ -81,61 +81,42 @@ require_once("head.php");
             <div class="row">
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list">
-                    <div class="form-group">                    
-                      <small id="helpId" class="text-muted">*Pilih No order untuk melihat detail order Anda</small>
-                    </div>
-                    <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                            <thead class="thead-primary">
-                                <tr>
-                                    <th>Tanggal Order</th>                                    
-                                    <th>No Order</th>
-                                    <th>Kurir Pengiriman</th>
-                                    <th>Sales</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>                                                                                                           
-                                    <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    <td>
-                                        <a class="text-info" data-toggle="modal" data-target="#exampleModalCenter">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    <td>
-                                        <label class="text-danger">Proses</label>
-                                    </td>
-                                </tr>
-
-                                <tr>                                                                                                           
-                                <td>
-                                        01 Januari 2020                      
-                                    </td>
-                                    <td>
-                                        <a class="text-info" data-toggle="modal" data-target="#exampleModalCenter">00101</a>
-                                    </td>
-                                    <td>Rp4.90</td>                                    
-                                    
-                                    <td class="total">Rp12.90</td>
-                                    <td>
-                                        <label class="text-warning">Sedang Perjalanan</label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div class="form-group">                    
+                            <small id="helpId" class="text-muted">*Pilih No order untuk melihat detail order Anda</small>
+                        </div>
                         
-                    </div>
-                </div>
-            </div>
-
-
-            
-        </div>
+                        <ul id="filter">
+                            <li class="btn"> <label class="font-weight-bold"> Filter Status > </label> </li>
+                            <li class="btn"><a href="#" data-value="" active>Semua</a></li>
+                            <li class="btn"><a href="#" data-value="Proses">Proses</a></li>
+                            <li class="btn"><a href="#" data-value="Pengiriman">Pengiriman</a></li>
+                            <li class="btn"><a href="#" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
+                            <li class="btn"><a href="#" data-value="Selesai">Selesai</a></li>
+                            <li class="btn"><a href="#" data-value="Piutang">Piutang</a></li>
+                        </ul>
+                        
+                        <div class="table-responsive" id="tableall">
+                            <table id="tableusers" class="table table-striped table-bordered" width="100%">
+                                <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
+                                <thead>
+                                    <tr>
+                                        <th>No Order</th>
+                                        <th>Tanggal Order</th>
+                                        <th>Kurir</th>
+                                        <th>Sales</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>    <!-- end table responsive -->
+                    </div> <!-- end cardlist -->
+                </div> <!-- end ftco-animate -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
     </section>
     <!-- end cart -->
 
@@ -159,11 +140,15 @@ require_once("head.php");
     </div>
     </div>
     <!--end Modal -->
-
+    
     <?php
     include_once('justfooter.php')
      ?>
-   <script>
+
+<script>
+    var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+    console.log(idcust);
+    
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -173,6 +158,86 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+
+    $(document).ready(function () {
+        //datatable di list user
+        tableuser = $('#tableusers').DataTable( 
+        {
+
+             "responsive":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+             },
+             "processing":true,
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatables/datatable_orderall.php", //nanti diganti dengan di search berdasarkan id sales yg lagi login sekarang
+                 "type":"POST",
+                 "data":{"idcust":idcust},
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[ 
+                {"data":"id_hjual"},               
+                {"data":"tanggal", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},                         
+                {"data":"kurir"},
+                {"data":"id_sales"},
+                {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                {"data":"status_order",
+                    "searchable": true,
+                    "orderable":true,
+                    "render": function (data, type, row) {  
+                        if (row.status_order == 'Proses') //proses
+                        {
+                            return "<label class='text-success'>Proses</label>";
+                        }
+                        else if (row.status_order == 'Pengiriman') //pengriman
+                        {
+                            return "<label class='text-warning'>Pengiriman</label>";
+                        }
+                        else if (row.status_order == 'Selesai') //selesai
+                        {
+                            return "<label class='text-info'>Selesai</label>";
+                        }
+                        else if (row.status_order == 'Piutang') //piutang
+                        {
+                            return "<label class='text-danger'>Piutang</label>";
+                        }
+                        
+                    },
+                    "target":-1,
+                },
+            
+             ],
+        } );
+
+        
+
+        var table = $('#tableusers').DataTable();
+        $('#filter').on( 'click', 'a', function () {
+            console.log($(this).data("value"));
+            table.search( $(this).data("value")).draw();
+
+            if ($(this).data("value") == "") {
+                $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable 
+            }
+        } );
+
+      
+    });
 </script>
 </body>
 </html>
