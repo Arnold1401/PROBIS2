@@ -65,8 +65,8 @@ $conn = getConn();
                                                                                                                                             } ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
               <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-              <a class="dropdown-item" href="status-order.php">Status Order</a>
-              <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
+              <a class="dropdown-item" href="status-order.php">Daftar Order</a>
+              <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
               <a class="dropdown-item" href="piutang.php">Piutang</a>
               <a class="dropdown-item" href="ulasan.php">Ulasan</a>
               <hr>

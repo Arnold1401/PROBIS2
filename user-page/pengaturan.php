@@ -48,8 +48,8 @@ require_once("head.php");
                 <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Status Order</a>
-                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
+                    <a class="dropdown-item" href="status-order.php">Daftar Order</a>
+                    <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
                     <a class="dropdown-item" href="piutang.php">Piutang</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
