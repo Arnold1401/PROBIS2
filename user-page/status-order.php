@@ -5,7 +5,33 @@ require_once("head.php");
 <!DOCTYPE html>
 <html>
 <head>
-   
+<style>
+        .star{
+          color: goldenrod;
+          font-size: 2.0rem;
+          padding: 0 0rem; /* space out the stars */
+        }
+        .star::before{
+          content: '\2606';    /* star outline */
+          cursor: pointer;
+        }
+        .star.rated::before{
+          /* the style for a selected star */
+          content: '\2605';  /* filled star */
+        }
+        
+        .stars{
+            counter-reset: rateme 0;   
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        .star.rated{
+            counter-increment: rateme 1;
+        }
+        .stars::after{
+            content: counter(rateme) '/5';
+        }
+    </style>
 </head>
 <body class="goto-here">
    
@@ -124,9 +150,8 @@ require_once("head.php");
                             <div class="card-header">
                                 <strong class="card-title">Detail Barang</strong>
                             </div>
-                            <div class="card-body">                           
-                              <small>*Tombol Detail - Detail dari setiap barang</small><br>
-                              <small>*Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
+                            <div class="card-body">    
+                                              
                               <div class="table-responsive" id="table_detail">
                                 <table id="tabledetailorder" class="table table-striped table-bordered text-dark" width="100%">
                                         <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
@@ -158,28 +183,58 @@ require_once("head.php");
     </section>
     <!-- end cart -->
 
-    <!-- Modal utk list reseller -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title">List Reseller</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">               
-                
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="tambahsatuanbaru" class="btn btn-outline-primary">Tambahkan</button> 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+    <!--Modal untuk rating dan review-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        
+        <div class="modal-body">
+        <form method="POST" action="" class="form-group" >
+
+            <h5 class="mb-4" id="nama_produkdiulas"></h5>
+            <h6 class="mb-4" id="id_barangdiulas"></h6><hr>
+            <img src="" alt="">
+
+            <div class="form-group">
+            <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
+                <div class="stars" data-rating="0">
+                    <span class="star" data-raitng="1">&nbsp;</span>
+                    <span class="star" data-raitng="2">&nbsp;</span>
+                    <span class="star" data-raitng="3">&nbsp;</span>
+                    <span class="star" data-raitng="4">&nbsp;</span>
+                    <span class="star" data-raitng="5">&nbsp;</span>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="">Berikan ulasan untuk produk ini</label>
+                <textarea value="" class="form-control" name="" id="isiUlasan" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
+                <label class="col-form-label text-danger" id="warning"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="">Bagikan foto produk yang Anda terima</label>
+                <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
+                </div>
+            </div>
+
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+        <button type="button" id="kirimulasansaya" class="btn btn-primary">Kirim Ulasan</button>
         </div>
     </div>
-    <!--end of Modal utk list reseller -->
-
+    </div>
+    </div>
+    <!--End Modal untuk rating dan review-->
 
     <?php
     include_once('justfooter.php')
@@ -187,8 +242,36 @@ require_once("head.php");
 
 <script>
     var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+   // var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
     console.log(idcust);
-    
+    var idbarangutkdiulas, iddjualulas;
+    function kirimulasansaya() {
+        var isiulasan = document.getElementById("isiUlasan").value;
+
+        console.log(idbarangutkdiulas);
+         if (isiulasan == "") {
+             $('#warning').html("Ulasan belum terisi");
+         }
+         else if (isiulasan != ""){
+             $('#warning').html("");
+             $.post("ajaxreseller.php",{
+             jenis:"kirim_ulasan",
+             idbarang : idbarangutkdiulas,
+             idcust : idcust,
+             rating : parseInt(document.querySelector('.stars').getAttribute('data-rating')),
+             isiulasan :isiulasan,
+             iddjualulas:iddjualulas,
+             },
+             function(data){
+                 alert(data);
+                 $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable 
+                 document.getElementById("isiUlasan").value = "";
+                 document.querySelector('.stars').getAttribute('data-rating').value = "0";
+             })
+         }
+        
+    }
+
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -200,6 +283,12 @@ require_once("head.php");
     }
 
     $(document).ready(function () {
+
+        $('#kirimulasansaya').click( function () {
+            kirimulasansaya();
+            $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
+        });
+
         var tableuser="";
         //datatable di list order 
         tableuser = $('#tableusers').DataTable( 
@@ -235,7 +324,7 @@ require_once("head.php");
                 {"data":"id_hjual"},               
                 {"data":"tanggal", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},                         
                 {"data":"kurir"},
-                {"data":"id_sales"},
+                {"data":"nama_sales"},
                 {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                 {"data":"status_order",
                     "searchable": true,
@@ -243,35 +332,71 @@ require_once("head.php");
                     "render": function (data, type, row) {  
                         if (row.status_order == 'Proses') //proses
                         {
-                            return "<label class='text-success'>Proses</label>";
+                            return "<label class='text-success font-weight-bold'>Proses</label> ";
                         }
                         else if (row.status_order == 'Pengiriman') //pengriman
                         {
-                            return "<label class='text-warning'>Pengiriman</label>";
+                            return "<label class='text-warning font-weight-bold'>Pengiriman</label>";
                         }
                         else if (row.status_order == 'Sampai Tujuan') //piutang
                         {
-                            return "<label class='text-info'>Barang telah tiba</label>";
+                            return "<label class='text-info font-weight-bold'>Barang telah tiba</label>";
                         }
                         else if (row.status_order == 'Selesai') //selesai
                         {
-                            return "<label class='text-info'>Selesai</label>";
+                            return "<label class='text-info font-weight-bold'>Selesai</label>";
                         }
                         else if (row.status_order == 'Piutang') //piutang
                         {
-                            return "<label class='text-danger'>Piutang</label>";
+                            return "<label class='text-danger font-weight-bold'>Piutang</label>";
+                        }
+                        
+                        
+                    },
+                    "target":-1,
+                },
+                {"data":"status_order",
+                    "searchable": true,
+                    "orderable":true,
+                    "render": function (data, type, row) {  
+                        if (row.status_order == 'Proses') //proses
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                        }
+                        else if (row.status_order == 'Pengiriman') //pengriman
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                        }
+                        else if (row.status_order == 'Sampai Tujuan') //piutang
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>";
+                        }
+                        else if (row.status_order == 'Selesai') //selesai
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                        }
+                        else if (row.status_order == 'Piutang') //piutang
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
                         
                     },
                     "target":-1,
                 },
-                {                   
-                    "target": -1,
-                    "defaultContent": "<a id=\"GetDetail\" class='btn btn-outline-primary text-dark'>Detail</a>"
-                },              
+                // {                   
+                //     "target": -1,
+                //     "defaultContent": "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  " +
+                //     "<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>"
+                // },              
             
              ],
         } );
+
+        //event jika list order dipilih/diclick 
+        $('#tableusers tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list order dipilih/diclick 
 
         
         //function onclick untuk button list reseller dan details pada datatable list sales 
@@ -340,7 +465,13 @@ require_once("head.php");
                                 }
                                 else if (row.status_order == 'Selesai') //selesai
                                 {
-                                    return "<a id=\"GetDetail\" class='btn btn-outline-primary text-dark'>Beri Ulasan</a>";
+                                    if (row.id_ulasan == null) {
+                                        return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
+                                    }
+                                    else if (row.id_ulasan != null) {
+                                        return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Lihat Ulasan</a>";
+                                    }
+                                    
                                 }
                                 else if (row.status_order == 'Piutang') //piutang
                                 {
@@ -353,47 +484,88 @@ require_once("head.php");
                         
                       ],                      
                       "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
- 
-            // Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
- 
-            // Total over all pages
-            total = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
- 
-            // Total over this page
-            pageTotal = api
-                .column( 3, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
- 
-            // Update footer
-            $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-                //'$'+' ( $'+ total.number( '.', ',', 2, 'Rp' ) +')'
-            );
-        }
- 
+                        var api = this.api(), data;
+            
+                        // Remove the formatting to get integer data for summation
+                        var intVal = function ( i ) {
+                            return typeof i === 'string' ?
+                                i.replace(/[\$,]/g, '')*1 :
+                                typeof i === 'number' ?
+                                    i : 0;
+                        };
+            
+                        // Total over all pages
+                        total = api
+                            .column( 3 )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+            
+                        // Total over this page
+                        pageTotal = api
+                            .column( 3, { page: 'current'} )
+                            .data()
+                            .reduce( function (a, b) {
+                                return intVal(a) + intVal(b);
+                            }, 0 );
+            
+                        // Update footer
+                        $( api.column( 3 ).footer() ).html(
+                            $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            //'$'+' ( $'+ total.number( '.', ',', 2, 'Rp' ) +')'
+                        );
+                    }
                   } );
-                //end of datatable di list reseler -- show modal      
                 
-               
             }
             //end of action button Detail
+
+            //action button selesai - konfirmasi orderan 
+            if (action == 'GetKonfirmasi') {
+                $.post("ajaxreseller.php",{
+                    jenis:"konfirmasi_orderan_selesai",
+                    getId : data[Object.keys(data)[0]], //id barang
+                },
+                function(data){
+                    alert(data);
+                   // $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
+                    $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable 
+                });
+            }
+            //end of action button selesai - konfirmasi orderan selesai
+
+
         } );
         //end of function onclick untuk button list reseller dan details pada datatable list sales 
+
+        var getIdBarang, dataget="";
+        $('#tabledetailorder tbody').on( 'click', 'a', function () {
+            var action = this.id;
+            dataget = tabledetail.row($(this).closest('tr')).data();
+
+            //action button selesai - konfirmasi orderan 
+            if (action == 'GiveUlasan') {
+                getIdBarang = dataget[Object.keys(dataget)[2]]; //get Id barang
+                iddjualulas = dataget[Object.keys(dataget)[1]]; //get Id djual
+                console.log(getIdBarang);
+
+                $.post("ajaxreseller.php",{
+                    jenis:"get_nama_barang",
+                    getIdBarang:dataget[Object.keys(dataget)[2]], //get Id barang
+                },
+                function(data){
+                    alert(data);
+                   // $(".modal-body h5 #nama_produkdiulas").val( data );
+                    $("#nama_produkdiulas").html(data);
+                    idbarangutkdiulas=getIdBarang;
+                    
+                   // document.getElementById("nama_produkdiulas").value = data;
+                });
+
+            }
+            //end of action button selesai - konfirmasi orderan selesai
+        });
 
         
 
@@ -409,6 +581,38 @@ require_once("head.php");
 
       
     });
+
+    //initial setup
+    document.addEventListener('DOMContentLoaded', function(){
+            let stars = document.querySelectorAll('.star');
+            stars.forEach(function(star){
+                star.addEventListener('click', setRating); 
+            });
+            
+            let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+            let target = stars[rating - 1];
+            //target.dispatchEvent(new MouseEvent('click'));
+        });
+
+        function setRating(ev){
+            let span = ev.currentTarget;
+            let stars = document.querySelectorAll('.star');
+            let match = false;
+            let num = 0;
+            stars.forEach(function(star, index){
+                if(match){
+                    star.classList.remove('rated');
+                }else{
+                    star.classList.add('rated');
+                }
+                //are we currently looking at the span that was clicked
+                if(star === span){
+                    match = true;
+                    num = index + 1;
+                }
+            });
+            document.querySelector('.stars').setAttribute('data-rating', num);
+        }
 </script>
 </body>
 </html>

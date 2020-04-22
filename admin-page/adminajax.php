@@ -326,12 +326,12 @@ if ($_POST["jenis"]=="UpdateBarang") {
 
     if ($conn->query($sql)) {
 
-        $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
+       // $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
 
          $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual' where id_barang=$idbarang";
         
          if ($conn->query($sql2)) {
-            echo "berhasil";
+            echo "berhasil update barang";
          }else {
              echo "gagal update detail";
          }

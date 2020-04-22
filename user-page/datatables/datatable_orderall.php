@@ -10,7 +10,7 @@ $idcust = $_POST['idcust'];
 $sql = mysqli_query($connect, "SELECT id_hjual FROM hjual where id_cust='$idcust'"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
-$query = "SELECT * FROM hjual h, customer c WHERE (h.id_hjual LIKE '%".$search."%' OR h.status_order LIKE '%".$search."%' OR h.tanggal LIKE '%".$search."%' OR c.id_cust LIKE '%".$search."%' OR h.kurir LIKE '%".$search."%') and c.id_cust=h.id_cust and h.id_cust='$idcust'";
+$query = "SELECT * FROM hjual h, customer c, sales s WHERE (h.id_hjual LIKE '%".$search."%' OR h.status_order LIKE '%".$search."%' OR h.tanggal LIKE '%".$search."%' OR c.id_cust LIKE '%".$search."%' OR s.nama_sales LIKE '%".$search."%' OR h.kurir LIKE '%".$search."%') and c.id_cust=h.id_cust and h.id_cust='$idcust' and s.id_sales=c.id_sales";
 $order_field = $_POST['order'][0]['column']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
 $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
 $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;
