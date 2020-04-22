@@ -255,12 +255,12 @@ if ($_POST["jenis"]=="insertbarang") {
 
     $foto=$_POST["fotobarang"];
     $status="1";  //inputan pertama pasti statusnya 1 (aktif) karena udh ada pengecekan kalau tgl kadaluarsa harus lebih besar dari tgl hari ini
-    $rating="0";
+    //$rating="0";
     $sisa = $kuantiti;
 
     
 
-    $sql = "insert into barang (nama_barang, deskripsi_barang, jenis_barang, id_satuan, harga_beli, harga_jual, foto_barang, status_barang, rating) values ('$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$hargabeli','$hargajual','$foto','$status','$rating')";
+    $sql = "insert into barang (nama_barang, deskripsi_barang, jenis_barang, id_satuan, harga_beli, harga_jual, foto_barang, status_barang) values ('$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$hargabeli','$hargajual','$foto','$status')";
 
     if ($conn->query($sql)) {
 
