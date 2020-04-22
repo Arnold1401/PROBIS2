@@ -103,8 +103,10 @@ $id=1;
 
 
                             <?php
-                                $query="select h.tanggal,h.id_hjual,s.nama_sales,o.status_order from hjual h, orders o, sales s 
-                                        where h.id_hjual=o.id_hjual and s.id_sales=o.id_hjual and s.id_sales=$id";
+                                $query="
+                                select h.tanggal, h.id_hjual, s.nama_sales,h.status_order
+                                from hjual h ,sales s
+                                where h.id_sales = s.id_sales and s.id_sales='$id'";
                                             $data = mysqli_query(getConn(),$query);
                                             while($row = mysqli_fetch_array($data))
                                             {
@@ -118,26 +120,46 @@ $id=1;
                                     <td>
                                     <?php
                                         $n=$row[1];
-                                            if($row[3]==0){
 
-
+                                  
+                                            if($row[3]=="Proses"){
                                                 echo"
                                                 <select class='status_pengiriman' id=$n>
-                                                    <option value=0>Proses pengiriman</option>
-                                                    <option value=1>Terkirim</option>
-                                                </select>
-                                                ";
-
-                                            }else{
-                                                echo"
-                                                <select class='status_pengiriman' id=$n>
-                                                    <option value=1>Terkirim</option>
-                                                    <option value=0>Proses pengiriman</option>
+                                                <option value='Proses'>Proses </option>
+                                                <option value='Pengiriman'>Pengiriman</option>
+                                                   
+                                                   
+                                                    <option value='Selesai'>Selesai</option>
+                                                    
                                                     
                                                 </select>
                                                 ";
+                                            }else if($row[3]=="Pengiriman"){
+                                                echo"
+                                                <select class='status_pengiriman' id=$n>
+                                                <option value='Pengiriman'>Pengiriman</option>
+                                                    <option value='Proses'>Proses </option>
+                                                   
+                                                    <option value='Selesai'>Selesai</option>
+                                                    
+                                                    
+                                                </select>
+                                                ";
+                                            }else if($row[3]=="Selesai"){
 
+                                                echo"
+                                                <select class='status_pengiriman' id=$n>
+                                                    <option value='Selesai'>Selesai</option>
+                                                    <option value='Proses'>Proses</option>
+                                                    <option value='Pengiriman'>Pengiriman</option>
+                                                </select>
+                                                ";
                                             }
+
+                                            
+
+                                            
+
                                     ?>
                                   
 
@@ -203,24 +225,35 @@ $id=1;
 
     $(".update_status").click(function(){
 
-        var x= $(this).attr("id_pengiriman");
 
+        var x= $(this).attr("id_pengiriman");
+        
         var y='#'+x;
 
         var pilihan= $(y).children("option:selected").val();
-    
-     
-
-
+        
+       
+        
+        
         $.post("ajaxs/ajaxupdate.php",
         {
-            status:pilihan,id:x
+            status:pilihan,id:x,
         },
         function(data){
+            
+            if(data){
+
             window.location.href="#";
+            }else{
+
+                alert(data)
+            }
+
+          
+
           
         });
-      
+        
 
 
     });
@@ -231,8 +264,7 @@ $id=1;
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
-            status:"keluar",
-
+            jenis:"keluar",
         },
         function(data){
             window.location.href="login.php";
