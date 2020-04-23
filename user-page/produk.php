@@ -279,7 +279,8 @@ $conn = getConn();
           url: "ajaxs/ajaxcart.php",
           method: "POST",
           data: {
-            jenis: 'add',
+            jenis: 'additem',
+            idbarang:params,
           },
           success: function(data) {
             console.log(data);

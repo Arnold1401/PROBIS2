@@ -92,48 +92,8 @@ require_once("head.php");
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="text-center">                                                                        
-                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
-                                    
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
-                                    
-                                    <td class="price">$4.90</td>
-                                    
-                                    <td class="quantity">                                       
-                                        <div class="input-group mb-3">
-                                        <input type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                    
-                                    </td>
-                            
-                                    <td class="total">$4.90</td>
-
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-                                </tr>
-
-                                <tr class="text-center">                                                           
-                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-                                    
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
-                                    
-                                    <td class="price">$15.70</td>
-                                    
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                    </td>
-                            
-                                    <td class="total">$15.70</td>
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-                                </tr>
+                            <tbody id="isicart">
+                               <!-- isi dengan ajax cart -->
                             </tbody>
                         </table>
                     </div>
@@ -200,6 +160,20 @@ require_once("head.php");
     include_once('justfooter.php')
      ?>
    <script>
+
+   function load(){
+    $.post("ajaxs/ajaxcart.php",
+        {
+            jenis:"load",
+        },
+        function(data){
+            $("#isicart").html(data);
+        });
+   }
+
+load();
+       
+
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -209,6 +183,33 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+
+    function remove(idb){
+        $.post("ajaxs/ajaxcart.php",
+        {
+            jenis:"removeitem",
+            idb:idb
+        },
+        function(data){
+            console.log(data);
+            load();
+        });
+    }
+
+    function gtjum(idb) {
+        $.post("ajaxs/ajaxcart.php",
+        {
+            jenis:"gantijum",
+            idb:idb,
+            jum:
+        },
+        function(data){
+            console.log(data);
+            load();
+        });
+    }
+
+    
 </script>
 </body>
 </html>

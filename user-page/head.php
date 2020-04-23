@@ -1,6 +1,6 @@
 <?php
   session_start();
-  /*
+  
   if (isset($_SESSION["email_user"])) {
     if (isset($_SESSION["role"])) {
       if ($_SESSION["role"]=="reseller") {
@@ -12,7 +12,7 @@
   }else{
         header("location:login.php");
   }
-  */
+
 
 ?>
 <!DOCTYPE html>
