@@ -108,7 +108,8 @@ require_once("head.php");
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list" >
                         <div class="form-group">                    
-                            <small id="helpId" class="text-muted">*Pilih No order untuk melihat detail order Anda</small>
+                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
+                            <small id="helpId" class="text-muted">*Tombol Selesai - konfirmasi order Anda bahwa orderan telah selesai</small>
                         </div>
                         
                         <ul id="filter">
@@ -328,7 +329,7 @@ require_once("head.php");
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[ 
                 {"data":"id_hjual"},               
-                {"data":"tanggal", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},                         
+                {"data":"tanggal_order", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},                         
                 {"data":"kurir"},
                 {"data":"nama_sales"},
                 {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
@@ -350,7 +351,8 @@ require_once("head.php");
                         }
                         else if (row.status_order == 'Selesai') //selesai
                         {
-                            return "<label class='text-info font-weight-bold'>Selesai</label>";
+                            return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
+                            "<small> Diterima : " + moment(row.tanggal_orderselesai).format("DD-MMMM-YYYY") + " </small>";
                         }
                         else if (row.status_order == 'Piutang') //piutang
                         {
@@ -469,7 +471,7 @@ require_once("head.php");
                                         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
                                     }
                                     else if (row.id_ulasan != null) {
-                                        return "<a id=\"LihatUlasan\" class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
+                                        return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
                                     }
                                     
                                 }
@@ -564,25 +566,6 @@ require_once("head.php");
             }
             //end of action button beri ulasan
 
-            if (action == 'LihatUlasan') {
-                //diarahkan ke page ulasan.php
-
-                // getnamabarang();
-                // $.post("ajaxreseller.php",{
-                //     jenis:"lihat_ulasan_sayadiBarangini",
-                //     iddjualulas:dataget[Object.keys(dataget)[1]], //get Id djual
-                // },
-                // function(data){                  
-                //     var rating = $.parseJSON(data[1]);
-                //     //var isireview = $.parseJSON(data[2]);
-                //    // $("stars").html(rating);
-                //    console.log(data[1]);
-                //    document.querySelector('.stars').getAttribute('data-rating').value = data[1];
-                //     //document.querySelector('.stars').getAttribute('data-rating').value = rating;
-                //     document.getElementById("isiUlasan").value = data[2];
-                //    // $("#nama_produkdiulas").html(data);
-                // });
-            }
         });
         //end of jika button pada detail order diklik/dipilih
         
@@ -591,11 +574,12 @@ require_once("head.php");
         $('#filter').on( 'click', 'a', function () {
             console.log($(this).data("value"));
             table.search( $(this).data("value")).draw();
-
+           // 
             if ($(this).data("value") == "") {
                 $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
-                $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
+               
             }
+            $('#tabledetailorder').empty();
         } );
         //end of filter list order berdasarkan status yang dpilih
     });

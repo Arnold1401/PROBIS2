@@ -92,7 +92,7 @@ require_once("adminhead.php");
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>Master Penjualan</h1>
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@ require_once("adminhead.php");
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>      
                             <li><a href="#">Master</a></li>                            
-                            <li><a href="#">Piutang</a></li>                                                  
+                            <li><a href="#">Penjualan</a></li>                                                  
                         </ol>
                     </div>
                 </div>

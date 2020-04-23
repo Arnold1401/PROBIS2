@@ -36,6 +36,9 @@ require_once("adminhead.php");
                     </li>
                     <h3 class="menu-title">Master</h3><!-- /.menu-title -->
                     <li>
+                        <a href="admin-penjualan.php"> <i class="menu-icon fa fa-laptop"></i>Penjualan </a>
+                    </li>
+                    <li>
                         <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
                     </li>
                     <li>
