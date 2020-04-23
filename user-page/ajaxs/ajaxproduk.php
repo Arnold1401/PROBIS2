@@ -21,7 +21,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 		$kal.="
 		<div class='col-md-6 col-lg-3 my-1'>
 			<div class='product'>
-			<a href='#' class='img-prod'><img class='img-fluid' src='\"../images/$foto\"' alt='Card image cap'></a>
+			<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
 			<div class='text py-3 pb-4 px-3 text-center'>
 				<h3><strong><a >$nama</a></strong></h3>
 				<h3><strong><a >Rp$fharga</a></strong></h3> <br>
@@ -80,7 +80,7 @@ if ($_POST["jenis"] == "filter") {
 
 			$kal.= "<div class='col-sm-4 col-lg-3 col-md-3'>
 			<div style='border:1px solid #ccc; border-radius:5px; padding:16px; margin-bottom:16px; height:450px;'>
-				<img src=\"../images/$foto\" alt='' class='img-responsive' >
+				<img src='$foto' alt='' class='img-responsive' >
 				<p align='center'><strong><a href=''>$nama</a></strong></p>
 				<h4 style='text-align:center;' class='text-danger' >$harga</h4>
 				Brand :$brand <br />
