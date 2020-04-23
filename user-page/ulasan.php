@@ -1,16 +1,14 @@
 <?php
 require_once("head.php");
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-    <title>Star Rating System</title>
-    <meta name="viewport" content="width=device-width">
-    <style>
+<style>
         .star{
           color: goldenrod;
-          font-size: 2.0rem;
+          font-size: 1.5rem;
           padding: 0 0rem; /* space out the stars */
         }
         .star::before{
@@ -24,7 +22,7 @@ require_once("head.php");
         
         .stars{
             counter-reset: rateme 0;   
-            font-size: 1.5rem;
+            font-size: 1.0rem;
             font-weight: 900;
         }
         .star.rated{
@@ -33,10 +31,17 @@ require_once("head.php");
         .stars::after{
             content: counter(rateme) '/5';
         }
+        .text-wrap{
+    white-space:normal;
+}
+.width-200{
+    width:200px;
+}
     </style>
+
 </head>
 <body class="goto-here">
-
+   
     <!-- header paling atas -->
     <div class="py-1 bg-primary">
         <div class="container">
@@ -59,8 +64,8 @@ require_once("head.php");
     </div>
     <!-- END header paling atas -->
 
-     <!-- nav -->
-     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
         <a class="navbar-brand" href="home.php">EMOS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,16 +74,16 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                <li class="nav-item cta cta-colored">
+                    <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
                     <a class="dropdown-item" href="status-order.php">Daftar Order</a>
-                    <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
                     <a class="dropdown-item" href="piutang.php">Piutang</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
@@ -92,149 +97,168 @@ require_once("head.php");
     </nav>
     <!-- END nav -->
 
-    <section class="ftco-section contact-section bg-light ">
-        <div class="container">
-            <div class="row block-9 justify-content-center">
-                <div class="col-md-12 d-flex">
-                    <div class="row my-2 col-12 pb-5 mx-0 px-0">
+    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">         	
+            <h1 class="mb-0 bread">ULASAN SAYA</h1>
 
-                        <!-- tabs -->
-                        <div class="col-sm-12 col-12 col-lg-3 p-0 ">
-                            <div class="nav nav-pills flex-column flex-sm-row nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">                   
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Ulasan Saya</a>
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Riwayat Ulasan</a>
-                            </div>
-                        </div>
-                         <!-- end tabs -->
-
-                         <!-- Pengaturan Akun dan password -->
-                        <div class="tab-content col-12 col-lg-9 py-1 px-1" id="v-pills-tabContent">                                                       
-                            <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
-                                
-                                <form method="POST" action="" class="form-group" >
-
-                                    <h5 class="mb-4">[nama produk]</h5> <hr>
-                                    <img src="" alt="">
-
-                                    <div class="form-group">
-                                    <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
-                                     
-                                      <div class="stars" data-rating="0">
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                        <span class="star">&nbsp;</span>
-                                    </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                      <label for="">Berikan ulasan untuk produk ini</label>
-                                      <textarea value="" class="form-control" name="" id="" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                      <label for="">Bagikan foto produk yang Anda terima</label>
-                                      <div class="input-group mb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" id="">Upload</span>
-                                        </div>
-                                    </div>
-
-                                    </div>
-                                   
-                                    <button type="button" class="btn btn-outline-success">Kirim</button>
-                                    <button type="button" class="btn btn-outline-danger">Batal</button>
-                                </form>
-                            </div>
-
-                            <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-sports" role="tabpanel" aria-labelledby="v-pills-sports-tab">
-                                <h4 class="mb-4">Pengaturan Profil</h4> <hr>
-                                <form method="POST" action="" class="form-group" >
-                                    <div class="alert alert-warning" role="alert">
-                                    Data anda belum diverivikasi oleh Admin. Silakan menunggu 2-3 hari kerja.
-                                    Notifikasi ini hanya akan mucul jika data belum diverifikasi.
-                                    </div>
-
-                                    <div class="alert alert-success" role="alert">
-                                    Anda telah terverifikasi. Notifikasi ini muncul jika admin telah memverifikasi data anda
-                                </div>
-
-                                    <div class="form-group">        
-                                        <h5 for="">Profil Usaha</h5>
-                                        <small id="helpId" class="form-text text-muted">Nama Perusahaan/Toko</small>                            
-                                        <input value="emos"  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="emos">  
-                                    </div>
-                                    <hr>
-
-                                    <div class="form-group">
-                                        <h5 for="">Profil Pemilik</h5>
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="inputGroupFile02">
-                                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" id="">Upload</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
-                                <input value="Alfira Jessica" type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Nama Pemilik">                               
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="1234567891023456" type="number" class="form-control" name="" id="" placeholder="Nomor KTP">                               
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nomor Telpon Anda</small>              
-                                <input value="082288569879" type="number" class="form-control" name="" id="" placeholder="Nomor Telpon">                        
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
-                                <input type="date" class="form-control" id="" name="bdaytime">                        
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
-                                <select class="form-control" name="" id="">
-                                <option>Wanita</option>
-                                <option>Pria</option>                   
-                                </select>                               
-                                </div>
-
-                                <div class="form-group">
-                                <label for="">Alamat</label>
-                                <textarea value="Jl bratang binangun I" class="form-control" name="" id="" rows="3"></textarea>
-                                </div>
-                           
-                                <button type="button" class="btn btn-outline-success">Simpan Perubahan</button>                      
-                                </form>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
 
+    <!-- cart -->
+    <section class="ftco-section ftco-cart">
+        <div class="container">
+            <div class="row" id="tableall">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list" >
+                        
+                        
+                        <div class="table-responsive" >
+                            <table id="table_ulasan" class="table table-striped table-bordered text-dark"  width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Produk diulas</th>
+                                        <th>Rating</th>
+                                        <th>Review</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="word-wrap: break-word;min-width: 160px;max-width: 160px;white-space:normal;">
+                                </tbody>
+                            </table>
+                        </div>    <!-- end table responsive -->
+                    </div> <!-- end cardlist -->
+                </div> <!-- end ftco-animate -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end cart -->
+
+    
     <?php
     include_once('justfooter.php')
      ?>
-   
-    <!-- script utk rating atau stars -->
-    <script>
+
+<script>
+    var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+
+    //logout
+    function keluar(){
+        $.post("ajaxs/ajaxlogin.php",
+        {
+            jenis:"keluar",
+        },
+        function(data){
+            window.location.href="login.php";
+        });
+    }
+    //end of logout
+    
+    $(document).ready(function () {
+        var table_ulasan="";
+        var nilai="";
+
+
+        //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
+        table_ulasan = $('#table_ulasan').DataTable( 
+        {
+            
+             "responsive":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+             },
+             "processing":true,
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatables/datatable_ulasanSaya.php", 
+                 "type":"POST",
+                 "data":{"idcust":idcust},
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[ 
+                {"data":"nama_barang"},               
+                {"data":"rating",
+                    "searchable": true,
+                    "orderable":true,
+                    "render": function (data, type, row) {  
+                        if (row.rating == '1') //proses
+                        {
+                            return "<div class='stars' data-rating='0'>"+
+                                        "<span class='star rated' data-rating='1'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='2'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='3'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='4'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='5'>&nbsp;</span>"+
+                                    "</div>";
+                        }
+                        else if (row.rating == '2') //proses
+                        {
+                            return "<div class='stars' data-rating='0'>"+
+                                        "<span class='star rated' data-rating='1'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='2'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='3'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='4'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='5'>&nbsp;</span>"+
+                                    "</div>";
+                        }
+                        else if (row.rating == '3') //proses
+                        {
+                            return "<div class='stars' data-rating='0'>"+
+                                        "<span class='star rated' data-rating='1'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='2'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='3'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='4'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='5'>&nbsp;</span>"+
+                                    "</div>";
+                        }
+                        else if (row.rating == '4') //proses
+                        {
+                            return "<div class='stars' data-rating='0'>"+
+                                        "<span class='star rated' data-rating='1'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='2'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='3'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='4'>&nbsp;</span>"+
+                                        "<span class='star' data-rating='5'>&nbsp;</span>"+
+                                    "</div>";
+                        }
+                        else if (row.rating == '5') //proses
+                        {
+                            return "<div class='stars' data-rating='0'>"+
+                                        "<span class='star rated' data-rating='1'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='2'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='3'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='4'>&nbsp;</span>"+
+                                        "<span class='star rated' data-rating='5'>&nbsp;</span>"+
+                                    "</div>";
+                        }
+                        
+                    },
+                    "target":-1,
+                },
+                {"data":"isi_review"},
+             ],
+        } );
+        //end of datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
+
+    
+
+        //----------------stars rating ----------------------------------//
         //initial setup
         document.addEventListener('DOMContentLoaded', function(){
             let stars = document.querySelectorAll('.star');
@@ -244,7 +268,7 @@ require_once("head.php");
             
             let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
             let target = stars[rating - 1];
-            target.dispatchEvent(new MouseEvent('click'));
+            //target.dispatchEvent(new MouseEvent('click'));
         });
 
         function setRating(ev){
@@ -266,9 +290,11 @@ require_once("head.php");
             });
             document.querySelector('.stars').setAttribute('data-rating', num);
         }
+        //----------------end of stars rating ----------------------------------//
+    });
 
-     
-
-    </script>
+    
+        
+</script>
 </body>
 </html>

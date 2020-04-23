@@ -70,4 +70,35 @@ if ($_POST["jenis"] == "kirim_ulasan") {
    $conn->close();
 }
 
+// if ($_POST["jenis"] == "lihat_ulasan_sayadiBarangini") {
+//     $conn=getConn();
+//     $iddjualulas = $_POST['iddjualulas'];
+//     $temp=""; $rating="";$review="";
+//     $temp2= array();
+//     $sql = "select * from djual where id_djual=$iddjualulas";
+//     $result=$conn->query($sql);
+		
+//     if($result->num_rows>0){
+//         while ($row=$result->fetch_assoc()){
+//             $temp =$row['id_ulasan'];
+//         }
+
+//         $sql2 = "select * from ulasan where id_ulasan=$temp";
+//         $query = mysqli_query($conn,$sql2); // get the data from the db
+//         $result2 = array();
+//         while ($row1 = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+//             $result2 [0] = $row1['id_ulasan'];
+//             $result2 [1] = $row1['rating'];
+//             $result2 [2] = $row1['isi_review'];
+//         }
+//     }else{
+//         echo "salah";
+//     }
+
+    
+    
+//     $conn->close();
+//     header('Content-Type: application/json');
+//     echo json_encode($result2); // return value of $result
+// }
 ?>

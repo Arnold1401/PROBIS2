@@ -77,7 +77,6 @@ require_once("head.php");
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
                     <a class="dropdown-item" href="status-order.php">Daftar Order</a>
-                     <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
                     <a class="dropdown-item" href="piutang.php">Piutang</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
@@ -123,7 +122,7 @@ require_once("head.php");
                         </ul>
                         
                         <div class="table-responsive" >
-                            <table id="tableusers" class="table table-striped table-bordered text-dark" width="100%">
+                            <table id="tableorders" class="table table-striped table-bordered text-dark" width="100%">
                                 <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
                                 <thead>
                                     <tr>
@@ -198,11 +197,11 @@ require_once("head.php");
             <div class="form-group">
             <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
                 <div class="stars" data-rating="0">
-                    <span class="star" data-raitng="1">&nbsp;</span>
-                    <span class="star" data-raitng="2">&nbsp;</span>
-                    <span class="star" data-raitng="3">&nbsp;</span>
-                    <span class="star" data-raitng="4">&nbsp;</span>
-                    <span class="star" data-raitng="5">&nbsp;</span>
+                    <span class="star" data-rating="1">&nbsp;</span>
+                    <span class="star" data-rating="2">&nbsp;</span>
+                    <span class="star" data-rating="3">&nbsp;</span>
+                    <span class="star" data-rating="4">&nbsp;</span>
+                    <span class="star" data-rating="5">&nbsp;</span>
                 </div>
             </div>
 
@@ -243,12 +242,13 @@ require_once("head.php");
 <script>
     var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
    // var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
-    console.log(idcust);
+   // console.log(idcust);
     var idbarangutkdiulas, iddjualulas;
+
+    //button kirim ulasan di modal
     function kirimulasansaya() {
         var isiulasan = document.getElementById("isiUlasan").value;
 
-        console.log(idbarangutkdiulas);
          if (isiulasan == "") {
              $('#warning').html("Ulasan belum terisi");
          }
@@ -264,14 +264,16 @@ require_once("head.php");
              },
              function(data){
                  alert(data);
-                 $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable 
+                 $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
                  document.getElementById("isiUlasan").value = "";
                  document.querySelector('.stars').getAttribute('data-rating').value = "0";
              })
          }
         
     }
+    //end of button kirim ulasan di modal
 
+    //logout
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -281,19 +283,23 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+    //end of logout
 
+    //document ready
     $(document).ready(function () {
 
+        //call event button kirim ulasan di modal
         $('#kirimulasansaya').click( function () {
             kirimulasansaya();
             $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
         });
+        // end of call event button kirim ulasan di modal
 
         var tableuser="";
-        //datatable di list order 
-        tableuser = $('#tableusers').DataTable( 
-        {
 
+        //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
+        tableuser = $('#tableorders').DataTable( 
+        {
              "responsive":true,
              "language": {
                 "lengthMenu": "Tampilkan _MENU_ data per Halaman",
@@ -314,7 +320,7 @@ require_once("head.php");
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
              "ajax":{
-                 "url":"datatables/datatable_orderall.php", //nanti diganti dengan di search berdasarkan id sales yg lagi login sekarang
+                 "url":"datatables/datatable_orderall.php", 
                  "type":"POST",
                  "data":{"idcust":idcust},
              },
@@ -349,9 +355,7 @@ require_once("head.php");
                         else if (row.status_order == 'Piutang') //piutang
                         {
                             return "<label class='text-danger font-weight-bold'>Piutang</label>";
-                        }
-                        
-                        
+                        }                       
                     },
                     "target":-1,
                 },
@@ -383,36 +387,32 @@ require_once("head.php");
                     },
                     "target":-1,
                 },
-                // {                   
-                //     "target": -1,
-                //     "defaultContent": "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  " +
-                //     "<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>"
-                // },              
-            
+                
              ],
         } );
+        //end of datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
 
         //event jika list order dipilih/diclick 
-        $('#tableusers tbody').on('click', 'tr', function () {
+        $('#tableorders tbody').on('click', 'tr', function () {
             $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
         } );
         //end of event jika list order dipilih/diclick 
 
         
-        //function onclick untuk button list reseller dan details pada datatable list sales 
         var getId,tabledetail, data="";
-        $('#tableusers tbody').on( 'click', 'a', function () {
+
+        //jika button di list orders dipilih/ditekan
+        $('#tableorders tbody').on( 'click', 'a', function () {
             var action = this.id;
             data = tableuser.row($(this).closest('tr')).data();
 
-            
-            //action button Detail
+            //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
             if(action == 'GetDetail')
             {
                 getId = data[Object.keys(data)[0]];
-                console.log(getId);
                 var tr = $(this).closest('tr');
 
+                //table detail order barang dibagian bawah
                 tabledetail = $('#tabledetailorder').DataTable( {
                     // retrieve: true,
                     destroy: true, //destroy dulu biar ngerefresh pas ganti2 
@@ -469,7 +469,7 @@ require_once("head.php");
                                         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
                                     }
                                     else if (row.id_ulasan != null) {
-                                        return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Lihat Ulasan</a>";
+                                        return "<a id=\"LihatUlasan\" class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
                                     }
                                     
                                 }
@@ -481,47 +481,45 @@ require_once("head.php");
                             },
                             "target":-1,
                         },
-                        
                       ],                      
                       "footerCallback": function ( row, data, start, end, display ) {
-                        var api = this.api(), data;
+                            var api = this.api(), data;
+                          
+                            //Remove the formatting to get integer data for summation
+                            var intVal = function ( i ) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '')*1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
             
-                        // Remove the formatting to get integer data for summation
-                        var intVal = function ( i ) {
-                            return typeof i === 'string' ?
-                                i.replace(/[\$,]/g, '')*1 :
-                                typeof i === 'number' ?
-                                    i : 0;
-                        };
-            
-                        // Total over all pages
-                        total = api
-                            .column( 3 )
-                            .data()
-                            .reduce( function (a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0 );
-            
-                        // Total over this page
-                        pageTotal = api
-                            .column( 3, { page: 'current'} )
-                            .data()
-                            .reduce( function (a, b) {
-                                return intVal(a) + intVal(b);
-                            }, 0 );
-            
-                        // Update footer
-                        $( api.column( 3 ).footer() ).html(
-                            $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-                            //'$'+' ( $'+ total.number( '.', ',', 2, 'Rp' ) +')'
-                        );
-                    }
-                  } );
+                            // Total over all pages
+                            total = api
+                                .column( 3 )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
                 
+                            // Total over this page
+                            pageTotal = api
+                                .column( 3, { page: 'current'} )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+            
+                            // Update footer
+                            $( api.column( 3 ).footer() ).html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            );
+                        }
+                } );
+                //end of table detail order barang dibagian bawah
             }
             //end of action button Detail
 
-            //action button selesai - konfirmasi orderan 
+            //action button selesai - konfirmasi orderan di table list order
             if (action == 'GetKonfirmasi') {
                 $.post("ajaxreseller.php",{
                     jenis:"konfirmasi_orderan_selesai",
@@ -529,90 +527,112 @@ require_once("head.php");
                 },
                 function(data){
                     alert(data);
-                   // $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
-                    $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable 
+                    $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
+                    $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
                 });
             }
             //end of action button selesai - konfirmasi orderan selesai
 
 
         } );
-        //end of function onclick untuk button list reseller dan details pada datatable list sales 
+        //end of jika button di list orders dipilih/ditekan
 
         var getIdBarang, dataget="";
+
+        //jika button pada detail order diklik/dipilih
         $('#tabledetailorder tbody').on( 'click', 'a', function () {
             var action = this.id;
             dataget = tabledetail.row($(this).closest('tr')).data();
 
-            //action button selesai - konfirmasi orderan 
-            if (action == 'GiveUlasan') {
-                getIdBarang = dataget[Object.keys(dataget)[2]]; //get Id barang
-                iddjualulas = dataget[Object.keys(dataget)[1]]; //get Id djual
-                console.log(getIdBarang);
+            getIdBarang = dataget[Object.keys(dataget)[2]]; //get Id barang
+            iddjualulas = dataget[Object.keys(dataget)[1]]; //get Id djual
 
+            function getnamabarang(){
                 $.post("ajaxreseller.php",{
                     jenis:"get_nama_barang",
                     getIdBarang:dataget[Object.keys(dataget)[2]], //get Id barang
                 },
-                function(data){
-                    alert(data);
-                   // $(".modal-body h5 #nama_produkdiulas").val( data );
+                function(data){                 
                     $("#nama_produkdiulas").html(data);
-                    idbarangutkdiulas=getIdBarang;
-                    
-                   // document.getElementById("nama_produkdiulas").value = data;
+                    idbarangutkdiulas=getIdBarang;               
                 });
-
             }
-            //end of action button selesai - konfirmasi orderan selesai
+
+            //action button beri ulasan
+            if (action == 'GiveUlasan') {
+                getnamabarang();
+            }
+            //end of action button beri ulasan
+
+            if (action == 'LihatUlasan') {
+                //diarahkan ke page ulasan.php
+
+                // getnamabarang();
+                // $.post("ajaxreseller.php",{
+                //     jenis:"lihat_ulasan_sayadiBarangini",
+                //     iddjualulas:dataget[Object.keys(dataget)[1]], //get Id djual
+                // },
+                // function(data){                  
+                //     var rating = $.parseJSON(data[1]);
+                //     //var isireview = $.parseJSON(data[2]);
+                //    // $("stars").html(rating);
+                //    console.log(data[1]);
+                //    document.querySelector('.stars').getAttribute('data-rating').value = data[1];
+                //     //document.querySelector('.stars').getAttribute('data-rating').value = rating;
+                //     document.getElementById("isiUlasan").value = data[2];
+                //    // $("#nama_produkdiulas").html(data);
+                // });
+            }
         });
-
+        //end of jika button pada detail order diklik/dipilih
         
-
-        var table = $('#tableusers').DataTable();
+        //filter list order berdasarkan status yang dpilih
+        var table = $('#tableorders').DataTable();
         $('#filter').on( 'click', 'a', function () {
             console.log($(this).data("value"));
             table.search( $(this).data("value")).draw();
 
             if ($(this).data("value") == "") {
-                $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable 
+                $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
+                $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
             }
         } );
-
-      
+        //end of filter list order berdasarkan status yang dpilih
     });
 
+    //----------------stars rating ----------------------------------//
     //initial setup
     document.addEventListener('DOMContentLoaded', function(){
-            let stars = document.querySelectorAll('.star');
-            stars.forEach(function(star){
-                star.addEventListener('click', setRating); 
-            });
-            
-            let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
-            let target = stars[rating - 1];
-            //target.dispatchEvent(new MouseEvent('click'));
+        let stars = document.querySelectorAll('.star');
+        stars.forEach(function(star){
+            star.addEventListener('click', setRating); 
         });
+        
+        let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+        let target = stars[rating - 1];
+        //target.dispatchEvent(new MouseEvent('click'));
+    });
 
-        function setRating(ev){
-            let span = ev.currentTarget;
-            let stars = document.querySelectorAll('.star');
-            let match = false;
-            let num = 0;
-            stars.forEach(function(star, index){
-                if(match){
-                    star.classList.remove('rated');
-                }else{
-                    star.classList.add('rated');
-                }
-                //are we currently looking at the span that was clicked
-                if(star === span){
-                    match = true;
-                    num = index + 1;
-                }
-            });
-            document.querySelector('.stars').setAttribute('data-rating', num);
-        }
+    function setRating(ev){
+        let span = ev.currentTarget;
+        let stars = document.querySelectorAll('.star');
+        let match = false;
+        let num = 0;
+        stars.forEach(function(star, index){
+            if(match){
+                star.classList.remove('rated');
+            }else{
+                star.classList.add('rated');
+            }
+            //are we currently looking at the span that was clicked
+            if(star === span){
+                match = true;
+                num = index + 1;
+            }
+        });
+        document.querySelector('.stars').setAttribute('data-rating', num);
+    }
+    //----------------end of stars rating ----------------------------------//
 </script>
 </body>
 </html>
