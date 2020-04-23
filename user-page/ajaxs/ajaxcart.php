@@ -20,7 +20,7 @@
                 $fstotal=number_format($stotal,0);
                 $gmb1=$arrkeranjang[$i]->get_gambar();
                     $kal.="<tr class='text-center'>                                                           
-                    <td class='image-prod'><div class='img' style='background-image:url(images/product-4.jpg);'></div></td>
+                    <td class='image-prod'><div class='img' style='background-image:url(upload/$gmb1);'></div></td>
                     
                     <td class='product-name'>
                         <h3>$nm</h3>
@@ -30,7 +30,7 @@
                     
                     <td class='quantity'>
                         <div class='input-group mb-3'>
-                        <input type='text' name='quantity' class='quantity form-control input-number' value='$jum' min='1' max='100'>
+                        <input type='text' name='quantity' class='quantity form-control input-number' id=\"jum$idb\" onchange=\"gtjum('$idb')\" value='$jum' min='1' max='100'>
                     </div>
                     </td>
                 
@@ -62,7 +62,7 @@
     //total harga semua barang
     if ($_POST["jenis"]=="subtotalorderan") {
         $_SESSION["subtotal"]=hitungsubtotalorderan();
-        echo hitungsubtotalorderan();
+        echo number_format(hitungsubtotalorderan());
     }
 
     function hitungsubtotalorderan(){

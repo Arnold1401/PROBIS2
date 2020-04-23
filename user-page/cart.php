@@ -137,7 +137,7 @@ require_once("head.php");
                         <h3>Total Keranjang</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span>$20.60</span>
+                            <span id="totorder">Rp.0</span>
                         </p>
                         <p class="d-flex">
                             <span>Ongkir</span>
@@ -169,6 +169,7 @@ require_once("head.php");
         function(data){
             $("#isicart").html(data);
         });
+        stot();
    }
 
 load();
@@ -200,12 +201,22 @@ load();
         $.post("ajaxs/ajaxcart.php",
         {
             jenis:"gantijum",
-            idb:idb,
-            jum:
+            idbarang:idb,
+            jumbarang:$("#jum"+idb).val()
         },
         function(data){
             console.log(data);
             load();
+        });
+    }
+
+    function stot() {
+        $.post("ajaxs/ajaxcart.php",
+        {
+            jenis:"subtotalorderan",
+        },
+        function(data){
+            $("#totorder").html("Rp."+data);
         });
     }
 

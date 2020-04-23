@@ -56,7 +56,7 @@ function set_jum($jum) {
     $sql="select foto_barang as gmb from barang where id_barang='$idb'";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
-      $gambar1="images/".$row['gmb'];
+      $gambar1=$row['gmb'];
     }
     return $gambar1;
     $conn->close();
