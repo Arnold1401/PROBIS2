@@ -144,7 +144,7 @@ $conn = getConn();
               foreach ($result as $row) {
               ?>
                 <div class="list-group-item checkbox">
-                  <label><input type="checkbox" onchange="filter_data()" class="common_selector brand" value="<?php echo $row['id_kategori']; ?>"> <?php echo $row['nama_kategori']; ?></label>
+                  <label><input type="checkbox" class="common_selector brand" value="<?php echo $row['nama_kategori']; ?>"> <?php echo $row['nama_kategori']; ?></label>
                 </div>
               <?php
               }
@@ -221,23 +221,23 @@ $conn = getConn();
 
 
       function filter_data() {
-        $('.filter_data').html('<div id="loading" style="" ></div>');
+        //$('.filter_data').html('<div id="loading" style="" ></div>');
         var jenis = 'filter';
         var minimum_price = $('#hidden_minimum_price').val();
         var maximum_price = $('#hidden_maximum_price').val();
         var brand = get_filter('brand');
 
         $.ajax({
-          url: "ajaxs/ajaxreseller.php",
+          url: "ajaxs/ajaxproduk.php",
           method: "POST",
           data: {
-            jenis: jenis,
-            minimum_price: minimum_price,
-            maximum_price: maximum_price,
-            brand: brand
+            jenis:jenis,
+            minimum_price:minimum_price,
+            maximum_price:maximum_price,
+            brand:brand
           },
           success: function(data) {
-            $('.filter_data').html(data);
+            $('#disini').html(data);
           }
         });
       }
@@ -268,6 +268,7 @@ $conn = getConn();
 
         }
       });
+
     });
     //end of document ready
 
