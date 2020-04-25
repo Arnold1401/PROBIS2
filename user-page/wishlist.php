@@ -44,7 +44,14 @@ require_once("head.php");
                 <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        $count=count($arrkeranjang);
+        echo $count;
+    }else{
+        echo 0;
+    }
+ ?>]</a></li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -87,53 +94,11 @@ require_once("head.php");
                                     <th>&nbsp;</th>                                    
                                     <th>Nama Produk</th>
                                     <th>Harga</th>
-                                    <th>Jumlah</th>
-                                    <th>Total</th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr class="text-center">                                                                        
-                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
-                                    
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
-                                    
-                                    <td class="price">$4.90</td>
-                                    
-                                    <td class="quantity">                                       
-                                        <div class="input-group mb-3">
-                                        <input type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                    
-                                    </td>
+                            <tbody id="isiwish">
                             
-                                    <td class="total">$4.90</td>
-
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-                                </tr>
-
-                                <tr class="text-center">                                                           
-                                    <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
-                                    
-                                    <td class="product-name">
-                                        <h3>Bell Pepper</h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
-                                    </td>
-                                    
-                                    <td class="price">$15.70</td>
-                                    
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                    </td>
-                            
-                                    <td class="total">$15.70</td>
-                                    <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -149,7 +114,9 @@ require_once("head.php");
     <?php
     include_once('justfooter.php')
      ?>
-     <script>
+
+<script>
+
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -159,6 +126,31 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+
+    function load(){
+        $.post("ajaxs/ajaxwish.php",
+            {
+                jenis:"load",
+            },
+            function(data){
+                $("#isiwish").html(data);
+            });
+    }
+
+    load();
+
+    function remove(idb){
+        $.post("ajaxs/ajaxwish.php",
+        {
+            jenis:"removeitem",
+            idb:idb
+        },
+        function(data){
+            console.log(data);
+            load();
+        });
+    }
+
 </script>
    
 </body>
