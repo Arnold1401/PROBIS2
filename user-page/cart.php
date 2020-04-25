@@ -152,12 +152,12 @@ require_once("head.php");
                         </p>
                         <p class="d-flex">
                             <span>Ongkir</span>
-                            <span>$0.00</span>
+                            <span>Rp.0</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span>Rp.0</span>
                         </p>
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Bayar</a></p>
