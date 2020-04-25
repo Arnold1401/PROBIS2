@@ -120,7 +120,7 @@ require_once("head.php");
                         <form action="#" class="info">
 
                             <div class="form-group">
-                                <select class="form-control" name="" id="">
+                                <select class="form-control" onclick="ongkir()" name="" id="alamat">
                                    <?php
                                    include_once "conn.php";
                                    $conn=getConn();
@@ -152,14 +152,14 @@ require_once("head.php");
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="" id="isipaket">
-                                    <option>JNE - OKE (6-7 hari) Rp30.000,- </option>
+                                <select class="form-control" name="" onchange="setongkir()" id="isipaket">
+                               <!-- isi paket -->
                                 </select>
                             </div>
 
                         </form>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Cek</a></p>
+                    <p><a href="" onclick="hitungtotal()" class="btn btn-primary py-3 px-4">Cek</a></p>
                 </div>
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -170,12 +170,12 @@ require_once("head.php");
                         </p>
                         <p class="d-flex">
                             <span>Ongkir</span>
-                            <span>Rp.0</span>
+                            <span id="ongkir">Rp.0</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>Rp.0</span>
+                            <span id="totalsemua">Rp.0</span>
                         </p>
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Bayar</a></p>
@@ -184,11 +184,13 @@ require_once("head.php");
         </div>
     </section>
     <!-- end cart -->
-
+    
     <?php
     include_once('justfooter.php')
     ?>
     <script>
+
+                                    
         function load() {
             $.post("ajaxs/ajaxcart.php", {
                     jenis: "load",
@@ -197,6 +199,7 @@ require_once("head.php");
                     $("#isicart").html(data);
                 });
             stot();
+            ongkir();
         }
 
         load();
@@ -243,14 +246,34 @@ require_once("head.php");
                 });
         }
 
-        function stot() {
+        function ongkir() {
             $.post("ajaxs/ajaxcart.php", {
-                    jenis: "hargapaket",
+                    jenis: "getharga",
+                    idalamat:$("#alamat").val()
                 },
                 function(data) {
+                    alert(data);
                     $("#isipaket").html(data);
                 });
         }
+        
+        function setongkir() {
+            
+        }
+
+        function hitungtotal(){
+            var 
+
+            // $.post("ajaxs/ajaxcart.php", {
+            //         jenis: "getharga",
+            //         idalamat:$("#alamat").val()
+            //     },
+            //     function(data) {
+            //         alert(data);
+            //         $("#isipaket").html(data);
+            // });
+        }
+
     </script>
 </body>
 

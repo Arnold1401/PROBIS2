@@ -39,7 +39,7 @@
                 </tr>";
             }
           
-           //$_SESSION['berat']= hitungberat();
+           $_SESSION['berat']= hitungberat();
         }
         echo $kal;
     }
@@ -156,11 +156,9 @@
         if (isset($_SESSION["keranjang"])) {
             $arrkeranjang=unserialize($_SESSION["keranjang"]);
             $count=count($arrkeranjang);
-           
-            for ($i=0; $i <$count; $i++) { 
+           for ($i=0; $i <$count; $i++) { 
                 $berat+=$arrkeranjang[$i]->get_jum()*$arrkeranjang[$i]->get_berat();
             }
-            
         }
         return $berat;
     }
@@ -195,8 +193,88 @@
     //jumlah item di cart item berbeda
     if ($_POST["jenis"]=="getjum")
     {
-        
+        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        $count=count($arrkeranjang);
+        echo $count;
     }
     
+
+    if ($_POST["jenis"]=="getharga") {
+        $conn=getConn();
+        $corigin="444";//surabaya
+        $ida=$_POST["idalamat"];
+        $query="select kecamatan from alamat_pengiriman where id_alamat='$ida'";
+        $statement = $conn->prepare($query);
+		$statement->execute();
+		$result = $statement->get_result();
+        foreach($result as $row)
+        {
+            $sdestination=$row["kecamatan"];
+        }
+        $arr=explode('-',$sdestination);
+        $sdestination=$arr[0];
+
+        if (isset($_SESSION["berat"])) {
+          if ($_SESSION["berat"]>0) {
+            // $hasil=getharga($corigin,$sdestination,"1000","jne:pos:tiki:rpx:esl:pcp:pandu:wahana:sicepat:jnt:pahala:cahaya:sap:jet:indah:dse:slis:first:ncs:star:ninja:lion:idl:rex");
+            $berat=$_SESSION["berat"];
+            $hasil=getharga($corigin,$sdestination,$berat,"jne:pos:tiki:jnt");
+            $kal="";
+            $kal.="<option value='-1'>~Pilih Harga Paket~</option>";
+            for ($i=0; $i <count($hasil); $i++) { 
+                $nama=$hasil[$i]->name;
+                $code=strtoupper($hasil[$i]->code);
+                $arrharga=$hasil[$i]->costs;
+              
+                for ($j=0; $j <count($arrharga); $j++) { 
+                    $estimasi=$arrharga[$j]->cost[0]->etd;
+                    $service=$arrharga[$j]->service;
+                    $harga=$arrharga[$j]->cost[0]->value;
+                    $hargaformated=number_format($harga);
+                    $kal.="<option value='$code*$service*$estimasi*$harga'><b>$code</b> | <b>$service</b> | $estimasi hari | Rp.$hargaformated,-</option>";
+                }
+            }
+          }else{
+            $kal.="<option value='null'>Tidak ada barang yang dikirim</option>";
+          }
+          
+        }
+       
+       
+        echo $kal;
+
+    }
+
+    function getharga($corigin,$sdestination,$weight,$courier){
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://pro.rajaongkir.com/api/cost",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => "origin=$corigin&originType=city&destination=$sdestination&destinationType=subdistrict&weight=$weight&courier=$courier",
+          CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "key: 8ccbf31cdb56de646092992e32819d09"
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+        
+        if ($err) {
+          echo "error";
+        } else {
+          $arr=json_decode($response);
+          $resultnya=$arr->rajaongkir->results;
+          return $resultnya;
+        }
+      }
+
     
 ?>

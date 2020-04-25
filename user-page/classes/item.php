@@ -62,6 +62,18 @@ function set_jum($jum) {
     $conn->close();
   }
 
+  function get_berat(){
+    $conn=getConn();
+    $idb=$this->idbarang;
+    $sql="select berat as w from detail_barang where id_barang='$idb'";
+    $result = $conn->query($sql);
+    while($row = $result->fetch_assoc()) {
+      $weight=$row['w'];
+    }
+    return $weight;
+    $conn->close();
+  }
+
 
   
 }
