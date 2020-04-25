@@ -121,21 +121,39 @@ require_once("head.php");
 
                             <div class="form-group">
                                 <select class="form-control" name="" id="">
-                                    <option>Jl mana 1</option>
-                                    <option>Jl mana 2</option>
-                                    <option>Jl mana 3</option>
+                                   <?php
+                                   include_once "conn.php";
+                                   $conn=getConn();
+                                   $email=$_SESSION["email_user"];
+                                   $query="select a.id_alamat as id,a.alamat_lengkap as alamat,a.no_prioritas as def  from alamat_pengiriman a where a.email='$email'";
+                                    $statement = $conn->prepare($query);
+                                    $statement->execute();
+                                    $result = $statement->get_result();
+                                    $kal="";
+                                    if ($result->num_rows>0) {
+                                        foreach($result as $row)
+                                        {
+                                            $id=$row["id"];
+                                            $default=$row["def"];
+                                            $alamat=$row["alamat"];
+                                            if ($default=="1") {
+                                                $kal.=" <option value='$id'>$alamat.....[default]</option>";
+                                            }else{
+                                                $kal.=" <option value='$id'>$alamat</option>";
+                                            }
+                                            
+                                            
+                                        } 
+                                    }
+                                    echo $kal;
+                                   ?>
+
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="" id="">
+                                <select class="form-control" name="" id="isipaket">
                                     <option>JNE - OKE (6-7 hari) Rp30.000,- </option>
-                                    <option>JNE - REG (5-6 hari) Rp38.000,-</option>
-                                    <option>Paket Kilat Khusus (2-4 hari) Rp29.500,-</option>
-                                    <option>TIKI - ECO (5 hari) Rp28.000,-</option>
-                                    <option>ESL - RPX/RDX Rp0,-</option>
-                                    <option>J&T - EZ Rp41.000,-</option>
-                                    <option>LION - REGPACK (7-10 hari) Rp16.000,-</option>
                                 </select>
                             </div>
 
@@ -222,6 +240,15 @@ require_once("head.php");
                 },
                 function(data) {
                     $("#totorder").html("Rp." + data);
+                });
+        }
+
+        function stot() {
+            $.post("ajaxs/ajaxcart.php", {
+                    jenis: "hargapaket",
+                },
+                function(data) {
+                    $("#isipaket").html(data);
                 });
         }
     </script>
