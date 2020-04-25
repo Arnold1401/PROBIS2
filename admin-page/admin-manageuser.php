@@ -30,46 +30,6 @@ include_once('adminconn.php');
 </head>
 
 <body>
-    <!-- Left Panel -->
-
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
-
-            <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
-            </div>
-
-            <div id="main-menu" class="main-menu collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                    <li>
-                    <a href="admin-home.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
-                    </li>
-                    <h3 class="menu-title">Master</h3><!-- /.menu-title -->
-                    <li>
-                        <a href="admin-penjualan.php"> <i class="menu-icon fa fa-laptop"></i>Penjualan </a>
-                    </li>
-                    <li>
-                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
-                    </li>
-                    <li>
-                        <a href="admin-managesales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales </a>
-                    </li>
-                    <li>
-                        <a href="admin-barang.php"> <i class="menu-icon fa fa-th"></i>Barang </a>
-                    </li>
-                    <li>
-                        <a href="admin-piutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </nav>
-    </aside><!-- /#left-panel -->
-
-    <!-- Left Panel -->
 
     <!-- Right Panel -->
 
@@ -253,7 +213,11 @@ include_once('adminconn.php');
     function format ( d ) {
         // `d` is the original data object for the row
         var jenis_kelamin = "";
-        var lahir = moment(d.tanggal_lahir).format("DD MMMM Y");          
+        var lahir = moment(d.tanggal_lahir).format("DD MMMM Y");     
+        var provinsi = d.provinsi.split("-");     
+        var kota = d.kota.split("-");   
+        var kecamatan = d.kecamatan.split("-");
+        
 
         if(d.jenis_kelamin == "0"){
             jenis_kelamin = "Wanita";
@@ -287,7 +251,7 @@ include_once('adminconn.php');
             '</tr>'+
             '<tr>'+
                 '<td>Alamat</td>'+
-                '<td>'+d.provinsi + ', ' + d.kota + ', ' + d.kecamatan + ', ' + d.alamat_lengkap +'</td>'+
+                '<td>'+ provinsi[1]  + ', ' + kota[1] + ', ' + kecamatan[1] + ', ' + d.alamat_lengkap +'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Apakah Data Valid?</td>'+
@@ -455,7 +419,15 @@ include_once('adminconn.php');
                 {"data":"id_cust"},               
                 {"data":"nama_perusahaan"},                         
                 {"data":"nama_pemilik"},
-                {"data":"provinsi"},
+                {"data":"provinsi",
+                    "searchable": false,
+                    "orderable":false,
+                    "render": function (data, type, row) {  
+                        data = row.provinsi.split("-");
+                        result = data[1];
+                        return result;
+                    }
+                },
                 {"data":"status",
                     "searchable": false,
                     "orderable":false,
@@ -505,7 +477,8 @@ include_once('adminconn.php');
                 getCustId = data[Object.keys(data)[0]]; //utk dapatkan id customer
                 getsaltId = data[Object.keys(data)[11]]; //utk dapatkan id salesnya
 
-                console.log(getsaltId); 
+                console.log(getId); 
+                var getProvinsi = getId.split("-");
                         
                 //datatable di list reseler -- show modal
                     //datable di list sales sesuai provinsi customer
@@ -535,7 +508,7 @@ include_once('adminconn.php');
                         "ajax":{
                             "url":"datatable_listSalesNear.php",
                             "type":"POST",
-                            "data":{"get_provinsi":getId},
+                            "data":{"get_provinsi":getProvinsi[1]},
                         },
                         "deferRender":true,
                         "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
