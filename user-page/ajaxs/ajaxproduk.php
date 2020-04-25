@@ -46,21 +46,27 @@ if ($_POST["jenis"] == "filter") {
     $conn=getConn();
     $query = "SELECT * FROM barang";
 	$kal="";
-	$minprice=$_POST["minimum_price"];
+	$minprice=0;
 	$maxprice=$_POST["maximum_price"];
 
-	if ($maxprice!=""&&$minprice!="") {
-		//$query.= "harga_jual BETWEEN '$minprice' AND '$maxprice'";
+	if(isset($_POST["minimum_price"])){
+		$minprice=$_POST["minimum_price"];
 	}
 
-	// if(isset($_POST["minimum_price"], $_POST["maximum_price"]) && !empty($_POST["minimum_price"]) && !empty($_POST["maximum_price"]))
-	// { ... }
+	if (isset($_POST["maximum_price"])) {
+		$maxprice=$_POST["maximum_price"];
+	}
 
 	if(isset($_POST["brand"]))
 	{
 		$brand_filter= implode("','", $_POST["brand"]);
 		$query.= " where jenis_barang IN ('$brand_filter')";
 	}
+
+	if ($maxprice!=""&&$minprice!="") {
+		$query.= " and harga_jual BETWEEN '$minprice' AND '$maxprice'";
+	}
+
 
 
 	//$query.= "harga_jual BETWEEN '$minprice' AND '$maxprice'";
