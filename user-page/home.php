@@ -111,51 +111,51 @@ require_once("head.php");
     <section class="ftco-section">
         <div class="container">
             <div class="row no-gutters ftco-services">
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services mb-md-0 mb-4">
-                        <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-                            <span class="flaticon-correct"></span>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Free Shipping</h3>
-                            <span>On order over $100</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services mb-md-0 mb-4">
-                        <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-                            <span class="flaticon-diet"></span>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Always Fresh</h3>
-                            <span>Product well package</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services mb-md-0 mb-4">
-                        <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
-                            <span class="flaticon-award"></span>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">High Quality Product</h3>
-                            <span>Good Products from reliable company</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
-                    <div class="media block-6 services mb-md-0 mb-4">
-                        <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
-                            <span class="flaticon-customer-service"></span>
-                        </div>
-                        <div class="media-body">
-                            <h3 class="heading">Online Support</h3>
-                            <span>Call us </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+        <div class="media block-6 services mb-md-0 mb-4">
+        <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
+                <span class="flaticon-customer-service"></span>
+        </div>
+        <div class="media-body">
+            <h3 class="heading">Salesman terpercaya</h3>
+            <span>Setiap Reseller memiliki sales yang dekat dengan wilayahnya</span>
+        </div>
+        </div>      
+    </div>
+    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+        <div class="media block-6 services mb-md-0 mb-4">
+        <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
+                <span class="flaticon-diet"></span>
+        </div>
+        <div class="media-body">
+            <h3 class="heading">Terkirim Secara Baik</h3>
+            <span>Produk akan dipaketkan dengan baik</span>
+        </div>
+        </div>    
+    </div>
+    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+        <div class="media block-6 services mb-md-0 mb-4">
+        <div class="icon bg-color-3 d-flex justify-content-center align-items-center mb-2">
+                <span class="flaticon-award"></span>
+        </div>
+        <div class="media-body">
+            <h3 class="heading">Produk Berkualitas Tinggi</h3>
+            <span>Semua produk berasal dari perusahaan terpercaya</span>
+        </div>
+        </div>      
+    </div>
+    <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
+        <div class="media block-6 services mb-md-0 mb-4">
+        <div class="icon bg-color-4 d-flex justify-content-center align-items-center mb-2">
+                <span class="flaticon-customer-service"></span>
+        </div>
+        <div class="media-body">
+            <h3 class="heading">Online Support</h3>
+            <span>Call us </span>
+        </div>
+        </div>      
+    </div>
+    </div>
         </div>
     </section>
 
@@ -181,69 +181,69 @@ require_once("head.php");
                 <div class="col-md-6 col-lg-3 ftco-animate">
                     <div class="product">
                         <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-                            <div></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Minuman</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing"></div>
-                            </div>
-                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="produk.php?type=1" role="button">shop</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Barang Konsumsi</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing"></div>
-                            </div>
-                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="produk.php?type=2" role="button">shop</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Perawatan Pribadi</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing"></div>
-                            </div>
-                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="produk.php?type=3" role="button">Shop</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 ftco-animate">
-                    <div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-                            <div class="overlay"></div>
-                        </a>
-                        <div class="text py-3 pb-4 px-3 text-center">
-                            <h3><a href="#">Obat-Obatan</a></h3>
-                            <div class="d-flex">
-                                <div class="pricing"></div>
-                            </div>
-                            <div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="produk.php?type=4" role="button">shop</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <div></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Minuman</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing"></div>
+	    					</div>
+	    					<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=1" role="button">Lihat Produk</a>	    						
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Makanan Ringan</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing"></div>
+	    					</div>
+    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=2" role="button">Lihat Produk</a>	    						
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+	    					<div class="overlay"></div>
+	    				</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Perawatan Diri</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing"></div>
+	    					</div>
+    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=3" role="button">Lihat Produk</a>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">Obat-Obatan</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing"></div>
+	    					</div>
+    						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=4" role="button">Lihat Produk</a>	    						
+    						</div>
+    					</div>
+    				</div>
+    			</div>	
+    		</div>
+    	</div>
     </section>
     <!-- END Jenis Product -->
 
