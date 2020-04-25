@@ -356,8 +356,8 @@ function register() {
             if (data.search("berhasil register")>0) {
                 alert("Berhasil Register");
                 setTimeout(() => {
-                    window.location.href = "http://localhost/probis/PROBIS2/user-page/login.php";
-                }, 3000);
+                    window.location.href = "login.php";
+                }, 300);
             }else  if (data.search("email telah digunakan!")>0) {
                 alert("Email telah digunakan!");
             }else{
@@ -430,10 +430,11 @@ function upload() {
     cb_prov();
 
     function cb_city() {
+        var arrprov=$("#cb_prov").val().split('-');
         $.post("ajaxs/ajaxregister.php",
         {
             jenis:"getcity",
-            province:$("#cb_prov").val(),
+            province:arrprov[0],
         },
         function(data){
             console.log(data);
@@ -444,10 +445,11 @@ function upload() {
 
     function cb_subdistrict() {
         if ($("#cb_kota").val()!=null) {
+            var kota=$("#cb_kota").val().split('-');
             $.post("ajaxs/ajaxregister.php",
             {
                 jenis:"getsubdistrict",
-                city:$("#cb_kota").val(),
+                city:kota[0],
             },
             function(data){
                 console.log(data);

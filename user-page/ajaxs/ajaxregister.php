@@ -13,7 +13,7 @@
             for ($i=0; $i <count($arrprovince); $i++) { 
                 $id=$arrprovince[$i]->province_id;
                 $nama=$arrprovince[$i]->province;
-                $kal.="<option value='$id'>$nama</option>";
+                $kal.="<option value='$id-$nama'>$nama</option>";
             }
             echo $kal;
         }
@@ -121,7 +121,7 @@
               for ($i=0; $i<count($arrcity); $i++) { 
                 $idcity=$arrcity[$i]["city_id"];
                 $city=$arrcity[$i]["city_name"];
-                $kal.="<option value='$idcity'>$city</option>";
+                $kal.="<option value='$idcity-$city'>$city</option>";
               }
               echo $kal;
           }
@@ -174,7 +174,7 @@
             for ($i=0; $i<count($arrsubdistrict); $i++) { 
               $idsub=$arrsubdistrict[$i]->subdistrict_id;
               $sub=$arrsubdistrict[$i]->subdistrict_name;
-              $kal.="<option value='$idsub'>$sub</option>";
+              $kal.="<option value='$idsub-$sub'>$sub</option>";
             }
             echo $kal;
             //echo json_encode($arrsubdistrict);
@@ -320,12 +320,6 @@
         $kota = $_POST["kota"];
         $camat = $_POST["camat"];
         $password_user = $_POST["password_user"];
-        
-
-        $prov=getprovincename($prov);
-        $kota=getcityname($kota);
-        $camat=getsubdistrictname($camat,$_POST["kota"]);
-
 
         $status_akun = 0;//menunggu
         $ctr = 0;//untuk mengetahu kembar email

@@ -4,11 +4,13 @@ require_once("head.php");
 
 <!DOCTYPE html>
 <html>
+
 <head>
-   
+
 </head>
+
 <body class="goto-here">
-   
+
     <!-- header paling atas -->
     <div class="py-1 bg-primary">
         <div class="container">
@@ -39,40 +41,49 @@ require_once("head.php");
                 <span class="oi oi-menu"></span> Menu
             </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item "><a href="home.php" class="nav-link">Home</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored active"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Order</a>
-                    <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
-                    <a class="dropdown-item" href="piutang.php">Piutang</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
-                    <hr>
-                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
-                </div>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item "><a href="home.php" class="nav-link">Home</a></li>
+
+                    <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
+                    <li class="nav-item cta cta-colored active"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        $count=count($arrkeranjang);
+        echo $count;
+    }else{
+        echo 0;
+    }
+ ?>]</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION["nama_perusahaan"])) {
+                                                                                                                                                            echo $_SESSION["nama_perusahaan"];
+                                                                                                                                                        } ?></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
+                            <a class="dropdown-item" href="status-order.php">Daftar Order</a>
+                            <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
+                            <a class="dropdown-item" href="piutang.php">Piutang</a>
+                            <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                            <hr>
+                            <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                            <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </nav>
     <!-- END nav -->
 
     <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">KERANJANG SAYA</h1>
+        <div class="container">
+            <div class="row no-gutters slider-text align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-0 bread">KERANJANG SAYA</h1>
 
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- cart -->
@@ -84,7 +95,7 @@ require_once("head.php");
                         <table class="table">
                             <thead class="thead-primary">
                                 <tr class="text-center">
-                                    <th>&nbsp;</th>                                    
+                                    <th>&nbsp;</th>
                                     <th>Nama Produk</th>
                                     <th>Harga</th>
                                     <th>Jumlah</th>
@@ -93,7 +104,7 @@ require_once("head.php");
                                 </tr>
                             </thead>
                             <tbody id="isicart">
-                               <!-- isi dengan ajax cart -->
+                                <!-- isi dengan ajax cart -->
                             </tbody>
                         </table>
                     </div>
@@ -109,23 +120,23 @@ require_once("head.php");
                         <form action="#" class="info">
 
                             <div class="form-group">
-                              <select class="form-control" name="" id="">
-                                <option>Jl mana 1</option>
-                                <option>Jl mana 2</option>
-                                <option>Jl mana 3</option>
-                              </select>
+                                <select class="form-control" name="" id="">
+                                    <option>Jl mana 1</option>
+                                    <option>Jl mana 2</option>
+                                    <option>Jl mana 3</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
-                              <select class="form-control" name="" id="">
-                                <option>JNE - OKE (6-7 hari) Rp30.000,- </option>
-                                <option>JNE - REG (5-6 hari) Rp38.000,-</option>
-                                <option>Paket Kilat Khusus (2-4 hari) Rp29.500,-</option>
-                                <option>TIKI - ECO (5 hari) Rp28.000,-</option>
-                                <option>ESL - RPX/RDX Rp0,-</option>
-                                <option>J&T - EZ Rp41.000,-</option>
-                                <option>LION - REGPACK (7-10 hari) Rp16.000,-</option>
-                              </select>
+                                <select class="form-control" name="" id="">
+                                    <option>JNE - OKE (6-7 hari) Rp30.000,- </option>
+                                    <option>JNE - REG (5-6 hari) Rp38.000,-</option>
+                                    <option>Paket Kilat Khusus (2-4 hari) Rp29.500,-</option>
+                                    <option>TIKI - ECO (5 hari) Rp28.000,-</option>
+                                    <option>ESL - RPX/RDX Rp0,-</option>
+                                    <option>J&T - EZ Rp41.000,-</option>
+                                    <option>LION - REGPACK (7-10 hari) Rp16.000,-</option>
+                                </select>
                             </div>
 
                         </form>
@@ -141,12 +152,12 @@ require_once("head.php");
                         </p>
                         <p class="d-flex">
                             <span>Ongkir</span>
-                            <span>$0.00</span>
+                            <span>Rp.0</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span>Rp.0</span>
                         </p>
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Bayar</a></p>
@@ -158,69 +169,62 @@ require_once("head.php");
 
     <?php
     include_once('justfooter.php')
-     ?>
-   <script>
+    ?>
+    <script>
+        function load() {
+            $.post("ajaxs/ajaxcart.php", {
+                    jenis: "load",
+                },
+                function(data) {
+                    $("#isicart").html(data);
+                });
+            stot();
+        }
 
-   function load(){
-    $.post("ajaxs/ajaxcart.php",
-        {
-            jenis:"load",
-        },
-        function(data){
-            $("#isicart").html(data);
-        });
-        stot();
-   }
+        load();
 
-load();
-       
 
-    function keluar(){
-        $.post("ajaxs/ajaxlogin.php",
-        {
-            jenis:"keluar",
-        },
-        function(data){
-            window.location.href="login.php";
-        });
-    }
+        function keluar() {
+            $.post("ajaxs/ajaxlogin.php", {
+                    jenis: "keluar",
+                },
+                function(data) {
+                    window.location.href = "login.php";
+                });
+        }
 
-    function remove(idb){
-        $.post("ajaxs/ajaxcart.php",
-        {
-            jenis:"removeitem",
-            idb:idb
-        },
-        function(data){
-            console.log(data);
-            load();
-        });
-    }
+        function remove(idb) {
+            $.post("ajaxs/ajaxcart.php", {
+                    jenis: "removeitem",
+                    idb: idb
+                },
+                function(data) {
+                    console.log(data);
+                    load();
+                });
+        }
 
-    function gtjum(idb) {
-        $.post("ajaxs/ajaxcart.php",
-        {
-            jenis:"gantijum",
-            idbarang:idb,
-            jumbarang:$("#jum"+idb).val()
-        },
-        function(data){
-            console.log(data);
-            load();
-        });
-    }
+        function gtjum(idb) {
+            $.post("ajaxs/ajaxcart.php", {
+                    jenis: "gantijum",
+                    idbarang: idb,
+                    jumbarang: $("#jum" + idb).val()
+                },
+                function(data) {
+                    console.log(data);
+                    load();
+                });
+        }
 
-    function stot() {
-        $.post("ajaxs/ajaxcart.php",
-        {
-            jenis:"subtotalorderan",
-        },
-        function(data){
-            $("#totorder").html("Rp."+data);
-        });
-    }
-
-    
-</script>
+        function stot() {
+            $.post("ajaxs/ajaxcart.php", {
+                    jenis: "subtotalorderan",
+                },
+                function(data) {
+                    $("#totorder").html("Rp." + data);
+                });
+        }
+    </script>
 </body>
+
 </html>

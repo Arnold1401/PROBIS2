@@ -4,9 +4,11 @@ require_once("head.php");
 
 <!DOCTYPE html>
 <html>
+
 <head>
-   
+
 </head>
+
 <body class="goto-here">
     <!-- header paling atas -->
     <div class="py-1 bg-primary">
@@ -33,68 +35,77 @@ require_once("head.php");
     <!-- nav -->
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-        <a class="navbar-brand" href="home.php">EMOS</a>
+            <a class="navbar-brand" href="home.php">EMOS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Order</a>
-                    <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
-                    <a class="dropdown-item" href="piutang.php">Piutang</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
-                    <hr>
-                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a onclick="keluar()" class="dropdown-item" href="index.php">Keluar</a>
-                </div>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="home.php" class="nav-link">Home</a></li>
+
+                    <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
+                    <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        $count=count($arrkeranjang);
+        echo $count;
+    }else{
+        echo 0;
+    }
+ ?>]</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION["nama_perusahaan"])) {
+                                                                                                                                                            echo $_SESSION["nama_perusahaan"];
+                                                                                                                                                        } ?></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
+                            <a class="dropdown-item" href="status-order.php">Daftar Order</a>
+                            <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
+                            <a class="dropdown-item" href="piutang.php">Piutang</a>
+                            <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                            <hr>
+                            <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                            <a onclick="keluar()" class="dropdown-item" href="index.php">Keluar</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </nav>
     <!-- END nav -->
 
     <section id="home-section" class="hero">
-		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+        <div class="home-slider owl-carousel">
+            <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
-	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
+                        <div class="col-md-12 ftco-animate text-center">
+                            <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
+                            <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
+                            <p><a href="#" class="btn btn-primary">View Details</a></p>
+                        </div>
 
-	          </div>
-	        </div>
-	      </div>
+                    </div>
+                </div>
+            </div>
 
-	      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+            <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
-	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
+                        <div class="col-sm-12 ftco-animate text-center">
+                            <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
+                            <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
+                            <p><a href="#" class="btn btn-primary">View Details</a></p>
+                        </div>
 
-	          </div>
-	        </div>
-	      </div>
-	    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="ftco-section">
@@ -157,18 +168,18 @@ require_once("head.php");
     
      -->
     <section class="ftco-section">
-    	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Produk Unggulan</span>
-            <h2 class="mb-4">Produk tersedia</h2>
-          </div>
-        </div>   		
-    	</div>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">Produk Unggulan</span>
+                    <h2 class="mb-4">Produk tersedia</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
                         <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
                         <div></div>
     					</a>
@@ -238,19 +249,18 @@ require_once("head.php");
 
     <?php
     include_once('justfooter.php')
-     ?>
-   
+    ?>
+
 </body>
 <script>
-    function keluar(){
-        $.post("ajaxs/ajaxlogin.php",
-        {
-            jenis:"keluar" ,
-        },
-        function(data){
-            window.location.href="login.php";
-        });
+    function keluar() {
+        $.post("ajaxs/ajaxlogin.php", {
+                jenis: "keluar",
+            },
+            function(data) {
+                window.location.href = "login.php";
+            });
     }
-    
 </script>
+
 </html>

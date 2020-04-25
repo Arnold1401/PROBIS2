@@ -3,38 +3,27 @@
     include_once "../conn.php";
     include_once "../classes/item.php";
 
-     //first load keranjang cart.php
+     //first load wishlist cart.php
      if ($_POST["jenis"]=="load") {
         $kal="";
-        if (isset($_SESSION["keranjang"])) {
-            $arrkeranjang=unserialize($_SESSION["keranjang"]);
-            $count=count($arrkeranjang);
+        if (isset($_SESSION["wishlist"])) {
+            $arrwishlist=unserialize($_SESSION["wishlist"]);
+            $count=count($arrwishlist);
             for ($i=0; $i <$count ; $i++) { 
-                $idb=$arrkeranjang[$i]->get_idbarang();
-                $nm=$arrkeranjang[$i]->get_nama();
-                $hg=$arrkeranjang[$i]->get_harga();
-                $jum=$arrkeranjang[$i]->get_jum();
+                $idb=$arrwishlist[$i]->get_idbarang();
+                $nm=$arrwishlist[$i]->get_nama();
+                $hg=$arrwishlist[$i]->get_harga();
+                $jum=$arrwishlist[$i]->get_jum();
                 $fhg=number_format($hg,0);
 
-                $stotal=$hg*$jum;
-                $fstotal=number_format($stotal,0);
-                $gmb1=$arrkeranjang[$i]->get_gambar();
+                $gmb1=$arrwishlist[$i]->get_gambar();
                     $kal.="<tr class='text-center'>                                                           
                     <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
                     
                     <td class='product-name'>
                         <h3>$nm</h3>
                     </td>
-                    
                     <td class='price'>Rp.$fhg</td>
-                    
-                    <td class='quantity'>
-                        <div class='input-group mb-3'>
-                        <input type='text' name='quantity' class='quantity form-control input-number' id=\"jum$idb\" onchange=\"gtjum('$idb')\" value='$jum' min='1' max='100'>
-                    </div>
-                    </td>
-                
-                    <td class='total'>Rp.$fstotal</td>
                     <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
                 </tr>";
             }
@@ -46,8 +35,8 @@
 
     //test apakah ada cart jika ada boleh ke cart.php 
     if ($_POST["jenis"]=="testcart") {
-       if (isset($_SESSION["keranjang"])) {
-            $count=count(unserialize($_SESSION["keranjang"]));    
+       if (isset($_SESSION["wishlist"])) {
+            $count=count(unserialize($_SESSION["wishlist"]));    
         if ($count>0) {
                 echo "ada";
             }else{
@@ -67,12 +56,12 @@
 
     function hitungsubtotalorderan(){
         $subtotal=0;
-        if (isset($_SESSION["keranjang"])) {
-            $arrkeranjang=unserialize($_SESSION["keranjang"]);
-            $count=count($arrkeranjang);
+        if (isset($_SESSION["wishlist"])) {
+            $arrwishlist=unserialize($_SESSION["wishlist"]);
+            $count=count($arrwishlist);
            
             for ($i=0; $i <$count; $i++) { 
-                $subtotal+=$arrkeranjang[$i]->get_jum()*$arrkeranjang[$i]->get_harga();
+                $subtotal+=$arrwishlist[$i]->get_jum()*$arrwishlist[$i]->get_harga();
             }
             
         }
@@ -83,19 +72,19 @@
     if ($_POST["jenis"]=="gantijum") {
         $idbarang=$_POST["idbarang"];
         $jum=$_POST["jumbarang"];
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
+        $arrwishlist=unserialize($_SESSION["wishlist"]);
+        $count=count($arrwishlist);
         $idarray=-1;
         for ($i=0; $i <$count; $i++) { 
-            if ($arrkeranjang[$i]->get_idbarang()==$idbarang) {
+            if ($arrwishlist[$i]->get_idbarang()==$idbarang) {
                 $idarray=$i;
             }
         }
         if ($idarray==-1) {
             echo "barang tidak ditemukan";
         }else{
-            $arrkeranjang[$idarray]->set_jum($jum);
-            $_SESSION["keranjang"]=serialize($arrkeranjang);
+            $arrwishlist[$idarray]->set_jum($jum);
+            $_SESSION["wishlist"]=serialize($arrwishlist);
             $_SESSION['berat']=hitungberat();
             echo "barang ganti jumlah";
             echo "berat".hitungberat();
@@ -104,17 +93,17 @@
         
     }
     
-    //tambah ke keranjang
+    //tambah ke wishlist
     if ($_POST["jenis"]=="additem") {
         $idbarang=$_POST["idbarang"];
         $kal="";
-        if (isset($_SESSION["keranjang"])) {
-            $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        if (isset($_SESSION["wishlist"])) {
+            $arrwishlist=unserialize($_SESSION["wishlist"]);
             $barang=new Item();
             $barang->set_idbarang($idbarang);
             $barang->set_jum(1);
             if (!cekbarangsama($idbarang)) {
-                $arrkeranjang[]=$barang;
+                $arrwishlist[]=$barang;
                 $kal="barang cart";
             }else{
                 $kal="barang sama";
@@ -122,23 +111,23 @@
 
             
         }else{
-            $arrkeranjang=array();
+            $arrwishlist=array();
             $barang=new Item();
             $barang->set_idbarang($idbarang);
             $barang->set_jum(1);
-            $arrkeranjang[]=$barang;
+            $arrwishlist[]=$barang;
             $kal="barang cart";
         }
-        $_SESSION["keranjang"]=serialize($arrkeranjang);
+        $_SESSION["wishlist"]=serialize($arrwishlist);
         echo $kal;
     }
 
     function cekbarangsama($idbarang){
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
+        $arrwishlist=unserialize($_SESSION["wishlist"]);
+        $count=count($arrwishlist);
         $match=false;
         for ($i=0; $i <$count; $i++) { 
-            if ($arrkeranjang[$i]->get_idbarang()==$idbarang) {
+            if ($arrwishlist[$i]->get_idbarang()==$idbarang) {
                 $match=true;
             }
         }
@@ -146,19 +135,19 @@
     }
 
     //total berat semua barang
-    if ($_POST["jenis"]=="beratkeranjang") {
+    if ($_POST["jenis"]=="beratwishlist") {
         $_SESSION["berat"]=hitungberat();
         echo hitungberat();
     }
 
     function hitungberat(){
         $berat=0;
-        if (isset($_SESSION["keranjang"])) {
-            $arrkeranjang=unserialize($_SESSION["keranjang"]);
-            $count=count($arrkeranjang);
+        if (isset($_SESSION["wishlist"])) {
+            $arrwishlist=unserialize($_SESSION["wishlist"]);
+            $count=count($arrwishlist);
            
             for ($i=0; $i <$count; $i++) { 
-                $berat+=$arrkeranjang[$i]->get_jum()*$arrkeranjang[$i]->get_berat();
+                $berat+=$arrwishlist[$i]->get_jum()*$arrwishlist[$i]->get_berat();
             }
             
         }
@@ -178,18 +167,18 @@
 
     if ($_POST["jenis"]=="removeitem") {
         $id=$_POST["idb"];
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
+        $arrwishlist=unserialize($_SESSION["wishlist"]);
+        $count=count($arrwishlist);
         $match=-1;
         for ($i=0; $i<$count ; $i++) { 
-            $idb=$arrkeranjang[$i]->get_idbarang();
+            $idb=$arrwishlist[$i]->get_idbarang();
             if ($idb==$id) {
                 $match=$i;
             }
             
         }
-        array_splice($arrkeranjang,$match,1);
-        $_SESSION["keranjang"]=serialize($arrkeranjang);
+        array_splice($arrwishlist,$match,1);
+        $_SESSION["wishlist"]=serialize($arrwishlist);
     }
 
     //jumlah item di cart item berbeda

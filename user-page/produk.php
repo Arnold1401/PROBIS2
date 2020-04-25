@@ -58,7 +58,14 @@ $conn = getConn();
           <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
 <!-- icon pakai icomoon.css -->
           <li class="nav-item active"><a href="produk.php" class="nav-link">Produk</a></li>
-          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        $count=count($arrkeranjang);
+        echo $count;
+    }else{
+        echo 0;
+    }
+ ?>]</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION["nama_perusahaan"])) {
                                                                                                                                               echo $_SESSION["nama_perusahaan"];
@@ -278,6 +285,20 @@ $conn = getConn();
     function addcart(params) {
       $.ajax({
           url: "ajaxs/ajaxcart.php",
+          method: "POST",
+          data: {
+            jenis: 'additem',
+            idbarang:params,
+          },
+          success: function(data) {
+            console.log(data);
+          }
+        });
+    }
+
+    function addwish(params) {
+      $.ajax({
+          url: "ajaxs/ajaxwish.php",
           method: "POST",
           data: {
             jenis: 'additem',
