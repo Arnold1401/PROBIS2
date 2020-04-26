@@ -98,7 +98,7 @@ if ($_POST["jenis"] == "filter") {
 				<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
 				<div class='text py-3 pb-4 px-3 text-center'>
 					<h3><strong><a >$nama</a></strong></h3>
-					<h3><strong><a >Rp$fharga</a></strong></h3> <br>
+					<h3><strong><a >IDR $fharga</a></strong></h3> <br>
 					<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
 						<!--<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>-->
 						<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>

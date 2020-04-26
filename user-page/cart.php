@@ -166,16 +166,16 @@ require_once("head.php");
                         <h3>Total Keranjang</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span id="totorder">Rp.0</span>
+                            <span id="totorder">IDR 0</span>
                         </p>
                         <p class="d-flex">
                             <span>Ongkir</span>
-                            <span id="ongkir">Rp.0</span>
+                            <span id="ongkir">IDR 0</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span id="totalsemua">Rp.0</span>
+                            <span id="totalsemua">IDR 0</span>
                         </p>
                     </div>
                     <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Bayar</a></p>
@@ -235,6 +235,8 @@ require_once("head.php");
                     console.log(data);
                     load();
                 });
+            
+            hitungtotal();
         }
 
         function stot() {
@@ -242,7 +244,7 @@ require_once("head.php");
                     jenis: "subtotalorderan",
                 },
                 function(data) {
-                    $("#totorder").html("Rp." + data);
+                    $("#totorder").html("IDR " + data);
                 });
         }
 
@@ -252,28 +254,53 @@ require_once("head.php");
                     idalamat:$("#alamat").val()
                 },
                 function(data) {
-                    alert(data);
                     $("#isipaket").html(data);
                 });
+            setongkir();
         }
         
         function setongkir() {
-            
+            var formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'IDR',
+            });
+            if ($("#isipaket").val()!=-1) {
+                var arrongkir=$("#isipaket").val().split('*');
+                var ongk= formatter.format(arrongkir[3]);
+                    
+                    $("#ongkir").html(ongk);
+                    $.post("ajaxs/ajaxcart.php", {
+                            jenis: "setongkir",
+                            ongkir:arrongkir[3]
+                        },
+                        function(data) {
+
+                    });
+            }else{
+                $("#ongkir").html(ongk);
+                    $.post("ajaxs/ajaxcart.php", {
+                            jenis: "setongkir",
+                            ongkir:0
+                        },
+                        function(data) {
+
+                    });
+            }
+          
+            hitungtotal();
         }
+
+
 
         function hitungtotal(){
-            var 
-
-            // $.post("ajaxs/ajaxcart.php", {
-            //         jenis: "getharga",
-            //         idalamat:$("#alamat").val()
-            //     },
-            //     function(data) {
-            //         alert(data);
-            //         $("#isipaket").html(data);
-            // });
+            $.post("ajaxs/ajaxcart.php", {
+                    jenis: "total",
+                },
+                function(data) {
+                    $("#totalsemua").html("IDR "+data);
+            });
         }
-
+        hitungtotal();
     </script>
 </body>
 

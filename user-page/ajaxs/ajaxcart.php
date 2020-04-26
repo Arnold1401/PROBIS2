@@ -14,10 +14,10 @@
                 $nm=$arrkeranjang[$i]->get_nama();
                 $hg=$arrkeranjang[$i]->get_harga();
                 $jum=$arrkeranjang[$i]->get_jum();
-                $fhg=number_format($hg,0);
+                $fhg=number_format($hg,2);
 
                 $stotal=$hg*$jum;
-                $fstotal=number_format($stotal,0);
+                $fstotal=number_format($stotal,2);
                 $gmb1=$arrkeranjang[$i]->get_gambar();
                     $kal.="<tr class='text-center'>                                                           
                     <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
@@ -26,7 +26,7 @@
                         <h3>$nm</h3>
                     </td>
                     
-                    <td class='price'>Rp.$fhg</td>
+                    <td class='price'>IDR $fhg</td>
                     
                     <td class='quantity'>
                         <div class='input-group mb-3'>
@@ -34,7 +34,7 @@
                     </div>
                     </td>
                 
-                    <td class='total'>Rp.$fstotal</td>
+                    <td class='total'>IDR $fstotal</td>
                     <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
                 </tr>";
             }
@@ -62,7 +62,7 @@
     //total harga semua barang
     if ($_POST["jenis"]=="subtotalorderan") {
         $_SESSION["subtotal"]=hitungsubtotalorderan();
-        echo number_format(hitungsubtotalorderan());
+        echo number_format(hitungsubtotalorderan(),2);
     }
 
     function hitungsubtotalorderan(){
@@ -201,18 +201,24 @@
 
     if ($_POST["jenis"]=="getharga") {
         $conn=getConn();
-        $corigin="444";//surabaya
-        $ida=$_POST["idalamat"];
-        $query="select kecamatan from alamat_pengiriman where id_alamat='$ida'";
-        $statement = $conn->prepare($query);
-		$statement->execute();
-		$result = $statement->get_result();
-        foreach($result as $row)
-        {
-            $sdestination=$row["kecamatan"];
+
+        if (isset($_POST["idalamat"])) {
+            $ida=$_POST["idalamat"];
+            $query="select kecamatan from alamat_pengiriman where id_alamat='$ida'";
+            $statement = $conn->prepare($query);
+            $statement->execute();
+            $result = $statement->get_result();
+            foreach($result as $row)
+            {
+                $sdestination=$row["kecamatan"];
+            }
+            $arr=explode('-',$sdestination);
+            $sdestination=$arr[0];
         }
-        $arr=explode('-',$sdestination);
-        $sdestination=$arr[0];
+        $corigin="444";//surabaya
+        
+
+        
 
         if (isset($_SESSION["berat"])) {
           if ($_SESSION["berat"]>0) {
@@ -231,7 +237,7 @@
                     $service=$arrharga[$j]->service;
                     $harga=$arrharga[$j]->cost[0]->value;
                     $hargaformated=number_format($harga);
-                    $kal.="<option value='$code*$service*$estimasi*$harga'><b>$code</b> | <b>$service</b> | $estimasi hari | Rp.$hargaformated,-</option>";
+                    $kal.="<option value='$code*$service*$estimasi*$harga'><b>$code</b> | <b>$service</b> | $estimasi hari | IDR $hargaformated,-</option>";
                 }
             }
           }else{
@@ -276,5 +282,19 @@
         }
       }
 
+      if ($_POST["jenis"]=="setongkir") {
+          $_SESSION["bongkir"]=$_POST["ongkir"];
+      }
+
+      if ($_POST["jenis"]=="total") {
+        $ongkir=0;
+        $subtot=0;
+        if (isset($_SESSION["bongkir"])) {
+            $ongkir=$_SESSION["bongkir"];
+        }
+        $subtot=hitungsubtotalorderan();
+        $tot=$subtot+$ongkir;
+        echo number_format($tot,2);
+    }
     
 ?>
