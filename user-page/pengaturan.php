@@ -159,8 +159,8 @@ require_once("head.php");
                                 </div>
 
                                 <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="<?php echo $_SESSION["nomor_ktp"]; ?>" type="number" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
+                                <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
+                                <input value="<?php echo $_SESSION["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
                                 </div>
 
                                 <div class="form-group">
@@ -177,8 +177,8 @@ require_once("head.php");
                                 <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
                                 <!-- belum selesai -->
                                 <select option value="<?php echo $_SESSION["jeniskelamin_user"]; ?>" class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
-                                <option>Wanita</option>
-                                <option>Pria</option>                                     
+                                <option value='1'>Wanita</option>
+                                <option value='2'>Pria</option>                                     
                                 </select>                               
                                 </div>
                                 <!-- belum selesai -->
@@ -291,7 +291,6 @@ require_once("head.php");
             });
     }
 
-
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -317,6 +316,36 @@ require_once("head.php");
                 alert(data);
             });
     }
+
+    $( "#nomor_ktp" ).keyup(function() {
+        var _minus = false;
+        if (noktp<0) _minus = true;
+        var noktp=$( "#nomor_ktp" ).val();
+        noktp=noktp.replace("-","");
+        noktp=noktp.replace("-","");
+        noktp=noktp.replace("-","");
+        noktp=noktp.replace("-","");
+        alert(noktp);
+        c = "";
+        panjang = noktp.length;
+        j = 0;
+        for (i = panjang; i > 0; i--)
+        {
+            ;
+            
+            if ((((i) % 4) == 0) && (j != 1))
+            {
+                c = noktp.substr(i-1,1) + "-" + c;
+            }else
+            {   c = noktp.substr(i-1,1) + c;    }
+        }
+        
+        if (_minus) c = "-" + c ;
+        if(panjang >= 16){
+            c = c.substr(0,panjang+3);
+        }
+        $( "#nomor_ktp" ).val(c);
+    });
 
     $("#upbutton").click(function(){
         var fd = new FormData();
