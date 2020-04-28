@@ -98,14 +98,50 @@ require_once("head.php");
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">
+          <!-- isi detail produk -->
+          <?php
+            $boleh=false;
+            $id="";
+            $nama="";
+            $harga=""; 
+            $foto=""; 
+            if (isset($_GET["pid"])) {
+              if ($_GET["pid"]!="") {
+                $boleh=true;
+                $pid=$_GET["pid"];
+              }else{
+                //header("location:produk.php");
+              }
+            }else{
+              //header("location:produk.php");
+            }
+            include_once "conn.php";
+            $conn=getConn();
+            if ($boleh) {
+              $sql = "select * from barang where id_barang='$pid'";
+              $statement = $conn->prepare($sql);
+              $statement->execute();
+              $result = $statement->get_result();
+              foreach($result as $row)
+              {
+                $id=$row["id_barang"];
+                $nama= $row['nama_barang'] ;
+                $harga=$row['harga_jual']; 
+                $foto=$row['foto_barang']; 
+                $fharga=number_format($harga);
+              }
+              $conn->close();
+            }
+
+          ?>
           <div class="row py-2">
             <div class="col-lg-6 mb-5 ftco-animate">
-              <a href="images/product-1.jpg" class="image-popup"><img src="images/product-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
+              <a href="images/product-1.jpg" class="image-popup"><img src="<?php echo $foto;?>" class="img-fluid" alt="Colorlib Template"></a>
             </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-              <h3>Bell Pepper</h3>
+              <h3><?php echo $nama;?></h3>
 
-              <p class="price"><span>Rp120.00</span></p>
+              <p class="price"><span><?php echo $harga;?></span></p>
               <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
               </p>
               <div class="row mt-4">
