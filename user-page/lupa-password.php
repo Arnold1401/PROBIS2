@@ -34,7 +34,7 @@ require_once("headlogin.php");
             <form action="#" class="bg-white p-5 contact-form">
                 <div class="col-md-12 heading-section text-center ftco-animate">
                     
-          	        <span class="subheading">Hello pelanggan, Isi untuk reset password Anda</span>            
+          	        <span class="subheading">Hello pelanggan, Isi Email Anda untuk reset password</span>            
                 </div>
 
                 <!-- Login -->
