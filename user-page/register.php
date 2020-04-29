@@ -111,7 +111,7 @@ require_once("headlogin.php");
                     <select class="form-control" name="prov" id="cb_prov" onchange="cb_city()" aria-describedby="helpprovinsi_user" required>
                     <!-- isi ajax getprovinsi -->
                     </select>
-                    <small id="helpprovinsi_user" class="invalid-feedback">Isi Alamat Anda</small>
+                    <small id="helpprovinsi_user" class="invalid-feedback">Pilih Provinsi Anda tinggal</small>
                 </div>
 
                 <div class="form-group">
@@ -119,7 +119,7 @@ require_once("headlogin.php");
                     <select class="form-control" name="kota" id="cb_kota" onchange="cb_subdistrict()" aria-describedby="helpkota_user" required>
             <!-- isi ajax kota -->
                     </select>
-                    <small id="helpkota_user" class="invalid-feedback">Isi Alamat Anda</small>
+                    <small id="helpkota_user" class="invalid-feedback">Pilih Kota Anda tinggal</small>
                 </div>
 
                 <div class="form-group">
@@ -127,7 +127,7 @@ require_once("headlogin.php");
                     <select class="form-control" name="camat" id="cb_kecamatan" aria-describedby="helpkecamatan_user" required>
               <!-- isi ajax subdistrict -->
                 </select>
-                    <small id="helpkecamatan_user" class="invalid-feedback">Isi Alamat Anda</small>
+                    <small id="helpkecamatan_user" class="invalid-feedback">Pilih Kecamatan Anda tinggal</small>
                 </div>
 
                 <div class="form-group">
@@ -425,6 +425,7 @@ function upload() {
             console.log(data);
             $("#cb_prov").html(data);
         });
+        $("#cb_prov").val(-1);
     }
 
     cb_prov();

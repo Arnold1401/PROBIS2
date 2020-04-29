@@ -178,12 +178,33 @@ require_once("head.php");
                             <span id="totalsemua">IDR 0</span>
                         </p>
                     </div>
-                    <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Bayar</a></p>
+                    <p><a data-toggle="modal" data-target="#mycheckout" class="btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
                 </div>
             </div>
         </div>
     </section>
     <!-- end cart -->
+
+    <!-- modal untuk checkout -->
+    <div class="modal fade" id="mycheckout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pilih Metode Pembayaran</h5>
+                </div>
+                <div class="modal-body ">
+                    <div class="form-group mx-5">
+                        <button type="button" class="btn btn-info btn-lg mx-5">Hutang</button>
+                        <button type="button" class="btn btn-primary btn-lg">Lunas</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of modal untuk checkout -->
     
     <?php
     include_once('justfooter.php')
