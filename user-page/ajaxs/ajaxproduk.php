@@ -22,7 +22,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 		<div class='col-md-6 col-lg-3 my-1'>
 			<div class='product'>
 			<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
-			<div class='text py-3 pb-4 px-3 text-center'>
+			<div class='text py-3 pb-4 px-2 text-center'>
 				<h3><strong><a href=\"detailproduk.php?pid=$id\">$nama</a></strong></h3>
 				<h3><strong><a >Rp$fharga</a></strong></h3> <br>
 				<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
