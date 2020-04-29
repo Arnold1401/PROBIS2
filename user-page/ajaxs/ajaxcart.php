@@ -100,7 +100,6 @@
             echo "barang ganti jumlah";
             echo "berat".hitungberat();
         }
-      
         
     }
     

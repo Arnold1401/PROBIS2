@@ -283,7 +283,6 @@ require_once("head.php");
                             ongkir:0
                         },
                         function(data) {
-
                     });
             }
           

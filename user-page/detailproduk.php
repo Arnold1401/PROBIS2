@@ -47,13 +47,13 @@ require_once("head.php");
 
           <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
           <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
-        echo $count;
-    }else{
-        echo 0;
-    }
- ?>]</a></li>
+                                                                                                                              $arrkeranjang = unserialize($_SESSION["keranjang"]);
+                                                                                                                              $count = count($arrkeranjang);
+                                                                                                                              echo $count;
+                                                                                                                            } else {
+                                                                                                                              echo 0;
+                                                                                                                            }
+                                                                                                                            ?>]</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION["nama_perusahaan"])) {
                                                                                                                                               echo $_SESSION["nama_perusahaan"];
@@ -100,61 +100,65 @@ require_once("head.php");
         <div class="tab-pane fade show active" id="nav-detail" role="tabpanel" aria-labelledby="nav-detail-tab">
           <!-- isi detail produk -->
           <?php
-            $boleh=false;
-            $id="";
-            $nama="";
-            $harga=""; 
-            $foto=""; 
-            if (isset($_GET["pid"])) {
-              if ($_GET["pid"]!="") {
-                $boleh=true;
-                $pid=$_GET["pid"];
-              }else{
-                //header("location:produk.php");
-              }
-            }else{
+          $boleh = false;
+          $pid = "";
+          $nama = "";
+          $harga = "";
+          $foto = "";
+          $desk = "";
+          if (isset($_GET["pid"])) {
+            if ($_GET["pid"] != "") {
+              $boleh = true;
+              $pid = $_GET["pid"];
+            } else {
               //header("location:produk.php");
             }
-            include_once "conn.php";
-            $conn=getConn();
-            if ($boleh) {
-              $sql = "select * from barang where id_barang='$pid'";
-              $statement = $conn->prepare($sql);
-              $statement->execute();
-              $result = $statement->get_result();
-              foreach($result as $row)
-              {
-                $id=$row["id_barang"];
-                $nama= $row['nama_barang'] ;
-                $harga=$row['harga_jual']; 
-                $foto=$row['foto_barang']; 
-                $fharga=number_format($harga);
-              }
-              $conn->close();
+          } else {
+            //header("location:produk.php");
+          }
+          include_once "conn.php";
+          $conn = getConn();
+          if ($boleh) {
+            $sql = "select * from barang where id_barang='$pid'";
+            $statement = $conn->prepare($sql);
+            $statement->execute();
+            $result = $statement->get_result();
+            foreach ($result as $row) {
+              $id = $row["id_barang"];
+              $nama = $row['nama_barang'];
+              $harga = $row['harga_jual'];
+              $foto = $row['foto_barang'];
+              $desk = $row['deskripsi_barang'];
+              $fharga = number_format($harga);
             }
+            $conn->close();
+          }
 
           ?>
           <div class="row py-2">
             <div class="col-lg-6 mb-5 ftco-animate">
-              <a href="images/product-1.jpg" class="image-popup"><img src="<?php echo $foto;?>" class="img-fluid" alt="Colorlib Template"></a>
+              <a href="images/product-1.jpg" class="image-popup"><img src="<?php echo $foto; ?>" class="img-fluid" alt="Colorlib Template"></a>
             </div>
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
-              <h3><?php echo $nama;?></h3>
+              <h3><?php echo $nama; ?></h3>
 
-              <p class="price"><span><?php echo $harga;?></span></p>
-              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
-              </p>
+              <p class="price"><span><?php echo $harga; ?></span></p>
+              <p><?php echo $desk; ?></p>
               <div class="row mt-4">
                 <div class="col-md-6">
                   <div class="form-group d-flex">
                     <div class="select-wrap">
                       <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                      <select name="" id="" class="form-control">
+                     
+                      <select name="" id="satuan" class="form-control">
+
                         <option value="">Small Box</option>
                         <option value="">Medium Box</option>
                         <option value="">Large Box</option>
                         <option value="">Extra Large Box</option>
+
                       </select>
+
                     </div>
                   </div>
                 </div>
@@ -177,7 +181,7 @@ require_once("head.php");
                   <p style="color: #000;">Stok tersedia</p>
                 </div>
               </div>
-              <p><a href="cart.html" class="btn btn-black py-3 px-5">Tambah Ke Keranjang</a></p>
+              <p><a href="cart.php" onclick=<?php echo "\"addtocart('$pid')\""; ?> class="btn btn-black py-3 px-5">Tambah Ke Keranjang</a></p>
             </div>
           </div>
         </div>
@@ -225,6 +229,20 @@ require_once("head.php");
         function(data) {
           window.location.href = "login.php";
         });
+    }
+
+    function addcart(params) {
+      $.ajax({
+        url: "ajaxs/ajaxcart.php",
+        method: "POST",
+        data: {
+          jenis: 'additem',
+          idbarang: params,
+        },
+        success: function(data) {
+          console.log(data);
+        }
+      });
     }
   </script>
 </body>
