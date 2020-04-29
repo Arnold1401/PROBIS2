@@ -244,10 +244,10 @@
           }
           
         }
-       
+        $_SESSION["bongkir"]=0;
        
         echo $kal;
-
+        
     }
 
     function getharga($corigin,$sdestination,$weight,$courier){

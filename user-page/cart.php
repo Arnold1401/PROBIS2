@@ -256,8 +256,7 @@ require_once("head.php");
                     console.log(data);
                     load();
                 });
-            
-            hitungtotal();
+            setongkir();
         }
 
         function stot() {
@@ -276,6 +275,7 @@ require_once("head.php");
                 },
                 function(data) {
                     $("#isipaket").html(data);
+                    $("#ongkir").html("IDR "+0.00);
                 });
             setongkir();
         }
@@ -298,12 +298,12 @@ require_once("head.php");
 
                     });
             }else{
-                $("#ongkir").html(ongk);
                     $.post("ajaxs/ajaxcart.php", {
                             jenis: "setongkir",
                             ongkir:0
                         },
                         function(data) {
+                            $("#ongkir").html("IDR "+0.00);
                     });
             }
           

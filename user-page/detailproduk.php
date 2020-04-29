@@ -150,13 +150,25 @@ require_once("head.php");
                     <div class="select-wrap">
                       <div class="icon"><span class="ion-ios-arrow-down"></span></div>
                      
+
+                    
                       <select name="" id="satuan" class="form-control">
 
-                        <option value="">Small Box</option>
-                        <option value="">Medium Box</option>
-                        <option value="">Large Box</option>
-                        <option value="">Extra Large Box</option>
-
+                        <?php
+                          $kal="";
+                          $conn=getConn();
+                        $sql1 = "select s.id_satuan as idsat,s.nama_satuan as sat from barang b,satuan s where b.id_satuan=s.id_satuan and b.id_barang='$pid'";
+                         $statement1 = $conn->prepare($sql1);
+                         $statement1->execute();
+                         $result1 = $statement1->get_result();
+                         foreach ($result1 as $row1) {
+                           $idsat = $row1["idsat"];
+                           $sat = $row1["sat"];
+                           $kal.="<option value='$idsat'>$sat</option>";
+                        }
+                        $conn->close();
+                        echo $kal;
+                     ?>
                       </select>
 
                     </div>
@@ -191,18 +203,42 @@ require_once("head.php");
               <form>
                 <div class="table-responsive">
                   <table class="table">
-
                     <tbody>
-                      <tr>
-                        <td>[nama reviewer]</td>
-                        <td>
-                          <p>[ratingya berapa]</p>
-                          <p>[isi reviewnya apa]</p>
-                          <p>[foto yg diupload]</p>
-                        </td>
-
-                      </tr>
+                    <?php
+                        $kal="";
+                        $conn=getConn();
+                        $sql2 = "select c.nama_pemilik as nama ,u.rating as rate ,u.isi_review as isi from ulasan u,customer c where c.id_cust=u.id_cust and u.id_barang='$pid'";
+                         $statement2 = $conn->prepare($sql2);
+                         $statement2->execute();
+                         $result2 = $statement2->get_result();
+                         foreach ($result2 as $row2) {
+                           $nama = $row2["nama"];
+                           $rate = $row2["rate"];
+                           $isi = $row2["isi"];
+                           $bintang="";
+                           $pad=5-$rate;
+                           for ($i=0; $i <$rate; $i++) { 
+                             $bintang.="<span><i class='ion-ios-star'></i></span>";
+                           }
+                           for ($i=0; $i <$pad ; $i++) { 
+                             $bintang.="<span><i class='ion-ios-star-outline'></i></span>";
+                           }
+                           $kal.="       <tr>
+                           <td>$nama</td>
+                           <td>
+                             <p>$bintang $rate/5</p>
+                             <p>$isi</p>
+                            
+                           </td>
+   
+                         </tr>";
+                        }
+                        $conn->close();
+                        echo $kal;
+                     ?>
                     </tbody>
+
+
                   </table>
                 </div>
               </form>
