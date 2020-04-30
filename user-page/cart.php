@@ -191,20 +191,100 @@ require_once("head.php");
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Pilih Metode Pembayaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
                 </div>
                 <div class="modal-body ">
-                    <div class="form-group mx-5">
-                        <button type="button" class="btn btn-info btn-lg mx-5">Hutang</button>
-                        <button type="button" class="btn btn-primary btn-lg">Lunas</button>
+                    <div class="form-group">
+                        <div class="alert alert-warning" role="alert">
+                            Syarat dan Ketentuan untuk cicilan<br>
+                            <ul>
+                                <li>Uang muka 15% dari total bayar</li>
+                                <li>Jatuh tempo pelunasan yaitu satu bulan dari tanggal pembelian</li>
+                                <li>Pelunasan dilakukan secara transfer dibayar lunas </li>
+                            </ul>
+                        </div>
+                        <a href="#">Cicilan <span class="text-left"> > </span></a> <hr>
+                        <a data-toggle="modal" data-target="#mySummary" href="#">Transfer <span class="text-left"> > </span> </a>
+                        
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                </div>
+                
             </div>
         </div>
     </div>
     <!-- end of modal untuk checkout -->
+
+    <!-- modal untuk summary midtrans -->
+    <div class="modal fade bd-example-modal-lg" id="mySummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Summary <span>[id hjual]</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class="form-group">
+                        <h5>Amount <span> <h4 class="text-right font-weight-bold">Rp[total]</h4> </span></h5>
+                        <hr>
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-detailorder-tab" data-toggle="tab" href="#nav-detailorder" role="tab" aria-controls="nav-detail" aria-selected="true">Detail Order</a>
+                                <a class="nav-item nav-link" id="nav-detailkirim-tab" data-toggle="tab" href="#nav-detailkirim" role="tab" aria-controls="nav-ulasan" aria-selected="false">Detail Pengiriman</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content my-4" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-detailorder" role="tabpanel" aria-labelledby="nav-detailorder-tab">
+                               
+                                <div class="col-md-12 ftco-animate">
+                                    <div class="cart-list">
+                                        <table class="table">
+                                            <thead class="thead-primary">
+                                                <tr class="text-center">
+                                                    <th>Nama Produk</th>                                                
+                                                    <th>Jumlah</th>
+                                                    <th>Total</th>                                 
+                                                </tr>
+                                            </thead>
+                                            <tbody id="isicart">
+                                                <!-- isi dengan ajax cart -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="nav-detailkirim" role="tabpanel" aria-labelledby="nav-detailkirim-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nama</h6>
+                                        <h6 class="namapemilik">[nama yg punya toko]</h6>
+                                        <br>
+                                        <h6>Nomor Telepon</h6>
+                                        <h6 class="nomorpemilik">[Nomor Telepon toko]</h6>
+                                        <br>
+                                        <h6>Email</h6>
+                                        <h6 class="emailpemilik">[email toko]</h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Alamat kirim</h6>
+                                        <h6 class="alamatpemilik">[alamat toko]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="" class="btn btn-outline-success">Selanjutnya</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of modal untuk summary midtrans -->
+
     
     <?php
     include_once('justfooter.php')
