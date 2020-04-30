@@ -21,21 +21,91 @@ function getorderid(){
    return $noinvoice;
 }
 
+if ($_POST['jenis']=="getid") {
+   echo getorderid();
+}
+
+function hitungsubtotalorderan(){
+   $subtotal=0;
+   if (isset($_SESSION["keranjang"])) {
+       $arrkeranjang=unserialize($_SESSION["keranjang"]);
+       $count=count($arrkeranjang);
+      
+       for ($i=0; $i <$count; $i++) { 
+           $subtotal+=$arrkeranjang[$i]->get_jum()*$arrkeranjang[$i]->get_harga();
+       }
+       
+   }
+   return $subtotal;
+}
+
 if ($_POST['jenis']=="bayarlunas") {
     $conn=getConn();
+
+    //total belanja
+    //total ongkir
+    //total semua
+
+
     $biayapengiriman= $_SESSION["shippingcost"];
     $totalbelanja=$_SESSION["grossamount"];
-    
+
     $totalsemua=$biayapengiriman+$totalbelanja;
     $_SESSION["totalsemua"]=$totalsemua;
+    ///////////////////
+ 
+
 
     $iduser=$_SESSION["idcust"];
     $idalamat=$_POST["idalamat"];
 
- 
     //BUAT ID ORDER untuk user
     $orderid=getorderid();
-  
+
+    //insert hjual
+    
+    $conn=getConn();
+    $tgl=date("Y-m-d");
+    $kurir=$_POST["kurir"];//paket dan kurir
+    $idsales='99';//pelayan customer
+    
+
+    $querystat="";
+
+    $sql1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid','$tgl','','$kurir','$idsales','$totalsemua','$iduser','1')";
+    if ($conn->query($sql1)) {
+      $querystat="hjual-berhasil";
+    }
+
+    $conn->close();
+   //insert djual
+   $arrkeranjang=unserialize($_SESSION["keranjang"]);
+   $count=count($arrkeranjang);
+   $totalbar=0;
+   for ($i=0; $i <$count ; $i++) { 
+       $idb=$arrkeranjang[$i]->get_idbarang();
+       $nm=$arrkeranjang[$i]->get_nama();
+       $hg=$arrkeranjang[$i]->get_harga();
+       $jum=$arrkeranjang[$i]->get_jum();
+       $fhg=number_format($hg,0);
+
+       $conn=getConn();
+       $subtotal=$hg*$jum;
+       $statbarang="Belum Kirim";
+       $sql2="INSERT INTO `detail_order`(`NomerOrder`,`id_barang`, `nama_barang`, `harga_barang`, `jum`, `subtotal`, `status`) VALUES ('$noinvoice','$idb','$nm','$hg','$jum','$subtotal','$statbarang')";
+       if ($conn->query($sql2)) {
+           $querystat.="djual-$i success";
+       }else{
+           $querystat.="djual-$i error";
+       }
+      $conn->close();
+   }
+
+
+
+
+
+
     // Required  orderid hjual
     $transaction_details = array(
        'order_id' => $orderid,
@@ -45,16 +115,15 @@ if ($_POST['jenis']=="bayarlunas") {
     //item details
     $arritem=[];
     $total=0;
-    $arr=unserialize($_SESSION["checkout"]);
+
+    $arr=unserialize($_SESSION["keranjang"]);
     for ($i=0; $i <count($arr); $i++) { 
-       $idcart=$arr[$i]->getIdCart();
-       $idbarang=$arr[$i]->getIdBarang();
-       $iduser =$arr[$i]->getIdUser();
-       $jum = $arr[$i]->getJumlah();
-       $harga = $arr[$i]->getHarga();
-       $subtotal = $arr[$i]->getSubtotal();
-       $nama = $arr[$i]->getNama();
-       $total+=$subtotal;
+
+       $idbarang=$arr[$i]->get_idbarang();
+       $jum = $arr[$i]->get_jum();
+       $harga = $arr[$i]->get_harga();
+       $nama = $arr[$i]->get_nama();
+
        $newrow0=array(
           "id"=>$idbarang,
           "price"=>$harga,
@@ -83,18 +152,21 @@ if ($_POST['jenis']=="bayarlunas") {
     $kodepos="";
     $telppenerima="";
 
-    $sql1 = "SELECT * FROM info_pengiriman where id_alamat='$idalamat'";
+    $sql1 = "SELECT c.nama_pemilik as nama,a.alamat_lengkap as jalan,a.kota as kota,a.kode_pos as kodepos,c.notelp as nohp  FROM alamat_pengiriman a,customer c where a.email=c.email and a.id_alamat='$idalamat'";
     $result1 = $conn->query($sql1);
     if ($result1->num_rows > 0) {
        while($row1 = $result1->fetch_assoc()) {
-          $namapenerima=$row1['NAMA_PENERIMA'];
-          $alamatkirim=$row1['JALAN'];
-          $kota=$row1["KOTA"];
-          $kodepos=$row1["KODEPOS"];
-          $telppenerima=$row1["NO_HP_PENERIMA"];
+          $namapenerima=$row1['nama'];
+          $alamatkirim=$row1['jalan'];
+          $kota=$row1["kota"];
+          $kodepos=$row1["kodepos"];
+          $telppenerima=$row1["nohp"];
        }
     }
   
+    $arrkota=explode('-',$kota);
+    $kota=$arrkota[0];
+
     $shipping_address = array(
        'Nama Penerima'    => $namapenerima,
        'Alamat Pengiriman' => $alamatkirim,
@@ -107,13 +179,13 @@ if ($_POST['jenis']=="bayarlunas") {
     $namauser="";
     $telpuser="";
     $emailuser="";
-    $sql0 = "SELECT * FROM user where id_user='$iduser'";
+    $sql0 = "SELECT * FROM customer where id_cust='$iduser'";
     $result0 = $conn->query($sql0);
     if ($result0->num_rows > 0) {
        while($row0 = $result0->fetch_assoc()) {
-          $namauser=$row0["NAMA_USER"];
-          $telpuser=$row0["TELP_USER"];
-          $emailuser=$row0["EMAIL_USER"];
+          $namauser=$row0["nama_pemilik"];
+          $telpuser=$row0["notelp"];
+          $emailuser=$row0["email"];
        }
     }
 
@@ -139,5 +211,3 @@ if ($_POST['jenis']=="bayarlunas") {
     $_SESSION["transaction"]=$transaction;
     echo json_encode($transaction);
 }
-
-?>

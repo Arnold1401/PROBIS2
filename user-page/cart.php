@@ -1,5 +1,6 @@
 <?php
 require_once("head.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -299,6 +300,7 @@ require_once("head.php");
                 function(data) {
                     $("#isicart").html(data);
                 });
+
             stot();
             ongkir();
         }
