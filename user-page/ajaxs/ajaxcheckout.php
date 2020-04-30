@@ -46,9 +46,10 @@ if ($_POST['jenis']=="bayarlunas") {
     //total ongkir
     //total semua
 
+    $kurir=$_POST["kurir"];//paket dan kurir
 
-    $biayapengiriman= $_SESSION["shippingcost"];
-    $totalbelanja=$_SESSION["grossamount"];
+    $biayapengiriman=$biaya;
+    $totalbelanja=hitungsubtotalorderan();
 
     $totalsemua=$biayapengiriman+$totalbelanja;
     $_SESSION["totalsemua"]=$totalsemua;
@@ -66,7 +67,7 @@ if ($_POST['jenis']=="bayarlunas") {
     
     $conn=getConn();
     $tgl=date("Y-m-d");
-    $kurir=$_POST["kurir"];//paket dan kurir
+   
     $idsales='99';//pelayan customer
     
 
