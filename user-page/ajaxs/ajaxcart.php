@@ -172,7 +172,6 @@
         }
     }
 
-
     if ($_POST["jenis"]=="removeitem") {
         $id=$_POST["idb"];
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
