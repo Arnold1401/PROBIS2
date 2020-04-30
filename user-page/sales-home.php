@@ -93,7 +93,6 @@ $id=1;
                                 <tr>
                                     <th>Tanggal Order</th>                                    
                                     <th>No Order</th>
-                                  <!--  <th>Kurir Pengiriman</th>--->
                                     <th>Sales</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -170,7 +169,7 @@ $id=1;
 
                                     <td>
                                         <button class="update_status"  id_pengiriman="<?php echo $row[1];?>" > Update</button>
-
+                                        <button class="btn_detail"  id_pengiriman="<?php echo $row[1];?>"  >Details</button>
                                     </td>
                                 </tr>
                         <?php
@@ -187,6 +186,13 @@ $id=1;
                         
                     </div>
                 </div>
+                    <h6>Details<h6><br/>
+                
+        
+                    <div class="col-md-12 ftco-animate" id="details" > 
+                        
+                    </div>
+          
             </div>
 
 
@@ -221,6 +227,16 @@ $id=1;
      ?>
      
    <script>
+
+    $(".btn_detail").click(function(){
+
+        var x= $(this).attr("id_pengiriman");
+
+        var link= "tabledetail.php?id="+x;
+        $("#details").load(link);
+
+    })
+
 
 
     $(".update_status").click(function(){
