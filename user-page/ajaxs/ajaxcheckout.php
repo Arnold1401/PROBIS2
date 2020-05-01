@@ -5,21 +5,26 @@ include_once '../classes/item.php';
 
 function getorderid()
 {
-   $noinvoice = date("ymd");
-   $jadi = 1;
-   $ada = "";
-   $conn = getConn();
-   $sql = "select max(id_hjual) as NO from hjual where id_hjual like '$noinvoice%'";
-   $result = $conn->query($sql);
-   if ($result->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
-         $ada = $row['NO'];
-      }
-      $jadi = intval(substr($ada, 6, 5)) + 1;
-   }
-   $noinvoice = date("ymd") . str_pad($jadi, 5, 0, STR_PAD_LEFT);
-   $conn->close();
+   $noinvoice="";
+        $jadi=1;
+        $ada="";
+        $conn=getConn();
+        $sql="select max(id_hjual) as NO from hjual where id_hjual like '$noinvoice%'";
+        $result = $conn->query($sql);
+        if ($result->num_rows>0) {
+            while($row = $result->fetch_assoc()) {
+                $ada=$row['NO'];
+            }
+            $jadi=intval(substr($ada,7,5))+1;
+        }
+        $noinvoice=date("ymd").str_pad($jadi,5,0,STR_PAD_LEFT);
+        $conn->close();
+
    return $noinvoice;
+}
+
+if ($_POST["jenis"]=='getid') {
+   echo getorderid();
 }
 
 function hitungsubtotalorderan()
@@ -37,8 +42,6 @@ function hitungsubtotalorderan()
 }
 
 
-
-
 if ($_POST["jenis"] == "summar") {
    $orderid=getorderid();
    sessionpagepay($orderid);
@@ -47,29 +50,62 @@ if ($_POST["jenis"] == "summar") {
 
 function insertdatabase($orderid)
 {
+   $stat="";
    //insert hjual
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid', '2020-05-01', NULL, 'pos-45kf-gf', '1', '175402', '9', '1');";
+
+
+   $tgl=date("Y-m-d");
+   $kurir = $_POST["kurir"]; //paket dan kurir
+   $totalsemua=$_SESSION["totalsemua"];
+   $iduser = $_SESSION["idcust"];
+
+   $idsales="";
+   $conn = getConn();
+   $q0="select id_sales as sales from customer where id_cust='$iduser'";
+   $result0 = $conn->query($q0);
+   if ($result0->num_rows > 0) {
+      while ($row0 = $result0->fetch_assoc()) {
+         $idsales = $row0['sales'];
+      }
+   }
    $conn->close();
 
-   //insert djual
    $conn = getConn();
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$totalsemua', '$iduser', '1');";
+   if ($conn->query($q1)) {
+      $stat.="hjual-berhasil";
+   }else{
+      $stat.="hjual-gagal";
+   }
+   $conn->close();
+
+
+   //insert djual
+  
+  
    $arr = unserialize($_SESSION["keranjang"]);
    for ($i = 0; $i < count($arr); $i++) {
 
       $idbarang = $arr[$i]->get_idbarang();
       $jum = $arr[$i]->get_jum();
       $harga = $arr[$i]->get_harga();
-      $nama = $arr[$i]->get_nama();
+      $subtotal=$jum*$harga;
+     
+      $conn = getConn();
+      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','1','$idbarang','$jum','$subtotal','0')";
       
-      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6])";
-
+      if ($conn->query($q2)) {
+         $stat.="djual$i-berhasil";
+      }else{
+         $stat.="djual$i-gagal";
+      }
+      $conn->close();
    }
+   
+   
 
-
-
-   $conn->close();
-
+   echo $stat;
 }
 
 function sessionpagepay($orderid)
@@ -77,7 +113,7 @@ function sessionpagepay($orderid)
    $idalamat = $_POST["idalamat"];
    $iduser = $_SESSION["idcust"];
    $biaya=$_POST["ongkir"];
-   $kurir = $_POST["kurir"]; //paket dan kurir
+  
 
    $totalbelanja = hitungsubtotalorderan();//total belanja
    $biayapengiriman = $biaya;//total ongkir
@@ -188,20 +224,12 @@ function sessionpagepay($orderid)
    );
 
    $_SESSION["transaction"] = $transaction;
-   echo json_encode($transaction);
+   //echo json_encode($transaction);
 }
 
 function getsummar()
 {
 
-}
-
-
-
-
-
-if ($_POST['jenis'] == "getid") {
-   echo getorderid();
 }
 
 
