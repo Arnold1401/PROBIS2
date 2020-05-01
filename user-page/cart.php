@@ -218,7 +218,7 @@ require_once("head.php");
     <!-- end of modal untuk checkout -->
 
     <!-- modal untuk summary midtrans -->
-    <div class="modal fade bd-example-modal-lg" id="mySummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- <div class="modal fade bd-example-modal-lg" id="mySummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -252,7 +252,7 @@ require_once("head.php");
                                                 </tr>
                                             </thead>
                                             <tbody id="isicart">
-                                                <!-- isi dengan ajax cart -->
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -284,7 +284,7 @@ require_once("head.php");
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- end of modal untuk summary midtrans -->
 
     
