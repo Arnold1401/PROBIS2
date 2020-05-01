@@ -302,13 +302,6 @@ require_once("head.php");
                     $("#isicart").html(data);
                 });
 
-                $.post("ajaxs/ajaxcheckout.php", {
-                    jenis: "getid",
-                },
-                function(data) {
-                    alert(data);
-                });
-
             stot();
             ongkir();
         }
@@ -422,8 +415,7 @@ require_once("head.php");
                     kurir:$("#isipaket").val(),
                 },
                 function(data) {
-                    console.log(data);
-                    //window.location.href="pagepay.php";
+                    window.location.href="pagepay.php";
                    
             });
         }

@@ -93,12 +93,13 @@ function insertdatabase($orderid)
       $subtotal=$jum*$harga;
      
       $conn = getConn();
-      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','1','$idbarang','$jum','$subtotal','0')";
+      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
       
       if ($conn->query($q2)) {
          $stat.="djual$i-berhasil";
       }else{
          $stat.="djual$i-gagal";
+         $stat.=mysqli_error($conn);
       }
       $conn->close();
    }
@@ -106,6 +107,7 @@ function insertdatabase($orderid)
    
 
    echo $stat;
+   session_unset($_SESSION["keranjang"]);
 }
 
 function sessionpagepay($orderid)

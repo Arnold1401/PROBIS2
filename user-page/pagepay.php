@@ -107,42 +107,17 @@ $snapToken = Snap::getSnapToken($transaction);
               snap.pay('<?php echo $snapToken;?>', {
                     // Optional
                     onSuccess: function(result){
-                      $.post("ajaxcheckout.php",
-                      {
-                        jenis:"inserttrans",
-                      },
-                      function(data){
-                        console.log(data);
                         window.location.href="status-order.php";
-                      }
-                      );
                       console.log(JSON.stringify(result, null, 2));
                     },
                     // Optional
                     onPending: function(result){
-                      $.post("ajaxcheckout.php",
-                      {
-                        jenis:"inserttrans",
-                      },
-                      function(data){
-                        console.log(data);
-                        window.location.href="status-order.php";
-                      }
-                      );
+                      window.location.href="status-order.php";
                       console.log(JSON.stringify(result, null, 2));
                     },
                     // Optional
                     onError: function(result){
-                      $.post("ajaxcheckout.php",
-                      {
-                        jenis:"inserttrans",
-                      },
-                      function(data){
-                        console.log(data);
                         window.location.href="status-order.php";
-
-                      }
-                      );
                       console.log(JSON.stringify(result, null, 2));
                     }
                 });
