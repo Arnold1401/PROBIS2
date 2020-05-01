@@ -72,7 +72,7 @@ function insertdatabase($orderid)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$totalsemua', '$iduser', '1');";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$totalsemua', '$iduser', 'Proses');";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
