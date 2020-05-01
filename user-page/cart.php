@@ -160,7 +160,7 @@ require_once("head.php");
 
                         </form>
                     </div>
-                    <p><a href="" onclick="hitungtotal()" class="btn btn-primary py-3 px-4">Cek</a></p>
+                    <p><a  onclick="hitungtotal()" class="text-light btn btn-primary py-3 px-4">Cek</a></p>
                 </div>
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -179,7 +179,7 @@ require_once("head.php");
                             <span id="totalsemua">IDR 0</span>
                         </p>
                     </div>
-                    <p><a data-toggle="modal" data-target="#mycheckout" class="btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
+                    <p><a data-toggle="modal" data-target="#mycheckout" class="text-light btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
                 </div>
             </div>
         </div>
@@ -207,7 +207,7 @@ require_once("head.php");
                             </ul>
                         </div>
                         <a href="#">Cicilan <span class="text-left"> > </span></a> <hr>
-                        <a data-toggle="modal" data-target="#mySummary" href="#">Transfer <span class="text-left"> > </span> </a>
+                        <a data-toggle="modal" data-target="#mySummary" onclick="summar()" href="#">Transfer <span class="text-left"> > </span> </a>
                         
                     </div>
                 </div>
@@ -227,10 +227,11 @@ require_once("head.php");
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body ">
+                <div class="modal-body " id="isisum">
                     <div class="form-group">
-                        <h5>Amount <span> <h4 class="text-right font-weight-bold">Rp[total]</h4> </span></h5>
+                        <h5>Total Bayar <span> <h4 class="text-right font-weight-bold">Rp[total]</h4> </span></h5>
                         <hr>
+                        NO.ORDER <span >13232332323</span>
                         <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-detailorder-tab" data-toggle="tab" href="#nav-detailorder" role="tab" aria-controls="nav-detail" aria-selected="true">Detail Order</a>
@@ -403,6 +404,22 @@ require_once("head.php");
             });
         }
         hitungtotal();
+
+
+        function summar(){
+            var arrongkir=$("#isipaket").val().split('*');
+            $.post("ajaxs/ajaxcheckout.php", {
+                    jenis: "summar",
+                    idalamat:$("#alamat").val(),
+                    ongkir:arrongkir[3],
+                    kurir:$("#isipaket").val(),
+                },
+                function(data) {
+                    console.log(data);
+                    window.location.href="pagepay.php";
+                   
+            });
+        }
     </script>
 </body>
 

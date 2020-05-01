@@ -4,6 +4,7 @@ require_once dirname(__FILE__) . '/midtrans-php/Midtrans.php';
 
 include "head.php";
 require 'classes/item.php';
+require 'conn.php';
 // Fill transaction details
 $transaction =$_SESSION["transaction"];
 
@@ -45,14 +46,15 @@ $snapToken = Snap::getSnapToken($transaction);
          <!-- tabel summarry -->
           <?php
           $kal="";
-             $arr=unserialize($_SESSION["checkout"]);
+             $arr=unserialize($_SESSION["keranjang"]);
              $total=0;
              for ($i=0; $i <count($arr); $i++) { 
-               $idbarang=$arr[$i]->getIdBarang();
-               $jum = $arr[$i]->getJumlah();
-               $harga = $arr[$i]->getHarga();
-               $subtotal = $arr[$i]->getSubtotal();
-               $nama = $arr[$i]->getNama();
+
+              $idbarang=$arr[$i]->get_idbarang();
+              $jum = $arr[$i]->get_jum();
+              $harga = $arr[$i]->get_harga();
+              $nama = $arr[$i]->get_nama();
+              $subtotal=$jum*$harga;
                $total+=$subtotal;
                $kal.="<tr>
                <td class='text-right'>$idbarang</td>
@@ -69,13 +71,13 @@ $snapToken = Snap::getSnapToken($transaction);
             <td></td>
             <td></td>
             <td colspan="2" class="text-right"><b>Total Belanja</b></td>
-            <td class="text-right">Rp.<?php echo $_SESSION["grossamount"]?></td>
+            <td class="text-right">Rp.<?php echo $_SESSION["tobelanja"]?></td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td colspan="2" class="text-right"><b>Biaya Pegiriman</b></td>
-            <td class="text-right">Rp.<?php echo $_SESSION["shippingcost"]?></td>
+            <td class="text-right">Rp.<?php echo $_SESSION["ongkir"]?></td>
           </tr>
           <tr>
             <td></td>
@@ -148,6 +150,3 @@ $snapToken = Snap::getSnapToken($transaction);
         </script>
   </body>
 </html>
-<?php
-  include "gatekeeper.php";
-?>
