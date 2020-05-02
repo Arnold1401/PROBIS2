@@ -302,10 +302,10 @@ require_once("head.php");
                 });
 
                 $.post("ajaxs/ajaxcheckout.php", {
-                    jenis: "getid",
+                    jenis: "getnotif",
                 },
                 function(data) {
-                    alert(data);
+                    console.log(data);
                 });
             stot();
             ongkir();

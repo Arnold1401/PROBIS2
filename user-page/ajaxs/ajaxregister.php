@@ -127,7 +127,7 @@
           }
 
       }
-
+      
       function getcity($province){
         $curl1 = curl_init();
         curl_setopt_array($curl1, array(
