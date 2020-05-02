@@ -195,7 +195,6 @@
         $count=count($arrkeranjang);
         echo $count;
     }
-    
 
     if ($_POST["jenis"]=="getharga") {
         $conn=getConn();
@@ -294,5 +293,5 @@
         $tot=$subtot+$ongkir;
         echo number_format($tot,2);
     }
-    
+  
 ?>

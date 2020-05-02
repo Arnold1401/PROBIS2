@@ -24,6 +24,9 @@ Config::$is3ds = true;
 $snapToken = Snap::getSnapToken($transaction);
 //echo "snapToken = ".$snapToken;
 ?>
+<?php
+require_once("head.php");
+?>
 <html>
 <body>
 
@@ -91,15 +94,17 @@ $snapToken = Snap::getSnapToken($transaction);
       <br>
       
       <div class="text-right">
-        <a class='gray_btn' href="checkout.php">Kembali ke Checkout</a>
-        <button href="#" class="btn btn-primary" onclick="bayar()">Bayar</button>
+        <a class='gray_btn' href="cart.php">Kembali ke Cart</a>
+        <button  class="btn btn-primary" onclick="bayar()">Bayar</button>
       </div>
 
     </div>
   </div>
 </div>
 
-
+<?php
+    include_once('justfooter.php')
+    ?>
 <!-- TODO: Remove ".sandbox" from script src URL for production environment. Also input your client key in "data-client-key" -->
 <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-UcTVoNfXmb4_kYpC"></script>
         <script type="text/javascript">
@@ -107,20 +112,49 @@ $snapToken = Snap::getSnapToken($transaction);
               snap.pay('<?php echo $snapToken;?>', {
                     // Optional
                     onSuccess: function(result){
-                        window.location.href="status-order.php";
+                        //window.location.href="status-order.php";
                       console.log(JSON.stringify(result, null, 2));
+                      console.log("ini tanpa stringfy");
+                      console.log(result["transaction_id"]);
+                      $.post("ajaxs/ajaxcheckout.php", {
+                              jenis: "deletecart",
+                          },
+                          function(data) {
+                            console.log(data);
+                            window.location.href="status-order.php";
+                      });
                     },
                     // Optional
                     onPending: function(result){
-                      window.location.href="status-order.php";
+                      //window.location.href="status-order.php";
                       console.log(JSON.stringify(result, null, 2));
+                      console.log("ini tanpa stringfy");
+                      console.log(result["transaction_id"]);
+                      $.post("ajaxs/ajaxcheckout.php", {
+                              jenis: "deletecart",
+                          },
+                          function(data) {
+                            console.log(data);
+                            window.location.href="status-order.php";
+                      });
+                     
                     },
                     // Optional
                     onError: function(result){
-                        window.location.href="status-order.php";
-                      console.log(JSON.stringify(result, null, 2));
+                        //window.location.href="status-order.php";
+                        console.log(JSON.stringify(result, null, 2));
+                        console.log("ini tanpa stringfy");
+                      console.log(result["transaction_id"]);
+                      $.post("ajaxs/ajaxcheckout.php", {
+                              jenis: "deletecart",
+                          },
+                          function(data) {
+                            console.log(data);
+                            window.location.href="status-order.php";
+                      });
                     }
                 });
+                
             }
         </script>
   </body>

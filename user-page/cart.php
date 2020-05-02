@@ -1,6 +1,5 @@
 <?php
 require_once("head.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -206,8 +205,8 @@ require_once("head.php");
                                 <li>Pelunasan dilakukan secara transfer dibayar lunas </li>
                             </ul>
                         </div>
-                        <a href="#">Cicilan <span class="text-left"> > </span></a> <hr>
-                        <a data-toggle="modal" data-target="#mySummary" onclick="summar()" href="#">Transfer <span class="text-left"> > </span> </a>
+                        <a href="#" onclick="hutang()">Cicilan <span class="text-left"> > </span></a> <hr>
+                        <a data-toggle="modal" data-target="#mySummary" onclick="lunas()" href="#">Transfer <span class="text-left"> > </span> </a>
                         
                     </div>
                 </div>
@@ -302,6 +301,12 @@ require_once("head.php");
                     $("#isicart").html(data);
                 });
 
+                $.post("ajaxs/ajaxcheckout.php", {
+                    jenis: "getid",
+                },
+                function(data) {
+                    alert(data);
+                });
             stot();
             ongkir();
         }
@@ -406,7 +411,7 @@ require_once("head.php");
         hitungtotal();
 
 
-        function summar(){
+        function lunas(){
             var arrongkir=$("#isipaket").val().split('*');
             $.post("ajaxs/ajaxcheckout.php", {
                     jenis: "summar",
@@ -417,6 +422,19 @@ require_once("head.php");
                 function(data) {
                     window.location.href="pagepay.php";
                    
+            });
+        }
+
+        function hutang(){
+            var arrongkir=$("#isipaket").val().split('*');
+            $.post("ajaxs/ajaxcheckout.php", {
+                    jenis: "piutang",
+                    idalamat:$("#alamat").val(),
+                    ongkir:arrongkir[3],
+                    kurir:$("#isipaket").val(),
+                },
+                function(data) {
+                    window.location.href="pagepay.php";
             });
         }
     </script>
