@@ -159,7 +159,7 @@ require_once("head.php");
 
                         </form>
                     </div>
-                    <p><a href="" onclick="hitungtotal()" class="btn btn-primary py-3 px-4">Cek</a></p>
+                    <p><a  onclick="hitungtotal()" class="text-light btn btn-primary py-3 px-4">Cek</a></p>
                 </div>
                 <div class="col-lg-6 mt-5 cart-wrap ftco-animate">
                     <div class="cart-total mb-3">
@@ -178,7 +178,7 @@ require_once("head.php");
                             <span id="totalsemua">IDR 0</span>
                         </p>
                     </div>
-                    <p><a data-toggle="modal" data-target="#mycheckout" class="btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
+                    <p><a data-toggle="modal" data-target="#mycheckout" class="text-light btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
                 </div>
             </div>
         </div>
@@ -191,20 +191,101 @@ require_once("head.php");
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Pilih Metode Pembayaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
                 </div>
                 <div class="modal-body ">
-                    <div class="form-group mx-5">
-                        <button type="button" class="btn btn-info btn-lg mx-5">Hutang</button>
-                        <button type="button" class="btn btn-primary btn-lg">Lunas</button>
+                    <div class="form-group">
+                        <div class="alert alert-warning" role="alert">
+                            Syarat dan Ketentuan untuk cicilan<br>
+                            <ul>
+                                <li>Uang muka 15% dari total bayar</li>
+                                <li>Jatuh tempo pelunasan yaitu satu bulan dari tanggal pembelian</li>
+                                <li>Pelunasan dilakukan secara transfer dibayar lunas </li>
+                            </ul>
+                        </div>
+                        <a href="#" onclick="hutang()">Cicilan <span class="text-left"> > </span></a> <hr>
+                        <a data-toggle="modal" data-target="#mySummary" onclick="lunas()" href="#">Transfer <span class="text-left"> > </span> </a>
+                        
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                </div>
+                
             </div>
         </div>
     </div>
     <!-- end of modal untuk checkout -->
+
+    <!-- modal untuk summary midtrans -->
+    <!-- <div class="modal fade bd-example-modal-lg" id="mySummary" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Summary <span>[id hjual]</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body " id="isisum">
+                    <div class="form-group">
+                        <h5>Total Bayar <span> <h4 class="text-right font-weight-bold">Rp[total]</h4> </span></h5>
+                        <hr>
+                        NO.ORDER <span >13232332323</span>
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-detailorder-tab" data-toggle="tab" href="#nav-detailorder" role="tab" aria-controls="nav-detail" aria-selected="true">Detail Order</a>
+                                <a class="nav-item nav-link" id="nav-detailkirim-tab" data-toggle="tab" href="#nav-detailkirim" role="tab" aria-controls="nav-ulasan" aria-selected="false">Detail Pengiriman</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content my-4" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-detailorder" role="tabpanel" aria-labelledby="nav-detailorder-tab">
+                               
+                                <div class="col-md-12 ftco-animate">
+                                    <div class="cart-list">
+                                        <table class="table">
+                                            <thead class="thead-primary">
+                                                <tr class="text-center">
+                                                    <th>Nama Produk</th>                                                
+                                                    <th>Jumlah</th>
+                                                    <th>Total</th>                                 
+                                                </tr>
+                                            </thead>
+                                            <tbody id="isicart">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="nav-detailkirim" role="tabpanel" aria-labelledby="nav-detailkirim-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nama</h6>
+                                        <h6 class="namapemilik">[nama yg punya toko]</h6>
+                                        <br>
+                                        <h6>Nomor Telepon</h6>
+                                        <h6 class="nomorpemilik">[Nomor Telepon toko]</h6>
+                                        <br>
+                                        <h6>Email</h6>
+                                        <h6 class="emailpemilik">[email toko]</h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Alamat kirim</h6>
+                                        <h6 class="alamatpemilik">[alamat toko]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="" class="btn btn-outline-success">Selanjutnya</button> 
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- end of modal untuk summary midtrans -->
+
     
     <?php
     include_once('justfooter.php')
@@ -218,6 +299,13 @@ require_once("head.php");
                 },
                 function(data) {
                     $("#isicart").html(data);
+                });
+
+                $.post("ajaxs/ajaxcheckout.php", {
+                    jenis: "getnotif",
+                },
+                function(data) {
+                    console.log(data);
                 });
             stot();
             ongkir();
@@ -256,8 +344,7 @@ require_once("head.php");
                     console.log(data);
                     load();
                 });
-            
-            hitungtotal();
+            setongkir();
         }
 
         function stot() {
@@ -276,6 +363,7 @@ require_once("head.php");
                 },
                 function(data) {
                     $("#isipaket").html(data);
+                    $("#ongkir").html("IDR "+0.00);
                 });
             setongkir();
         }
@@ -298,13 +386,12 @@ require_once("head.php");
 
                     });
             }else{
-                $("#ongkir").html(ongk);
                     $.post("ajaxs/ajaxcart.php", {
                             jenis: "setongkir",
                             ongkir:0
                         },
                         function(data) {
-
+                            $("#ongkir").html("IDR "+0.00);
                     });
             }
           
@@ -322,6 +409,34 @@ require_once("head.php");
             });
         }
         hitungtotal();
+
+
+        function lunas(){
+            var arrongkir=$("#isipaket").val().split('*');
+            $.post("ajaxs/ajaxcheckout.php", {
+                    jenis: "summar",
+                    idalamat:$("#alamat").val(),
+                    ongkir:arrongkir[3],
+                    kurir:$("#isipaket").val(),
+                },
+                function(data) {
+                    window.location.href="pagepay.php";
+                   
+            });
+        }
+
+        function hutang(){
+            var arrongkir=$("#isipaket").val().split('*');
+            $.post("ajaxs/ajaxcheckout.php", {
+                    jenis: "piutang",
+                    idalamat:$("#alamat").val(),
+                    ongkir:arrongkir[3],
+                    kurir:$("#isipaket").val(),
+                },
+                function(data) {
+                    window.location.href="pagepay.php";
+            });
+        }
     </script>
 </body>
 

@@ -131,6 +131,14 @@ require_once("headlogin.php");
                 </div>
 
                 <div class="form-group">
+                    
+                    <input type='text' class="form-control" name="kodepos" id="kodepos" aria-describedby="helpkodepos" required>
+              <!-- isi ajax subdistrict -->
+                </select>
+                    <small id="helpkodepos" class="invalid-feedback">Masukan Kode pos anda</small>
+                </div>
+
+                <div class="form-group">
                   <textarea placeholder="Alamat Anda" name="alamat" class="form-control" id="alamat_user" rows="3" aria-describedby="helpalamat_user" required></textarea>
                   <small id="helpalamat_user" class="invalid-feedback">Masukkan Alamat Anda</small>
                 </div>
@@ -281,6 +289,7 @@ function register() {
     var lahiruser = $("#lahir_user").val();
     var jeniskelaminuser = $("#jeniskelamin_user").val();
     var alamatuser = $("#alamat_user").val();
+    var kodepos = $("#kodepos").val();
     var salespilihanuser = $("#sales_pilihanuser").val();
 
     var emailuser = $("#email_user").val();
@@ -324,6 +333,9 @@ function register() {
     var prov = $("#cb_prov").val();
     var kota = $("#cb_kota").val();
     var camat = $("#cb_kecamatan").val();
+
+    //ini belum
+    var kodepos = $("#kodepos").val();
     
     if (namaperusahaan == "" || namauser == "" || nomorktp == "" || fotoktp == "" || telpuser == "" || 
     lahiruser == "" || jeniskelaminuser == "" || alamatuser == "" || emailuser == ""||
@@ -350,7 +362,8 @@ function register() {
             password_user:passworduser,
             prov:prov,
             kota:kota,
-            camat:camat
+            camat:camat,
+            kodepos:kodepos
         },
         function (data) {
             if (data.search("berhasil register")>0) {

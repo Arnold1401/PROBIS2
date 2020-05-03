@@ -100,7 +100,6 @@
             echo "barang ganti jumlah";
             echo "berat".hitungberat();
         }
-      
         
     }
     
@@ -172,8 +171,7 @@
             echo "null";
         }
     }
-
-
+    
     if ($_POST["jenis"]=="removeitem") {
         $id=$_POST["idb"];
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
@@ -197,7 +195,6 @@
         $count=count($arrkeranjang);
         echo $count;
     }
-    
 
     if ($_POST["jenis"]=="getharga") {
         $conn=getConn();
@@ -245,10 +242,10 @@
           }
           
         }
-       
+        $_SESSION["bongkir"]=0;
        
         echo $kal;
-
+        
     }
 
     function getharga($corigin,$sdestination,$weight,$courier){
@@ -296,5 +293,5 @@
         $tot=$subtot+$ongkir;
         echo number_format($tot,2);
     }
-    
+  
 ?>

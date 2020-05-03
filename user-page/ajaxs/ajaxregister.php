@@ -127,7 +127,7 @@
           }
 
       }
-
+      
       function getcity($province){
         $curl1 = curl_init();
         curl_setopt_array($curl1, array(
@@ -319,6 +319,7 @@
         $prov = $_POST["prov"];
         $kota = $_POST["kota"];
         $camat = $_POST["camat"];
+        $kodepos = $_POST["kodepos"];
         $password_user = $_POST["password_user"];
 
         $status_akun = 0;//menunggu
@@ -357,7 +358,7 @@
 
         if ($ctr == 0) {
             $sql2 = "insert into customer (email,nama_perusahaan,nama_pemilik,foto_ktp,nomor_ktp,tanggal_lahir,jenis_kelamin,password,notelp,status,id_sales,token) values ('$email_user','$nama_perusahaan','$nama_user','$foto_ktp','$nomor_ktp','$lahir_user','$jeniskelamin_user','$password_user','$telp_user','0','$sales_pilihanuser','$token')";
-            $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas) values ('$email_user','$prov','$kota','$camat','$alamat_user','1')";
+            $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas,kode_pos) values ('$email_user','$prov','$kota','$camat','$alamat_user','1','$kodepos')";
     
             if ($conn->query($sql2)) {
                 if($conn->query($sql3)){
@@ -430,7 +431,7 @@
           $mail->Port       = 587;                                    // TCP port to connect to
 
           //Recipients
-          $mail->setFrom('oemosmart@gmail.com', 'Emos Mart');
+          $mail->setFrom('emosmart@gmail.com', 'Emos Mart');
           $mail->addAddress($sendto,$namauser);     // Add a recipient
           //$mail->addAddress('ellen@example.com');               // Name is optional
           //$mail->addReplyTo('info@example.com', 'Information');
