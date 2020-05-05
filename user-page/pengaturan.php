@@ -1,5 +1,11 @@
 <?php
 require_once("head.php");
+include_once "conn.php";
+$email  = $_SESSION["email_user"];
+$sql = "SELECT * FROM customer where email = '$email'";
+$conn = getConn();
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html>
@@ -98,7 +104,7 @@ require_once("head.php");
 
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="<?php if(isset($_SESSION["email_user"])){echo $_SESSION["email_user"];}?>" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                                    <input value="<?php echo $row["email"] ?>" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
                                     
                                     </div>
 
@@ -135,7 +141,7 @@ require_once("head.php");
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
                                         <small id="helpId" class="form-text text-muted">Nama Perusahaan</small>                            
-                                        <input value="<?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?>"  type="text" class="form-control" name="nama_perusahaan" id="nama_perusahaan" aria-describedby="helpId" placeholder="emos">  
+                                        <input value="<?php echo $row["nama_perusahaan"]?>"  type="text" class="form-control" name="nama_perusahaan" id="nama_perusahaan" aria-describedby="helpId" placeholder="emos">  
                                     </div>
                                     <hr>
                                     <!-- belum selesai -->
@@ -155,30 +161,30 @@ require_once("head.php");
 
                                     <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
-                                <input value="<?php echo $_SESSION["nama_user"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
+                                <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
                                 </div>
 
                                 <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="<?php echo $_SESSION["nomor_ktp"]; ?>" type="number" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
+                                <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
+                                <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
                                 </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nomor Telpon Anda</small>              
-                                <input value="<?php echo $_SESSION["telp_user"]; ?>" type="number" class="form-control" name="telp_user" id="telp_user" placeholder="Nomor Telpon">                        
+                                <input value="<?php echo $row["notelp"]; ?>" type="number" class="form-control" name="telp_user" id="telp_user" placeholder="Nomor Telpon">                        
                                 </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
-                                <input value="<?php echo $_SESSION["lahir_user"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
+                                <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
                                 </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
                                 <!-- belum selesai -->
-                                <select option value="<?php echo $_SESSION["jeniskelamin_user"]; ?>" class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
-                                <option>Wanita</option>
-                                <option>Pria</option>                                     
+                                <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
+                                <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
+                                <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
                                 </select>                               
                                 </div>
                                 <!-- belum selesai -->
@@ -291,7 +297,6 @@ require_once("head.php");
             });
     }
 
-
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -317,6 +322,36 @@ require_once("head.php");
                 alert(data);
             });
     }
+
+    $( "#nomor_ktp" ).keyup(function() {
+        var _minus = false;
+        if (noktp<0) _minus = true;
+        var noktp=$( "#nomor_ktp" ).val();
+        noktp=noktp.replace("-","");
+        noktp=noktp.replace("-","");
+        noktp=noktp.replace("-","");
+        noktp=noktp.replace("-","");
+        alert(noktp);
+        c = "";
+        panjang = noktp.length;
+        j = 0;
+        for (i = panjang; i > 0; i--)
+        {
+            ;
+            
+            if ((((i) % 4) == 0) && (j != 1))
+            {
+                c = noktp.substr(i-1,1) + "-" + c;
+            }else
+            {   c = noktp.substr(i-1,1) + c;    }
+        }
+        
+        if (_minus) c = "-" + c ;
+        if(panjang >= 16){
+            c = c.substr(0,panjang+3);
+        }
+        $( "#nomor_ktp" ).val(c);
+    });
 
     $("#upbutton").click(function(){
         var fd = new FormData();
