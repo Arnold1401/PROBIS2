@@ -247,9 +247,8 @@ require_once("adminhead.php");
            // 
             if ($(this).data("value") == "") {
                 $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable 
-               
             }
-            //$('#tabledetailorder').empty();
+            $('#datatableDetailOrder').empty();
         } );
         //end of filter list penjualan berdasarkan status yang dpilih
 

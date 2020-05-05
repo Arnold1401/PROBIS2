@@ -1,5 +1,24 @@
 <?php
 require_once("head.php");
+include_once "conn.php";
+
+$boleh = false;
+          $pid = "";
+          $nama = "";
+          $harga = "";
+          $foto = "";
+          $desk = "";
+          if (isset($_GET["pid"])) {
+            if ($_GET["pid"] != "") {
+              $boleh = true;
+              $pid = $_GET["pid"];
+            } else {
+              //header("location:produk.php");
+            }
+          } else {
+            //header("location:produk.php");
+          }
+         
 ?>
 
 <!DOCTYPE html>
@@ -93,7 +112,24 @@ require_once("head.php");
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-item nav-link active" id="nav-detail-tab" data-toggle="tab" href="#nav-detail" role="tab" aria-controls="nav-detail" aria-selected="true">Detail</a>
-          <a class="nav-item nav-link" id="nav-ulasan-tab" data-toggle="tab" href="#nav-ulasan" role="tab" aria-controls="nav-ulasan" aria-selected="false">Ulasan</a>
+          <a class="nav-item nav-link" id="nav-ulasan-tab" data-toggle="tab" href="#nav-ulasan" role="tab" aria-controls="nav-ulasan" aria-selected="false">Ulasan
+          <!-- byk ulasan -->
+          <?php
+            $kal="";
+            $conn=getConn();
+            $sql2 = "select count(id_ulasan) as ulasan from ulasan where id_barang='$pid'";
+              $statement2 = $conn->prepare($sql2);
+              $statement2->execute();
+              $result2 = $statement2->get_result();
+              foreach ($result2 as $row2) {
+                $ulasan = $row2["ulasan"];
+                $kal.=" ($ulasan)";
+            }
+            $conn->close();
+            echo $kal;
+          ?>
+          <!-- end of byk ulasan -->
+          </a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
@@ -200,9 +236,50 @@ require_once("head.php");
         <div class="tab-pane fade" id="nav-ulasan" role="tabpanel" aria-labelledby="nav-ulasan-tab">
           <div class="row py-4">
             <div class="col-md-12 ftco-animate">
+            <form>
+            <h6> <?php echo $nama; ?> </h6>
+                        <?php
+                        
+                        $kal="";
+                        $conn=getConn();
+                        $sql2 = "select avg(rating) as rate, count(id_ulasan) as ulasan from ulasan where id_barang='$pid'";
+                         $statement2 = $conn->prepare($sql2);
+                         $statement2->execute();
+                         $result2 = $statement2->get_result();
+                         foreach ($result2 as $row2) {
+                           $ulasan = $row2["ulasan"];
+                           $rate = $row2["rate"];
+                          // $isi = $row2["isi"];
+                           $bintang="";
+                           $pad=5-$rate;
+                           if ($rate == 0) {
+                             $kal.="Belum ada ulasan";
+                           }
+                           else if ($rate != 0) {
+                            for ($i=0; $i <$rate; $i++) { 
+                              $bintang.="<span><i class='ion-ios-star' style='color: goldenrod;font-size: 2.0rem;padding: 0 0rem;'></i></span>";
+                            }
+                            for ($i=0; $i <$pad ; $i++) { 
+                              $bintang.="<span><i class='ion-ios-star-outline' style='font-size: 2.0rem;padding: 0 0rem;'></i></span>";
+                            }
+                            $kal.="
+                               <h1>$rate <span style='font-size:18pt;'> /5 </span></h1>
+                              <p>$bintang </p>
+                              <p>($ulasan) ulasan</p>
+                          ";
+                           }
+                           
+                        }
+                        $conn->close();
+                        echo $kal;
+                     ?>
+                        
+            </form>
+
+            <!-- rating dan ulasan dari customer -->
               <form>
                 <div class="table-responsive">
-                  <table class="table">
+                  <table class="table table-sm">
                     <tbody>
                     <?php
                         $kal="";
@@ -218,17 +295,16 @@ require_once("head.php");
                            $bintang="";
                            $pad=5-$rate;
                            for ($i=0; $i <$rate; $i++) { 
-                             $bintang.="<span><i class='ion-ios-star'></i></span>";
+                            $bintang.="<span><i class='ion-ios-star' style='color: goldenrod;font-size: 1.8rem;padding: 0 0rem;'></i></span>";
                            }
                            for ($i=0; $i <$pad ; $i++) { 
-                             $bintang.="<span><i class='ion-ios-star-outline'></i></span>";
+                            $bintang.="<span><i class='ion-ios-star-outline' style='font-size: 1.8rem;padding: 0 0rem;'></i></span>";
                            }
                            $kal.="       <tr>
-                           <td>$nama</td>
+                           <td><img src='images/smile.png' alt='' width='50px' height='45px' style='margin-right:10px'>   $nama</td>
                            <td>
                              <p>$bintang $rate/5</p>
                              <p>$isi</p>
-                            
                            </td>
    
                          </tr>";
@@ -237,11 +313,10 @@ require_once("head.php");
                         echo $kal;
                      ?>
                     </tbody>
-
-
                   </table>
                 </div>
               </form>
+              <!--end of  rating dan ulasan dari customer -->
             </div>
           </div>
         </div>
@@ -280,6 +355,7 @@ require_once("head.php");
         }
       });
     }
+
   </script>
 </body>
 

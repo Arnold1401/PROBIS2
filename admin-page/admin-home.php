@@ -78,42 +78,7 @@ include_once("adminconn.php");
                         <canvas  id="UserChart"> </canvas>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Data Pembelian</strong>
-                            </div>
-                            <div class="card-body">
-                            <ul id="filter">
-                                <li class="btn"> <label class="font-weight-bold"> Filter Status > </label> </li>
-                                <li class="btn"><a href="#datatablePenjualan" data-value="" active>Semua</a></li>
-                                <li class="btn"><a href="#datatablePenjualan" data-value="Proses">Proses</a></li>
-                                <li class="btn"><a href="#datatablePenjualan" data-value="Pengiriman">Pengiriman</a></li>
-                                <li class="btn"><a href="#datatablePenjualan" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
-                                <li class="btn"><a href="#datatablePenjualan" data-value="Selesai">Selesai</a></li>
-                                <li class="btn"><a href="#datatablePenjualan" data-value="Piutang">Piutang</a></li>
-                            </ul>
-
-                            <div class="table-responsive">
-                              <table id="datatablePenjualan" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>#ID</th>
-                                            <th>Tanggal Order</th>
-                                            <th>Customer</th>
-                                            <th>Status Order</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- .row -->
+                
                 
 
             </div><!-- .animated -->
@@ -175,88 +140,7 @@ include_once("adminconn.php");
 		});
 
     $(document).ready(function () {
-        var table= "";
-        table = $('#datatablePenjualan').DataTable( 
-        {
-            dom: 'Bfrtip',
-             "buttons": [ 'copy', 'excel', 'pdf' ],
-             "processing":true,
-             "language": {
-                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
-                "zeroRecords": "Maaf Data yang dicari tidak ada",
-                "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                "infoEmpty": "Tidak ada data",
-                "infoFiltered": "(filtered from _MAX_ total records)",
-                "search":"Cari",
-                "paginate": {
-                    "first":      "Pertama",
-                    "last":       "terakhir",
-                    "next":       "Selanjutnya",
-                    "previous":   "Sebelumnya"
-                    },
-                },
-             "serverSide":true,
-             "ordering":true, //set true agar bisa di sorting
-             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-             "ajax":{
-                 "url":"datatable_penjualan.php",
-                 "type":"POST"
-             },
-             "deferRender":true,
-             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-             "columns":[
-                
-                 {"data":"id_hjual"},
-                 {"data":"tanggal_order"},
-                 {"data":"id_cust"},
-                 {"data":"status_order",
-                    "searchable": false,
-                    "orderable":false,
-                    "render": function (data, type, row) {  
-                        if (row.status_order == 'Proses') //proses
-                        {
-                            return "<label class='text-success font-weight-bold'>Proses</label> ";
-                        }
-                        else if (row.status_order == 'Pengiriman') //pengriman
-                        {
-                            return "<label class='text-warning font-weight-bold'>Pengiriman</label>";
-                        }
-                        else if (row.status_order == 'Sampai Tujuan') //piutang
-                        {
-                            return "<label class='text-info font-weight-bold'>Barang telah tiba</label>";
-                        }
-                        else if (row.status_order == 'Selesai') //selesai
-                        {
-                            return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
-                            "<small> Diterima : " + row.tanggal_orderselesai + " </small>";
-                        }
-                        else if (row.status_order == 'Piutang') //piutang
-                        {
-                            return "<label class='text-danger font-weight-bold'>Piutang</label>";
-                        }                       
-                    }
-                },
-                 {                   
-                    "target": -1,
-                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-primary'>Detail</button>"
-                },              
-             ],
-        }) 
-        //end of datatble list barang
-
-        //filter list order berdasarkan status yang dpilih
-        var table = $('#datatablePenjualan').DataTable();
-        $('#filter').on( 'click', 'a', function () {
-            console.log($(this).data("value"));
-            table.search( $(this).data("value")).draw();
-           // 
-            if ($(this).data("value") == "") {
-                $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable 
-               
-            }
-            //$('#tabledetailorder').empty();
-        } );
-        //end of filter list order berdasarkan status yang dpilih
+        
     });
 </script>
 </html>
