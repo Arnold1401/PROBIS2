@@ -77,54 +77,37 @@ require_once("adminhead.php");
                 <!-- Header piutang-->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card">
+                        <div class="card" id="card_header_penjualan">
                             <div class="card-header">
-                                <strong class="card-title">Perusahaan yang memiliki piutang</strong>
+                                <strong class="card-title">List Penjualan</strong>
                             </div>
                             <div class="card-body">
+                           
+                            <ul id="filter">
+                                <li class="btn"><label class="font-weight-bold"> Filter Status</label></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="" active>Semua</a></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" type="button" data-value="Proses">Proses</a></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Pengiriman">Pengiriman</a></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Selesai">Selesai</a></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Piutang">Piutang</a></li>
+                            </ul>
+
                             <div class="table-responsive">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                              <table id="datatablePenjualan" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>No Resi</th>
-                                            <th>Nama Perusahaan</th>
-                                            <th>Tanggal Jatuh Tempo</th>
-                                            <th>Total Piutang</th>
+                                            <th>#ID</th>
+                                            <th>Tanggal Order</th>
+                                            <th>Customer</th>
+                                            <th>Status Order</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>01012020001 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>20/Maret/2010</td>
-                                            <td>Rp20.000,-</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>01012020001 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>20/Maret/2010</td>
-                                            <td>Rp20.000,-</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                      
-                                        <tr>
-                                            <td>01012020001 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>20/Maret/2010</td>
-                                            <td>Rp20.000,-</td>
-                                            <td>
-                                              <button type="button" name="" id="" class="btn btn-primary">Detail</button>                                          
-                                            </td>
-                                        </tr>                                        
                                     </tbody>
                                 </table>
-                            </div>
-                                
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -136,93 +119,31 @@ require_once("adminhead.php");
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">[no resi]/[Nama Perusahaan]</strong>
-                            </div>
+                            <!-- <div class="card-header">
+                                <strong class="card-title" id="id_resi"></strong>
+                            </div> -->
                             <div class="card-body">
-                                <div class="row form-group">
-                                <div class="col-sm-8">[Pembeli atas nama]</div>
-                                <div class="col-sm-4">[tanggal jatuh tempo]</div>
-                                    <div class="col col-md-2">
-                                        <label for="email-input" class=" form-control-label float-right">No Resi</label>
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
-                                    </div>
-                                    <div class="col col-md-2">
-                                        <label for="email-input" class=" form-control-label float-right">Jatuh Tempo</label>
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input readonly type="date" placeholder=".col-md-4" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col col-md-2">
-                                        <label for="email-input" class=" form-control-label float-right">Nama Perusahaan</label>
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
-                                    </div>
-                                    <div class="col col-md-2">
-                                        <label for="email-input" class=" form-control-label float-right">Sales</label>
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input readonly type="text" placeholder=".col-md-4" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row form-group">
-                                    <div class="col col-md-2">
-                                        <label for="email-input" class=" form-control-label float-right">Pembeli</label>
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <input readonly type="number" id="" name="" value="010120100001" class="form-control">
-                                    </div>
-                                    
-                                </div>
-
+                                No Order : <label id="id_hjual"></label>
                                 <div class="table-responsive">
-                                <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <table id="datatableDetailOrder" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Id Barang </th>
-                                            <th>Nama Barang</th>
-                                            <th>Jumlah Barang</th>                                          
-                                            <th>Harga Satuan</th>
+                                            <th>#ID</th>
+                                            <th>Barang</th>
+                                            <th>Kuantiti</th>
                                             <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>Rp10000</td>
-                                            <td>Rp10000</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>Rp10000</td>
-                                            <td>Rp10000</td>
-                                        </tr>                                      
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>                                           
-                                            <td>Rp10000</td>
-                                            <td>Rp10000</td>
-                                        </tr>                                        
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total:</th>
+                                            <th style="font-weight:bold"></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
@@ -238,16 +159,198 @@ require_once("adminhead.php");
 
 </body>
 <script>
-function keluar(){
-         $.post("ajaxs/ajaxlogin.php",
-        {
-            jenis:"keluar",
-        },
-        function(data){
-            window.location.href="../user-page/login.php";
-        });
+    function keluar(){
+            $.post("ajaxs/ajaxlogin.php",
+            {
+                jenis:"keluar",
+            },
+            function(data){
+                window.location.href="../user-page/login.php";
+            });
+    }
 
-}
+    $(document).ready(function () {
+        //end of datatble list penjualan
+        var table= "";
+        table = $('#datatablePenjualan').DataTable( 
+        {
+            
+             "processing":true,
+             "language": {
+                "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                "zeroRecords": "Maaf Data yang dicari tidak ada",
+                "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                "infoEmpty": "Tidak ada data",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search":"Cari",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "terakhir",
+                    "next":       "Selanjutnya",
+                    "previous":   "Sebelumnya"
+                    },
+                },
+             "serverSide":true,
+             "ordering":true, //set true agar bisa di sorting
+             "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+             "ajax":{
+                 "url":"datatable_penjualan.php",
+                 "type":"POST"
+             },
+             "deferRender":true,
+             "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+             "columns":[
+                
+                 {"data":"id_hjual"},
+                 {"data":"tanggal_order"},
+                 {"data":"nama_perusahaan"},
+                 {"data":"status_order",
+                    "searchable": false,
+                    "orderable":false,
+                    "render": function (data, type, row) {  
+                        if (row.status_order == 'Proses') //proses
+                        {
+                            return "<label class='text-success font-weight-bold'>Proses</label> ";
+                        }
+                        else if (row.status_order == 'Pengiriman') //pengriman
+                        {
+                            return "<label class='text-warning font-weight-bold'>Pengiriman</label>";
+                        }
+                        else if (row.status_order == 'Sampai Tujuan') //piutang
+                        {
+                            return "<label class='text-info font-weight-bold'>Barang telah tiba</label>";
+                        }
+                        else if (row.status_order == 'Selesai') //selesai
+                        {
+                            return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
+                            "<small> Diterima : " + row.tanggal_orderselesai + " </small>";
+                        }
+                        else if (row.status_order == 'Piutang') //piutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>Piutang</label>";
+                        }                       
+                    }
+                },
+                 {                   
+                    "target": -1,
+                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-primary'>Detail Order</button>"
+                },              
+             ],
+        }) 
+        //end of datatble list penjualan
+
+        //filter list penjualan berdasarkan status yang dpilih
+        var table = $('#datatablePenjualan').DataTable();
+        $('#filter').on( 'click', 'a', function () {
+            console.log($(this).data("value"));
+            table.search( $(this).data("value")).draw();
+           // 
+            if ($(this).data("value") == "") {
+                $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable 
+               
+            }
+            //$('#tabledetailorder').empty();
+        } );
+        //end of filter list penjualan berdasarkan status yang dpilih
+
+        //event jika list penjualan dipilih/diclick 
+        $('#datatablePenjualan tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list penjualan dipilih/diclick 
+
+        var tabledetail, getIdhjual="";
+        //action button detail order dipilih pada list penjualan - header
+        $('#datatablePenjualan tbody').on( 'click', 'button', function () {
+            var action = this.id;
+            data = table.row($(this).closest('tr')).data();
+
+            if(action == 'GetDetail') {
+                console.log(data[Object.keys(data)[0]]); //id hjual
+                getIdhjual =data[Object.keys(data)[0]];
+                $("#id_hjual").html(getIdhjual);
+                //document.getElementById("id_hjual").value = getIdhjual;
+
+                //table detail order barang dibagian bawah
+                tabledetail = $('#datatableDetailOrder').DataTable( {
+                    // retrieve: true,
+                    destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                      "processing":true,
+                        "language": {
+                        "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                        "zeroRecords": "Maaf Data yang dicari tidak ada",
+                        "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                        "infoEmpty": "Tidak ada data",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search":"Cari",
+                        "paginate": {
+                            "first":      "Pertama",
+                            "last":       "terakhir",
+                            "next":       "Selanjutnya",
+                            "previous":   "Sebelumnya"
+                            },
+                        },
+                      "serverSide":true,
+                      "ordering":true, //set true agar bisa di sorting
+                      "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                      "ajax":{
+                          "url":"datatable_detailpenjualan.php",
+                          "type":"POST",
+                          "data":{"get_idhjual":getIdhjual},
+                      },
+                      "deferRender":true,
+                      "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+                      "columns":[
+                          {"data":"id_djual"},
+                          {"data":"nama_barang"},
+                          {"data":"kuantiti"},                         
+                          {"data":"subtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                                        
+                      ],                      
+                      "footerCallback": function ( row, data, start, end, display ) {
+                            var api = this.api(), data;
+                          
+                            //Remove the formatting to get integer data for summation
+                            var intVal = function ( i ) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '')*1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
+            
+                            // Total over all pages
+                            total = api
+                                .column( 3 )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+                
+                            // Total over this page
+                            pageTotal = api
+                                .column( 3, { page: 'current'} )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+            
+                            // Update footer
+                            $( api.column( 3 ).footer() ).html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            );
+                        }
+                } );
+                //end of table detail order barang dibagian bawah
+            }
+            
+
+        });
+        //end of action button detail order dipilih pada list penjualan - header
+
+
+    });
+
+
 </script>
 
 </html>
