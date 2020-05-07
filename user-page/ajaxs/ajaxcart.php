@@ -40,6 +40,16 @@
             }
           
            $_SESSION['berat']= hitungberat();
+        }else{
+                    $kal="<tr class='text-center'>                                                           
+                  
+                    
+                    <td class='product-name' colspan=4>
+                        <h3>Tidak ada Data</h3>
+                    </td>
+                    
+                   
+                </tr>";
         }
         echo $kal;
     }
