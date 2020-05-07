@@ -101,7 +101,7 @@ require_once("head.php");
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">PESANAN SAYA</h1>
+            <h1 class="mb-0 bread">TAGIHAN SAYA</h1>
 
           </div>
         </div>
@@ -118,15 +118,6 @@ require_once("head.php");
                             <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
                             <small id="helpId" class="text-muted">*Tombol Selesai - konfirmasi order Anda bahwa orderan telah selesai</small>
                         </div>
-                        
-                        <ul id="filter">
-                            <li class="btn"> <label class="font-weight-bold"> Filter Status > </label> </li>
-                            <li class="btn"><a href="#tableall" data-value="" active>Semua</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Proses">Proses</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Pengiriman">Pengiriman</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Selesai">Selesai</a></li>
-                        </ul>
                         
                         <div class="table-responsive" >
                             <table id="tableorders" class="table table-striped table-bordered text-dark" width="100%">
@@ -218,6 +209,19 @@ require_once("head.php");
                 <label class="col-form-label text-danger" id="warning"></label>
             </div>
 
+            <div class="form-group">
+                <label for="">Bagikan foto produk yang Anda terima</label>
+                <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
+                </div>
+            </div>
+
+            </div>
             </form>
         </div>
         <div class="modal-footer">
@@ -314,7 +318,7 @@ require_once("head.php");
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
              "ajax":{
-                 "url":"datatables/datatable_orderall.php", 
+                 "url":"datatables/datatable_tagihanall.php", 
                  "type":"POST",
                  "data":{"idcust":idcust},
              },
@@ -347,7 +351,10 @@ require_once("head.php");
                             return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
                             "<small> Diterima : " + moment(row.tanggal_orderselesai).format("DD-MMMM-YYYY") + " </small>";
                         }
-                        
+                        else if (row.status_order == 'Piutang') //piutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>Piutang</label>";
+                        }                       
                     },
                     "target":-1,
                 },
@@ -363,13 +370,18 @@ require_once("head.php");
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
-                        else if (row.status_order == 'Sampai Tujuan') //piutang
+                        else if (row.status_order == 'Sampai Tujuan') //sampai tujuan
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>";
                         }
-                        else if (row.status_order == 'Selesai') //selesai
+                        else if (row.status_order == 'Selesai') //selesai --kalau hutangnya sudah lunas
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                        }
+                        else if (row.status_order == 'Hutang') //hutang
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
+                            "<a id=\"BayarHutang\" class='btn btn-primary text-dark disabled'>Bayar</a>";
                         }
                         
                     },
@@ -453,13 +465,17 @@ require_once("head.php");
                                 }
                                 else if (row.status_order == 'Selesai') //selesai
                                 {
-                                    if (row.id_ulasan == "0") {
+                                    if (row.id_ulasan == null) {
                                         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
                                     }
-                                    else if (row.id_ulasan != "0") {
+                                    else if (row.id_ulasan != null) {
                                         return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
                                     }
                                     
+                                }
+                                else if (row.status_order == 'Piutang') //piutang
+                                {
+                                    return null;
                                 }
                                         
                             },
@@ -503,7 +519,14 @@ require_once("head.php");
             }
             //end of action button Detail
 
-            //action button selesai - konfirmasi orderan di table list order
+            //action utk melunaskan hutang -- button bayar
+            if(action == 'BayarHutang')
+            {
+                //write here!!
+            }
+            //end of action utk melunaskan hutang -- button bayar
+
+            //action button selesai - konfirmasi orderan di table list order jika sudah lunas
             if (action == 'GetKonfirmasi') {
                 $.post("ajaxreseller.php",{
                     jenis:"konfirmasi_orderan_selesai",

@@ -46,7 +46,7 @@ $row = $result->fetch_assoc();
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home.php" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
                 <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
@@ -61,13 +61,12 @@ $row = $result->fetch_assoc();
                 <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Order</a>
-                    <!-- <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a> -->
-                    <a class="dropdown-item" href="piutang.php">Piutang</a>
+                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
+                    <a class="dropdown-item" href="tagihan.php">Tagihan</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
+                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
                 </div>
                 </li>
             </ul>
