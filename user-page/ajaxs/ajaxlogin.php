@@ -34,6 +34,7 @@
                 $_SESSION["status_akun"]=$row1["status"];
                 $_SESSION["token"]=$row1["token"];
                 $_SESSION["idcust"]=$row1["id_cust"];
+                
 
                 $status=$row1["verified"];
             }

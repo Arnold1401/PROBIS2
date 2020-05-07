@@ -116,7 +116,7 @@ require_once("head.php");
                     <div class="cart-list" >
                         <div class="form-group">                    
                             <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
-                            <small id="helpId" class="text-muted">*Tombol Selesai - konfirmasi order Anda bahwa orderan telah selesai</small>
+                            <small id="helpId" class="text-muted">*Tombol Bayar Tagihan - melunaskan sisa tagihan</small>
                         </div>
                         
                         <div class="table-responsive" >
@@ -158,7 +158,6 @@ require_once("head.php");
                                             <th>Nama Produk</th>
                                             <th>Jumlah Beli</th>
                                             <th>Subtotal</th>
-                                            <th>Aksi</th>
                                         </tr>
                                         
                                     </thead>
@@ -233,13 +232,53 @@ require_once("head.php");
     </div>
     <!--End Modal untuk rating dan review-->
 
+    
+    <!-- modal untuk summary midtrans -->
+    <div class="modal fade " id="DetailBayarHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Tagihan #<span id="idhjualhutang">[id hjual]</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body " id="isisum">
+                    <div class="form-group">
+                        <h5 > Jatuh Tempo : <span id="jatuhtempohutang"> </span></h5>
+                        <h5>Total Tagihan <span> <h4 class="text-right font-weight-bold" id="tagihan">Rp[total]</h4> </span></h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Nama</h6>
+                                <h6 id="namapemilik">[nama yg punya toko]</h6>
+                                <br>
+                                <h6>Nomor Telepon</h6>
+                                <h6 id="nomorpemilik">[Nomor Telepon toko]</h6>
+                                <br>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Alamat kirim</h6>
+                                <h6 id="alamatpemilik">[alamat toko]</h6>                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of modal untuk summary midtrans -->
+
     <?php
     include_once('justfooter.php')
      ?>
 
 <script>
     var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
-   // var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
+    var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
    // console.log(idcust);
     var idbarangutkdiulas, iddjualulas;
 
@@ -358,31 +397,17 @@ require_once("head.php");
                     },
                     "target":-1,
                 },
-                {"data":"status_order",
+                {"data":"status_pembayaran",
                     "searchable": true,
                     "orderable":true,
                     "render": function (data, type, row) {  
-                        if (row.status_order == 'Proses') //proses
-                        {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
-                        }
-                        else if (row.status_order == 'Pengiriman') //pengriman
-                        {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
-                        }
-                        else if (row.status_order == 'Sampai Tujuan') //sampai tujuan
-                        {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>";
-                        }
-                        else if (row.status_order == 'Selesai') //selesai --kalau hutangnya sudah lunas
-                        {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
-                        }
-                        else if (row.status_order == 'Hutang') //hutang
+                        
+                        if (row.status_pembayaran == 'Hutang') //pengriman
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarHutang\" class='btn btn-primary text-dark disabled'>Bayar</a>";
+                            "<a id=\"BayarHutang\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang'>Bayar Tagihan</a>";
                         }
+                        
                         
                     },
                     "target":-1,
@@ -399,7 +424,7 @@ require_once("head.php");
         //end of event jika list order dipilih/diclick 
 
         
-        var getId,tabledetail, data="";
+        var getId,tabledetail, data, getIdAlamat="";
 
         //jika button di list orders dipilih/ditekan
         $('#tableorders tbody').on( 'click', 'a', function () {
@@ -409,7 +434,8 @@ require_once("head.php");
             //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
             if(action == 'GetDetail')
             {
-                getId = data[Object.keys(data)[0]];
+                getId = data[Object.keys(data)[0]]; //idhjual
+
                 var tr = $(this).closest('tr');
 
                 //table detail order barang dibagian bawah
@@ -447,40 +473,7 @@ require_once("head.php");
                           {"data":"nama_barang"},
                           {"data":"kuantiti"},                         
                           {"data":"subtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
-                          {"data":"status_order",
-                            "searchable": true,
-                            "orderable":true,
-                            "render": function (data, type, row) {  
-                                if (row.status_order == 'Proses') //proses
-                                {
-                                    return null;
-                                }
-                                else if (row.status_order == 'Pengiriman') //pengriman
-                                {
-                                    return null;
-                                }
-                                else if (row.status_order == 'Sampai Tujuan') //piutang
-                                {
-                                    return null;
-                                }
-                                else if (row.status_order == 'Selesai') //selesai
-                                {
-                                    if (row.id_ulasan == null) {
-                                        return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
-                                    }
-                                    else if (row.id_ulasan != null) {
-                                        return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
-                                    }
-                                    
-                                }
-                                else if (row.status_order == 'Piutang') //piutang
-                                {
-                                    return null;
-                                }
-                                        
-                            },
-                            "target":-1,
-                        },
+                          
                       ],                      
                       "footerCallback": function ( row, data, start, end, display ) {
                             var api = this.api(), data;
@@ -522,24 +515,50 @@ require_once("head.php");
             //action utk melunaskan hutang -- button bayar
             if(action == 'BayarHutang')
             {
-                //write here!!
-            }
-            //end of action utk melunaskan hutang -- button bayar
+                getId = data[Object.keys(data)[0]]; //idhjual
+                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                var tr = $(this).closest('tr');
+                console.log(getIdAlamat);
 
-            //action button selesai - konfirmasi orderan di table list order jika sudah lunas
-            if (action == 'GetKonfirmasi') {
+                //DETAIL TAGIHAN
                 $.post("ajaxreseller.php",{
-                    jenis:"konfirmasi_orderan_selesai",
-                    getId : data[Object.keys(data)[0]], //id barang
+                    jenis:"get_detail_tagihan",
+                    getId:getId,
                 },
-                function(data){
-                    alert(data);
-                    $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
-                    $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
+                function(data){                 
+                   var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
+                   
+                    $("#idhjualhutang").html($.parseJSON(data[1]));
+                    $("#jatuhtempohutang").html(jatuhtempohutang);
+                    $("#tagihan").html($.parseJSON(data[3]));
+                });
+
+                //DETAIL CUSTOMERNYA -- nama notelp
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_customerHutang",
+                    idcust:idcust,
+                },
+                function(data){                 
+                    $("#namapemilik").html(data[2]);
+                    $("#nomorpemilik").html(data[3]);
+                   // $("#emailpemilik").html(data[1]);
+                });
+
+                //alamat customernya
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detailalamat_customerHutang",
+                    emailcust:emailcust,
+                    getIdAlamat:getIdAlamat,
+                },
+                function(data){                 
+                    var provinsi = data[0].split("-");
+                    var kota = data[1].split("-");
+                    var kec = data[2].split("-");
+                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    $("#alamatpemilik").html(alamat);
                 });
             }
-            //end of action button selesai - konfirmasi orderan selesai
-
+            //end of action utk melunaskan hutang -- button bayar
 
         } );
         //end of jika button di list orders dipilih/ditekan

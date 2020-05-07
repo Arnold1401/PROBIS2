@@ -70,4 +70,60 @@ if ($_POST["jenis"] == "kirim_ulasan") {
    $conn->close();
 }
 
+// dipage tagihan.php
+if ($_POST["jenis"] == "get_detail_tagihan") {
+    $conn = getConn();
+    $IdHjual=$_POST["getId"];
+    $sql = "select * from piutang where id_hjual=$IdHjual";
+    $query = mysqli_query($conn,$sql); // get the data from the db
+    $result = array();
+    while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+        $result [0] = $row['id_piutang'];
+        $result [1] = $row['id_hjual'];
+        $result [2] = $row['tanggal_jatuh_tempo'];
+        $result [3] = $row['sisa_tagihan'];
+    }
+    
+    $conn->close();
+    header('Content-Type: application/json');
+    echo json_encode($result); // return value of $result
+}
+
+if ($_POST["jenis"] == "get_detail_customerHutang") {
+    $conn = getConn();
+    $idcust=$_POST["idcust"];
+    $sql = "select id_cust, email, nama_pemilik, notelp from customer where id_cust=$idcust";
+    $query = mysqli_query($conn,$sql); // get the data from the db
+    $result = array();
+    while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+        $result [0] = $row['id_cust'];
+        $result [1] = $row['email'];
+        $result [2] = $row['nama_pemilik'];
+        $result [3] = $row['notelp'];
+    }
+    
+    $conn->close();
+    header('Content-Type: application/json');
+    echo json_encode($result); // return value of $result
+}
+
+if ($_POST["jenis"] == "get_detailalamat_customerHutang") {
+    $conn = getConn();
+    $emailcust=$_POST["emailcust"];
+    $getIdAlamat = $_POST["getIdAlamat"];
+    $sql = "select provinsi, kota, kecamatan, alamat_lengkap from alamat_pengiriman where email='$emailcust' and id_alamat=$getIdAlamat";
+    $query = mysqli_query($conn,$sql); // get the data from the db
+    $result = array();
+    while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+        $result [0] = $row['provinsi'];
+        $result [1] = $row['kota'];
+        $result [2] = $row['kecamatan'];
+        $result [3] = $row['alamat_lengkap'];
+    }
+    
+    $conn->close();
+    header('Content-Type: application/json');
+    echo json_encode($result); // return value of $result
+}
+
 ?>

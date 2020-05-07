@@ -126,6 +126,7 @@ require_once("head.php");
                             <li class="btn"><a href="#tableall" data-value="Pengiriman">Pengiriman</a></li>
                             <li class="btn"><a href="#tableall" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
                             <li class="btn"><a href="#tableall" data-value="Selesai">Selesai</a></li>
+                            <li class="btn"><a href="#tableall" data-value="Hutang">Hutang</a></li>
                         </ul>
                         
                         <div class="table-responsive" >
@@ -228,6 +229,62 @@ require_once("head.php");
     </div>
     </div>
     <!--End Modal untuk rating dan review-->
+
+    
+    <!-- modal untuk summary midtrans -->
+    <div class="modal fade bd-example-modal-lg" id="DetailHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detail Tagihan <span id="idhjualhutang">[id hjual]</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body " id="isisum">
+                    <div class="form-group">
+                        <h5 id="jatuhtempohutang"> Jatuh Tempo : </h5>
+                        <h5>Total Tagihan <span> <h4 class="text-right font-weight-bold">Rp[total]</h4> </span></h5>
+                        <hr>
+                       
+                        <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link" id="nav-detailkirim-tab" data-toggle="tab" href="#nav-detailkirim" role="tab" aria-controls="nav-ulasan" aria-selected="false">Detail Pengiriman</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content my-4" id="nav-tabContent">
+                            
+                            <div class="tab-pane fade show" id="nav-detailkirim" role="tabpanel" aria-labelledby="nav-detailkirim-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nama</h6>
+                                        <h6 class="namapemilik">[nama yg punya toko]</h6>
+                                        <br>
+                                        <h6>Nomor Telepon</h6>
+                                        <h6 class="nomorpemilik">[Nomor Telepon toko]</h6>
+                                        <br>
+                                        <h6>Email</h6>
+                                        <h6 class="emailpemilik">[email toko]</h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Alamat kirim</h6>
+                                        <h6 class="alamatpemilik">[alamat toko]</h6>
+                                        <br>
+                                        <h6>Status Pesanan Sekarang</h6>
+                                        <h6 class="alamatpemilik">[alamat toko]</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="" class="btn btn-outline-success">Selanjutnya</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of modal untuk summary midtrans -->
 
     <?php
     include_once('justfooter.php')
@@ -347,6 +404,10 @@ require_once("head.php");
                             return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
                             "<small> Diterima : " + moment(row.tanggal_orderselesai).format("DD-MMMM-YYYY") + " </small>";
                         }
+                        else if (row.status_order == 'Hutang') //hutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>Hutang</label>";
+                        }
                         
                     },
                     "target":-1,
@@ -370,6 +431,11 @@ require_once("head.php");
                         else if (row.status_order == 'Selesai') //selesai
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                        }
+                        else if (row.status_order == 'Hutang') //hutang
+                        {
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' >Detail</a>  "+
+                            "<a id=\"GetDetailHutang\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailHutang'>Tagihan</a>";
                         }
                         
                     },
@@ -451,6 +517,10 @@ require_once("head.php");
                                 {
                                     return null;
                                 }
+                                else if (row.status_order == 'Hutang') //Hutang
+                                {
+                                    return null;
+                                }
                                 else if (row.status_order == 'Selesai') //selesai
                                 {
                                     if (row.id_ulasan == "0") {
@@ -502,6 +572,11 @@ require_once("head.php");
                 //end of table detail order barang dibagian bawah
             }
             //end of action button Detail
+
+            if (action == 'GetDetailHutang') {
+                
+            }
+
 
             //action button selesai - konfirmasi orderan di table list order
             if (action == 'GetKonfirmasi') {
