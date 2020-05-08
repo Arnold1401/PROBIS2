@@ -9,35 +9,48 @@
         if (isset($_SESSION["keranjang"])) {
             $arrkeranjang=unserialize($_SESSION["keranjang"]);
             $count=count($arrkeranjang);
-            for ($i=0; $i <$count ; $i++) { 
-                $idb=$arrkeranjang[$i]->get_idbarang();
-                $nm=$arrkeranjang[$i]->get_nama();
-                $hg=$arrkeranjang[$i]->get_harga();
-                $jum=$arrkeranjang[$i]->get_jum();
-                $fhg=number_format($hg,2);
-
-                $stotal=$hg*$jum;
-                $fstotal=number_format($stotal,2);
-                $gmb1=$arrkeranjang[$i]->get_gambar();
-                    $kal.="<tr class='text-center'>                                                           
-                    <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
+            if ($count==0) {
+                $kal="<tr class='text-center'>                                                           
+                  
                     
-                    <td class='product-name'>
-                        <h3>$nm</h3>
+                    <td class='product-name' colspan=4>
+                        <h3>Keranjang Kosong</h3>
                     </td>
                     
-                    <td class='price'>IDR $fhg</td>
-                    
-                    <td class='quantity'>
-                        <div class='input-group mb-3'>
-                        <input type='text' name='quantity' class='quantity form-control input-number' id=\"jum$idb\" onchange=\"gtjum('$idb')\" value='$jum' min='1' max='100'>
-                    </div>
-                    </td>
-                
-                    <td class='total'>IDR $fstotal</td>
-                    <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
+                   
                 </tr>";
+            }else{
+                for ($i=0; $i <$count ; $i++) { 
+                    $idb=$arrkeranjang[$i]->get_idbarang();
+                    $nm=$arrkeranjang[$i]->get_nama();
+                    $hg=$arrkeranjang[$i]->get_harga();
+                    $jum=$arrkeranjang[$i]->get_jum();
+                    $fhg=number_format($hg,2);
+    
+                    $stotal=$hg*$jum;
+                    $fstotal=number_format($stotal,2);
+                    $gmb1=$arrkeranjang[$i]->get_gambar();
+                        $kal.="<tr class='text-center'>                                                           
+                        <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
+                        
+                        <td class='product-name'>
+                            <h3>$nm</h3>
+                        </td>
+                        
+                        <td class='price'>IDR $fhg</td>
+                        
+                        <td class='quantity'>
+                            <div class='input-group mb-3'>
+                            <input type='text' name='quantity' class='quantity form-control input-number' id=\"jum$idb\" onchange=\"gtjum('$idb')\" value='$jum' min='1' max='100'>
+                        </div>
+                        </td>
+                    
+                        <td class='total'>IDR $fstotal</td>
+                        <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
+                    </tr>";
+                }
             }
+            
           
            $_SESSION['berat']= hitungberat();
         }else{
@@ -45,7 +58,7 @@
                   
                     
                     <td class='product-name' colspan=4>
-                        <h3>Tidak ada Data</h3>
+                        <h3>Keranjang Kosong</h3>
                     </td>
                     
                    

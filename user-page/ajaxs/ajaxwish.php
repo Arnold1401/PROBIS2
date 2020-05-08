@@ -9,24 +9,37 @@
         if (isset($_SESSION["wishlist"])) {
             $arrwishlist=unserialize($_SESSION["wishlist"]);
             $count=count($arrwishlist);
-            for ($i=0; $i <$count ; $i++) { 
-                $idb=$arrwishlist[$i]->get_idbarang();
-                $nm=$arrwishlist[$i]->get_nama();
-                $hg=$arrwishlist[$i]->get_harga();
-                $jum=$arrwishlist[$i]->get_jum();
-                $fhg=number_format($hg,0);
-
-                $gmb1=$arrwishlist[$i]->get_gambar();
-                    $kal.="<tr class='text-center'>                                                           
-                    <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
+            if ($count==0) {
+                $kal="<tr class='text-center'>                                                           
+                  
                     
-                    <td class='product-name'>
-                        <h3>$nm</h3>
-                    </td>
-                    <td class='price'>Rp.$fhg</td>
-                    <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
-                </tr>";
+                <td class='product-name' colspan=4>
+                    <h3>Daftar Keinginan Kosong</h3>
+                </td>
+                
+               
+            </tr>";
+            }else{
+                for ($i=0; $i <$count ; $i++) { 
+                    $idb=$arrwishlist[$i]->get_idbarang();
+                    $nm=$arrwishlist[$i]->get_nama();
+                    $hg=$arrwishlist[$i]->get_harga();
+                    $jum=$arrwishlist[$i]->get_jum();
+                    $fhg=number_format($hg,0);
+    
+                    $gmb1=$arrwishlist[$i]->get_gambar();
+                        $kal.="<tr class='text-center'>                                                           
+                        <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
+                        
+                        <td class='product-name'>
+                            <h3>$nm</h3>
+                        </td>
+                        <td class='price'>Rp.$fhg</td>
+                        <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
+                    </tr>";
+                }
             }
+     
           
            //$_SESSION['berat']= hitungberat();
         }else{
@@ -34,7 +47,7 @@
                   
                     
                     <td class='product-name' colspan=4>
-                        <h3>Tidak ada Data</h3>
+                        <h3>Daftar Keinginan Kosong</h3>
                     </td>
                     
                    
