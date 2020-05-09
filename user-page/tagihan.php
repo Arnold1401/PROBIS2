@@ -148,7 +148,20 @@ require_once("head.php");
                                 <strong class="card-title">Detail Barang</strong>
                             </div>
                             <div class="card-body">    
-                                              
+                                <div class="row text-dark">
+                                    <div class="col-md-6">
+                                        <h6>Nama Pembeli</h6>
+                                        <h6 id="nama_pemilik"></h6>
+                                        <br>
+                                        <h6>Nomor Telepon</h6>
+                                        <h6 id="nomor_pemilik"></h6>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Alamat kirim</h6>
+                                        <h6 id="alamat_pemilik"></h6>                               
+                                    </div>
+                                </div>                                
                               <div class="table-responsive" id="table_detail">
                                 <table id="tabledetailorder" class="table table-striped table-bordered text-dark" width="100%">
                                         <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
@@ -416,6 +429,7 @@ require_once("head.php");
              ],
         } );
         //end of datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
+        
 
         //event jika list order dipilih/diclick 
         $('#tableorders tbody').on('click', 'tr', function () {
@@ -435,7 +449,7 @@ require_once("head.php");
             if(action == 'GetDetail')
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
-
+                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 var tr = $(this).closest('tr');
 
                 //table detail order barang dibagian bawah
@@ -509,6 +523,30 @@ require_once("head.php");
                         }
                 } );
                 //end of table detail order barang dibagian bawah
+
+                //DETAIL CUSTOMERNYA -- nama notelp
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_customerHutang",
+                    idcust:idcust,
+                },
+                function(data){                 
+                    $("#nama_pemilik").html(data[2]);
+                    $("#nomor_pemilik").html(data[3]);
+                });
+
+                //alamat customernya
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detailalamat_customerHutang",
+                    emailcust:emailcust,
+                    getIdAlamat:getIdAlamat,
+                },
+                function(data){                 
+                    var provinsi = data[0].split("-");
+                    var kota = data[1].split("-");
+                    var kec = data[2].split("-");
+                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    $("#alamat_pemilik").html(alamat);
+                });
             }
             //end of action button Detail
 

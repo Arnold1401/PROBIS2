@@ -126,7 +126,6 @@ require_once("head.php");
                             <li class="btn"><a href="#tableall" data-value="Pengiriman">Pengiriman</a></li>
                             <li class="btn"><a href="#tableall" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
                             <li class="btn"><a href="#tableall" data-value="Selesai">Selesai</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Hutang">Hutang</a></li>
                         </ul>
                         
                         <div class="table-responsive" >
@@ -151,14 +150,27 @@ require_once("head.php");
                 </div> <!-- end ftco-animate -->
             </div> <!-- end row -->
             
-            <div class="row my-4">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Detail Barang</strong>
+            <div class="row my-4"  >
+                    <div class="col-md-12" id="detailbarang">
+                        <div class="card" >
+                            <div class="card-header" >
+                                <strong class="card-title">Detail Barang #<span id="idhjual"> </span></strong>
                             </div>
-                            <div class="card-body">    
-                                              
+                            <div class="card-body text-dark" >    
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Nama Pembeli</h6>
+                                        <h6 id="namapemilik"></h6>
+                                        <br>
+                                        <h6>Nomor Telepon</h6>
+                                        <h6 id="nomorpemilik"></h6>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Alamat kirim</h6>
+                                        <h6 id="alamatpemilik"></h6>                               
+                                    </div>
+                                </div>               
                               <div class="table-responsive" id="table_detail">
                                 <table id="tabledetailorder" class="table table-striped table-bordered text-dark" width="100%">
                                         <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
@@ -232,7 +244,7 @@ require_once("head.php");
 
     
     <!-- modal untuk summary midtrans -->
-    <div class="modal fade bd-example-modal-lg" id="DetailHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--<div class="modal fade bd-example-modal-lg" id="DetailHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -258,13 +270,13 @@ require_once("head.php");
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h6>Nama</h6>
-                                        <h6 class="namapemilik">[nama yg punya toko]</h6>
+                                        <h6 class="namapemilik"></h6>
                                         <br>
                                         <h6>Nomor Telepon</h6>
-                                        <h6 class="nomorpemilik">[Nomor Telepon toko]</h6>
+                                        <h6 class="nomorpemilik"></h6>
                                         <br>
                                         <h6>Email</h6>
-                                        <h6 class="emailpemilik">[email toko]</h6>
+                                        <h6 class="emailpemilik"></h6>
                                     </div>
                                     <div class="col-md-6">
                                         <h6>Alamat kirim</h6>
@@ -283,7 +295,7 @@ require_once("head.php");
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- end of modal untuk summary midtrans -->
 
     <?php
@@ -292,7 +304,7 @@ require_once("head.php");
 
 <script>
     var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
-   // var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
+    var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
    // console.log(idcust);
     var idbarangutkdiulas, iddjualulas;
 
@@ -418,23 +430,23 @@ require_once("head.php");
                     "render": function (data, type, row) {  
                         if (row.status_order == 'Proses') //proses
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' href='#detailbarang'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
                         else if (row.status_order == 'Pengiriman') //pengriman
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' href='#detailbarang'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
                         else if (row.status_order == 'Sampai Tujuan') //piutang
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>";
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' href='#detailbarang'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark'>Selesai</a>";
                         }
                         else if (row.status_order == 'Selesai') //selesai
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' href='#detailbarang'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
                         else if (row.status_order == 'Hutang') //hutang
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' >Detail</a>  "+
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' '>Detail</a>  "+
                             "<a id=\"GetDetailHutang\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailHutang'>Tagihan</a>";
                         }
                         
@@ -463,7 +475,8 @@ require_once("head.php");
             //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
             if(action == 'GetDetail')
             {
-                getId = data[Object.keys(data)[0]];
+                getId = data[Object.keys(data)[0]]; //idhjual
+                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 var tr = $(this).closest('tr');
 
                 //table detail order barang dibagian bawah
@@ -570,13 +583,35 @@ require_once("head.php");
                         }
                 } );
                 //end of table detail order barang dibagian bawah
+
+                //dapatkan data customernya
+                $("#idhjual").html(getId);
+                //DETAIL CUSTOMERNYA -- nama notelp
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_customerHutang",
+                    idcust:idcust,
+                },
+                function(data){                 
+                    $("#namapemilik").html(data[2]);
+                    $("#nomorpemilik").html(data[3]);
+                });
+
+                //alamat customernya
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detailalamat_customerHutang",
+                    emailcust:emailcust,
+                    getIdAlamat:getIdAlamat,
+                },
+                function(data){                 
+                    var provinsi = data[0].split("-");
+                    var kota = data[1].split("-");
+                    var kec = data[2].split("-");
+                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    $("#alamatpemilik").html(alamat);
+                });
+                //end of dapatkan data customernya
             }
             //end of action button Detail
-
-            if (action == 'GetDetailHutang') {
-                
-            }
-
 
             //action button selesai - konfirmasi orderan di table list order
             if (action == 'GetKonfirmasi') {
