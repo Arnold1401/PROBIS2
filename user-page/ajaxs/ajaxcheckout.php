@@ -64,23 +64,27 @@ function hitungsubtotalorderan()
 
 if ($_POST["jenis"] == "summar") {//lunas
 
+   $kal="pas";
+   $alam=$_POST["idalamat"];
    if ($_SESSION["status_akun"]==1) {
       if (hitungsubtotalorderan()>=5000000&&hitungsubtotalorderan()<=100000000) {
          $orderid=getorderidLUN();
          sessionpagepayLUN($orderid);
-         insertdatabaseLUN($orderid);
-         echo "pas";
+         insertdatabaseLUN($orderid,$alam);
+
       }else if (hitungsubtotalorderan()>100000000) {
-         echo "Jumlah transaksi lebih besar dari 100.000.000";
+          $kal= "Jumlah transaksi lebih besar dari 100.000.000";
       }else{
-         echo "Jumlah transaksi lebih kecil dari 5.000.000";
+         $kal= "Jumlah transaksi lebih kecil dari 5.000.000";
       }
    }else{
-      echo "Akun belum diverifikasi oleh admin silahkan hubungu admin";
+      $kal="Akun belum diverifikasi oleh admin silahkan hubungu admin";
    }
+
+   echo $kal;
 }
 
-function insertdatabaseLUN($orderid)
+function insertdatabaseLUN($orderid,$alam)
 {
    $stat="";
    //insert hjual
@@ -104,7 +108,7 @@ function insertdatabaseLUN($orderid)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$totalsemua', '$iduser', 'Proses');";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`,`id_alamat`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$totalsemua', '$iduser', 'Proses','$alam');";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -265,24 +269,26 @@ if ($_POST["jenis"]=="deletecart") {
 
 if ($_POST["jenis"] == "piutang") {//piu
 
+   $kal="pas";
+   $alam=$_POST["idalamat"];
    if ($_SESSION["status_akun"]==1) {
       if (hitungsubtotalorderan()>=5000000&&hitungsubtotalorderan()<=100000000) {
          $orderid=getorderidLUN();
          $piu=getorderidPIU();
          sessionpagepayPIU($orderid,$piu);
-         insertdatabasePIU($orderid,$piu);
-         echo "pas";
+         insertdatabasePIU($orderid,$piu,$alam);
       }else if (hitungsubtotalorderan()>100000000) {
-         echo "Jumlah transaksi lebih besar dari 100.000.000";
+         $kal="Jumlah transaksi lebih besar dari 100.000.000";
       }else{
-         echo "Jumlah transaksi lebih kecil dari 5.000.000";
+         $kal= "Jumlah transaksi lebih kecil dari 5.000.000";
       }
    }else{
-      echo "Akun belum diverifikasi oleh admin silahkan hubungu admin";
+      $kal= "Akun belum diverifikasi oleh admin silahkan hubungu admin";
    }
+   echo $kal;
 }
 
-function insertdatabasePIU($orderid,$piu)
+function insertdatabasePIU($orderid,$piu,$alam)
 {
    $stat="";
    //insert hjual
@@ -326,7 +332,7 @@ function insertdatabasePIU($orderid,$piu)
 
    $conn = getConn();
    $tgl=date("Y-m-d");
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$bayar', '$iduser', 'Proses');";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`,`id_alamat`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$bayar', '$iduser', 'Proses','$alam');";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{

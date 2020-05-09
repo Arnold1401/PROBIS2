@@ -419,7 +419,12 @@ require_once("head.php");
                     kurir:$("#isipaket").val(),
                 },
                 function(data) {
-                    window.location.href="pagepay.php";
+                    if (data.search("pas")>0) {
+                        window.location.href="pagepay.php";
+                    }else{
+                        alert(data);
+                    }
+                    
                    
             });
         }
@@ -433,7 +438,11 @@ require_once("head.php");
                     kurir:$("#isipaket").val(),
                 },
                 function(data) {
-                    window.location.href="pagepay.php";
+                    if (data.search("pas")>0) {
+                        window.location.href="pagepay.php";
+                    }else{
+                        alert(data);
+                    }
             });
         }
     </script>
