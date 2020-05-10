@@ -707,7 +707,21 @@ require_once("head.php");
             }
         });
         document.querySelector('.stars').setAttribute('data-rating', num);
+
+
     }
+
+
+    refreshstatus();
+    function refreshstatus(){
+        $.post("ajaxs/ajaxbackexec.php", {
+                    jenis: "refreshpembayaran",
+                },
+                function(data) {
+                    console.log(data);
+            });
+    }
+
     //----------------end of stars rating ----------------------------------//
 </script>
 </body>
