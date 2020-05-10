@@ -278,7 +278,7 @@ require_once("head.php");
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
+                    <button type="button" id="bayar_sisa_tagihan" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
                 </div>
             </div>
         </div>
@@ -294,6 +294,7 @@ require_once("head.php");
     var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
    // console.log(idcust);
     var idbarangutkdiulas, iddjualulas;
+    var getId,tabledetail, data, getIdAlamat="";
 
     //button kirim ulasan di modal
     function kirimulasansaya() {
@@ -323,6 +324,13 @@ require_once("head.php");
     }
     //end of button kirim ulasan di modal
 
+    //button bayar tagihan
+    function bayar_sisa_tagihan(getId) {
+        
+        console.log(getId);
+    }
+    //end of button bayar tagihan
+
     //logout
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
@@ -344,6 +352,13 @@ require_once("head.php");
             $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
         });
         // end of call event button kirim ulasan di modal
+
+        //call event button bayar sisa tagihan di modal
+        $('#bayar_sisa_tagihan').click( function () {
+            bayar_sisa_tagihan();
+
+        });
+        // end of call event button bayar sisa tagihan di modal
 
         var tableuser="";
 
@@ -438,7 +453,7 @@ require_once("head.php");
         //end of event jika list order dipilih/diclick 
 
         
-        var getId,tabledetail, data, getIdAlamat="";
+        
 
         //jika button di list orders dipilih/ditekan
         $('#tableorders tbody').on( 'click', 'a', function () {
