@@ -15,7 +15,8 @@ function getorderidLUN()//lunas
             while($row = $result->fetch_assoc()) {
                 $ada=$row['NO'];
             }
-            $jadi=intval(substr($ada,10,5))+1;
+               $jadi=intval(substr($ada,10,5))+1;
+            
         }
         $noinvoice="LNS".date("ymd").str_pad($jadi,5,0,STR_PAD_LEFT);
         $conn->close();
@@ -35,7 +36,9 @@ function getorderidPIU()//hutang
             while($row = $result->fetch_assoc()) {
                 $ada=$row['NO'];
             }
-            $jadi=intval(substr($ada,10,5))+1;
+               $jadi=intval(substr($ada,10,5))+1;
+            
+            
         }
         $noinvoice="PIT".date("ymd").str_pad($jadi,5,0,STR_PAD_LEFT);
         $conn->close();

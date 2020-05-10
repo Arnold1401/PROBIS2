@@ -233,7 +233,7 @@ require_once("head.php");
                 });
 
                 $.post("ajaxs/ajaxcheckout.php", {
-                    jenis: "getnotif",
+                    jenis: "getid",
                 },
                 function(data) {
                     console.log(data);

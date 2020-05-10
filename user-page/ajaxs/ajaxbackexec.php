@@ -17,9 +17,9 @@
                 $idhjual=$row1["id_hjual"];
                 $status=getstat($idhjual);
 
-                if ($status=='cancel') {
+                if ($status=='cancel'||$status=='failure') {
                     $status="Batal";
-                }else if ($status=='Pending') {
+                }else if ($status=='pending') {
                     $status="Hutang";
                 }
 
