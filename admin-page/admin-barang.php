@@ -148,6 +148,12 @@ require_once("adminhead.php");
                             </div>
 
                             <div class="form-group">
+                                <label for="" class=" form-control-label">Berat Barang</label>
+                                <input type="number" id="berat_barang" name="" class="form-control" aria-describedby="helpjumlah_barang" required>
+                                <small id="helpjumlah_barang" class="invalid-feedback">Masukkan Berat barang masuk</small>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="form-control-label">Harga Beli Barang</label>
                                     <div class="input-group mb-2 mr-sm-2">
                                         <div class="input-group-prepend">
@@ -547,6 +553,7 @@ require_once("adminhead.php");
                         hargabeli:$("#hrgbeli_barang").val(),
                         hargajual:$("#hrgjual_barang").val(),
                         fotobarang:$("#url_user").val(),
+                        beratbarang:$("#berat_barang").val(),
                 
                     },
                     function (data) {
