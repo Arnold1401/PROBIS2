@@ -128,7 +128,16 @@ require_once("adminhead.php");
                         </div>
                         <!-- end col 6 -->
                         
+                        
+
                         <div class="col-sm-6">
+
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Berat Barang</label>
+                                <input type="number" id="berat_barang" name="" class="form-control" aria-describedby="helpjumlah_barang" required>
+                                <small id="helpjumlah_barang" class="invalid-feedback">Masukkan berat barang</small>
+                            </div>
+
                             <div class="form-group">
                                 <label for="" class=" form-control-label">Tanggal Masuk</label>
                                 <input type="date" name="" id="tgl_masuk" class="form-control" aria-describedby="helptgl_masuk" required>
@@ -168,6 +177,8 @@ require_once("adminhead.php");
                                         <small id="helphrgjual_barang" class="invalid-feedback">Masukkan Harga Jual barang</small>
                                     </div>
                             </div>
+
+                            
 
                             <div class="row">
                                 <div class="col-md-4">
