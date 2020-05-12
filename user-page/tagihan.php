@@ -430,10 +430,15 @@ require_once("head.php");
                     "orderable":true,
                     "render": function (data, type, row) {  
                         
-                        if (row.status_pembayaran == 'Hutang') //pengriman
+                        if (row.status_pembayaran == 'Hutang') //hutang
                         {
+                            var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarHutang\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang'>Bayar Tagihan</a>";
+                            "<a id=\"BayarHutang\" onclick=\"getinfo('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang'>Bayar Tagihan</a>";
+                        }else if(row.status_pembayaran == 'pending'){// 
+                            var id=row.id_hjual;
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
+                            "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
                         }
                         
                         
@@ -693,6 +698,22 @@ require_once("head.php");
         });
         document.querySelector('.stars').setAttribute('data-rating', num);
     }
+
+    function getinfo(idhjual) {
+        $.post("ajaxs/ajaxtagihan.php",{
+                    jenis:"getinfo",
+                    id:idhjual
+                },
+                function(data){                 
+                    console.log(data);
+
+
+                    // $("#idhjualhutang").html();             
+                    // $("#jatuhtempohutang").html();             
+                    // $("#tagihan").html();             
+                });
+    }
+
     //----------------end of stars rating ----------------------------------//
 </script>
 </body>
