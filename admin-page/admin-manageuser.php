@@ -390,7 +390,8 @@ include_once('adminconn.php');
         //datatable di list user
         tableuser = $('#tableusers').DataTable( 
         {
-             "buttons": [ 'copy', 'excel', 'pdf' ],
+            destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+             "buttons": [ 'copy', 'excel', 'pdf' ],             
              "processing":true,
              "language": {
                 "lengthMenu": "Tampilkan _MENU_ data per Halaman",
@@ -508,7 +509,8 @@ include_once('adminconn.php');
                         "ajax":{
                             "url":"datatable_listSalesNear.php",
                             "type":"POST",
-                            "data":{"get_provinsi":getProvinsi[1]},
+                            "data":{"get_provinsi":getProvinsi[1],
+                                    "get_idsales": getsaltId},
                         },
                         "deferRender":true,
                         "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
@@ -577,9 +579,11 @@ include_once('adminconn.php');
                             id_sales : gt,
                         },
                         function(data){
+                            $('#listSalesNear').DataTable().ajax.reload(); //reload ajax datatable sales yang bertanggung jawab di customer ini
+                            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
                             $('#sales_bertanggungjawab').DataTable().ajax.reload(); //reload ajax datatable sales yang bertanggung jawab di customer ini
                             alert(data);
-                            $('#tableusers').DataTable().ajax.reload(); //reload ajax datatable list sales after inserted data
+                            
                             
                         });
                     } );

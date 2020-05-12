@@ -223,7 +223,7 @@ require_once("adminhead.php");
                         else if (row.status_order == 'Selesai') //selesai
                         {
                             return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
-                            "<small> Diterima : " + row.tanggal_orderselesai + " </small>";
+                            "<small> Diterima : " + moment(row.tanggal_orderselesai).format("DD-MMMM-YYYY") + " </small>";
                         }
                         else if (row.status_order == 'Piutang') //piutang
                         {
