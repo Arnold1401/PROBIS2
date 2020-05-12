@@ -252,6 +252,7 @@ if ($_POST["jenis"]=="insertbarang") {
     $kuantiti=$_POST["kuantiti"];
     $hargabeli=$_POST["hargabeli"];
     $hargajual=$_POST["hargajual"];
+    $beratbarang = $_POST["beratbarang"];
 
     $foto=$_POST["fotobarang"];
     $status="1";  //inputan pertama pasti statusnya 1 (aktif) karena udh ada pengecekan kalau tgl kadaluarsa harus lebih besar dari tgl hari ini
@@ -264,7 +265,7 @@ if ($_POST["jenis"]=="insertbarang") {
 
     if ($conn->query($sql)) {
 
-         $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
+         $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual, berat) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual', $beratbarang)";
         
          if ($conn->query($sql2)) {
             echo "berhasil";

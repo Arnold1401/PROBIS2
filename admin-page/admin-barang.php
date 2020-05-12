@@ -129,15 +129,7 @@ require_once("adminhead.php");
                         <!-- end col 6 -->
                         
                         
-
                         <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label for="" class=" form-control-label">Berat Barang</label>
-                                <input type="number" id="berat_barang" name="" class="form-control" aria-describedby="helpjumlah_barang" required>
-                                <small id="helpjumlah_barang" class="invalid-feedback">Masukkan berat barang</small>
-                            </div>
-
                             <div class="form-group">
                                 <label for="" class=" form-control-label">Tanggal Masuk</label>
                                 <input type="date" name="" id="tgl_masuk" class="form-control" aria-describedby="helptgl_masuk" required>
@@ -154,6 +146,12 @@ require_once("adminhead.php");
                                 <label for="" class=" form-control-label">Kuantiti/Jumlah Barang</label>
                                 <input type="number" id="jumlah_barang" name="" class="form-control" aria-describedby="helpjumlah_barang" required>
                                 <small id="helpjumlah_barang" class="invalid-feedback">Masukkan kuantiti/jumlah barang masuk</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class=" form-control-label">Berat Barang</label>
+                                <input type="number" id="berat_barang" name="" class="form-control" aria-describedby="helpjumlah_barang" required>
+                                <small id="helpjumlah_barang" class="invalid-feedback">Masukkan Berat barang masuk</small>
                             </div>
 
                             <div class="form-group">
@@ -177,8 +175,6 @@ require_once("adminhead.php");
                                         <small id="helphrgjual_barang" class="invalid-feedback">Masukkan Harga Jual barang</small>
                                     </div>
                             </div>
-
-                            
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -558,6 +554,7 @@ require_once("adminhead.php");
                         hargabeli:$("#hrgbeli_barang").val(),
                         hargajual:$("#hrgjual_barang").val(),
                         fotobarang:$("#url_user").val(),
+                        beratbarang:$("#berat_barang").val(),
                 
                     },
                     function (data) {
