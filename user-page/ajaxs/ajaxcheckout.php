@@ -15,7 +15,8 @@ function getorderidLUN()//lunas
             while($row = $result->fetch_assoc()) {
                 $ada=$row['NO'];
             }
-            $jadi=intval(substr($ada,10,5))+1;
+               $jadi=intval(substr($ada,10,5))+1;
+            
         }
         $noinvoice="LNS".date("ymd").str_pad($jadi,5,0,STR_PAD_LEFT);
         $conn->close();
@@ -35,7 +36,9 @@ function getorderidPIU()//hutang
             while($row = $result->fetch_assoc()) {
                 $ada=$row['NO'];
             }
-            $jadi=intval(substr($ada,10,5))+1;
+               $jadi=intval(substr($ada,10,5))+1;
+            
+            
         }
         $noinvoice="PIT".date("ymd").str_pad($jadi,5,0,STR_PAD_LEFT);
         $conn->close();
@@ -108,7 +111,7 @@ function insertdatabaseLUN($orderid,$alam)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`,`id_alamat`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$totalsemua', '$iduser', 'Proses','$alam');";
+   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `id_alamat`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Hutang','$alam')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -332,7 +335,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
    $conn = getConn();
    $tgl=date("Y-m-d");
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `grandtotal`, `id_cust`, `status_order`,`id_alamat`) VALUES ('$orderid', '$tgl','', '$kurir', '$idsales', '$bayar', '$iduser', 'Proses','$alam');";
+   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `id_alamat`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang','$alam')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{

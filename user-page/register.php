@@ -424,7 +424,7 @@ function upload() {
     //     if(ctr_1 == 5){
     //     ctr_1 = 1;
     //     len = $("#nomor_ktp").val().length -1;
-    //     var isi = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
+    //     var is i = $("#nomor_ktp").val().substr(0,len) + '-' + $("#nomor_ktp").val().substr(len,1);
     //     $("#nomor_ktp").val(isi);
     //     }
     // });
