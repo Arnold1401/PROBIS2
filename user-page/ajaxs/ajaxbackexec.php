@@ -2,7 +2,7 @@
     session_start();
     include_once "../conn.php";
 
-    //refresh pembayaran hjual
+    //refresh pembayaran lunas
     if ($_POST["jenis"]=="refreshpembayaran") {
         $iduser=$_SESSION['idcust'];
 
@@ -18,7 +18,13 @@
                 $idhjual=$row1["id_hjual"];
                 $status=getstat($idhjual);
 
-                
+                if ($status=='cancel'||$status=='failure'||$status=='expire') {
+                    $status="Batal";
+                }else if ($status=='pending') {
+                    $status="Menunggu Pembayaran";
+                }else{//settlement
+                    $status="Lunas";
+                }
 
                 $sql2="update hjual set status_pembayaran='$status' where id_hjual='$idhjual'";
                 if ($conn->query($sql2)) {
