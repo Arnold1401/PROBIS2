@@ -370,6 +370,7 @@ require_once("head.php");
                     kurir:$("#isipaket").val(),
                 },
                 function(data) {
+                    console.log(data);
                     if (data.search("pas")>0) {
                         window.location.href="pagepay.php";
                     }else{

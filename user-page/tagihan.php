@@ -251,6 +251,7 @@ require_once("head.php");
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+                    <span id="ida" style="display:none;">0</span>
                     <h5 class="modal-title">Detail Tagihan #<span id="idhjualhutang">[id hjual]</span> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -278,7 +279,7 @@ require_once("head.php");
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="bayar_sisa_tagihan" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
+                    <button type="button" onclick="bayar_sisa_tagihan()" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
                 </div>
             </div>
         </div>
@@ -470,6 +471,7 @@ require_once("head.php");
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                $("#ida").html(getIdAlamat);
                 var tr = $(this).closest('tr');
 
                 //table detail order barang dibagian bawah
@@ -561,6 +563,7 @@ require_once("head.php");
                     getIdAlamat:getIdAlamat,
                 },
                 function(data){                 
+                    
                     var provinsi = data[0].split("-");
                     var kota = data[1].split("-");
                     var kec = data[2].split("-");
@@ -576,7 +579,7 @@ require_once("head.php");
                 getId = data[Object.keys(data)[0]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 var tr = $(this).closest('tr');
-                console.log(getIdAlamat);
+                $("#ida").html(getIdAlamat);
 
                 //DETAIL TAGIHAN
                 $.post("ajaxreseller.php",{
@@ -706,11 +709,22 @@ require_once("head.php");
                 },
                 function(data){                 
                     console.log(data);
+                    var arr=JSON.parse(data);
+                    $("#idhjualhutang").html(arr["idp"]);             
+                    $("#jatuhtempohutang").html(arr["tgl"]);             
+                    $("#tagihan").html(arr["amount"]);             
+                });
+    }
 
-
-                    // $("#idhjualhutang").html();             
-                    // $("#jatuhtempohutang").html();             
-                    // $("#tagihan").html();             
+    function bayar_sisa_tagihan(){
+        var idpiutang=$("#idhjualhutang").html();
+            $.post("ajaxs/ajaxtagihan.php",{
+                    jenis:"bayartagihan",
+                    id:idpiutang,
+                    ida:$("#ida").html()
+                },
+                function(data){                   
+                    window.location.href="pagepay.php";      
                 });
     }
 

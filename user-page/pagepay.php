@@ -48,7 +48,8 @@ require_once("head.php");
          <!--difor nanti-->
          <!-- tabel summarry -->
           <?php
-          $kal="";
+          if (isset($_SESSION["keranjang"])) {
+            $kal="";
              $arr=unserialize($_SESSION["keranjang"]);
              $total=0;
              for ($i=0; $i <count($arr); $i++) { 
@@ -69,6 +70,10 @@ require_once("head.php");
              }
              
              echo $kal;
+          }else{
+            
+          }
+          
           ?>
           <tr>
             <td></td>

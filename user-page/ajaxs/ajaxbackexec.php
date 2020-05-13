@@ -9,6 +9,10 @@
         $kal="";
 
         $conn=getConn();
+
+       
+
+
         $sql1="select id_hjual from hjual where id_cust='$iduser'";
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
@@ -22,8 +26,33 @@
                     $status="Batal";
                 }else if ($status=='pending') {
                     $status="Menunggu Pembayaran";
+                    $sql2="select * from piutang where id_hjual='$idhjual'";
+                    $result2 = $conn->query($sql2);
+                    if ($result2->num_rows > 0) {
+                        $status="Hutang";
+                    }
+
+                    
+                    $sql3="select * from piutang where id_hjual='$idhjual'";
+                    $result3 = $conn->query($sql3);
+                    if ($result3->num_rows > 0) {
+                        while($row3=$result3->fetch_assoc()){
+                            $idp=$row3["id_piutang"];
+                        }
+                        $status=getstat($idp);
+                        if ($status=="pending") {
+                            $status="Menunggu Pembayaran Hutang";
+                        }else if($status=='cancel'||$status=='failure'||$status=='expire'){
+                            $status="Batal";
+                        }else{
+                            $status="Hutang";
+                        }
+                    }
+                  
+                   
                 }else{//settlement
                     $status="Lunas";
+                  
                 }
 
                 $sql2="update hjual set status_pembayaran='$status' where id_hjual='$idhjual'";

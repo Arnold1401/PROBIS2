@@ -278,6 +278,7 @@ if ($_POST["jenis"] == "piutang") {//piu
       if (hitungsubtotalorderan()>=5000000&&hitungsubtotalorderan()<=100000000) {
          $orderid=getorderidLUN();
          $piu=getorderidPIU();
+         echo $piu;
          sessionpagepayPIU($orderid,$piu);
          insertdatabasePIU($orderid,$piu,$alam);
       }else if (hitungsubtotalorderan()>100000000) {
@@ -366,6 +367,8 @@ function insertdatabasePIU($orderid,$piu,$alam)
       }
       $conn->close();
    }
+
+   echo $stat;
    
 }
 
