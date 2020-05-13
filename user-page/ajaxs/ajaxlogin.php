@@ -50,12 +50,13 @@
                 $_SESSION["nama_user"]=$row2["nama_sales"];
                 $_SESSION["email_user"]=$row2["email"];
                 $_SESSION["id_sales"]=$row2["id_sales"];
-                $_SESSION["token"]=$row2["token"];
                 $status=$row2["status"];
             }
         }
 
-        if ($ctr==2) {
+        if ($_SESSION["role"]=="salesman") {
+            echo "../sales-home.php";
+        }else if ($ctr==2) {
             if ($role==0) {//reseller
                 if ($status=="0") {
                   echo "alertconfirm.php";
