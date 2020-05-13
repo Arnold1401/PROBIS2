@@ -49,6 +49,7 @@
                 $_SESSION["role"]="salesman";
                 $_SESSION["nama_user"]=$row2["nama_sales"];
                 $_SESSION["email_user"]=$row2["email"];
+                $_SESSION["id_sales"]=$row2["id_sales"];
                 $_SESSION["token"]=$row2["token"];
                 $status=$row2["status"];
             }
