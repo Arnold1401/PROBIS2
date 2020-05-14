@@ -85,7 +85,7 @@ require_once("headlogin.php");
                 if (data.search("admin salah password")>0||data.search("data tidak ditemukan")>0) {
                     
                 }else{
-                    //window.location.href=data;
+                    window.location.href=data;
                 }
             });
         }
