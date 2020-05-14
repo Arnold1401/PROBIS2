@@ -228,38 +228,35 @@ $row = $result->fetch_assoc();
                                     
                                     <div class="form-group">
                                       <label for="">Provinsi Tujuan</label>
-                                      <select class="form-control" name="" id="">
-                                        <option></option>
-                                        <option></option>
-                                        <option></option>
+                                      <select class="form-control" name="cb_provinsi" id="cb_provinsi" onchange="cb_city()">
                                       </select>
                                     </div>
 
                                     <div class="form-group">
                                       <label for="">Kota Tujuan</label>
-                                      <select class="form-control" name="" id="">
-                                        <option></option>
-                                        <option></option>
-                                        <option></option>
+                                      <select class="form-control" name="cb_kota" id="cb_kota" onchange="cb_subdistrict()">
                                       </select>
                                     </div>
 
                                     <div class="form-group">
                                       <label for="">Kecamatan Tujuan</label>
-                                      <select class="form-control" name="" id="">
-                                        <option></option>
-                                        <option></option>
-                                        <option></option>
+                                      <select class="form-control" name="cb_kecamatan" id="cb_kecamatan">
                                       </select>
                                     </div>
 
                                     <div class="form-group">
+                                      <label for="">Kode Pos</label>
+                                    <input type='text' class="form-control" name="kodepos" id="kodepos" aria-describedby="helpkodepos" required>
+                                    </div>
+
+
+                                    <div class="form-group">
                                       <label for="">Alamat Lengkap</label>
-                                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                        <input type="text" name="alamat_lengkap" id="alamat_lengkap" class="form-control" placeholder="" aria-describedby="helpId">
                                       
                                     </div>
 
-                                    <button type="button" class="btn btn-outline-success">
+                                    <button type="button" class="btn btn-outline-success" id="simpan_alamat">
                                         <i class="fa fa-ban"></i> Simpan Alamat Baru
                                     </button>
                                     
@@ -284,6 +281,50 @@ $row = $result->fetch_assoc();
             function(data){
                 $("#alamat").html(data);
             });
+
+            function cb_prov(){
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getprovince",
+        },
+        function(data){
+            console.log(data);
+            $("#cb_provinsi").html(data);
+        });
+        $("#cb_provinsi").val(-1);
+    }
+
+    function cb_city() {
+        var arrprov=$("#cb_provinsi").val().split('-');
+        $.post("ajaxs/ajaxregister.php",
+        {
+            jenis:"getcity",
+            province:arrprov[0],
+        },
+        function(data){
+            console.log(data);
+            $("#cb_kota").html(data);
+        });
+        $("#cb_kota").val(-1);
+    }
+
+    function cb_subdistrict() {
+        if ($("#cb_kota").val()!=null) {
+            var kota=$("#cb_kota").val().split('-');
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getsubdistrict",
+                city:kota[0],
+            },
+            function(data){
+                console.log(data);
+                $("#cb_kecamatan").html(data);
+            });
+        }
+        
+    }
+
+    cb_prov();//load prov
         
     function hapusalamat(){
         $.post("ajaxs/ajaxsetting.php",
@@ -321,6 +362,34 @@ $row = $result->fetch_assoc();
                 alert(data);
             });
     }
+
+    $("#simpan_alamat").click(function(){
+        var prov = $("#cb_provinsi").val();
+        var kota = $("#cb_kota").val();
+        var kode = $("#kodepos").val();
+        var camat = $("#cb_kecamatan").val();
+        var alamatuser = $("#alamat_lengkap").val();
+
+        $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"simpanalamat",
+                alamat_user:alamatuser,
+                prov:prov,
+                kota:kota,
+                camat:camat,
+                kode:kode,
+            },
+            function(data){
+                alert(data);
+                $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"loadalamat",
+            },
+            function(data){
+                $("#alamat").html(data);
+            });
+            });
+    });
 
     $( "#nomor_ktp" ).keyup(function() {
         var _minus = false;

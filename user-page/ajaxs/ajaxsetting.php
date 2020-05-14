@@ -44,7 +44,7 @@
         $kal="";
         $conn=getConn();
         $email=$_SESSION["email_user"];
-        $sql1="select * from alamat_pengiriman where email='$email' not no_prioritas='0'";
+        $sql1="select * from alamat_pengiriman where email='$email' and no_prioritas != '0'";
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
             while ($row1 = $result1->fetch_assoc()) {
@@ -73,8 +73,23 @@
             }
         $conn->close();
     }
+
+    if ($_POST["jenis"]=="simpanalamat") {
+        $conn = getConn();
+        $email_user = $_SESSION["email_user"];
+        $alamat_user = $_POST["alamat_user"];
+        $prov = $_POST["prov"];
+        $kota = $_POST["kota"];
+        $camat = $_POST["camat"];
+        $kodepos = $_POST["kode"];
+        $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas,kode_pos) values ('$email_user','$prov','$kota','$camat','$alamat_user','1','$kodepos')";
+        if($conn->query($sql3)){
+            echo "berhasil";
+        }else{
+            echo "gagal";
+        }
       
-    
+    }
 
 
 ?>
