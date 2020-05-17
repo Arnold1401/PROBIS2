@@ -2,7 +2,9 @@
 require_once("head.php");
 include("conn.php");
 
-$id=1;
+$id=$_SESSION["id_sales"];
+
+
 ?>
 
 <!DOCTYPE html>
