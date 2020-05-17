@@ -126,6 +126,8 @@ $conn = getConn();
         </div> -->
       </div>
 
+    
+
       <!-- row Jenis Product -->
       <div class="row">
         <!-- filter product -->
@@ -187,6 +189,7 @@ $conn = getConn();
 
   </section>
   <!-- END Jenis Product -->
+
 
 
 
@@ -290,6 +293,7 @@ $conn = getConn();
             idbarang:params,
           },
           success: function(data) {
+            alert("Barang telah masuk di keranjang !");
             console.log(data);
           }
         });
@@ -304,6 +308,7 @@ $conn = getConn();
             idbarang:params,
           },
           success: function(data) {
+            alert("Barang telah masuk di wishlist !");
             console.log(data);
           }
         });

@@ -27,10 +27,10 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 				<h3><strong><a >Rp$fharga</a></strong></h3> <br>
 				<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
 					<!--<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>-->
-					<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
+					<a onclick=\"addcart('$id')\"  class='buy-now d-flex justify-content-center align-items-center mx-3'>
 						<span><i class='ion-ios-cart'></i>Keranjang</span>
 					</a>
-					<a onclick=\"addwish('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
+					<a onclick=\"addwish('$id')\"  class='buy-now d-flex justify-content-center align-items-center mx-3'>
 					<span><i class='ion-ios-heart'></i>Wishlist</span>
 					</a>
 				</div>
@@ -101,10 +101,10 @@ if ($_POST["jenis"] == "filter") {
 					<h3><strong><a >IDR $fharga</a></strong></h3> <br>
 					<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
 						<!--<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>-->
-						<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
+						<a onclick=\"addcart('$id')\" class='buy-now d-flex justify-content-center align-items-center mx-3'>
 							<span><i class='ion-ios-cart'></i>Keranjang</span>
 						</a>
-						<a onclick=\"addwish('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
+						<a onclick=\"addwish('$id')\"  class='buy-now d-flex justify-content-center align-items-center mx-3'>
 							<span><i class='ion-ios-heart'></i>Wishlist</span>
 						</a>
 					</div>
