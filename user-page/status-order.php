@@ -126,6 +126,7 @@ require_once("head.php");
                             <li class="btn"><a href="#tableall" data-value="Pengiriman">Pengiriman</a></li>
                             <li class="btn"><a href="#tableall" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
                             <li class="btn"><a href="#tableall" data-value="Selesai">Selesai</a></li>
+                            <li class="btn"><a href="#tableall" data-value="Batal">Batal</a></li>
                         </ul>
                         
                         <div class="table-responsive" >
@@ -416,9 +417,9 @@ require_once("head.php");
                             return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
                             "<small> Diterima : " + moment(row.tanggal_orderselesai).format("DD-MMMM-YYYY") + " </small>";
                         }
-                        else if (row.status_order == 'Hutang') //hutang
+                        else if (row.status_order == 'Batal') //hutang
                         {
-                            return "<label class='text-danger font-weight-bold'>Hutang</label>";
+                            return "<label class='text-danger font-weight-bold'>Batal</label>";
                         }
                         
                     },
