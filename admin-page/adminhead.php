@@ -58,6 +58,21 @@
                     <li>
                         <a href="admin-piutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
                     </li>
+
+                    <h3 class="menu-title">Laporan</h3><!-- /.menu-title -->
+                    <li>
+                        <a href="admin-lappelanggan.php"> <i class="menu-icon fa fa-laptop"></i>Pelanggan</a>
+                    </li>
+                    <li>
+                        <a href="admin-lapbarang.php"> <i class="menu-icon fa fa-laptop"></i>Barang</a>
+                    </li>
+                    <li>
+                        <a href="admin-lapsales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales</a>
+                    </li>
+                    <li>
+                        <a href="admin-lapkeuntungan.php"> <i class="menu-icon fa fa-th"></i>keuntungan </a>
+                    </li>
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
