@@ -15,7 +15,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 		$id=$row["id_barang"];
         $nama= $row['nama_barang'] ;
         $harga=$row['harga_jual']; 
-		$foto=$row['foto_barang']; 
+		$foto="../admin-page/".$row['foto_barang']; 
 		$fharga=number_format($harga);
 		$brand="";
 		$kal.="
