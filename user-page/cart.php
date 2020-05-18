@@ -260,6 +260,7 @@ require_once("head.php");
                     idb: idb
                 },
                 function(data) {
+                    alert("Berhasil mencabut barang dari keranjang !");
                     console.log(data);
                     load();
                 });
@@ -272,7 +273,7 @@ require_once("head.php");
                     jumbarang: $("#jum" + idb).val()
                 },
                 function(data) {
-                    console.log(data);
+                    alert(data);
                     load();
                 });
             setongkir();

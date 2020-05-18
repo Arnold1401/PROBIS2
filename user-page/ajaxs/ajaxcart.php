@@ -117,13 +117,33 @@
         if ($idarray==-1) {
             echo "barang tidak ditemukan";
         }else{
-            $arrkeranjang[$idarray]->set_jum($jum);
-            $_SESSION["keranjang"]=serialize($arrkeranjang);
-            $_SESSION['berat']=hitungberat();
-            echo "barang ganti jumlah";
-            echo "berat".hitungberat();
+            $qty=checkganti($idbarang);
+
+            if ($jum<=$qty) {
+                $arrkeranjang[$idarray]->set_jum($jum);
+                $_SESSION["keranjang"]=serialize($arrkeranjang);
+                $_SESSION['berat']=hitungberat();
+                echo "Jumlah barang berhasil diganti !";
+            }else{
+                echo "Stok tidak tersedia !";
+            }
+
+           
         }
-        
+        $_SESSION["berat"]=hitungberat();
+    }
+
+    function checkganti($id){
+        $conn=getConn();
+        $sql="select kuantiti from detail_barang where id_barang='$id'";
+        $result = $conn->query($sql);
+        $qty=0;
+
+        while($row = $result->fetch_assoc()) {
+            $qty=$row['kuantiti'];
+        }
+        return $qty;
+        $conn->close();
     }
     
     //tambah ke keranjang
