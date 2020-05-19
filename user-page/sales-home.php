@@ -5,6 +5,9 @@ include("conn.php");
 $id=$_SESSION["id_sales"];
 
 
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -105,7 +108,7 @@ $id=$_SESSION["id_sales"];
 
                             <?php
                                 $query="
-                                select h.tanggal, h.id_hjual, s.nama_sales,h.status_order
+                                select h.tanggal_order, h.id_hjual, s.nama_sales,h.status_order
                                 from hjual h ,sales s
                                 where h.id_sales = s.id_sales and s.id_sales='$id'";
                                             $data = mysqli_query(getConn(),$query);
