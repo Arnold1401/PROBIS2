@@ -436,7 +436,13 @@ require_once("head.php");
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
                             "<a id=\"BayarHutang\" onclick=\"getinfo('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang'>Bayar Tagihan</a>";
-                        }else if(row.status_pembayaran == 'Hutang'){// 
+                        }
+                        else if(row.status_pembayaran == 'Menunggu Pembayaran'){// 
+                            var id=row.id_hjual;
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
+                            "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
+                        }
+                        else if(row.status_pembayaran == 'Hutang'){// 
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
                             "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
