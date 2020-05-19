@@ -58,7 +58,7 @@ $conn = getConn();
           <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
 <!-- icon pakai icomoon.css -->
           <li class="nav-item active"><a href="produk.php" class="nav-link">Produk</a></li>
-          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link" id='jumcart'><span class="icon-shopping_cart" ></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
         echo $count;
@@ -132,6 +132,9 @@ $conn = getConn();
       <div class="row">
         <!-- filter product -->
         <div class="col-md-3">
+
+                                                                                                                                              
+
           <div class="list-group">
             <h3>Price</h3>
             <input type="hidden" id="hidden_minimum_price" onclick="filter_data()" value="0" />
@@ -295,6 +298,8 @@ $conn = getConn();
           success: function(data) {
             alert("Barang telah masuk di keranjang !");
             console.log(data);
+            window.location.href="produk.php";
+
           }
         });
     }
@@ -310,6 +315,19 @@ $conn = getConn();
           success: function(data) {
             alert("Barang telah masuk di wishlist !");
             console.log(data);
+          }
+        });
+    }
+
+    function jumcart(){
+      $.ajax({
+          url: "ajaxs/ajaxcart.php",
+          method: "POST",
+          data: {
+            jenis: 'jumitem',
+          },
+          success: function(data) {
+            console.log();
           }
         });
     }

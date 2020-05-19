@@ -29,15 +29,15 @@
     
                     $stotal=$hg*$jum;
                     $fstotal=number_format($stotal,2);
-                    $gmb1=$arrkeranjang[$i]->get_gambar();
+                    $gmb1="../admin-page/".$arrkeranjang[$i]->get_gambar();
                         $kal.="<tr class='text-center'>                                                           
-                        <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
+                        <td class='image-prod'><div class='img' style=\"background-image:url('$gmb1');\"></div></td>
                         
                         <td class='product-name'>
                             <h3>$nm</h3>
                         </td>
                         
-                        <td class='price'>IDR $fhg</td>
+                        <td class='price'>Rp. $fhg</td>
                         
                         <td class='quantity'>
                             <div class='input-group mb-3'>
@@ -45,7 +45,7 @@
                         </div>
                         </td>
                     
-                        <td class='total'>IDR $fstotal</td>
+                        <td class='total'>Rp. $fstotal</td>
                         <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
                     </tr>";
                 }
@@ -232,7 +232,7 @@
     }
 
     //jumlah item di cart item berbeda
-    if ($_POST["jenis"]=="getjum")
+    if ($_POST["jenis"]=="jumcart")
     {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
@@ -263,8 +263,8 @@
         if (isset($_SESSION["berat"])) {
           if ($_SESSION["berat"]>0) {
             // $hasil=getharga($corigin,$sdestination,"1000","jne:pos:tiki:rpx:esl:pcp:pandu:wahana:sicepat:jnt:pahala:cahaya:sap:jet:indah:dse:slis:first:ncs:star:ninja:lion:idl:rex");
-            $berat=$_SESSION["berat"];
-            $hasil=getharga($corigin,$sdestination,$berat,"jne:pos:tiki:jnt");
+            $berat=hitungberat();
+            $hasil=getharga($corigin,$sdestination,$berat,"jne:pos:tiki:jnt:pcp:pandu:wahana:sicepat");
             $kal="";
             $kal.="<option value='-1'>~Pilih Harga Paket~</option>";
             for ($i=0; $i <count($hasil); $i++) { 

@@ -165,16 +165,16 @@ require_once("head.php");
                         <h3>Total Keranjang</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span id="totorder">IDR 0</span>
+                            <span id="totorder">Rp. 0</span>
                         </p>
                         <p class="d-flex">
                             <span>Ongkir</span>
-                            <span id="ongkir">IDR 0</span>
+                            <span id="ongkir">Rp. 0</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span id="totalsemua">IDR 0</span>
+                            <span id="totalsemua">Rp. 0</span>
                         </p>
                     </div>
                     <p><a data-toggle="modal" data-target="#mycheckout" class="text-light btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
@@ -284,7 +284,7 @@ require_once("head.php");
                     jenis: "subtotalorderan",
                 },
                 function(data) {
-                    $("#totorder").html("IDR " + data);
+                    $("#totorder").html("Rp " + data);
                 });
         }
 
@@ -295,7 +295,7 @@ require_once("head.php");
                 },
                 function(data) {
                     $("#isipaket").html(data);
-                    $("#ongkir").html("IDR "+0.00);
+                    $("#ongkir").html("Rp "+0.00);
                 });
             setongkir();
         }
@@ -323,7 +323,7 @@ require_once("head.php");
                             ongkir:0
                         },
                         function(data) {
-                            $("#ongkir").html("IDR "+0.00);
+                            $("#ongkir").html("Rp. "+0.00);
                     });
             }
           
@@ -337,7 +337,7 @@ require_once("head.php");
                     jenis: "total",
                 },
                 function(data) {
-                    $("#totalsemua").html("IDR "+data);
+                    $("#totalsemua").html("Rp. "+data);
             });
         }
         hitungtotal();
