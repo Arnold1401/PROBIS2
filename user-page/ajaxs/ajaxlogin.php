@@ -55,7 +55,7 @@
         }
 
         if ($_SESSION["role"]=="salesman") {
-            echo "../sales-home.php";
+            echo "sales-home.php";
         }else if ($ctr==2) {
             if ($role==0) {//reseller
                 if ($status=="0") {

@@ -137,10 +137,11 @@ $conn = getConn();
 
           <div class="list-group">
             <h3>Price</h3>
-            <input type="hidden" id="hidden_minimum_price" onclick="filter_data()" value="0" />
-            <input type="hidden" id="hidden_maximum_price" onclick="filter_data()" value="65000" />
-            <p id="price_show">Rp1000 - 65000</p>
-            <div id="price_range"></div>
+            <p id="price_fil">Rp1000 - 65000</p>
+            <input type="number" id="vol1" name="vol">
+            <input type="number" id="vol2" name="vol" >
+            
+            <button class="btn btn-success" onclick="terapkan()">Terapkan</button>
           </div>
 
           <div class="list-group">
@@ -235,8 +236,8 @@ $conn = getConn();
       function filter_data() {
         //$('.filter_data').html('<div id="loading" style="" ></div>');
         var jenis = 'filter';
-        var minimum_price = $('#hidden_minimum_price').val();
-        var maximum_price = $('#hidden_maximum_price').val();
+        var minimum_price = $('#vol1').val();
+        var maximum_price = $('#vol2').val();
         var brand = get_filter('brand');
 
         $.ajax({
@@ -345,6 +346,55 @@ $conn = getConn();
         });
     }
 
+    function formatMoney(number, decPlaces, decSep, thouSep) {
+      decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+      decSep = typeof decSep === "undefined" ? "." : decSep;
+      thouSep = typeof thouSep === "undefined" ? "," : thouSep;
+      var sign = number < 0 ? "-" : "";
+      var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+      var j = (j = i.length) > 3 ? j % 3 : 0;
+
+      return sign +
+        (j ? i.substr(0, j) + thouSep : "") +
+        i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
+        (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+    }
+
+  function terapkan() {
+    var hatas=$("#vol1").val();
+    var hbawah=$("#vol2").val();
+    if (hatas!=""&&hbawah!="") {
+      if (hatas<hbawah) {
+        var fhatas=formatMoney(hatas);
+        var fhbawah=formatMoney(hbawah);
+        $("#price_fil").html("Rp. "+fhatas+" sampai Rp."+fhbawah);
+        var jenis = 'filter';
+        var minimum_price = hatas;
+        var maximum_price = hbawah;
+
+        $.ajax({
+          url: "ajaxs/ajaxproduk.php",
+          method: "POST",
+          data: {
+            jenis:jenis,
+            minimum_price:minimum_price,
+            maximum_price:maximum_price,
+          },
+          success: function(data) {
+            $('#disini').html(data);
+          }
+        });
+
+      }
+      else{
+        alert("Harga awal lebih besar dari harga akhir !");
+      }
+    
+    }else{
+      alert("Inputan filter harga tidak boleh kosong !");
+    }
+   
+  }
 
 
 
