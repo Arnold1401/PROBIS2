@@ -295,6 +295,7 @@ if ($_POST["jenis"]=="detail_barang") {
         $result [2] = $row['tanggal_kadaluwarsa'];
         $result [3] = $row['kuantiti'];
         $result [4] = $row['sisa'];
+        $result [5] = $row['berat'];
     }
     
     $conn->close();
@@ -317,6 +318,7 @@ if ($_POST["jenis"]=="UpdateBarang") {
     $kuantiti=$_POST["kuantiti"];
     $hargabeli=$_POST["hargabeli"];
     $hargajual=$_POST["hargajual"];
+    $beratbarang=$_POST["beratbarang"];
 
     $foto=$_POST["fotobarang"];
     $status="1";
@@ -329,7 +331,7 @@ if ($_POST["jenis"]=="UpdateBarang") {
 
        // $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
 
-         $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual' where id_barang=$idbarang";
+         $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual', berat='$beratbarang' where id_barang=$idbarang";
         
          if ($conn->query($sql2)) {
             echo "berhasil update barang";

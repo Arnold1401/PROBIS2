@@ -25,7 +25,7 @@
                     $nm=$arrwishlist[$i]->get_nama();
                     $hg=$arrwishlist[$i]->get_harga();
                     $jum=$arrwishlist[$i]->get_jum();
-                    $fhg=number_format($hg,0);
+                    $fhg=number_format($hg,2);
     
                     $gmb1=$arrwishlist[$i]->get_gambar();
                         $kal.="<tr class='text-center'>                                                           

@@ -3,7 +3,7 @@
 
   if (isset($_SESSION["email_user"])) {
     if (isset($_SESSION["role"])) {
-      if ($_SESSION["role"]=="reseller") {
+      if ($_SESSION["role"]=="reseller"||$_SESSION["role"]=="salesman") {
         
       }else{
         header("location:login.php");

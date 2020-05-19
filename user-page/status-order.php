@@ -445,10 +445,9 @@ require_once("head.php");
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark' href='#detailbarang'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
-                        else if (row.status_order == 'Hutang') //hutang
+                        else if (row.status_order == 'Batal') //Batal
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' '>Detail</a>  "+
-                            "<a id=\"GetDetailHutang\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailHutang'>Tagihan</a>";
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' '>Detail</a>  ";
                         }
                         
                     },
