@@ -38,12 +38,14 @@
                     if ($result3->num_rows > 0) {
                         while($row3=$result3->fetch_assoc()){
                             $idp=$row3["id_piutang"];
+                            $statorder=$row3["status_order"];
                         }
                         $status=getstat($idp);
                         if ($status=="pending") {
                             $status="Menunggu Pembayaran Hutang";
                         }else if($status=='cancel'||$status=='failure'||$status=='expire'){
                             $status="Batal";
+                            $statorder="Batal";
                         }else{
                             $status="Hutang";
                         }
@@ -55,10 +57,12 @@
                   
                 }
 
-                $sql2="update hjual set status_pembayaran='$status' where id_hjual='$idhjual'";
+                $sql2="update hjual set status_pembayaran='$status',status_order='$staorder' where id_hjual='$idhjual'";
                 if ($conn->query($sql2)) {
                     $kal.="berhasil update-$idhjual \n";
                 }
+
+                
 
 
             }

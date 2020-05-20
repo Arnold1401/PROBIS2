@@ -70,7 +70,7 @@ require_once("head.php");
                 <li class="nav-item active"><a href="home.php" class="nav-link">Beranda</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored">
+                <li class="nav-item">
                     <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
@@ -445,10 +445,9 @@ require_once("head.php");
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark' href='#detailbarang'>Detail</a>  "+"<a id=\"GetKonfirmasi\" class='btn btn-primary text-dark disabled'>Selesai</a>";
                         }
-                        else if (row.status_order == 'Hutang') //hutang
+                        else if (row.status_order == 'Batal') //Batal
                         {
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' '>Detail</a>  "+
-                            "<a id=\"GetDetailHutang\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailHutang'>Tagihan</a>";
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' '>Detail</a>  ";
                         }
                         
                     },

@@ -70,7 +70,7 @@ require_once("head.php");
                 <li class="nav-item active"><a href="home.php" class="nav-link">Beranda</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored">
+                <li class="nav-item">
                     <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
@@ -436,7 +436,13 @@ require_once("head.php");
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
                             "<a id=\"BayarHutang\" onclick=\"getinfo('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang'>Bayar Tagihan</a>";
-                        }else if(row.status_pembayaran == 'Hutang'){// 
+                        }
+                        else if(row.status_pembayaran == 'Menunggu Pembayaran'){// 
+                            var id=row.id_hjual;
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
+                            "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
+                        }
+                        else if(row.status_pembayaran == 'Hutang'){// 
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
                             "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";

@@ -111,7 +111,7 @@ function insertdatabaseLUN($orderid,$alam)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `id_alamat`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Hutang','$alam')";
+   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Hutang')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -133,7 +133,20 @@ function insertdatabaseLUN($orderid,$alam)
      
       $conn = getConn();
       $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
-      
+      $stok=0;
+      $q3="select sisa as stok from detail_barang where id_barang='$idbarang'";
+      $result3 = $conn->query($q3);
+      if ($result3->num_rows > 0) {
+         while ($row3 = $result3->fetch_assoc()) {
+            $stok = $row3['stok'];
+         }
+         $stok-=$jum;
+      }
+      $q4="update detail_barang set sisa='$stok' where id_barang='$idbarang'";
+      if ($conn->query($q4)) {
+
+      }
+
       if ($conn->query($q2)) {
          $stat.="djual$i-berhasil";
       }else{
@@ -321,6 +334,8 @@ function insertdatabasePIU($orderid,$piu,$alam)
          $idsales = $row0['sales'];
       }
    }
+
+
    $conn->close();
 
 
@@ -336,7 +351,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
    $conn = getConn();
    $tgl=date("Y-m-d");
-   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `id_alamat`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang','$alam')";
+   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -357,6 +372,22 @@ function insertdatabasePIU($orderid,$piu,$alam)
       $subtotal=$jum*$harga;
      
       $conn = getConn();
+
+
+      $stok=0;
+      $q3="select sisa as stok from detail_barang where id_barang='$idbarang'";
+      $result3 = $conn->query($q3);
+      if ($result3->num_rows > 0) {
+         while ($row3 = $result3->fetch_assoc()) {
+            $stok = $row3['stok'];
+         }
+         $stok-=$jum;
+      }
+      $q4="update detail_barang set sisa='$stok' where id_barang='$idbarang'";
+      if ($conn->query($q4)) {
+
+      }
+
       $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
       
       if ($conn->query($q2)) {

@@ -179,21 +179,21 @@ require_once("adminhead.php");
                             <div class="row">
                                 <div class="col-md-4">
                                     <section class="card">                                   
-                                    <button type="button" class="btn btn-success btn-md" onclick="tambahbarang()">
+                                    <button type="button" id="btnTambah" class="btn btn-success btn-md" onclick="tambahbarang()">
                                             <i class="fa fa-dot-circle-o"></i> Tambahkan
                                         </button>                                      
                                     </section>
                                 </div>
                                 <div class="col-md-4">
                                     <section class="card">
-                                    <button type="button" class="btn btn-danger btn-md" onclick="reset()">
+                                    <button type="button" id="btnReset" class="btn btn-danger btn-md" onclick="reset()">
                                             <i class="fa fa-ban"></i> Reset
                                             </button>
                                     </section>
                                 </div>
                                 <div class="col-lg-4">
                                     <section class="card">
-                                    <button type="button" class="btn btn-warning btn-md float-right" onclick="Updatebarang()">
+                                    <button type="button" class="btn btn-warning btn-md float-right" onclick="Updatebarang()" disabled id="btnUbah">
                                             <i class="fa fa-ban"></i> Ubah
                                             </button>
                                     </section>
@@ -356,7 +356,7 @@ require_once("adminhead.php");
         //end of datatble list barang
 
         //function onclick untuk button list reseller dan details pada datatable list sales 
-        var getId, getNamaBarang,  getDeskBarang, getJenisBarang, getIdSatuan,getHargaBeli,getHargaJual,getFotoBarang, getStatusBarang, getRatingBarang, data, tablelistreseller = "";
+        var getId, getNamaBarang,  getDeskBarang, getJenisBarang, getIdSatuan,getHargaBeli,getHargaJual,getFotoBarang, getStatusBarang, getRatingBarang, getBeratBarang, data, tablelistreseller = "";
         $('#example tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = table.row($(this).closest('tr')).data();
@@ -364,6 +364,13 @@ require_once("adminhead.php");
             //action button Detail
             if(action == 'GetDetail')
             {
+                //enabled button ubah
+                const btnUbah = document.getElementById("btnUbah");
+                const btnTambah = document.getElementById("btnTambah");
+                btnUbah.disabled =false;
+                btnTambah.disabled=true;
+                //ed of enabled button ubah
+
                 saveIdbarangUpdate = data[Object.keys(data)[0]]; //id barang
                  getNamaBarang = data[Object.keys(data)[1]]; //nama barang
                  getDeskBarang = data[Object.keys(data)[2]]; //deskripsi barang
@@ -375,6 +382,7 @@ require_once("adminhead.php");
                  getFotoBarang = data[Object.keys(data)[7]]; //foto barang
                  getStatusBarang = data[Object.keys(data)[8]]; //status barang
                  getRatingBarang = data[Object.keys(data)[9]]; //rating barang
+                 //getBeratBarang = data[Object.keys(data)[9]]; //berat barang
                 
 
                 $.post("adminajax.php",{
@@ -389,7 +397,7 @@ require_once("adminhead.php");
                     document.getElementById("tgl_masuk").value = masuk;
                     document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
                     document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
-
+                    document.getElementById("berat_barang").value =  $.parseJSON(data[5]);
                 });
 
                 document.getElementById("nama_barang").value = getNamaBarang;
@@ -402,6 +410,8 @@ require_once("adminhead.php");
                 document.getElementById("img").src = getFotoBarang;
                 console.log(getFotoBarang);
 
+                const btnReset = document.getElementById("btnReset");
+                btnReset.disabled=true;
            
             }
             //end of action button Detail
@@ -574,6 +584,9 @@ require_once("adminhead.php");
 
     //function reset
     function reset() {
+
+       
+        
         document.getElementById("nama_barang").value = null;
         document.getElementById("desk_barang").value = null;
         document.getElementById("cb_jenisbarang").value = 0;
@@ -584,6 +597,9 @@ require_once("adminhead.php");
         document.getElementById("hrgbeli_barang").value = null;
         document.getElementById("hrgjual_barang").value = null;
         document.getElementById("url_user").value = null;
+        document.getElementById("berat_barang").value = null;
+
+        
         
     }
     //end of function reset
@@ -604,6 +620,7 @@ require_once("adminhead.php");
             hargabeli:$("#hrgbeli_barang").val(),
             hargajual:$("#hrgjual_barang").val(),
             fotobarang:$("#url_user").val(),
+            beratbarang:$("#berat_barang").val(),
     
         },
         function (data) {
@@ -611,6 +628,15 @@ require_once("adminhead.php");
             $('#example').DataTable().ajax.reload(); //reload ajax datatable 
             reset();
         });
+        //enabled button ubah
+        const btnUbah = document.getElementById("btnUbah");
+        const btnTambah = document.getElementById("btnTambah");
+        const btnReset = document.getElementById("btnReset");
+        btnReset.disabled=false;
+        btnUbah.disabled =true;
+        btnTambah.disabled=false;
+        
+        //ed of enabled button ubah
     }
     //end of function update barang
 
