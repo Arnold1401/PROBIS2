@@ -89,19 +89,24 @@ include_once('adminconn.php');
                                 <strong class="card-title">List Sales</strong>
                             </div>
                             <div class="card-body">
-                                                          
-                            <div class="table-responsive">
-                              <table id="tablesales" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Sales</th>
-                                            <th>Alamat</th>
-                                            <th>Tingkat Kinerja</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                       
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class=" form-control-label">Tanggal Awal</label>
+                                        <input type="date" name="" id="tgl_awal" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class=" form-control-label">Tanggal Akhir</label>
+                                        <input type="date" name="" id="tgl_akhir" class="form-control">
+                                    </div>
+                                </div>
+                            
+                            </div>       
+                            <div class="table-responsive" id="nah">
+                             
                               </div>
                                 
                             </div>
@@ -141,6 +146,60 @@ include_once('adminconn.php');
         } );
         //end of event jika list sales dipilih/diclick 
         
+        var today= new Date();
+        var tgl= today.getDate();
+        var bulan= today.getMonth()+1;
+
+        if(bulan<10){
+            bulan='0'+bulan;
+        }
+        var tahun= today.getFullYear();
+        var full='';
+
+        full=full.concat(tahun,'-',bulan,'-',tgl).toString()
+        document.getElementById("tgl_awal").value =full;
+        document.getElementById("tgl_akhir").value =full;
+
+        var link="ajaxs/ajaxSales.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
+
+        $("#nah").load(link);
+
+
+
+
+
+
+$("#tgl_akhir").change(function(){
+
+  var awal= $("#tgl_awal").val();
+var akhir=  $("#tgl_akhir").val();
+
+
+
+
+var link="ajaxs/ajaxSales.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+$("#nah").load(link);
+})
+
+
+
+
+
+$("#tgl_awal").change(function(){
+
+var awal= $("#tgl_awal").val();
+var akhir=  $("#tgl_akhir").val();
+
+var link="ajaxs/ajaxSales.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+$("#nah").load(link);
+
+})
+
+
+
+
     });
     //end of document ready
 

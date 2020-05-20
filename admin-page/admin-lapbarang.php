@@ -106,18 +106,8 @@ include_once('adminconn.php');
                                 </div>
                             </div>
                                                           
-                              <div class="table-responsive">
-                              <table id="tablebarang" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Kategori Barang</th>
-                                            <th>Nama Barang</th>
-                                            <th>Tingkat Keuntungan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                       
-                                    </tbody>
-                                </table>
+                              <div class="table-responsive" id="nah">
+                             
                               </div>
                                 
                             </div>
@@ -155,9 +145,73 @@ include_once('adminconn.php');
         $('#tablebarang tbody').on('click', 'tr', function () {
             $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
         } );
-        //end of event jika list barang dipilih/diclick 
+        //end of event jika list barang dipilih/diclick
+        var today= new Date();
+
+
+        var tgl= today.getDate();
+        var bulan= today.getMonth()+1;
+
+        if(bulan<10){
+            bulan='0'+bulan;
+
+        }
+        var tahun= today.getFullYear();
+        var full='';
+        
+        full=full.concat(tahun,'-',bulan,'-',tgl).toString()
+        document.getElementById("tgl_awal").value =full;
+        document.getElementById("tgl_akhir").value =full;
+        
+
+
+        
+        
+
+      
+        var link="ajaxs/ajaxlapBarang.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
+
+        $("#nah").load(link);
+
+
+
+
+
+               
+    $("#tgl_akhir").change(function(){
+
+        var awal= $("#tgl_awal").val();
+        var akhir=  $("#tgl_akhir").val();
+        var link="ajaxs/ajaxlapBarang.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+        $("#nah").load(link);
+    })
+
+
+
+
+
+    $("#tgl_awal").change(function(){
+
+        var awal= $("#tgl_awal").val();
+        var akhir=  $("#tgl_akhir").val();
+        var link="ajaxs/ajaxlapBarang.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+        $("#nah").load(link);
+
+    })
+
+
         
     });
+
+
+
+
+
+
+
+
     //end of document ready
 
     function keluar(){
