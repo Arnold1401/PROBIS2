@@ -30,7 +30,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 					<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
 						<span><i class='ion-ios-cart'></i>Keranjang</span>
 					</a>
-					<a onclick=\"addwish('$id')\"  class='buy-now d-flex justify-content-center align-items-center mx-3'>
+					<a onclick=\"addwish('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
 					<span><i class='ion-ios-heart'></i>Wishlist</span>
 					</a>
 				</div>
