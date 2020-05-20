@@ -19,7 +19,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 		$fharga=number_format($harga);
 		$brand="";
 		$kal.="
-		<div class='col-md-6 col-lg-3 my-1'>
+		<div class='col-md-6 col-lg-4 my-1'>
 			<div class='product'>
 			<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
 			<div class='text py-3 pb-4 px-2 text-center'>

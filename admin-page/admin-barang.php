@@ -186,7 +186,7 @@ require_once("adminhead.php");
                                 </div>
                                 <div class="col-md-4">
                                     <section class="card">
-                                    <button type="button" class="btn btn-danger btn-md" onclick="reset()">
+                                    <button type="button" id="btnReset" class="btn btn-danger btn-md" onclick="reset()">
                                             <i class="fa fa-ban"></i> Reset
                                             </button>
                                     </section>
@@ -410,6 +410,8 @@ require_once("adminhead.php");
                 document.getElementById("img").src = getFotoBarang;
                 console.log(getFotoBarang);
 
+                const btnReset = document.getElementById("btnReset");
+                btnReset.disabled=true;
            
             }
             //end of action button Detail
@@ -582,6 +584,9 @@ require_once("adminhead.php");
 
     //function reset
     function reset() {
+
+       
+        
         document.getElementById("nama_barang").value = null;
         document.getElementById("desk_barang").value = null;
         document.getElementById("cb_jenisbarang").value = 0;
@@ -593,6 +598,8 @@ require_once("adminhead.php");
         document.getElementById("hrgjual_barang").value = null;
         document.getElementById("url_user").value = null;
         document.getElementById("berat_barang").value = null;
+
+        
         
     }
     //end of function reset
@@ -624,8 +631,11 @@ require_once("adminhead.php");
         //enabled button ubah
         const btnUbah = document.getElementById("btnUbah");
         const btnTambah = document.getElementById("btnTambah");
+        const btnReset = document.getElementById("btnReset");
+        btnReset.disabled=false;
         btnUbah.disabled =true;
         btnTambah.disabled=false;
+        
         //ed of enabled button ubah
     }
     //end of function update barang

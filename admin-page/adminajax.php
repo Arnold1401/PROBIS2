@@ -19,6 +19,7 @@ if ($_POST["jenis"] == "tambah_sales") {
     $provinsi=getprovincename($provinsi);
     $kota=getcityname($kota);
     $kecamatan=getsubdistrictname($kecamatan,$_POST["kota"]);
+    
 
     $sql1 = "select * from sales";
     $result1 = $conn->query($sql1);
@@ -34,21 +35,7 @@ if ($_POST["jenis"] == "tambah_sales") {
         $sql2 = "insert into sales(id_sales, nama_sales, email, no_ktp, nomor_telepon, password, provinsi, kota, kecamatan, alamat, status) values (null,'$nama_sales','$email',$no_ktp,$nomor_telepon,'$password','$provinsi','$kota','$kecamatan','$alamat','$status')";
 
         if ($conn->query($sql2)) {
-            // echo "berhasil tambah sales"; 
-            echo "<script> <div class='modal' tabindex='-1' role='dialog'>
-            <div class='modal-dialog' role='document'>
-              <div class='modal-content'>
-                <div class='modal-body'>
-                  <p>Berhasil tambah sales baru '.$email</p>
-                </div>
-                <div class='modal-footer'>
-                  <button type='button' class='btn btn-primary'>Save changes</button>
-                  <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                </div>
-              </div>
-            </div>
-          </div> </script>";
-          //  echo "<script> alert('Berhasil tambah sales baru '.$email)</script>";
+            echo "Berhasil tambah sales baru $email";
         }
         else {
             echo "gagal tambah sales ";
@@ -243,7 +230,7 @@ if ($_POST["jenis"]=="tambah_satuan_baru") {
 //ajax untuk tambah barang
 if ($_POST["jenis"]=="insertbarang") {
     $conn=getConn();
-    $namabarang=$_POST["namabarang"];
+    $namabarang=strtoupper($_POST["namabarang"]);
     $descbarang=$_POST["descbarang"];
     $jenisbarang=$_POST["jenisbarang"];
     $satuanbarang=$_POST["satuanbarang"];
