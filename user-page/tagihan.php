@@ -178,8 +178,16 @@ require_once("head.php");
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Total:</th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal :</th>
                                             <th style="font-weight:bold"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
+                                            <th style="font-weight:bold" id="Ongkir"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th style="font-weight:bold" id="totalsemua"></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -270,10 +278,13 @@ require_once("head.php");
                                 <h6>Nomor Telepon</h6>
                                 <h6 id="nomorpemilik">[Nomor Telepon toko]</h6>
                                 <br>
+                                
                             </div>
                             <div class="col-md-6">
                                 <h6>Alamat kirim</h6>
-                                <h6 id="alamatpemilik">[alamat toko]</h6>                               
+                                <h6 id="alamatpemilik">[alamat toko]</h6> 
+                                <br>
+                                
                             </div>
                         </div>
                     </div>
@@ -466,7 +477,7 @@ require_once("head.php");
 
         
         
-
+        var getTotal, temptotal='';
         //jika button di list orders dipilih/ditekan
         $('#tableorders tbody').on( 'click', 'a', function () {
             var action = this.id;
@@ -477,8 +488,23 @@ require_once("head.php");
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                getTotal = data[Object.keys(data)[6]]; //ongkir
                 $("#ida").html(getIdAlamat);
                 var tr = $(this).closest('tr');
+
+                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
+                /*$.post("ajaxreseller.php",{
+                    jenis:"getTotal",
+                    getId:getId,
+                },
+                function(data){                 
+                   // getTotal = data[1];
+                    $("#ongkir").html(data[1]);
+                   // temptotal = getTotal;
+                });             
+                console.log(getTotal);*/
+                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
+                
 
                 //table detail order barang dibagian bawah
                 tabledetail = $('#tabledetailorder').DataTable( {
@@ -547,6 +573,14 @@ require_once("head.php");
                             // Update footer
                             $( api.column( 3 ).footer() ).html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            );
+
+                            var ongkir = getTotal - total;
+                            $("#Ongkir").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
+                            );
+                            $("#totalsemua").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
                         }
                 } );
