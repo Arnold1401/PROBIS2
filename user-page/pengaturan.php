@@ -65,7 +65,7 @@ $row = $result->fetch_assoc();
                     <a class="dropdown-item" href="tagihan.php">Tagihan</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
-                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                    <a class="dropdown-item active" href="pengaturan.php">Akun Saya</a>
                     <a onclick="keluar()" class="dropdown-item">Keluar</a>
                 </div>
                 </li>

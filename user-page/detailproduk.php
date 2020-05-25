@@ -62,9 +62,9 @@ $boleh = false;
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="home.php" class="nav-link">Beranda</a></li>
+          <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
 
-          <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
+          <li class="nav-item active"><a href="produk.php" class="nav-link">Produk</a></li>
           <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
                                                                                                                               $arrkeranjang = unserialize($_SESSION["keranjang"]);
                                                                                                                               $count = count($arrkeranjang);
@@ -177,7 +177,7 @@ $boleh = false;
             <div class="col-lg-6 product-details pl-md-5 ftco-animate">
               <h3><?php echo $nama; ?></h3>
 
-              <p class="price"><span><?php echo "Rp.".number_format($harga,2); ?></span></p>
+              <p class="price"><span><?php echo "Rp".number_format($harga,2); ?></span></p>
               <p><?php echo $desk; ?></p>
               <div class="row mt-4">
                 <div class="col-md-6">
