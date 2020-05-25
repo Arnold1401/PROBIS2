@@ -65,7 +65,7 @@ $boleh = false;
           <li class="nav-item active"><a href="home.php" class="nav-link">Beranda</a></li>
 
           <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+          <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
                                                                                                                               $arrkeranjang = unserialize($_SESSION["keranjang"]);
                                                                                                                               $count = count($arrkeranjang);
                                                                                                                               echo $count;
@@ -246,9 +246,8 @@ $boleh = false;
                          $statement2->execute();
                          $result2 = $statement2->get_result();
                          foreach ($result2 as $row2) {
-                           $ulasan = $row2["ulasan"];
-                           $rate = $row2["rate"];
-                          // $isi = $row2["isi"];
+                           $ulasan = $row2["ulasan"];                          
+                           $rate = ceil($row2["rate"]);
                            $bintang="";
                            $pad=5-$rate;
                            if ($rate == 0) {

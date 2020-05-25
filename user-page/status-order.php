@@ -192,6 +192,14 @@ require_once("head.php");
                                             <th colspan="3" style="text-align:right; font-weight:bold">Total:</th>
                                             <th style="font-weight:bold"></th>
                                         </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
+                                            <th style="font-weight:bold" id="Ongkir"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th style="font-weight:bold" id="totalsemua"></th>
+                                        </tr>
                                     </tfoot>
                                 </table>
                                 </div>    <!-- end table responsive -->
@@ -544,6 +552,16 @@ require_once("head.php");
                                     }
                                     
                                 }
+                                // else if (row.status_order == '') //selesai
+                                // {
+                                //     if (row.id_ulasan == "0") {
+                                //         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
+                                //     }
+                                //     else if (row.id_ulasan != "0") {
+                                //         return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
+                                //     }
+                                    
+                                // }
                                         
                             },
                             "target":-1,
@@ -579,6 +597,13 @@ require_once("head.php");
                             // Update footer
                             $( api.column( 3 ).footer() ).html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            );
+                            var ongkir = getTotal - total;
+                            $("#Ongkir").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
+                            );
+                            $("#totalsemua").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
                         }
                 } );
