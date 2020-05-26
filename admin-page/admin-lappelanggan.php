@@ -89,7 +89,7 @@ include_once('adminconn.php');
                                 <strong class="card-title">List Pelanggan</strong>
                             </div>
                             <div class="card-body">
-
+                        
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -105,20 +105,12 @@ include_once('adminconn.php');
                                     </div>
                                 </div>
                             </div>
-                                                          
-                              <div class="table-responsive">
-                              <table id="tablepelanggan" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama customer</th>
-                                            <th>Nama Perusahaan</th>
-                                            <th>Alamat</th>
-                                            <th>Tingkat Keuntungan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                       
-                                    </tbody>
-                                </table>
+                                                      
+                              <div class="table-responsive" id="nah">
+
+
+
+
                               </div>
                                 
                             </div>
@@ -158,7 +150,80 @@ include_once('adminconn.php');
         } );
         //end of event jika list pelanggan dipilih/diclick 
         
+        var today= new Date();
+
+
+        var tgl= today.getDate();
+        var bulan= today.getMonth()+1;
+
+        if(bulan<10){
+            bulan='0'+bulan;
+
+        }
+        var tahun= today.getFullYear();
+        var full='';
+        
+        full=full.concat(tahun,'-',bulan,'-',tgl).toString()
+        document.getElementById("tgl_awal").value =full;
+        document.getElementById("tgl_akhir").value =full;
+        
+
+
+        
+        
+
+        var link="ajaxs/ajaxPelanggan.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
+
+        $("#nah").load(link);
+        
+
+        
+
+        
+        
+    $("#tgl_akhir").change(function(){
+
+          var awal= $("#tgl_awal").val();
+        var akhir=  $("#tgl_akhir").val();
+
+
+
+        
+        var link="ajaxs/ajaxPelanggan.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+        $("#nah").load(link);
+    })
+
+    
+
+
+    
+    $("#tgl_awal").change(function(){
+        
+        var awal= $("#tgl_awal").val();
+        var akhir=  $("#tgl_akhir").val();
+        
+        var link="ajaxs/ajaxPelanggan.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+        $("#nah").load(link);
+        
+    })
+    
+
+
+
     });
+
+
+
+
+
+
+   
+
+
+
+  
     //end of document ready
 
     function keluar(){

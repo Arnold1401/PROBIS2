@@ -11,8 +11,8 @@
     from djual d,  barang b
 
 
-    where  d.id_hjual=$id
-    and b.id_barang =d.id_barang
+    where  d.id_hjual='$id'
+    and b.id_barang =d.id_barang 
 
     ";
 
@@ -23,7 +23,7 @@
         from hjual 
 
 
-        where id_hjual =$id
+        where id_hjual ='$id'
     
     ";
 

@@ -58,7 +58,7 @@ $conn = getConn();
           <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
 <!-- icon pakai icomoon.css -->
           <li class="nav-item active"><a href="produk.php" class="nav-link">Produk</a></li>
-          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link" id='jumcart'><span class="icon-shopping_cart" ></span>[<?php if (isset($_SESSION["keranjang"])) {
+          <li class="nav-item"><a href="cart.php" class="nav-link" id='jumcart'><span class="icon-shopping_cart" ></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
         echo $count;
@@ -146,7 +146,7 @@ $conn = getConn();
 
           <div class="list-group">
             <h3>Kategori</h3>
-            <div style="height: 180px; overflow-y: auto; overflow-x: hidden;">
+            <div style="height: 250px; overflow-y: auto; overflow-x: hidden;">
               <?php
 
               $query = "SELECT * from kategori";
@@ -275,7 +275,7 @@ $conn = getConn();
         values: [1000, 65000],
         step: 500,
         stop: function(event, ui) {
-          $('#price_show').html("Rp."+ui.values[0] + ' - ' +"Rp."+ui.values[1]);
+          $('#price_show').html("Rp "+ui.values[0] + ' - ' +"Rp "+ui.values[1]);
           $('#hidden_minimum_price').val(ui.values[0]);
           $('#hidden_maximum_price').val(ui.values[1]);
 
@@ -314,7 +314,7 @@ $conn = getConn();
             idbarang:params,
           },
           success: function(data) {
-            alert("Barang telah masuk di wishlist !");
+            alert("Barang telah masuk di Daftar Keinginan !");
             console.log(data);
           }
         });
@@ -367,7 +367,7 @@ $conn = getConn();
       if (hatas<hbawah) {
         var fhatas=formatMoney(hatas);
         var fhbawah=formatMoney(hbawah);
-        $("#price_fil").html("Rp. "+fhatas+" sampai Rp."+fhbawah);
+        $("#price_fil").html("Rp "+fhatas+" sampai Rp "+fhbawah);
         var jenis = 'filter';
         var minimum_price = hatas;
         var maximum_price = hbawah;

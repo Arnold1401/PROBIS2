@@ -126,4 +126,21 @@ if ($_POST["jenis"] == "get_detailalamat_customerHutang") {
     echo json_encode($result); // return value of $result
 }
 
+//getTotal tagihan - cek ongkirnya
+if ($_POST["jenis"] == "getTotal") {
+    $conn = getConn();
+    $getId = $_POST["getId"];
+    $sql = "select * from hjual where id_hjual='$getId'";
+    $query = mysqli_query($conn,$sql); // get the data from the db
+    $result = array();
+    while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+        $result [0] = $row['id_hjual'];
+        $result [1] = $row['grandtotal'];
+    }
+    
+    $conn->close();
+    header('Content-Type: application/json');
+    echo json_encode($result); // return value of $result
+}
+
 ?>

@@ -19,7 +19,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 		$fharga=number_format($harga,2);
 		$brand="";
 		$kal.="
-		<div class='col-md-6 col-lg-3 my-1'>
+		<div class='col-md-6 col-lg-4 my-1'>
 			<div class='product'>
 			<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
 			<div class='text py-3 pb-4 px-2 text-center'>
@@ -30,7 +30,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 					<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
 						<span><i class='ion-ios-cart'></i>Keranjang</span>
 					</a>
-					<a onclick=\"addwish('$id')\"  class='buy-now d-flex justify-content-center align-items-center mx-3'>
+					<a onclick=\"addwish('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
 					<span><i class='ion-ios-heart'></i>Wishlist</span>
 					</a>
 				</div>

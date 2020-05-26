@@ -49,7 +49,7 @@ $row = $result->fetch_assoc();
                 <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+                <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
         echo $count;
@@ -65,7 +65,7 @@ $row = $result->fetch_assoc();
                     <a class="dropdown-item" href="tagihan.php">Tagihan</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
-                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                    <a class="dropdown-item active" href="pengaturan.php">Akun Saya</a>
                     <a onclick="keluar()" class="dropdown-item">Keluar</a>
                 </div>
                 </li>

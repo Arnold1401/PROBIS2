@@ -5,6 +5,9 @@ include("conn.php");
 $id=$_SESSION["id_sales"];
 
 
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -105,9 +108,17 @@ $id=$_SESSION["id_sales"];
 
                             <?php
                                 $query="
-                                select h.tanggal, h.id_hjual, s.nama_sales,h.status_order
-                                from hjual h ,sales s
-                                where h.id_sales = s.id_sales and s.id_sales='$id'";
+                              
+
+
+                                select h.tanggal_order,h.id_hjual, s.nama_sales,h.status_order 
+
+                                from  hjual h,sales s, customer c
+
+
+                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and s.id_sales='$id' 
+                                
+                                ";
                                             $data = mysqli_query(getConn(),$query);
                                             while($row = mysqli_fetch_array($data))
                                             {
@@ -122,36 +133,39 @@ $id=$_SESSION["id_sales"];
                                     <?php
                                         $n=$row[1];
 
-                                  
+                                            
                                             if($row[3]=="Proses"){
                                                 echo"
-                                                <select class='status_pengiriman' id=$n>
+                                                <select class='status_pengiriman' id='$n'>
                                                 <option value='Proses'>Proses </option>
                                                 <option value='Pengiriman'>Pengiriman</option>
                                                    
                                                    
-                                                    <option value='Selesai'>Selesai</option>
+                                                    <option value='Sampai Tujuan'>Sampai Tujuan</option>
                                                     
                                                     
                                                 </select>
                                                 ";
-                                            }else if($row[3]=="Pengiriman"){
+                                            }
+                                        
+                                            else if($row[3]=="Pengiriman"){
                                                 echo"
-                                                <select class='status_pengiriman' id=$n>
+                                                <select class='status_pengiriman' id='$n'>
                                                 <option value='Pengiriman'>Pengiriman</option>
-                                                    <option value='Proses'>Proses </option>
+                                                <option value='Proses'>Proses </option>
                                                    
-                                                    <option value='Selesai'>Selesai</option>
+                                                    <option value='Sampai Tujuan'>Sampai Tujuan</option>
                                                     
                                                     
                                                 </select>
                                                 ";
-                                            }else if($row[3]=="Selesai"){
+                                            }else if($row[3]=="Sampai Tujuan"){
 
                                                 echo"
-                                                <select class='status_pengiriman' id=$n>
-                                                    <option value='Selesai'>Selesai</option>
-                                                    <option value='Proses'>Proses</option>
+                                                <select class='status_pengiriman' id='$n'>
+                                                <option value='Sampai Tujuan'>Sampai Tujuan</option>
+                                                 
+                                                    <option value='Proses'>Proses </option>
                                                     <option value='Pengiriman'>Pengiriman</option>
                                                 </select>
                                                 ";

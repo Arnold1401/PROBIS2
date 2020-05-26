@@ -19,6 +19,7 @@ if ($_POST["jenis"] == "tambah_sales") {
     $provinsi=getprovincename($provinsi);
     $kota=getcityname($kota);
     $kecamatan=getsubdistrictname($kecamatan,$_POST["kota"]);
+    
 
     $sql1 = "select * from sales";
     $result1 = $conn->query($sql1);
@@ -34,21 +35,7 @@ if ($_POST["jenis"] == "tambah_sales") {
         $sql2 = "insert into sales(id_sales, nama_sales, email, no_ktp, nomor_telepon, password, provinsi, kota, kecamatan, alamat, status) values (null,'$nama_sales','$email',$no_ktp,$nomor_telepon,'$password','$provinsi','$kota','$kecamatan','$alamat','$status')";
 
         if ($conn->query($sql2)) {
-            // echo "berhasil tambah sales"; 
-            echo "<script> <div class='modal' tabindex='-1' role='dialog'>
-            <div class='modal-dialog' role='document'>
-              <div class='modal-content'>
-                <div class='modal-body'>
-                  <p>Berhasil tambah sales baru '.$email</p>
-                </div>
-                <div class='modal-footer'>
-                  <button type='button' class='btn btn-primary'>Save changes</button>
-                  <button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>
-                </div>
-              </div>
-            </div>
-          </div> </script>";
-          //  echo "<script> alert('Berhasil tambah sales baru '.$email)</script>";
+            echo "Berhasil tambah sales baru $email";
         }
         else {
             echo "gagal tambah sales ";
@@ -243,7 +230,7 @@ if ($_POST["jenis"]=="tambah_satuan_baru") {
 //ajax untuk tambah barang
 if ($_POST["jenis"]=="insertbarang") {
     $conn=getConn();
-    $namabarang=$_POST["namabarang"];
+    $namabarang=strtoupper($_POST["namabarang"]);
     $descbarang=$_POST["descbarang"];
     $jenisbarang=$_POST["jenisbarang"];
     $satuanbarang=$_POST["satuanbarang"];
@@ -295,6 +282,7 @@ if ($_POST["jenis"]=="detail_barang") {
         $result [2] = $row['tanggal_kadaluwarsa'];
         $result [3] = $row['kuantiti'];
         $result [4] = $row['sisa'];
+        $result [5] = $row['berat'];
     }
     
     $conn->close();
@@ -317,6 +305,7 @@ if ($_POST["jenis"]=="UpdateBarang") {
     $kuantiti=$_POST["kuantiti"];
     $hargabeli=$_POST["hargabeli"];
     $hargajual=$_POST["hargajual"];
+    $beratbarang=$_POST["beratbarang"];
 
     $foto=$_POST["fotobarang"];
     $status="1";
@@ -329,7 +318,7 @@ if ($_POST["jenis"]=="UpdateBarang") {
 
        // $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
 
-         $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual' where id_barang=$idbarang";
+         $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual', berat='$beratbarang' where id_barang=$idbarang";
         
          if ($conn->query($sql2)) {
             echo "berhasil update barang";

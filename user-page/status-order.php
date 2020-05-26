@@ -67,10 +67,10 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="home.php" class="nav-link">Beranda</a></li>
+                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
                
                 <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item cta cta-colored">
+                <li class="nav-item">
                     <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
@@ -83,7 +83,7 @@ require_once("head.php");
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                     <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
+                    <a class="dropdown-item active" href="status-order.php">Daftar Pesanan</a>
                     <a class="dropdown-item" href="tagihan.php">Tagihan</a>
                     <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
@@ -191,6 +191,14 @@ require_once("head.php");
                                         <tr>
                                             <th colspan="3" style="text-align:right; font-weight:bold">Total:</th>
                                             <th style="font-weight:bold"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
+                                            <th style="font-weight:bold" id="Ongkir"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th style="font-weight:bold" id="totalsemua"></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -544,6 +552,16 @@ require_once("head.php");
                                     }
                                     
                                 }
+                                // else if (row.status_order == '') //selesai
+                                // {
+                                //     if (row.id_ulasan == "0") {
+                                //         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
+                                //     }
+                                //     else if (row.id_ulasan != "0") {
+                                //         return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
+                                //     }
+                                    
+                                // }
                                         
                             },
                             "target":-1,
@@ -579,6 +597,13 @@ require_once("head.php");
                             // Update footer
                             $( api.column( 3 ).footer() ).html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            );
+                            var ongkir = getTotal - total;
+                            $("#Ongkir").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
+                            );
+                            $("#totalsemua").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
                         }
                 } );
