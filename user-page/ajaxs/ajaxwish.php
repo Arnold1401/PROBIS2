@@ -29,7 +29,7 @@
     
                     $gmb1=$arrwishlist[$i]->get_gambar();
                         $kal.="<tr class='text-center'>                                                           
-                        <td class='image-prod'><div class='img' style='background-image:url($gmb1);'></div></td>
+                        <td class='image-prod'><div class='img' style=\"background-image:url('../admin-page/$gmb1');\"></div></td>
                         
                         <td class='product-name'>
                             <h3>$nm</h3>
@@ -74,7 +74,7 @@
     //total harga semua barang
     if ($_POST["jenis"]=="subtotalorderan") {
         $_SESSION["subtotal"]=hitungsubtotalorderan();
-        echo number_format(hitungsubtotalorderan());
+        echo number_format(hitungsubtotalorderan(),2);
     }
 
     function hitungsubtotalorderan(){

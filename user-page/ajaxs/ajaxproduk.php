@@ -16,7 +16,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
         $nama= $row['nama_barang'] ;
         $harga=$row['harga_jual']; 
 		$foto="../admin-page/".$row['foto_barang']; 
-		$fharga=number_format($harga);
+		$fharga=number_format($harga,2);
 		$brand="";
 		$kal.="
 		<div class='col-md-6 col-lg-3 my-1'>
@@ -138,7 +138,7 @@ if ($_POST["jenis"] == "filter") {
 				<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
 				<div class='text py-3 pb-4 px-3 text-center'>
 					<h3><strong><a href=\"detailproduk.php?pid=$id\">$nama</a></strong></h3>
-					<h3><strong><a >Rp. $fharga</a></strong></h3> <br>
+					<h3><strong><a >Rp $fharga</a></strong></h3> <br>
 					<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
 						<!--<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>-->
 						<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>

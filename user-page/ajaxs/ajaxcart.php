@@ -276,8 +276,8 @@
                     $estimasi=$arrharga[$j]->cost[0]->etd;
                     $service=$arrharga[$j]->service;
                     $harga=$arrharga[$j]->cost[0]->value;
-                    $hargaformated=number_format($harga);
-                    $kal.="<option value='$code*$service*$estimasi*$harga'><b>$code</b> | <b>$service</b> | $estimasi hari | IDR $hargaformated,-</option>";
+                    $hargaformated=number_format($harga,2);
+                    $kal.="<option value='$code*$service*$estimasi*$harga'><b>$code</b> | <b>$service</b> | $estimasi hari | Rp $hargaformated,-</option>";
                 }
             }
           }else{

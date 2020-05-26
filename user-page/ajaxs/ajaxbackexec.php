@@ -43,11 +43,13 @@
                         $status=getstat($idp);
                         if ($status=="pending") {
                             $status="Menunggu Pembayaran Hutang";
+                            $statorder="Proses";
                         }else if($status=='cancel'||$status=='failure'||$status=='expire'){
                             $status="Batal";
                             $statorder="Batal";
                         }else{
                             $status="Hutang";
+                            $statorder="Proses";
                         }
                     }
                   
