@@ -31,7 +31,6 @@
                     if ($result2->num_rows > 0) {
                         $status="Hutang";
                     }
-
                     
                     $sql3="select * from piutang where id_hjual='$idhjual'";
                     $result3 = $conn->query($sql3);
@@ -47,6 +46,7 @@
                         }else if($status=='cancel'||$status=='failure'||$status=='expire'){
                             $status="Batal";
                             $statorder="Batal";
+                            setnormal($idhjual);
                         }else{
                             $status="Hutang";
                             $statorder="Proses";
@@ -106,5 +106,37 @@
     //return $response1;
   }
   
+  function setnormal($idhjual){
+    $conn=getConn();
+    $sql="select * from djual where id_hjual='$idhjual'";
+    $result=$conn->query($sql);
+    if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+            $qty=$row["kuantiti"];
+            $idb=$row["id_barang"];
+            updatedetailbarang($idb,$qty);
+        }
+    }
+    //id_barang
+    //kuantiti
+    $conn->close();
+  }
+
+  function updatedetailbarang($idb,$qty){
+    $conn=getConn();
+    $sql="select * from detail_barang where id_barang='$idb'";
+    $result=$conn->query($sql);
+    if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+            $sisa=$row["sisa"];
+        }
+    }
+    $jum=$sisa+$qty;
+
+    $sql2="update detail_ set sisa='$jum' ";
+    //id_barang
+    //kuantiti
+    $conn->close();
+  }
 
 ?>
