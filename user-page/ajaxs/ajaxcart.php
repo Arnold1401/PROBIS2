@@ -135,12 +135,12 @@
 
     function checkganti($id){
         $conn=getConn();
-        $sql="select kuantiti from detail_barang where id_barang='$id'";
+        $sql="select sisa from detail_barang where id_barang='$id'";
         $result = $conn->query($sql);
         $qty=0;
 
         while($row = $result->fetch_assoc()) {
-            $qty=$row['kuantiti'];
+            $qty=$row['sisa'];
         }
         return $qty;
         $conn->close();

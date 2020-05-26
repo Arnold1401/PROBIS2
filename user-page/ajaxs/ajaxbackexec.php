@@ -133,9 +133,10 @@
     }
     $jum=$sisa+$qty;
 
-    $sql2="update detail_ set sisa='$jum' ";
-    //id_barang
-    //kuantiti
+    $sql2="update detail_barang set sisa='$jum' where id_barang='$idb'";
+    if ($conn->query($sql2)) {
+        
+    }
     $conn->close();
   }
 
