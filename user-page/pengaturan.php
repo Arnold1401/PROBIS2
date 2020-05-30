@@ -97,7 +97,7 @@ $row = $result->fetch_assoc();
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
                                 <form  method="POST" action="#" class="form-group" >
                                     <div class="alert alert-warning" role="alert">
-                                        Silakan verifikasi akun Anda pada email yang telah dikirmkan
+                                        Silakan verifikasi akun Anda pada email yang telah dikirimkan
                                         Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
                                     </div>
 
