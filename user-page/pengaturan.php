@@ -128,14 +128,12 @@ $row = $result->fetch_assoc();
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-sports" role="tabpanel" aria-labelledby="v-pills-sports-tab">
                                 <h4 class="mb-4">Pengaturan Profil</h4> <hr>
                                 <form method="POST" action="" class="form-group" >
-                                    <div class="alert alert-warning" role="alert">
-                                    Data anda belum diverivikasi oleh Admin. Silakan menunggu 2-3 hari kerja.
-                                    Notifikasi ini hanya akan mucul jika data belum diverifikasi.
-                                    </div>
-
-                                    <div class="alert alert-success" role="alert">
+                                    <div  id="notif_menunggu" class="alert alert-warning" role="alert"></div>
+                                    <div id="notif_valid" class="alert alert-success" role="alert"></div>
+                                    <div id="notif_tdkvalid" class="alert alert-danger" role="alert"></div>
+                                    <!-- <div class="alert alert-success" role="alert">
                                     Anda telah terverifikasi. Notifikasi ini muncul jika admin telah memverifikasi data anda
-                                </div>
+                                </div> -->
 
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
@@ -159,38 +157,41 @@ $row = $result->fetch_assoc();
                                     </div>
 
                                     <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
-                                <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
-                                </div>
+                                        <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
+                                        <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
+                                    </div>
 
-                                <div class="form-group">
-                                <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
-                                </div>
+                                    <div class="form-group">
+                                        <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
+                                        <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
+                                    </div>
+
+                                
+
+                                    <div class="form-group">
+                                        <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
+                                        <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
+                                    <!-- belum selesai -->
+                                        <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
+                                            <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
+                                            <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
+                                    </select>                               
+                                    </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nomor Telpon Anda</small>              
                                 <input value="<?php echo $row["notelp"]; ?>" type="number" class="form-control" name="telp_user" id="telp_user" placeholder="Nomor Telpon">                        
                                 </div>
 
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
-                                <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
-                                <!-- belum selesai -->
-                                <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
-                                <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
-                                <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
-                                </select>                               
-                                </div>
-                                <!-- belum selesai -->
+                                <!-- gak perlu tampilkan alamat -- karena udh ada alamatnya di alamat pengiriman
                                 <div class="form-group">
                                 <label for="">Alamat</label>
-                                <textarea value="<?php echo $_SESSION["cb_prov"]; ?>" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
-                                </div>
+                                <textarea value="" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
+                                </div> -->
                            
                                 <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
@@ -347,7 +348,44 @@ $row = $result->fetch_assoc();
         });
     }
 
+    var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+    var status_akun = "<?php if(isset($_SESSION["status_akun"])){ echo $_SESSION["status_akun"];}?>";
+    
+    function notif_akun(){
+        if (status_akun == 0) {
+            //menunggu
+            $("#notif_menunggu").html("Data anda belum diverifikasi oleh Admin. Silakan menunggu 2-3 hari kerja");
+            $("#notif_tdkvalid").removeClass('alert alert-danger');
+            $("#notif_valid").removeClass('alert alert-success');
+        }
+        else if(status_akun == 1){
+            //valid
+           // $("#notif_valid").css();
+            $("#notif_valid").html("Data anda terverifikasi");
+            $("#notif_tdkvalid").removeClass('alert alert-danger');
+            $("#notif_menunggu").removeClass('alert alert-warning');
+
+            $( "#nama_user" ).prop( "disabled", true );
+            $( "#nomor_ktp" ).prop( "disabled", true );
+            $( "#lahir_user" ).prop( "disabled", true );
+            $( "#jeniskelamin_user" ).prop( "disabled", true );
+            
+        }
+        else if(status_akun == 2){
+            //tidak valid
+            $("#notif_tdkvalid").html("Data anda tidak valid! Silakan ubah data sesuai kartu identitas");
+            $("#notif_menunggu").removeClass('alert alert-warning');
+            $("#notif_valid").removeClass('alert alert-success');
+        }
+    }
+
+    $(document).ready(function () {
+        notif_akun();
+    });
+
     function simpan() {
+        
+        alert(status_akun);
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
