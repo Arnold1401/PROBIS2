@@ -157,38 +157,41 @@ $row = $result->fetch_assoc();
                                     </div>
 
                                     <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
-                                <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
-                                </div>
+                                        <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
+                                        <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
+                                    </div>
 
-                                <div class="form-group">
-                                <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
-                                </div>
+                                    <div class="form-group">
+                                        <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
+                                        <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
+                                    </div>
+
+                                
+
+                                    <div class="form-group">
+                                        <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
+                                        <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
+                                    <!-- belum selesai -->
+                                        <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
+                                            <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
+                                            <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
+                                    </select>                               
+                                    </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nomor Telpon Anda</small>              
                                 <input value="<?php echo $row["notelp"]; ?>" type="number" class="form-control" name="telp_user" id="telp_user" placeholder="Nomor Telpon">                        
                                 </div>
 
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
-                                <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
-                                <!-- belum selesai -->
-                                <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
-                                <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
-                                <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
-                                </select>                               
-                                </div>
-                                <!-- belum selesai -->
+                                <!-- gak perlu tampilkan alamat -- karena udh ada alamatnya di alamat pengiriman
                                 <div class="form-group">
                                 <label for="">Alamat</label>
-                                <textarea value="<?php echo $_SESSION["cb_prov"]; ?>" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
-                                </div>
+                                <textarea value="" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
+                                </div> -->
                            
                                 <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
@@ -361,6 +364,12 @@ $row = $result->fetch_assoc();
             $("#notif_valid").html("Data anda terverifikasi");
             $("#notif_tdkvalid").removeClass('alert alert-danger');
             $("#notif_menunggu").removeClass('alert alert-warning');
+
+            $( "#nama_user" ).prop( "disabled", true );
+            $( "#nomor_ktp" ).prop( "disabled", true );
+            $( "#lahir_user" ).prop( "disabled", true );
+            $( "#jeniskelamin_user" ).prop( "disabled", true );
+            
         }
         else if(status_akun == 2){
             //tidak valid
