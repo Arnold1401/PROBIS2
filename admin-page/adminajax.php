@@ -387,4 +387,20 @@ if ($_POST["jenis"]=="CekTglAvailableSemuaBarang") {
      $conn->close();
  }
 //end of auto reload jika barang expire atau aktif di dataable
+
+
+//admin-penjualan = ubah status proses ke pengiriman
+if ($_POST["jenis"]=="kirimkan_barang") {
+    $conn=getConn();
+    $getIdhjual = $_POST['getIdhjual'];
+    $status = "Pengiriman";
+
+    $sql = "update hjual set status_order='$status' where id_hjual='$getIdhjual'";
+    if ($conn->query($sql)) {
+        echo "Barang berhasil dikirim";
+    }
+    else{
+        echo "gagal";
+    }
+}
 ?>

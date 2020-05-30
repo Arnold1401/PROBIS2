@@ -49,18 +49,13 @@ $id=$_SESSION["id_sales"];
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="sales-home.php" class="nav-link">Beranda</a></li>
-               
+                <li class="nav-item active"><a href="sales-home.php" class="nav-link">Pesanan</a></li>
+                <li class="nav-item "><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
                 <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
-                <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Status Order</a>
-                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Order</a>
-                    <a class="dropdown-item" href="piutang.php">Piutang</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
                     <a class="dropdown-item" onclick="keluar()">Keluar</a>
@@ -76,8 +71,7 @@ $id=$_SESSION["id_sales"];
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">ORDER SAYA</h1>
-
+            <h1 class="mb-0 bread">DAFTAR PESANAN</h1>
           </div>
         </div>
       </div>
@@ -90,17 +84,18 @@ $id=$_SESSION["id_sales"];
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list">
                     <div class="form-group">                    
-                      <small id="helpId" class="text-muted">*Pilih No order untuk melihat detail order Anda</small>
+                      <small id="helpId" class="text-muted">*Tombol Sampai Tujuan -- Mengubah status order barang jika barang telah sampai di tujuan</small><br>
+                      <small id="helpId" class="text-muted">*Tombol Detail -- Melihat detail barang yang dipesan oleh pelanggan</small>
                     </div>
                     <div class="table-responsive">
-                    <table id="example" class="table table-striped table-bordered" >
+                    <table id="example" class="table table-striped table-bordered text-dark" >
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Tanggal Order</th>                                    
                                     <th>No Order</th>
-                                    <th>Sales</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Pelanggan</th>
+                                    <th>Status Pesanan</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,12 +106,12 @@ $id=$_SESSION["id_sales"];
                               
 
 
-                                select h.tanggal_order,h.id_hjual, s.nama_sales,h.status_order 
+                                select h.tanggal_order,h.id_hjual, c.nama_perusahaan,h.status_order
 
                                 from  hjual h,sales s, customer c
 
 
-                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and s.id_sales='$id' 
+                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and s.id_sales='$id' and h.status_pembayaran != 'Menunggu Pembayaran'
                                 
                                 ";
                                             $data = mysqli_query(getConn(),$query);
@@ -124,7 +119,10 @@ $id=$_SESSION["id_sales"];
                                             {
                             ?>
                                 <tr>
-                                    <td><?php echo $row[0];?></td>
+                                    <td><?php 
+                                    echo date("d-M-Y", strtotime($row['0']));
+                                    
+                                    ?></td>
                                     <td><?php echo $row[1];?></td>
 
                                     <td><?php echo $row[2];?></td>
@@ -135,21 +133,23 @@ $id=$_SESSION["id_sales"];
 
                                             
                                             if($row[3]=="Proses"){
-                                                echo"
-                                                <select class='status_pengiriman' id='$n'>
-                                                <option value='Proses'>Proses </option>
-                                                <option value='Pengiriman'>Pengiriman</option>
-                                                   
-                                                   
-                                                    <option value='Sampai Tujuan'>Sampai Tujuan</option>
-                                                    
-                                                    
-                                                </select>
-                                                ";
+                                                echo "<label class='text-success font-weight-bold'>Proses</label> ";
+                                                /* echo"
+                                                 <select class='status_pengiriman' id='$n'>
+                                                 <option value='Proses'>Proses </option>
+                                                 <option value='Pengiriman'>Pengiriman</option>
+                                             
+                                             
+                                                     <option value='Sampai Tujuan'>Sampai Tujuan</option>
+                                              
+                                              
+                                                 </select>
+                                                 ";*/
                                             }
                                         
                                             else if($row[3]=="Pengiriman"){
-                                                echo"
+                                                echo "<label class='text-warning font-weight-bold'>Pengiriman</label>";
+                                               /* echo"
                                                 <select class='status_pengiriman' id='$n'>
                                                 <option value='Pengiriman'>Pengiriman</option>
                                                 <option value='Proses'>Proses </option>
@@ -158,17 +158,18 @@ $id=$_SESSION["id_sales"];
                                                     
                                                     
                                                 </select>
-                                                ";
+                                                ";*/
                                             }else if($row[3]=="Sampai Tujuan"){
+                                                echo "<label class='text-info font-weight-bold'>Barang telah tiba</label>";
 
-                                                echo"
+                                                /*echo"
                                                 <select class='status_pengiriman' id='$n'>
                                                 <option value='Sampai Tujuan'>Sampai Tujuan</option>
                                                  
                                                     <option value='Proses'>Proses </option>
                                                     <option value='Pengiriman'>Pengiriman</option>
                                                 </select>
-                                                ";
+                                                ";*/
                                             }
 
                                             
@@ -176,16 +177,20 @@ $id=$_SESSION["id_sales"];
                                             
 
                                     ?>
-                                  
-
-
-
-
                                     </td>
-
+                                    
                                     <td>
-                                        <button class="update_status"  id_pengiriman="<?php echo $row[1];?>" > Update</button>
-                                        <button class="btn_detail"  id_pengiriman="<?php echo $row[1];?>"  >Details</button>
+                                        <?php
+                                            if($row[3]=="Pengiriman"){ ?>
+                                                <a id="update_status" class='btn btn-info text-dark' id_pengiriman="<?php echo $row[1];?>" >Sampai Tujuan</a>
+                                            <?php }
+                                            if($row[3]!="Pengiriman"){ ?>
+                                                <a id="update_status" class='btn btn-info text-dark disabled' id_pengiriman="<?php echo $row[1];?>" >Sampai Tujuan</a>
+                                            <?php }
+                                        ?>                                        
+                                        <a id="btn_detail" class='btn btn-info text-dark' id_pengiriman="<?php echo $row[1];?>">Detail</a>
+                                        <!-- <button class='btn btn-info text-dark' class="update_status"  id_pengiriman="<?php echo $row[1];?>" > Update</button> -->
+                                        <!-- <button class="btn_detail"  id_pengiriman="<?php echo $row[1];?>"  >Details</button> -->
                                     </td>
                                 </tr>
                         <?php
@@ -194,26 +199,29 @@ $id=$_SESSION["id_sales"];
                         ?>
 
 
-                                    
-                                    
+                                                              
                             </tbody>
                         </table>
-                    </div>
+                    </div> <!-- end of class responsive -->
                         
-                    </div>
-                </div>
-                    <h6>Details<h6><br/>
+                    </div> <!-- end of card list -->
+                </div> <!-- end of col-md-12 ftco-animate -->
+                </div> <!-- end of row -->
+
                 
-        
-                    <div class="col-md-12 ftco-animate" id="details" > 
-                        
+                <div class="row my-4">              
+                    <div class="col-md-12 ftco-animate" >
+                    <div class="cart-list">
+                        <div class="form-group">                    
+                            <h6> Details</h6>
+                        </div>
+                        <div class="table-responsive" id="details">
+                        </div>
                     </div>
-          
-            </div>
-
-
-            
-        </div>
+                    </div> <!-- end of col-md -->
+                </div> <!-- end of row -->
+                    
+        </div> <!-- end of container -->
     </section>
     <!-- end cart -->
 
@@ -244,7 +252,7 @@ $id=$_SESSION["id_sales"];
      
    <script>
 
-    $(".btn_detail").click(function(){
+    $("#btn_detail").click(function(){
 
         var x= $(this).attr("id_pengiriman");
 
@@ -255,14 +263,15 @@ $id=$_SESSION["id_sales"];
 
 
 
-    $(".update_status").click(function(){
+    $("#update_status").click(function(){
 
 
         var x= $(this).attr("id_pengiriman");
         
-        var y='#'+x;
+        /*var y='#'+x;
 
-        var pilihan= $(y).children("option:selected").val();
+        var pilihan= $(y).children("option:selected").val();*/
+        var pilihan = "Sampai Tujuan";
         
        
         

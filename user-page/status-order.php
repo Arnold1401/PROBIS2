@@ -140,7 +140,7 @@ require_once("head.php");
                                         <th>Sales</th>
                                         <th>Total</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -473,7 +473,7 @@ require_once("head.php");
         //end of event jika list order dipilih/diclick 
 
         
-        var getId,tabledetail, data="";
+        var getId,tabledetail, data, getTotal="";
 
         //jika button di list orders dipilih/ditekan
         $('#tableorders tbody').on( 'click', 'a', function () {
@@ -485,6 +485,7 @@ require_once("head.php");
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                getTotal = data[Object.keys(data)[6]]; //ongkir
                 var tr = $(this).closest('tr');
 
                 //table detail order barang dibagian bawah
