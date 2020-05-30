@@ -240,7 +240,8 @@ $conn = getConn();
         var maximum_price = $('#vol2').val();
         var brand = get_filter('brand');
 
-        $.ajax({
+        if (brand.length>0) {
+          $.ajax({
           url: "ajaxs/ajaxproduk.php",
           method: "POST",
           data: {
@@ -253,6 +254,19 @@ $conn = getConn();
             $('#disini').html(data);
           }
         });
+        }else{
+          $.ajax({
+          url: "ajaxs/ajaxproduk.php",
+          method: "POST",
+          data: {
+            jenis:'show_product_catalog_semua',
+          },
+          success: function(data) {
+            $('#disini').html(data);
+          }
+        });
+        }
+       
       }
 
       function get_filter(class_name) {
@@ -411,6 +425,24 @@ $conn = getConn();
         });
     }
 
+
+    function unchecked() {
+      var brand = get_filter('brand');
+      if (brand.length>0) {
+        
+      }else{
+        $.ajax({
+          url: "ajaxs/ajaxproduk.php",
+          method: "POST",
+          data: {
+            jenis: 'show_product_catalog_semua',
+          },
+          success: function(data) {
+            $("#disini").html(data);
+          }
+        });
+      }
+    }
 
 
 
