@@ -12,7 +12,7 @@
 
 
     where  d.id_hjual='$id'
-    and b.id_barang =d.id_barang 
+    and b.id_barang =d.id_barang
 
     ";
 

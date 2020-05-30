@@ -128,14 +128,12 @@ $row = $result->fetch_assoc();
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-sports" role="tabpanel" aria-labelledby="v-pills-sports-tab">
                                 <h4 class="mb-4">Pengaturan Profil</h4> <hr>
                                 <form method="POST" action="" class="form-group" >
-                                    <div class="alert alert-warning" role="alert">
-                                    Data anda belum diverivikasi oleh Admin. Silakan menunggu 2-3 hari kerja.
-                                    Notifikasi ini hanya akan mucul jika data belum diverifikasi.
-                                    </div>
-
-                                    <div class="alert alert-success" role="alert">
+                                    <div  id="notif_menunggu" class="alert alert-warning" role="alert"></div>
+                                    <div id="notif_valid" class="alert alert-success" role="alert"></div>
+                                    <div id="notif_tdkvalid" class="alert alert-danger" role="alert"></div>
+                                    <!-- <div class="alert alert-success" role="alert">
                                     Anda telah terverifikasi. Notifikasi ini muncul jika admin telah memverifikasi data anda
-                                </div>
+                                </div> -->
 
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
@@ -347,7 +345,38 @@ $row = $result->fetch_assoc();
         });
     }
 
+    var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+    var status_akun = "<?php if(isset($_SESSION["status_akun"])){ echo $_SESSION["status_akun"];}?>";
+    
+    function notif_akun(){
+        if (status_akun == 0) {
+            //menunggu
+            $("#notif_menunggu").html("Data anda belum diverifikasi oleh Admin. Silakan menunggu 2-3 hari kerja");
+            $("#notif_tdkvalid").removeClass('alert alert-danger');
+            $("#notif_valid").removeClass('alert alert-success');
+        }
+        else if(status_akun == 1){
+            //valid
+           // $("#notif_valid").css();
+            $("#notif_valid").html("Data anda terverifikasi");
+            $("#notif_tdkvalid").removeClass('alert alert-danger');
+            $("#notif_menunggu").removeClass('alert alert-warning');
+        }
+        else if(status_akun == 2){
+            //tidak valid
+            $("#notif_tdkvalid").html("Data anda tidak valid! Silakan ubah data sesuai kartu identitas");
+            $("#notif_menunggu").removeClass('alert alert-warning');
+            $("#notif_valid").removeClass('alert alert-success');
+        }
+    }
+
+    $(document).ready(function () {
+        notif_akun();
+    });
+
     function simpan() {
+        
+        alert(status_akun);
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
