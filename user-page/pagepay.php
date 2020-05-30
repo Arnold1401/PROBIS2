@@ -67,8 +67,8 @@ require_once("head.php");
                <td class='text-right'>$idbarang</td>
                 <td class='text-right'>$nama</td>
                 <td class='text-right'>$jum</td>
-                <td class='text-right'>Rp.$fharga</td>
-                <td class='text-right'>Rp.$fsubtotal</td>
+                <td class='text-right'>Rp $fharga</td>
+                <td class='text-right'>Rp $fsubtotal</td>
               </tr>";
              }
              
@@ -82,19 +82,19 @@ require_once("head.php");
             <td></td>
             <td></td>
             <td colspan="2" class="text-right"><b>Total Belanja</b></td>
-            <td class="text-right">Rp.<?php echo number_format($_SESSION["tobelanja"],2)?></td>
+            <td class="text-right">Rp <?php echo number_format($_SESSION["tobelanja"],2)?></td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td colspan="2" class="text-right"><b>Biaya Pegiriman</b></td>
-            <td class="text-right">Rp.<?php echo number_format($_SESSION["ongkir"],2);?></td>
+            <td class="text-right">Rp <?php echo number_format($_SESSION["ongkir"],2);?></td>
           </tr>
           <tr>
             <td></td>
             <td></td>
             <td colspan="2" class="text-right"><b>Total Belanja+Biaya Pegiriman</b></td>
-            <td class="text-right">Rp.<?php echo number_format($_SESSION["totalsemua"],2);?></td>
+            <td class="text-right">Rp <?php echo number_format($_SESSION["totalsemua"],2);?></td>
           </tr>
         </table>
       </div>

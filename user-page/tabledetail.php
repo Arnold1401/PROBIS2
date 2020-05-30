@@ -11,8 +11,8 @@
     from djual d,  barang b
 
 
-    where  d.id_hjual=$id
-    and b.id_barang =d.id_barang
+    where  d.id_hjual='$id'
+    and b.id_barang =d.id_barang 
 
     ";
 
@@ -23,7 +23,7 @@
         from hjual 
 
 
-        where id_hjual =$id
+        where id_hjual ='$id'
     
     ";
 
@@ -34,7 +34,7 @@
 ?>
 
 
-<table id="example" class="table table-striped table-bordered" >
+<table id="example" class="table table-striped table-bordered text-dark" >
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Nama Barang</th>                                    
@@ -57,8 +57,8 @@
                                     <td><?php echo $row[0];?></td>
                                     <td><?php echo $row[1];?></td>
 
-                                    <td><?php echo $row[2];?></td>
-                                    <td><?php echo $row[3];?></td>
+                                    <td><?php echo "Rp ".number_format($row[2],0,",",".") ;?></td>
+                                    <td><?php echo "Rp ".number_format($row[3],0,",",".") ;;?></td>
 </tr>
 
 <?php
@@ -69,7 +69,7 @@
     <tr>
         <td colspan=2></td>
         <td>Grand total</td>
-        <td><?php echo $resultarr["grandtotal"];?></td>
+        <td><?php echo "Rp ".number_format($resultarr["grandtotal"],0,",",".") ;?></td>
     </tr>
 </tbody>
 

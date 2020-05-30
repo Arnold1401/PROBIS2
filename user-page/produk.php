@@ -58,7 +58,7 @@ $conn = getConn();
           <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
 <!-- icon pakai icomoon.css -->
           <li class="nav-item active"><a href="produk.php" class="nav-link">Produk</a></li>
-          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link" id='jumcart'><span class="icon-shopping_cart" ></span>[<?php if (isset($_SESSION["keranjang"])) {
+          <li class="nav-item"><a href="cart.php" class="nav-link" id='jumcart'><span class="icon-shopping_cart" ></span>[<?php if (isset($_SESSION["keranjang"])) {
         $arrkeranjang=unserialize($_SESSION["keranjang"]);
         $count=count($arrkeranjang);
         echo $count;
@@ -96,8 +96,8 @@ $conn = getConn();
             <!-- Cari Product -->
             <form action="#" class="subscribe-form">
               <div class="form-group d-flex">
-                <input type="text" class="form-control" placeholder="Cari Produk">
-                <input name="" id="" class="btn btn-primary" type="button" value="Cari">
+                <input type="text" class="form-control" id="txt_cari" placeholder="Cari Produk">
+                <input name="" id="" class="btn btn-primary" onclick="cari()" type="button" value="Cari">
               </div>
             </form>
             <!--End Cari Product -->
@@ -136,12 +136,12 @@ $conn = getConn();
                                                                                                                                               
 
           <div class="list-group">
-            <h3>Price</h3>
+            <!-- <h3>Price</h3>
             <p id="price_fil">Rp1000 - 65000</p>
             <input type="number" id="vol1" name="vol">
             <input type="number" id="vol2" name="vol" >
             
-            <button class="btn btn-success" onclick="terapkan()">Terapkan</button>
+            <button class="btn btn-success" onclick="terapkan()">Terapkan</button> -->
           </div>
 
           <div class="list-group">
@@ -240,7 +240,8 @@ $conn = getConn();
         var maximum_price = $('#vol2').val();
         var brand = get_filter('brand');
 
-        $.ajax({
+        if (brand.length>0) {
+          $.ajax({
           url: "ajaxs/ajaxproduk.php",
           method: "POST",
           data: {
@@ -253,6 +254,19 @@ $conn = getConn();
             $('#disini').html(data);
           }
         });
+        }else{
+          $.ajax({
+          url: "ajaxs/ajaxproduk.php",
+          method: "POST",
+          data: {
+            jenis:'show_product_catalog_semua',
+          },
+          success: function(data) {
+            $('#disini').html(data);
+          }
+        });
+        }
+       
       }
 
       function get_filter(class_name) {
@@ -360,42 +374,75 @@ $conn = getConn();
         (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
     }
 
-  function terapkan() {
-    var hatas=$("#vol1").val();
-    var hbawah=$("#vol2").val();
-    if (hatas!=""&&hbawah!="") {
-      if (hatas<hbawah) {
-        var fhatas=formatMoney(hatas);
-        var fhbawah=formatMoney(hbawah);
-        $("#price_fil").html("Rp "+fhatas+" sampai Rp "+fhbawah);
-        var jenis = 'filter';
-        var minimum_price = hatas;
-        var maximum_price = hbawah;
+  // function terapkan() {
+  //   var hatas=$("#vol1").val();
+  //   var hbawah=$("#vol2").val();
+  //   if (hatas!=""&&hbawah!="") {
+  //     if (hatas<hbawah) {
+  //       var fhatas=formatMoney(hatas);
+  //       var fhbawah=formatMoney(hbawah);
+  //       $("#price_fil").html("Rp "+fhatas+" sampai Rp "+fhbawah);
+  //       var jenis = 'filter';
+  //       var minimum_price = hatas;
+  //       var maximum_price = hbawah;
 
+  //       $.ajax({
+  //         url: "ajaxs/ajaxproduk.php",
+  //         method: "POST",
+  //         data: {
+  //           jenis:jenis,
+  //           minimum_price:minimum_price,
+  //           maximum_price:maximum_price,
+  //         },
+  //         success: function(data) {z
+  //           $('#disini').html(data);
+  //         }
+  //       });
+
+  //     }
+  //     else{
+  //       alert("Harga awal lebih besar dari harga akhir !");
+  //     }
+    
+  //   }else{
+  //     alert("Inputan filter harga tidak boleh kosong !");
+  //   }
+   
+  // }
+
+    function cari() {
+      var dicari=$("#txt_cari").val();
+      $.ajax({
+          url: "ajaxs/ajaxproduk.php",
+          method: "POST",
+          data: {
+            jenis: 'cari',
+            cari:dicari
+          },
+          success: function(data) {
+            $("#disini").html(data);
+          }
+        });
+    }
+
+
+    function unchecked() {
+      var brand = get_filter('brand');
+      if (brand.length>0) {
+        
+      }else{
         $.ajax({
           url: "ajaxs/ajaxproduk.php",
           method: "POST",
           data: {
-            jenis:jenis,
-            minimum_price:minimum_price,
-            maximum_price:maximum_price,
+            jenis: 'show_product_catalog_semua',
           },
           success: function(data) {
-            $('#disini').html(data);
+            $("#disini").html(data);
           }
         });
-
       }
-      else{
-        alert("Harga awal lebih besar dari harga akhir !");
-      }
-    
-    }else{
-      alert("Inputan filter harga tidak boleh kosong !");
     }
-   
-  }
-
 
 
 

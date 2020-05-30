@@ -21,7 +21,7 @@
             while ($row1 = $result1->fetch_assoc()) {
                 $idhjual=$row1["id_hjual"];
                 $status=getstat($idhjual);
-
+                $statorder="";
                 if ($status=='cancel'||$status=='failure'||$status=='expire') {
                     $status="Batal";
                 }else if ($status=='pending') {
@@ -31,7 +31,6 @@
                     if ($result2->num_rows > 0) {
                         $status="Hutang";
                     }
-
                     
                     $sql3="select * from piutang where id_hjual='$idhjual'";
                     $result3 = $conn->query($sql3);
@@ -43,12 +42,20 @@
                         $status=getstat($idp);
                         if ($status=="pending") {
                             $status="Menunggu Pembayaran Hutang";
+                            $statorder="Proses";
                         }else if($status=='cancel'||$status=='failure'||$status=='expire'){
                             $status="Batal";
                             $statorder="Batal";
+                            setnormal($idhjual);
                         }else{
                             $status="Hutang";
+                            $statorder="Proses";
                         }
+                        $sql2="update hjual set status_pembayaran='$status',status_order='$staorder' where id_hjual='$idhjual'";
+                        if ($conn->query($sql2)) {
+                            $kal.="berhasil update-$idhjual \n";
+                        }
+        
                     }
                   
                    
@@ -57,11 +64,7 @@
                   
                 }
 
-                $sql2="update hjual set status_pembayaran='$status',status_order='$staorder' where id_hjual='$idhjual'";
-                if ($conn->query($sql2)) {
-                    $kal.="berhasil update-$idhjual \n";
-                }
-
+               
                 
 
 
@@ -104,5 +107,93 @@
     //return $response1;
   }
   
+  function setnormal($idhjual){
+    $conn=getConn();
+    $sql="select * from djual where id_hjual='$idhjual'";
+    $result=$conn->query($sql);
+    if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+            $qty=$row["kuantiti"];
+            $idb=$row["id_barang"];
+            updatedetailbarang($idb,$qty);
+        }
+    }
+    //id_barang
+    //kuantiti
+    $conn->close();
+  }
+
+  function updatedetailbarang($idb,$qty){
+    $conn=getConn();
+    $sql="select * from detail_barang where id_barang='$idb'";
+    $result=$conn->query($sql);
+    if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+            $sisa=$row["sisa"];
+        }
+    }
+    $jum=$sisa+$qty;
+
+    $sql2="update detail_barang set sisa='$jum' where id_barang='$idb'";
+    if ($conn->query($sql2)) {
+        
+    }
+    $conn->close();
+  }
+
+  function keuntungan(){
+
+    $kal="";
+    $conn=getConn();
+    $arrhjual=[];
+    $sql="select * from hjual where status_pembayaran='Lunas'";
+    $result=$conn->query($sql);
+    if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+            $id=$row["id_hjual"];
+            $kal.="id=$id";
+            array_push($arrhjual,$id);
+           
+        }
+    }
+    $conn->close();
+    
+ 
+    for ($i=0; $i <count($arrhjual); $i++) { 
+
+           
+        $conn=getConn();
+        $idhjual=$arrhjual[$i];
+        
+        $sql1="select sum((b.harga_jual * d.kuantiti) -(b.harga_beli*d.kuantiti)) as keuntungan
+        from djual d,barang b,hjual h
+        where h.id_hjual='$idhjual' and h.id_hjual=d.id_hjual and b.id_barang=d.id_barang 
+        ";
+        $result1=$conn->query($sql1);
+        if ($result1->num_rows>0) {
+            while ($row1=$result1->fetch_assoc()) {
+                $keuntungan=$row1["keuntungan"];
+
+                
+            }
+            $sql2="update hjual set keuntungan='$keuntungan' where id_hjual='$idhjual' ";
+            if ($conn->query($sql2)) {
+                $kal.="update $i berhasil idhjual $idhjual";
+            }
+        }
+        $conn->close();
+        $keuntungan=0;
+       
+    }
+    
+
+    echo $kal;
+    
+ 
+  }
+
+  if ($_POST["jenis"]=="untung") {
+      keuntungan();
+  }
 
 ?>
