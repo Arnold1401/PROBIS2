@@ -47,7 +47,7 @@
                         <a href="admin-penjualan.php"> <i class="menu-icon fa fa-laptop"></i>Penjualan </a>
                     </li>
                     <li>
-                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>User </a>
+                        <a href="admin-manageuser.php"> <i class="menu-icon fa fa-laptop"></i>Pelanggan </a>
                     </li>
                     <li>
                         <a href="admin-managesales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales </a>

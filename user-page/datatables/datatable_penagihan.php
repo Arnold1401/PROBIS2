@@ -1,19 +1,16 @@
 <?php
-include "adminconn.php"; // Load file koneksi.php
+include "../conn.php"; // Load file koneksi.php
 $connect=getConn();
 
 $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
 $limit = $_POST['length']; // Ambil data limit per page
 $start = $_POST['start']; // Ambil data start
-$getIdHjual = $_POST['get_idhjual'];
+$idcust = $_POST['idcust'];
 
-$sql = mysqli_query($connect, "SELECT id_djual FROM djual where id_hjual='$getIdHjual'"); // Query untuk menghitung seluruh data siswa
+$sql = mysqli_query($connect, "SELECT id_hjual FROM hjual where id_cust='$idcust'"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
-//$query = "SELECT * FROM djual d, barang b, hjual h WHERE (d.id_hjual LIKE '%".$search."%' OR d.id_djual LIKE '%".$search."%' OR b.nama_barang LIKE '%".$search."%' OR d.kuantiti LIKE '%".$search."%' OR d.subtotal LIKE '%".$search."%') and id_hjual='$getIdHjual' and d.id_barang=b.id_barang";
-
-$query = "SELECT * FROM djual d, barang b, hjual h WHERE (d.id_djual LIKE '%".$search."%' OR d.kuantiti LIKE '%".$search."%' OR d.id_barang LIKE '%".$search."%' OR b.nama_barang LIKE '%".$search."%' OR d.id_ulasan LIKE '%".$search."%') and d.id_barang=b.id_barang and h.id_hjual=d.id_hjual and d.id_hjual='$getIdHjual'";
-
+$query = "SELECT * FROM hjual h, customer c, sales s WHERE (h.id_hjual LIKE '%".$search."%' OR h.status_order LIKE '%".$search."%' OR h.tanggal_order LIKE '%".$search."%' OR h.tanggal_orderselesai LIKE '%".$search."%' OR c.id_cust LIKE '%".$search."%' OR s.nama_sales LIKE '%".$search."%' OR h.kurir LIKE '%".$search."%') and c.id_cust=h.id_cust and h.id_cust='$idcust' and s.id_sales=c.id_sales and h.status_pembayaran !='Lunas' and h.status_pembayaran != 'Batal'";
 $order_field = $_POST['order'][0]['column']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
 $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
 $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;

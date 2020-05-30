@@ -84,20 +84,21 @@ require_once("adminhead.php");
                             <div class="card-body">
                            
                             <ul id="filter">
-                                <li class="btn"><label class="font-weight-bold"> Filter Status</label></li>
+                                <li class="btn"><label class="font-weight-bold"> Filter</label></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="" active>Semua</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" type="button" data-value="Proses">Proses</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Pengiriman">Pengiriman</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Selesai">Selesai</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Piutang">Piutang</a></li>
+                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Batal">Batal</a></li>
                             </ul>
 
                             <div class="table-responsive">
                               <table id="datatablePenjualan" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#ID</th>
+                                            <th>#ID </th>
                                             <th>Tanggal Order</th>
                                             <th>Customer</th>
                                             <th>Status Order</th>
@@ -128,7 +129,7 @@ require_once("adminhead.php");
                                 <table id="datatableDetailOrder" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#ID</th>
+                                            <th>#ID detail</th>
                                             <th>Barang</th>
                                             <th>Kuantiti</th>
                                             <th>Subtotal</th>
@@ -138,8 +139,16 @@ require_once("adminhead.php");
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Total:</th>
-                                            <th style="font-weight:bold"></th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th style="font-weight:bold" ></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
+                                            <th style="font-weight:bold" id="Ongkir"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal :</th>
+                                            <th style="font-weight:bold" id="totalsemua"></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -228,13 +237,31 @@ require_once("adminhead.php");
                         else if (row.status_order == 'Piutang') //piutang
                         {
                             return "<label class='text-danger font-weight-bold'>Piutang</label>";
-                        }                       
+                        }      
+                        else if (row.status_order == 'Batal') //hutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>Batal</label>";
+                        }                 
                     }
                 },
-                 {                   
-                    "target": -1,
-                    "defaultContent": "<button id=\"GetDetail\" class='btn btn-outline-primary'>Detail Order</button>"
-                },              
+                {"data":"status_order",
+                    "searchable": true,
+                    "orderable":true,
+                    "render": function (data, type, row) {  
+                        if (row.status_order == 'Proses') //proses
+                        {
+                            return "<button id=\"Kirimkan\" class='btn btn-outline-primary'>Kirimkan</button> <button id=\"GetDetail\" class='btn btn-outline-primary'>Detail Pesanan</button>";
+                        }
+                        else if (row.status_order == 'Pengiriman' || row.status_order == 'Sampai Tujuan' || row.status_order == 'Selesai' || row.status_order == 'Batal') //pengriman
+                        {
+                            return "<button id=\"GetDetail\" class='btn btn-outline-primary'>Detail Pesanan</button>"
+                        }
+                        
+                        
+                    },
+                    "target":-1,
+                },
+                 
              ],
         }) 
         //end of datatble list penjualan
@@ -258,15 +285,16 @@ require_once("adminhead.php");
         } );
         //end of event jika list penjualan dipilih/diclick 
 
-        var tabledetail, getIdhjual="";
+        var tabledetail, getIdhjual, getTotal="";
         //action button detail order dipilih pada list penjualan - header
         $('#datatablePenjualan tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = table.row($(this).closest('tr')).data();
 
             if(action == 'GetDetail') {
-                console.log(data[Object.keys(data)[0]]); //id hjual
+                //console.log(data[Object.keys(data)[0]]); //id hjual
                 getIdhjual =data[Object.keys(data)[0]];
+                getTotal = data[Object.keys(data)[6]]; //ongkir
                 $("#id_hjual").html(getIdhjual);
                 //document.getElementById("id_hjual").value = getIdhjual;
 
@@ -337,9 +365,31 @@ require_once("adminhead.php");
                             $( api.column( 3 ).footer() ).html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(total)
                             );
+                            var ongkir = getTotal - total;
+                            $("#Ongkir").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
+                            );
+                            $("#totalsemua").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
+                            );
                         }
                 } );
                 //end of table detail order barang dibagian bawah
+            }
+
+            if (action == 'Kirimkan') {
+                getIdhjual =data[Object.keys(data)[0]];
+
+                $.post("adminajax.php",{
+                    jenis:"kirimkan_barang",
+                    getIdhjual:getIdhjual,
+                },
+                function(data){                 
+                    alert(data);
+                    $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable 
+                    const btnkirimkan = document.getElementById("Kirimkan");
+                    this.button.disabled=true;
+                });
             }
             
 

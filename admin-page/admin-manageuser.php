@@ -67,7 +67,7 @@ include_once('adminconn.php');
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Master Customer</h1>
+                        <h1>Master Pelanggan</h1>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@ include_once('adminconn.php');
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>      
                             <li><a href="#">Master</a></li>                            
-                            <li><a href="#">Customer</a></li>                                                  
+                            <li><a href="#">Pelanggan</a></li>                                                  
                         </ol>
                     </div>
                 </div>
@@ -98,7 +98,7 @@ include_once('adminconn.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Customer</strong>
+                                <strong class="card-title">List Pelanggan</strong>
                             </div>
                             <div class="card-body">
 
@@ -141,13 +141,13 @@ include_once('adminconn.php');
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title">Atur Sales untuK Customer ini</h5>
+                <h5 class="modal-title">Atur Sales untuk Pelanggan ini</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body"> 
-                    <h5> Sales yang bertanggung jawab atas Customer sekarang </h5>
+                    <h6> Sales yang bertanggung jawab atas Pelanggan sekarang </h6>
 
                     <table id="sales_bertanggungjawab" class="table table-striped table-bordered" width="100%" >
                     <thead>
@@ -155,7 +155,6 @@ include_once('adminconn.php');
                             <th>#ID</th>
                             <th>Email</th>
                             <th>Nama Sales </th>
-                            
                             <th>Provinsi</th>
                             <th>Kota</th>
                             <th>Kecamatan</th>
@@ -165,9 +164,9 @@ include_once('adminconn.php');
                     </tbody>
                     </table>
 
-                    <br>
+                    <br> <hr>
 
-                    <h5> List Sales Terdaftar </h5>
+                    <h6> List Sales Terdaftar </h6>
                     <small><i> List yang ditampilkan adalah sales yang memiliki alamat Provinsi sama dengan customer ini</i></small><br>
                     <small><i> Isi Textboxt pencarian jika ingin mencari sales yang ber-alamat Kota maupun Kecamatan yang sama dengan Customer</i></small><br>
                     <br>
