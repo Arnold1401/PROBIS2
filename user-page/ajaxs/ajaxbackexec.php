@@ -21,7 +21,7 @@
             while ($row1 = $result1->fetch_assoc()) {
                 $idhjual=$row1["id_hjual"];
                 $status=getstat($idhjual);
-
+                $statorder="";
                 if ($status=='cancel'||$status=='failure'||$status=='expire') {
                     $status="Batal";
                 }else if ($status=='pending') {
@@ -51,6 +51,11 @@
                             $status="Hutang";
                             $statorder="Proses";
                         }
+                        $sql2="update hjual set status_pembayaran='$status',status_order='$staorder' where id_hjual='$idhjual'";
+                        if ($conn->query($sql2)) {
+                            $kal.="berhasil update-$idhjual \n";
+                        }
+        
                     }
                   
                    
@@ -59,11 +64,7 @@
                   
                 }
 
-                $sql2="update hjual set status_pembayaran='$status',status_order='$staorder' where id_hjual='$idhjual'";
-                if ($conn->query($sql2)) {
-                    $kal.="berhasil update-$idhjual \n";
-                }
-
+               
                 
 
 
@@ -138,6 +139,61 @@
         
     }
     $conn->close();
+  }
+
+  function keuntungan(){
+
+    $kal="";
+    $conn=getConn();
+    $arrhjual=[];
+    $sql="select * from hjual where status_pembayaran='Lunas'";
+    $result=$conn->query($sql);
+    if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+            $id=$row["id_hjual"];
+            $kal.="id=$id";
+            array_push($arrhjual,$id);
+           
+        }
+    }
+    $conn->close();
+    
+ 
+    for ($i=0; $i <count($arrhjual); $i++) { 
+
+           
+        $conn=getConn();
+        $idhjual=$arrhjual[$i];
+        
+        $sql1="select sum((b.harga_jual * d.kuantiti) -(b.harga_beli*d.kuantiti)) as keuntungan
+        from djual d,barang b,hjual h
+        where h.id_hjual='$idhjual' and h.id_hjual=d.id_hjual and b.id_barang=d.id_barang 
+        ";
+        $result1=$conn->query($sql1);
+        if ($result1->num_rows>0) {
+            while ($row1=$result1->fetch_assoc()) {
+                $keuntungan=$row1["keuntungan"];
+
+                
+            }
+            $sql2="update hjual set keuntungan='$keuntungan' where id_hjual='$idhjual' ";
+            if ($conn->query($sql2)) {
+                $kal.="update $i berhasil idhjual $idhjual";
+            }
+        }
+        $conn->close();
+        $keuntungan=0;
+       
+    }
+    
+
+    echo $kal;
+    
+ 
+  }
+
+  if ($_POST["jenis"]=="untung") {
+      keuntungan();
   }
 
 ?>

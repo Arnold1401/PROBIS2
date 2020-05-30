@@ -747,6 +747,16 @@ require_once("head.php");
                     console.log(data);
             });
     }
+ 
+    function hitunguntung(){
+        $.post("ajaxs/ajaxbackexec.php", {
+                    jenis: "untung",
+                },
+                function(data) {
+                    console.log(data);
+            });
+    }
+    hitunguntung();
 
     //----------------end of stars rating ----------------------------------//
 </script>
