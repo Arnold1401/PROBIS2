@@ -105,7 +105,7 @@ include_once('adminconn.php');
                                     </div>
                                 </div>
                             </div>
-                                                          
+                             <!--                             
                               <div class="table-responsive">
                               <table id="tablebarang" class="table table-striped table-bordered">
                                     <thead>
@@ -118,7 +118,10 @@ include_once('adminconn.php');
                                     </tbody>
                                 </table>
                               </div>
-                                
+                            -->
+                            <div class="table-responsive" id="nah">
+                             
+                              </div>
                             </div>
                         </div>
                     </div>
@@ -156,6 +159,46 @@ include_once('adminconn.php');
         } );
         //end of event jika list barang dipilih/diclick 
         
+   
+        var today= new Date();
+        var tgl= today.getDate();
+        var bulan= today.getMonth()+1;
+
+        if(bulan<10){
+            bulan='0'+bulan;
+        }
+        var tahun= today.getFullYear();
+        var full='';
+
+        full=full.concat(tahun,'-',bulan,'-',tgl).toString()
+        document.getElementById("tgl_awal").value =full;
+        document.getElementById("tgl_akhir").value =full;
+   
+   
+   
+        $("#tgl_akhir").change(function(){
+
+        var awal= $("#tgl_awal").val();
+        var akhir=  $("#tgl_akhir").val();
+        var link="ajaxs/ajaxlapProfit.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+        $("#nah").load(link);
+    })
+
+
+
+
+
+        $("#tgl_awal").change(function(){
+
+        var awal= $("#tgl_awal").val();
+        var akhir=  $("#tgl_akhir").val();
+        var link="ajaxs/ajaxlapProfit.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+        $("#nah").load(link);
+
+    })
+   
     });
     //end of document ready
 
