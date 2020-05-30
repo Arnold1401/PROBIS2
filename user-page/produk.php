@@ -96,8 +96,8 @@ $conn = getConn();
             <!-- Cari Product -->
             <form action="#" class="subscribe-form">
               <div class="form-group d-flex">
-                <input type="text" class="form-control" placeholder="Cari Produk">
-                <input name="" id="" class="btn btn-primary" type="button" value="Cari">
+                <input type="text" class="form-control" id="txt_cari" placeholder="Cari Produk">
+                <input name="" id="" class="btn btn-primary" onclick="cari()" type="button" value="Cari">
               </div>
             </form>
             <!--End Cari Product -->
@@ -136,12 +136,12 @@ $conn = getConn();
                                                                                                                                               
 
           <div class="list-group">
-            <h3>Price</h3>
+            <!-- <h3>Price</h3>
             <p id="price_fil">Rp1000 - 65000</p>
             <input type="number" id="vol1" name="vol">
             <input type="number" id="vol2" name="vol" >
             
-            <button class="btn btn-success" onclick="terapkan()">Terapkan</button>
+            <button class="btn btn-success" onclick="terapkan()">Terapkan</button> -->
           </div>
 
           <div class="list-group">
@@ -360,41 +360,56 @@ $conn = getConn();
         (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
     }
 
-  function terapkan() {
-    var hatas=$("#vol1").val();
-    var hbawah=$("#vol2").val();
-    if (hatas!=""&&hbawah!="") {
-      if (hatas<hbawah) {
-        var fhatas=formatMoney(hatas);
-        var fhbawah=formatMoney(hbawah);
-        $("#price_fil").html("Rp "+fhatas+" sampai Rp "+fhbawah);
-        var jenis = 'filter';
-        var minimum_price = hatas;
-        var maximum_price = hbawah;
+  // function terapkan() {
+  //   var hatas=$("#vol1").val();
+  //   var hbawah=$("#vol2").val();
+  //   if (hatas!=""&&hbawah!="") {
+  //     if (hatas<hbawah) {
+  //       var fhatas=formatMoney(hatas);
+  //       var fhbawah=formatMoney(hbawah);
+  //       $("#price_fil").html("Rp "+fhatas+" sampai Rp "+fhbawah);
+  //       var jenis = 'filter';
+  //       var minimum_price = hatas;
+  //       var maximum_price = hbawah;
 
-        $.ajax({
+  //       $.ajax({
+  //         url: "ajaxs/ajaxproduk.php",
+  //         method: "POST",
+  //         data: {
+  //           jenis:jenis,
+  //           minimum_price:minimum_price,
+  //           maximum_price:maximum_price,
+  //         },
+  //         success: function(data) {z
+  //           $('#disini').html(data);
+  //         }
+  //       });
+
+  //     }
+  //     else{
+  //       alert("Harga awal lebih besar dari harga akhir !");
+  //     }
+    
+  //   }else{
+  //     alert("Inputan filter harga tidak boleh kosong !");
+  //   }
+   
+  // }
+
+    function cari() {
+      var dicari=$("#txt_cari").val();
+      $.ajax({
           url: "ajaxs/ajaxproduk.php",
           method: "POST",
           data: {
-            jenis:jenis,
-            minimum_price:minimum_price,
-            maximum_price:maximum_price,
+            jenis: 'cari',
+            cari:dicari
           },
           success: function(data) {
-            $('#disini').html(data);
+            $("#disini").html(data);
           }
         });
-
-      }
-      else{
-        alert("Harga awal lebih besar dari harga akhir !");
-      }
-    
-    }else{
-      alert("Inputan filter harga tidak boleh kosong !");
     }
-   
-  }
 
 
 
