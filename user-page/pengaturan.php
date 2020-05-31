@@ -2,6 +2,7 @@
 require_once("head.php");
 include_once "conn.php";
 $email  = $_SESSION["email_user"];
+$role = $_SESSION["role"];
 $sql = "SELECT * FROM customer where email = '$email'";
 $conn = getConn();
 $result = $conn->query($sql);
@@ -46,29 +47,52 @@ $row = $result->fetch_assoc();
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
-        echo $count;
-    }else{
-        echo 0;
-    }
- ?>]</a></li>
+                    
+               <?php
+                
+                if ($role == "reseller") { ?>
+                    <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
+                    <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
+                    <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+                        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+                        $count=count($arrkeranjang);
+                        echo $count;
+                        }
+                        else{ echo 0; }
+                        ?>]</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
+                            <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
+                            <a class="dropdown-item" href="tagihan.php">Tagihan</a>
+                            <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                            <hr>
+                            <a class="dropdown-item active" href="pengaturan.php">Akun Saya</a>
+                            <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                        </div>
+                    </li>
+                    
+            <?php    }
+            //$role = isset($_SESSION["role"]);
+            if ($role == "salesman") { ?>
+                <li class="nav-item active"><a href="sales-home.php" class="nav-link">Pesanan</a></li>
+                <li class="nav-item "><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
+                <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
-                    <a class="dropdown-item" href="tagihan.php">Tagihan</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
                     <hr>
-                    <a class="dropdown-item active" href="pengaturan.php">Akun Saya</a>
-                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
+            <?php }
+
+               ?>
+                
             </ul>
         </div>
     </div>
@@ -83,10 +107,20 @@ $row = $result->fetch_assoc();
 
                         <!-- tabs -->
                         <div class="col-sm-12 col-12 col-lg-3 p-0 ">
-                            <div class="nav nav-pills flex-column flex-sm-row nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">                   
+                            
+                            <div class="nav nav-pills flex-column flex-sm-row nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">  
+                            <?php
+                                if ($role == "reseller") { ?>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Profil</a>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false">Alamat Pengiriman</a>
+                            <?php    }
+                            if ($role == "salesman") { ?>
+                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
+                                
+                            <?php    }
+                            ?>
+                                
                             </div>
                         </div>
                          <!-- end tabs -->
@@ -101,7 +135,7 @@ $row = $result->fetch_assoc();
 
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="<?php echo $row["email"] ?>" disabled  type="text" class="form-control" name="" id="myemail" aria-describedby="helpId" placeholder="example@gmail.com">
+                                    <input value="<?php echo $email ?>" disabled  type="text" class="form-control" name="" id="myemail" aria-describedby="helpId" placeholder="example@gmail.com">
                                     
                                     </div>
 
@@ -113,10 +147,10 @@ $row = $result->fetch_assoc();
                                     </div>
 
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="pass"   id="pass" placeholder="Password Baru">                 
+                                        <input type="password" class="form-control" name="pass" id="pass" placeholder="Password Baru">                 
                                     </div>
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="cpass" id="cpass" placeholder="Konfirmasi Password Baru">                 
+                                        <input type="password" class="form-control" name="cpass" id="cpass" placeholder="Konfirmasi Password Baru">                 
                                     </div>
 
                                     <button type="button" onclick="gantipass()" class="btn btn-outline-success">Simpan Perubahan</button>
@@ -145,13 +179,14 @@ $row = $result->fetch_assoc();
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <div class="custom-file">
+                                    <img src="<?php echo $row["foto_ktp"]; ?>" id="img" width="200" height="100">
+                                        <!-- <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="inputGroupFile02">
                                             <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="upbutton" >Upload</span>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="form-group">
@@ -347,22 +382,32 @@ $row = $result->fetch_assoc();
     }
 
     var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+    var role ="<?php if(isset($_SESSION["role"])){ echo $_SESSION["role"];}?>";
     var status_akun = "<?php if(isset($_SESSION["status_akun"])){ echo $_SESSION["status_akun"];}?>";
     var verified_email = "<?php if(isset($_SESSION["verified"])){ echo $_SESSION["verified"];}?>";
     
     function notif_akun() {
-        if (verified_email == 0) {
-            //not confirmed
-            $("#notif_notconf").html("Anda belum konfirmasi email!");
+        //alert(role);
+        if (role == "reseller") {
+                if (verified_email == 0) {
+                //not confirmed
+                $("#notif_notconf").html("Anda belum konfirmasi email!");
+                $("#notif_conf").removeClass('alert alert-success');
+                $( "#myemail" ).prop( "disabled", true );
+            }
+            else if (verified_email == 1) {
+                //confirmed
+                $("#notif_conf").html("Terima Kasih, Email Anda telah terkonfirmasi");
+                $("#notif_notconf").removeClass('alert alert-warning');
+                $( "#myemail" ).prop( "disabled", true );
+            }
+        }
+
+        if (role == "salesman") {
             $("#notif_conf").removeClass('alert alert-success');
-            $( "#myemail" ).prop( "disabled", true );
-        }
-        else if (verified_email == 1) {
-            //confirmed
-            $("#notif_conf").html("Terima Kasih, Email Anda telah terkonfirmasi");
             $("#notif_notconf").removeClass('alert alert-warning');
-            $( "#myemail" ).prop( "disabled", true );
         }
+        
     }
     function notif_profil(){
         if (status_akun == 0) {
@@ -503,20 +548,39 @@ $row = $result->fetch_assoc();
       
     }
 
+    function reset(){
+        $("#pass").val()="";
+        $("#cpass").val()="";
+    }
+
     function gantipass() {
         console.log("pass:"+$("#pass").val());
         console.log("cpass:"+$("#cpass").val());
         if ($("#pass").val()==$("#cpass").val()) {
-            $.post("ajaxs/ajaxsetting.php",
-            {
+            if (role == "reseller") {
+                $.post("ajaxs/ajaxsetting.php",
+                {
                 jenis:"gantipass",
                 password:$("#pass").val(),
-            },
-            function(data){
+                },
+                function(data){
                 alert(data);
-            });
+                });
+            }
+            if (role == "salesman") {
+                $.post("ajaxs/ajaxsetting.php",
+                {
+                jenis:"gantipass_sales",
+                password:$("#pass").val(),
+                },
+                function(data){
+                alert(data);
+                });
+            }
+            reset();
         }else{
             alert("Password dan Konfirmasi password harus sama !");
+            
         }
     }
         
