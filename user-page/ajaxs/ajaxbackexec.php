@@ -146,7 +146,7 @@
     $kal="";
     $conn=getConn();
     $arrhjual=[];
-    $sql="select * from hjual where status_pembayaran='Lunas'";
+    $sql="select * from hjual where status_pembayaran='Hutang'";
     $result=$conn->query($sql);
     if ($result->num_rows>0) {
         while ($row=$result->fetch_assoc()) {
@@ -165,15 +165,15 @@
         $conn=getConn();
         $idhjual=$arrhjual[$i];
         
-        $sql1="select sum((b.harga_jual * d.kuantiti) -(b.harga_beli*d.kuantiti)) as keuntungan
-        from djual d,barang b,hjual h
-        where h.id_hjual='$idhjual' and h.id_hjual=d.id_hjual and b.id_barang=d.id_barang 
-        ";
+        $sql1="select distinct d.id_hjual as hjual,sum(d.subtotal-(b.harga_beli*d.kuantiti)) as keuntungan
+        from djual d,barang b
+        where d.id_barang=b.id_barang and
+        d.id_hjual in(select d.id_hjual from djual d
+        where d.id_hjual='$idhjual')";
         $result1=$conn->query($sql1);
         if ($result1->num_rows>0) {
             while ($row1=$result1->fetch_assoc()) {
                 $keuntungan=$row1["keuntungan"];
-
                 
             }
             $sql2="update hjual set keuntungan='$keuntungan' where id_hjual='$idhjual' ";
