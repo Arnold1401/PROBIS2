@@ -96,14 +96,12 @@ $row = $result->fetch_assoc();
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
                                 <form  method="POST" action="#" class="form-group" >
-                                    <div class="alert alert-warning" role="alert">
-                                        Silakan verifikasi akun Anda pada email yang telah dikirimkan
-                                        Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
-                                    </div>
+                                    <div id="notif_notconf" class="alert alert-warning" role="alert"></div>
+                                    <div id="notif_conf" class="alert alert-success" role="alert"> </div>
 
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="<?php echo $row["email"] ?>" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                                    <input value="<?php echo $row["email"] ?>" disabled  type="text" class="form-control" name="" id="myemail" aria-describedby="helpId" placeholder="example@gmail.com">
                                     
                                     </div>
 
@@ -350,8 +348,23 @@ $row = $result->fetch_assoc();
 
     var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
     var status_akun = "<?php if(isset($_SESSION["status_akun"])){ echo $_SESSION["status_akun"];}?>";
+    var verified_email = "<?php if(isset($_SESSION["verified"])){ echo $_SESSION["verified"];}?>";
     
-    function notif_akun(){
+    function notif_akun() {
+        if (verified_email == 0) {
+            //not confirmed
+            $("#notif_notconf").html("Anda belum konfirmasi email!");
+            $("#notif_conf").removeClass('alert alert-success');
+            $( "#myemail" ).prop( "disabled", true );
+        }
+        else if (verified_email == 1) {
+            //confirmed
+            $("#notif_conf").html("Terima Kasih, Email Anda telah terkonfirmasi");
+            $("#notif_notconf").removeClass('alert alert-warning');
+            $( "#myemail" ).prop( "disabled", true );
+        }
+    }
+    function notif_profil(){
         if (status_akun == 0) {
             //menunggu
             $("#notif_menunggu").html("Data anda belum diverifikasi oleh Admin. Silakan menunggu 2-3 hari kerja");
@@ -360,7 +373,7 @@ $row = $result->fetch_assoc();
         }
         else if(status_akun == 1){
             //valid
-           // $("#notif_valid").css();
+           
             $("#notif_valid").html("Data anda terverifikasi");
             $("#notif_tdkvalid").removeClass('alert alert-danger');
             $("#notif_menunggu").removeClass('alert alert-warning');
@@ -380,6 +393,7 @@ $row = $result->fetch_assoc();
     }
 
     $(document).ready(function () {
+        notif_profil();
         notif_akun();
     });
 
