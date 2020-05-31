@@ -146,7 +146,7 @@
     $kal="";
     $conn=getConn();
     $arrhjual=[];
-    $sql="select * from hjual where status_pembayaran='Lunas'";
+    $sql="select * from hjual where status_pembayaran='Hutang'";
     $result=$conn->query($sql);
     if ($result->num_rows>0) {
         while ($row=$result->fetch_assoc()) {
@@ -174,7 +174,6 @@
         if ($result1->num_rows>0) {
             while ($row1=$result1->fetch_assoc()) {
                 $keuntungan=$row1["keuntungan"];
-
                 
             }
             $sql2="update hjual set keuntungan='$keuntungan' where id_hjual='$idhjual' ";
