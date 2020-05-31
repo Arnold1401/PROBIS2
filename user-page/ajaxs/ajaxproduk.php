@@ -47,12 +47,12 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 
 if ($_POST["jenis"] == "filter") {
 	$conn=getConn();
-	
+
 	$bolehfilter=false;
     $query = "SELECT * FROM barang";
 	$kal="";
 	$minprice=0;
-	
+
 
 	if(isset($_POST["minimum_price"])){
 		$minprice=$_POST["minimum_price"];
@@ -68,9 +68,7 @@ if ($_POST["jenis"] == "filter") {
 
 	if(isset($_POST["brand"]))
 	{
-		
 		$brand_filter= implode("','", $_POST["brand"]);
-		
 
 		if (count($_POST["brand"])>0) {
 			$query.= " where jenis_barang IN ('$brand_filter')";
@@ -95,8 +93,8 @@ if ($_POST["jenis"] == "filter") {
 		{
 			$id=$row["id_barang"];
 			$nama= $row['nama_barang'] ;
-			$harga=$row['harga_jual']; 
-			$foto="../admin-page/".$row['foto_barang']; 
+			$harga=$row['harga_jual'];
+			$foto="../admin-page/".$row['foto_barang'];
 			$fharga=number_format($harga,2);
 			$brand="";
 			$kal.="
@@ -123,7 +121,6 @@ if ($_POST["jenis"] == "filter") {
 		}else{
 			$kal = '<h3>No Data Found</h3>';
 		}
-		
 
 	// }else if($filterharga=="boleh"){
 	// 	$query= "select * from barang where harga_jual BETWEEN '$minprice' AND '$maxprice'";
