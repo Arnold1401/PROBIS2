@@ -341,7 +341,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
    //insert piutang
    $conn = getConn();
-   $q2="INSERT INTO `piutang`(`id_piutang`, `id_hjual`, `tanggal_jatuh_tempo`, `sisa_tagihan`) VALUES ('$piu','$orderid','$tgljth','$sisa')";
+   $q2="INSERT INTO `piutang`(`id_piutang`, `id_hjual`, `tanggal_jatuh_tempo`, `sisa_tagihan`,`tanggal_order`) VALUES ('$piu','$orderid','$tgljth','$sisa','$tgl')";
    if ($conn->query($q2)) {
       $stat.="piutang-berhasil";
    }else{
