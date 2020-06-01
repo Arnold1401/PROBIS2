@@ -188,9 +188,7 @@ $id=$_SESSION["id_sales"];
                                                 <a id="update_status" class='btn btn-info text-dark disabled' id_pengiriman="<?php echo $row[1];?>" >Sampai Tujuan</a>
                                             <?php }
                                         ?>                                        
-                                        <a id="btn_detail" class='btn btn-info text-dark' id_pengiriman="<?php echo $row[1];?>">Detail</a>
-                                        <!-- <button class='btn btn-info text-dark' class="update_status"  id_pengiriman="<?php echo $row[1];?>" > Update</button> -->
-                                        <!-- <button class="btn_detail"  id_pengiriman="<?php echo $row[1];?>"  >Details</button> -->
+                                        <a class="btn_detail btn btn-info text-dark"  id_pengiriman="<?php echo $row[1];?>"  >Details</a>
                                     </td>
                                 </tr>
                         <?php
@@ -252,10 +250,11 @@ $id=$_SESSION["id_sales"];
      
    <script>
 
-    $("#btn_detail").click(function(){
-
+    $(".btn_detail").click(function(){
+        
+       // $("#details").empty();
         var x= $(this).attr("id_pengiriman");
-
+        console.log(x);
         var link= "tabledetail.php?id="+x;
         $("#details").load(link);
 

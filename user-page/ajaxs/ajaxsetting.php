@@ -39,6 +39,20 @@
             }
         $conn->close();
     }
+
+    if ($_POST['jenis'] == "gantipass_sales") {
+        $id=$_SESSION["id_sales"];
+        $pass = $_POST['password'];
+        $conn = getConn();
+
+        $sql = "update sales set password='$pass' where id_sales ='$id' ";
+            if ($conn->query($sql)) {   
+                echo "berhasil";
+            }else{
+                echo "gagal";
+            }
+        $conn->close();
+    }
     
     if($_POST["jenis"]=="loadalamat"){
         $kal="";
@@ -82,6 +96,10 @@
         $kota = $_POST["kota"];
         $camat = $_POST["camat"];
         $kodepos = $_POST["kode"];
+
+        //kasih pengecekan dulu dia mau ubah alamat atau mau nambah alamat
+        //kalau ubah alamat dilihat juga no prioritasnya -- update biasa
+        //kalau nambah alamat, no prioritas terus bertambah 1, 2,3,4
         $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas,kode_pos) values ('$email_user','$prov','$kota','$camat','$alamat_user','1','$kodepos')";
         if($conn->query($sql3)){
             echo "berhasil";
@@ -91,5 +109,6 @@
       
     }
 
+    
 
 ?>

@@ -11,7 +11,7 @@ require_once("adminhead.php");
 <!--<![endif]-->
 
 <head>
-   
+
 </head>
 
 <body>
@@ -28,7 +28,7 @@ require_once("adminhead.php");
             <div class="header-menu">
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-                    <div class="header-left">                                                                                                     
+                    <div class="header-left">
                     </div>
                 </div>
 
@@ -36,14 +36,14 @@ require_once("adminhead.php");
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
-                        </a>    
+                        </a>
                         <div class="user-menu dropdown-menu">
-                           
+
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
                             <a onclick="keluar()" class="nav-link" ><i class="fa fa-power-off"></i> Logout</a>
-                        </div>                   
-                    </div>                   
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -62,9 +62,9 @@ require_once("adminhead.php");
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>      
-                            <li><a href="#">Master</a></li>                            
-                            <li><a href="#">Penjualan</a></li>                                                  
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Master</a></li>
+                            <li><a href="#">Penjualan</a></li>
                         </ol>
                     </div>
                 </div>
@@ -82,7 +82,7 @@ require_once("adminhead.php");
                                 <strong class="card-title">List Penjualan</strong>
                             </div>
                             <div class="card-body">
-                           
+
                             <ul id="filter">
                                 <li class="btn"><label class="font-weight-bold"> Filter</label></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="" active>Semua</a></li>
@@ -112,7 +112,7 @@ require_once("adminhead.php");
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <!--End Header piutang-->
 
@@ -160,7 +160,7 @@ require_once("adminhead.php");
                 <!-- End Detail piutang-->
             </div>
         </div>
-                    
+
 
         <!-- kumpulan script luar -->
         <?php      include_once('kumpulanscriptluar.php'); ?>
@@ -181,9 +181,9 @@ require_once("adminhead.php");
     $(document).ready(function () {
         //end of datatble list penjualan
         var table= "";
-        table = $('#datatablePenjualan').DataTable( 
+        table = $('#datatablePenjualan').DataTable(
         {
-            
+
              "processing":true,
              "language": {
                 "lengthMenu": "Tampilkan _MENU_ data per Halaman",
@@ -209,14 +209,14 @@ require_once("adminhead.php");
              "deferRender":true,
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[
-                
+
                  {"data":"id_hjual"},
                  {"data":"tanggal_order"},
                  {"data":"nama_perusahaan"},
                  {"data":"status_order",
                     "searchable": false,
                     "orderable":false,
-                    "render": function (data, type, row) {  
+                    "render": function (data, type, row) {
                         if (row.status_order == 'Proses') //proses
                         {
                             return "<label class='text-success font-weight-bold'>Proses</label> ";
@@ -237,17 +237,17 @@ require_once("adminhead.php");
                         else if (row.status_order == 'Piutang') //piutang
                         {
                             return "<label class='text-danger font-weight-bold'>Piutang</label>";
-                        }      
+                        }
                         else if (row.status_order == 'Batal') //hutang
                         {
                             return "<label class='text-danger font-weight-bold'>Batal</label>";
-                        }                 
+                        }
                     }
                 },
                 {"data":"status_order",
                     "searchable": true,
                     "orderable":true,
-                    "render": function (data, type, row) {  
+                    "render": function (data, type, row) {
                         if (row.status_order == 'Proses') //proses
                         {
                             return "<button id=\"Kirimkan\" class='btn btn-outline-primary'>Kirimkan</button> <button id=\"GetDetail\" class='btn btn-outline-primary'>Detail Pesanan</button>";
@@ -256,14 +256,14 @@ require_once("adminhead.php");
                         {
                             return "<button id=\"GetDetail\" class='btn btn-outline-primary'>Detail Pesanan</button>"
                         }
-                        
-                        
+
+
                     },
                     "target":-1,
                 },
-                 
+
              ],
-        }) 
+        })
         //end of datatble list penjualan
 
         //filter list penjualan berdasarkan status yang dpilih
@@ -271,19 +271,19 @@ require_once("adminhead.php");
         $('#filter').on( 'click', 'a', function () {
             console.log($(this).data("value"));
             table.search( $(this).data("value")).draw();
-           // 
+           //
             if ($(this).data("value") == "") {
-                $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable 
+                $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable
             }
             $('#datatableDetailOrder').empty();
         } );
         //end of filter list penjualan berdasarkan status yang dpilih
 
-        //event jika list penjualan dipilih/diclick 
+        //event jika list penjualan dipilih/diclick
         $('#datatablePenjualan tbody').on('click', 'tr', function () {
             $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
         } );
-        //end of event jika list penjualan dipilih/diclick 
+        //end of event jika list penjualan dipilih/diclick
 
         var tabledetail, getIdhjual, getTotal="";
         //action button detail order dipilih pada list penjualan - header
@@ -301,7 +301,7 @@ require_once("adminhead.php");
                 //table detail order barang dibagian bawah
                 tabledetail = $('#datatableDetailOrder').DataTable( {
                     // retrieve: true,
-                    destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                    destroy: true, //destroy dulu biar ngerefresh pas ganti2
                       "processing":true,
                         "language": {
                         "lengthMenu": "Tampilkan _MENU_ data per Halaman",
@@ -330,13 +330,13 @@ require_once("adminhead.php");
                       "columns":[
                           {"data":"id_djual"},
                           {"data":"nama_barang"},
-                          {"data":"kuantiti"},                         
+                          {"data":"kuantiti"},
                           {"data":"subtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
-                                        
-                      ],                      
+
+                      ],
                       "footerCallback": function ( row, data, start, end, display ) {
                             var api = this.api(), data;
-                          
+
                             //Remove the formatting to get integer data for summation
                             var intVal = function ( i ) {
                                 return typeof i === 'string' ?
@@ -344,7 +344,7 @@ require_once("adminhead.php");
                                     typeof i === 'number' ?
                                         i : 0;
                             };
-            
+
                             // Total over all pages
                             total = api
                                 .column( 3 )
@@ -352,7 +352,7 @@ require_once("adminhead.php");
                                 .reduce( function (a, b) {
                                     return intVal(a) + intVal(b);
                                 }, 0 );
-                
+
                             // Total over this page
                             pageTotal = api
                                 .column( 3, { page: 'current'} )
@@ -360,7 +360,7 @@ require_once("adminhead.php");
                                 .reduce( function (a, b) {
                                     return intVal(a) + intVal(b);
                                 }, 0 );
-            
+
                             // Update footer
                             $( api.column( 3 ).footer() ).html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(total)
@@ -384,20 +384,30 @@ require_once("adminhead.php");
                     jenis:"kirimkan_barang",
                     getIdhjual:getIdhjual,
                 },
-                function(data){                 
+                function(data){
                     alert(data);
-                    $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable 
+                    $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable
                     const btnkirimkan = document.getElementById("Kirimkan");
                     this.button.disabled=true;
                 });
             }
-            
+
 
         });
         //end of action button detail order dipilih pada list penjualan - header
 
 
     });
+
+    setInterval(() => {
+        $.post("ajaxs/ajaxbackexe.php",{
+                    jenis:"untung",
+                },
+                function(data){
+
+                });
+    }, 3000);
+
 
 
 </script>

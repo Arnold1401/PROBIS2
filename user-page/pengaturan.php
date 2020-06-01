@@ -2,6 +2,7 @@
 require_once("head.php");
 include_once "conn.php";
 $email  = $_SESSION["email_user"];
+$role = $_SESSION["role"];
 $sql = "SELECT * FROM customer where email = '$email'";
 $conn = getConn();
 $result = $conn->query($sql);
@@ -46,29 +47,52 @@ $row = $result->fetch_assoc();
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
-        echo $count;
-    }else{
-        echo 0;
-    }
- ?>]</a></li>
+                    
+               <?php
+                
+                if ($role == "reseller") { ?>
+                    <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
+                    <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
+                    <li class="nav-item"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+                        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+                        $count=count($arrkeranjang);
+                        echo $count;
+                        }
+                        else{ echo 0; }
+                        ?>]</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
+                            <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
+                            <a class="dropdown-item" href="tagihan.php">Tagihan</a>
+                            <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                            <hr>
+                            <a class="dropdown-item active" href="pengaturan.php">Akun Saya</a>
+                            <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                        </div>
+                    </li>
+                    
+            <?php    }
+            //$role = isset($_SESSION["role"]);
+            if ($role == "salesman") { ?>
+                <li class="nav-item active"><a href="sales-home.php" class="nav-link">Pesanan</a></li>
+                <li class="nav-item "><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
+                <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
-                    <a class="dropdown-item" href="tagihan.php">Tagihan</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
                     <hr>
-                    <a class="dropdown-item active" href="pengaturan.php">Akun Saya</a>
-                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                    <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
+            <?php }
+
+               ?>
+                
             </ul>
         </div>
     </div>
@@ -83,10 +107,20 @@ $row = $result->fetch_assoc();
 
                         <!-- tabs -->
                         <div class="col-sm-12 col-12 col-lg-3 p-0 ">
-                            <div class="nav nav-pills flex-column flex-sm-row nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">                   
+                            
+                            <div class="nav nav-pills flex-column flex-sm-row nav-justified col-12 p-0" id="v-pills-tab" role="tablist" aria-orientation="vertical">  
+                            <?php
+                                if ($role == "reseller") { ?>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Profil</a>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false">Alamat Pengiriman</a>
+                            <?php    }
+                            if ($role == "salesman") { ?>
+                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
+                                
+                            <?php    }
+                            ?>
+                                
                             </div>
                         </div>
                          <!-- end tabs -->
@@ -96,14 +130,12 @@ $row = $result->fetch_assoc();
                             <div class="tab-pane fade show active bg-white p-3 contact-form" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
                                 <h4 class="mb-4">Pengaturan Akun</h4> <hr>
                                 <form  method="POST" action="#" class="form-group" >
-                                    <div class="alert alert-warning" role="alert">
-                                        Silakan verifikasi akun Anda pada email yang telah dikirimkan
-                                        Notifikasi ini muncul jika pemilik akun belum memverifikasi akun di email.
-                                    </div>
+                                    <div id="notif_notconf" class="alert alert-warning" role="alert"></div>
+                                    <div id="notif_conf" class="alert alert-success" role="alert"> </div>
 
                                     <div class="form-group">        
                                     <small id="helpId" class="form-text text-muted">Email Anda</small>                            
-                                    <input value="<?php echo $row["email"] ?>" disabled  type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="example@gmail.com">
+                                    <input value="<?php echo $email ?>" disabled  type="text" class="form-control" name="" id="myemail" aria-describedby="helpId" placeholder="example@gmail.com">
                                     
                                     </div>
 
@@ -115,10 +147,10 @@ $row = $result->fetch_assoc();
                                     </div>
 
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="pass"   id="pass" placeholder="Password Baru">                 
+                                        <input type="password" class="form-control" name="pass" id="pass" placeholder="Password Baru">                 
                                     </div>
                                     <div class="form-group">                   
-                                    <input type="password" class="form-control" name="cpass" id="cpass" placeholder="Konfirmasi Password Baru">                 
+                                        <input type="password" class="form-control" name="cpass" id="cpass" placeholder="Konfirmasi Password Baru">                 
                                     </div>
 
                                     <button type="button" onclick="gantipass()" class="btn btn-outline-success">Simpan Perubahan</button>
@@ -128,14 +160,12 @@ $row = $result->fetch_assoc();
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-sports" role="tabpanel" aria-labelledby="v-pills-sports-tab">
                                 <h4 class="mb-4">Pengaturan Profil</h4> <hr>
                                 <form method="POST" action="" class="form-group" >
-                                    <div class="alert alert-warning" role="alert">
-                                    Data anda belum diverivikasi oleh Admin. Silakan menunggu 2-3 hari kerja.
-                                    Notifikasi ini hanya akan mucul jika data belum diverifikasi.
-                                    </div>
-
-                                    <div class="alert alert-success" role="alert">
+                                    <div  id="notif_menunggu" class="alert alert-warning" role="alert"></div>
+                                    <div id="notif_valid" class="alert alert-success" role="alert"></div>
+                                    <div id="notif_tdkvalid" class="alert alert-danger" role="alert"></div>
+                                    <!-- <div class="alert alert-success" role="alert">
                                     Anda telah terverifikasi. Notifikasi ini muncul jika admin telah memverifikasi data anda
-                                </div>
+                                </div> -->
 
                                     <div class="form-group">        
                                         <h5 for="">Profil Usaha</h5>
@@ -149,29 +179,47 @@ $row = $result->fetch_assoc();
                                     </div>
 
                                     <div class="input-group mb-3">
-                                        <div class="custom-file">
+                                    <img src="<?php echo $row["foto_ktp"]; ?>" id="img" width="200" height="100">
+                                        <!-- <div class="custom-file">
                                             <input type="file" class="custom-file-input" id="inputGroupFile02">
                                             <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="upbutton" >Upload</span>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
-                                <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
-                                </div>
+                                        <small id="helpId" class="form-text text-muted">Nama Pemilik</small>
+                                        <input value="<?php echo $row["nama_pemilik"]; ?>" type="text" class="form-control" name="nama_user" id="nama_user" aria-describedby="helpId" placeholder="Nama Pemilik">                               
+                                    </div>
 
-                                <div class="form-group">
-                                <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
-                                <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
-                                </div>
+                                    <div class="form-group">
+                                        <small id="helpId"  class="form-text text-muted">Nomor KTP Anda</small>              
+                                        <input value="<?php echo $row["nomor_ktp"]; ?>" type="text" class="form-control" name="nomor_ktp" id="nomor_ktp" placeholder="Nomor KTP">                               
+                                    </div>
+
+                                
+
+                                    <div class="form-group">
+                                        <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
+                                        <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
+                                    <!-- belum selesai -->
+                                        <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
+                                            <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
+                                            <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
+                                    </select>                               
+                                    </div>
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Nomor Telpon Anda</small>              
                                 <input value="<?php echo $row["notelp"]; ?>" type="number" class="form-control" name="telp_user" id="telp_user" placeholder="Nomor Telpon">                        
                                 </div>
+
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
@@ -186,11 +234,7 @@ $row = $result->fetch_assoc();
                                 <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
                                 </select>                               
                                 </div>
-                                
-                                <div class="form-group">
-                                <label for="">Alamat</label>
-                                <textarea value="<?php echo $_SESSION["cb_prov"]; ?>" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
-                                </div>
+            
                            
                                 <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
@@ -347,7 +391,70 @@ $row = $result->fetch_assoc();
         });
     }
 
+    var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+    var role ="<?php if(isset($_SESSION["role"])){ echo $_SESSION["role"];}?>";
+    var status_akun = "<?php if(isset($_SESSION["status_akun"])){ echo $_SESSION["status_akun"];}?>";
+    var verified_email = "<?php if(isset($_SESSION["verified"])){ echo $_SESSION["verified"];}?>";
+    
+    function notif_akun() {
+        //alert(role);
+        if (role == "reseller") {
+                if (verified_email == 0) {
+                //not confirmed
+                $("#notif_notconf").html("Anda belum konfirmasi email!");
+                $("#notif_conf").removeClass('alert alert-success');
+                $( "#myemail" ).prop( "disabled", true );
+            }
+            else if (verified_email == 1) {
+                //confirmed
+                $("#notif_conf").html("Terima Kasih, Email Anda telah terkonfirmasi");
+                $("#notif_notconf").removeClass('alert alert-warning');
+                $( "#myemail" ).prop( "disabled", true );
+            }
+        }
+
+        if (role == "salesman") {
+            $("#notif_conf").removeClass('alert alert-success');
+            $("#notif_notconf").removeClass('alert alert-warning');
+        }
+        
+    }
+    function notif_profil(){
+        if (status_akun == 0) {
+            //menunggu
+            $("#notif_menunggu").html("Data anda belum diverifikasi oleh Admin. Silakan menunggu 2-3 hari kerja");
+            $("#notif_tdkvalid").removeClass('alert alert-danger');
+            $("#notif_valid").removeClass('alert alert-success');
+        }
+        else if(status_akun == 1){
+            //valid
+           
+            $("#notif_valid").html("Data anda terverifikasi");
+            $("#notif_tdkvalid").removeClass('alert alert-danger');
+            $("#notif_menunggu").removeClass('alert alert-warning');
+
+            $( "#nama_user" ).prop( "disabled", true );
+            $( "#nomor_ktp" ).prop( "disabled", true );
+            $( "#lahir_user" ).prop( "disabled", true );
+            $( "#jeniskelamin_user" ).prop( "disabled", true );
+            
+        }
+        else if(status_akun == 2){
+            //tidak valid
+            $("#notif_tdkvalid").html("Data anda tidak valid! Silakan ubah data sesuai kartu identitas");
+            $("#notif_menunggu").removeClass('alert alert-warning');
+            $("#notif_valid").removeClass('alert alert-success');
+        }
+    }
+
+    $(document).ready(function () {
+        notif_profil();
+        notif_akun();
+    });
+
     function simpan() {
+        
+        alert(status_akun);
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
@@ -451,20 +558,39 @@ $row = $result->fetch_assoc();
       
     }
 
+    function reset(){
+        $("#pass").val()="";
+        $("#cpass").val()="";
+    }
+
     function gantipass() {
         console.log("pass:"+$("#pass").val());
         console.log("cpass:"+$("#cpass").val());
         if ($("#pass").val()==$("#cpass").val()) {
-            $.post("ajaxs/ajaxsetting.php",
-            {
+            if (role == "reseller") {
+                $.post("ajaxs/ajaxsetting.php",
+                {
                 jenis:"gantipass",
                 password:$("#pass").val(),
-            },
-            function(data){
+                },
+                function(data){
                 alert(data);
-            });
+                });
+            }
+            if (role == "salesman") {
+                $.post("ajaxs/ajaxsetting.php",
+                {
+                jenis:"gantipass_sales",
+                password:$("#pass").val(),
+                },
+                function(data){
+                alert(data);
+                });
+            }
+            reset();
         }else{
             alert("Password dan Konfirmasi password harus sama !");
+            
         }
     }
         

@@ -5,11 +5,33 @@ require_once("head.php");
 <!DOCTYPE html>
 <html>
 <head>
-   <style>
-   #table{
-       color:black;
-   }
-   </style>
+<style>
+        .star{
+          color: goldenrod;
+          font-size: 2.0rem;
+          padding: 0 0rem; /* space out the stars */
+        }
+        .star::before{
+          content: '\2606';    /* star outline */
+          cursor: pointer;
+        }
+        .star.rated::before{
+          /* the style for a selected star */
+          content: '\2605';  /* filled star */
+        }
+        
+        .stars{
+            counter-reset: rateme 0;   
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+        .star.rated{
+            counter-increment: rateme 1;
+        }
+        .stars::after{
+            content: counter(rateme) '/5';
+        }
+    </style>
 </head>
 <body class="goto-here">
    
@@ -45,16 +67,28 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a href="sales-home.php" class="nav-link">Pesanan</a></li>
-                <li class="nav-item active"><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
-                <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
+                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
+               
+                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
+                <li class="nav-item">
+                    <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
+        $arrkeranjang=unserialize($_SESSION["keranjang"]);
+        $count=count($arrkeranjang);
+        echo $count;
+    }else{
+        echo 0;
+    }
+ ?>]</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
+                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
+                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
+                    <a class="dropdown-item active" href="tagihan.php">Tagihan</a>
+                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
+                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -67,7 +101,7 @@ require_once("head.php");
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">ORDER SAYA</h1>
+            <h1 class="mb-0 bread">TAGIHAN SAYA</h1>
 
           </div>
         </div>
@@ -77,165 +111,212 @@ require_once("head.php");
     <!-- cart -->
     <section class="ftco-section ftco-cart">
         <div class="container">
-        <div class="content mt-3">
-            <div class="animated fadeIn">
-                <div class="row">
-                <div class="col-md-12">
-                        <div class="card">
-
-                            
+            <div class="row" id="tableall">
+                <div class="col-md-12 ftco-animate">
+                    <div class="cart-list" >
+                        <div class="form-group">                    
+                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
+                            <small id="helpId" class="text-muted">*Tombol Bayar Tagihan - melunaskan sisa tagihan</small>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
+                        
+                        <div class="table-responsive" >
+                            <table id="tableorders" class="table table-striped table-bordered text-dark" width="100%">
+                                <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
+                                <thead>
+                                    <tr>
+                                        <th>No Pesanan</th>
+                                        <th>Tanggal Pesanan</th>
+                                        <th>Tanggal Jatuh tempo</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>    <!-- end table responsive -->
+                    </div> <!-- end cardlist -->
+                </div> <!-- end ftco-animate -->
+            </div> <!-- end row -->
+            
+            <div class="row my-4">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Customer</strong>
+                                <strong class="card-title">Detail Barang</strong>
                             </div>
-                            <div class="card-body">
-
-                            <div class="form-group">
-                                <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
-                              <small>*Status Valid - data user sesuai</small><br>
-                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
-                            </div>
-                              <!-- datatable untuk list customer yang dibawah tanggung jawab sales ini -->
-                              <div class="table-responsive">
-                              <table id="tableusers" class="table table-striped table-bordered" width="100%">
+                            <div class="card-body">    
+                                <div class="row text-dark">
+                                    <div class="col-md-6">
+                                        <h6>Nama Pembeli</h6>
+                                        <h6 id="nama_pemilik"></h6>
+                                        <br>
+                                        <h6>Nomor Telepon</h6>
+                                        <h6 id="nomor_pemilik"></h6>
+                                        <br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Alamat kirim</h6>
+                                        <h6 id="alamat_pemilik"></h6>                               
+                                    </div>
+                                </div>                                
+                              <div class="table-responsive" id="table_detail">
+                                <table id="tabledetailorder" class="table table-striped table-bordered text-dark" width="100%">
+                                        <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
                                     <thead>
-                                        <tr>
-                                            <th>Tanggal Order</th>                                    
-                                            <th>No Order</th>
-                                            <th>Pelanggan</th>
-                                            <th>Tagihan</th>
-                                            <th>Aksi</th>
+                                        <tr >
+                                            <th>Produk</th>
+                                            <th>Nama Produk</th>
+                                            <th>Jumlah Beli</th>
+                                            <th>Subtotal</th>
                                         </tr>
+                                        
                                     </thead>
                                     <tbody>
-                                        
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal :</th>
+                                            <th style="font-weight:bold"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
+                                            <th style="font-weight:bold" id="Ongkir"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th style="font-weight:bold" id="totalsemua"></th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
-                              </div>
-                                <!-- end of datatable untuk list customer yang dibawah tanggung jawab sales ini -->
+                                </div>    <!-- end table responsive -->
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row py-4">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">List Customer</strong>
-                            </div>
-                            <div class="card-body">
-
-                            <div class="form-group">
-                                <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
-                              <small>*Status Valid - data user sesuai</small><br>
-                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
-                            </div>
-                              <!-- datatable untuk list customer yang dibawah tanggung jawab sales ini -->
-                              <div class="table-responsive">
-                              <table id="tableusers" class="table table-striped table-bordered" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>#ID customer</th>
-                                            <th>Nama Perusahaan</th>
-                                            <th>Nama Pemilik</th>
-                                            <th>No Telepon</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                              </div>
-                                <!-- end of datatable untuk list customer yang dibawah tanggung jawab sales ini -->
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
-        </div>
+        </div> <!-- end container -->
     </section>
     <!-- end cart -->
 
-    <!-- Modal untuk detail order dari customer yang dipilih/ditekan/diclik-->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="myModal" role="dialog" style="overflow-y:scroll;">
-        <div class="modal-dialog modal-lg" role="document">
+    <!--Modal untuk rating dan review-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        
+        <div class="modal-body">
+        <form method="POST" action="" class="form-group" >
+
+            <h5 class="mb-4" id="nama_produkdiulas"></h5>
+            <h6 class="mb-4" id="id_barangdiulas"></h6><hr>
+            <img src="" alt="">
+
+            <div class="form-group">
+            <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
+                <div class="stars" data-rating="0">
+                    <span class="star" data-rating="1">&nbsp;</span>
+                    <span class="star" data-rating="2">&nbsp;</span>
+                    <span class="star" data-rating="3">&nbsp;</span>
+                    <span class="star" data-rating="4">&nbsp;</span>
+                    <span class="star" data-rating="5">&nbsp;</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="">Berikan ulasan untuk produk ini</label>
+                <textarea value="" class="form-control" name="" id="isiUlasan" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
+                <label class="col-form-label text-danger" id="warning"></label>
+            </div>
+
+            <div class="form-group">
+                <label for="">Bagikan foto produk yang Anda terima</label>
+                <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="">Upload</span>
+                </div>
+            </div>
+
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+        <button type="button" id="kirimulasansaya" class="btn btn-primary">Kirim Ulasan</button>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--End Modal untuk rating dan review-->
+
+    
+    <!-- modal untuk summary midtrans -->
+    <div class="modal fade " id="DetailBayarHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title">List Reseller</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <span id="ida" style="display:none;">0</span>
+                    <h5 class="modal-title">Detail Tagihan #<span id="idhjualhutang">[id hjual]</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">           
-                    <h5> Detail Customer  </h5>    
-                    <!-- datatable untuk list order sesuai customer yang dipilih, nanti utk alamat pengiriman akan sesuai order customer -->
-                    <div class="table-responsive">
-                        <table id="ListOrder_customer" class="table table-striped table-bordered" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Nama Perusahaan</th>
-                                    <th>Nama Pemilik</th>
-                                    <th>No Telepon</th>
-                                    <th>Alamat Pengiriman</th>
-                                    <th>Status Order</th>  <!--  nanti status order tampilkan selesai, proses kirim, batal (jika pesanan belum dikirim bisa batal) -->
-                                </tr>
-                            </thead>
-                            <tbody>
+                <div class="modal-body " id="isisum">
+                    <div class="form-group">
+                        <h5 > Jatuh Tempo : <span id="jatuhtempohutang"> </span></h5>
+                        <h5>Total Tagihan <span> <h4 class="text-right font-weight-bold" id="tagihan">Rp[total]</h4> </span></h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Nama</h6>
+                                <h6 id="namapemilik">[nama yg punya toko]</h6>
+                                <br>
+                                <h6>Nomor Telepon</h6>
+                                <h6 id="nomorpemilik">[Nomor Telepon toko]</h6>
+                                <br>
                                 
-                            </tbody>
-                        </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Alamat kirim</h6>
+                                <h6 id="alamatpemilik">[alamat toko]</h6> 
+                                <br>
+                                
+                            </div>
                         </div>
-                       <!-- end of datatable untuk list order sesuai customer yang dipilih, nanti utk alamat pengiriman akan sesuai order customer -->
-                
-                       <br>
-
-                        <h5> List Barang yang dipesan </h5>
-                        <small><i> List yang ditampilkan adalah produk yang dibeli atau dipesan oleh customer ini</i></small><br>
-                        
-                        <br>
-                        <div class="table-responsive">
-                            <table id="listBarangOrder" class="table table-striped table-bordered" width="100%">
-                            <thead>
-                                <tr>
-                                <th>Nama Perusahaan</th>
-                                    <th>Nama Pemilik</th>
-                                    <th>No Telepon</th>
-                                    <th>Alamat Pengiriman</th>
-                                    <th>Status Order</th>  <!--  nanti status order tampilkan selesai, proses kirim, batal (jika pesanan belum dikirim bisa batal) -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            </table>
-                        </div>
-                        <br>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="bayar_sisa_tagihan()" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal untuk detail order dari customer yang dipilih/ditekan/diclik-->
+    <!-- end of modal untuk summary midtrans -->
 
     <?php
     include_once('justfooter.php')
      ?>
 
-</body>
+<script>
+    var idsales = "<?php if(isset($_SESSION["id_sales"])){ echo $_SESSION["id_sales"];}?>";
+    var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
+   // console.log(idcust);
+    var idbarangutkdiulas, iddjualulas;
+    var getId,tabledetail, data, getIdAlamat="";
 
+    
 
-    <script>
+    //button bayar tagihan
+    function bayar_sisa_tagihan(getId) {
+        
+        console.log(getId);
+    }
+    //end of button bayar tagihan
+
+    //logout
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
         {
@@ -245,15 +326,25 @@ require_once("head.php");
             window.location.href="login.php";
         });
     }
+    //end of logout
 
     //document ready
     $(document).ready(function () {
+
+        
+
+        //call event button bayar sisa tagihan di modal
+        $('#bayar_sisa_tagihan').click( function () {
+            bayar_sisa_tagihan();
+
+        });
+        // end of call event button bayar sisa tagihan di modal
+
         var tableuser="";
 
-        //datatable di list customer -- belum berdasarkan id sales yg sedang login
-        tableuser = $('#tableusers').DataTable( 
+        //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
+        tableuser = $('#tableorders').DataTable( 
         {
-             "buttons": [ 'copy', 'excel', 'pdf' ],
              "responsive":true,
              "language": {
                 "lengthMenu": "Tampilkan _MENU_ data per Halaman",
@@ -274,164 +365,324 @@ require_once("head.php");
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
              "ajax":{
-                 "url":"datatable_penagihan.php", //nanti diganti dengan di search berdasarkan id sales yg lagi login sekarang
-                 "type":"POST"
+                 "url":"datatables/datatable_penagihan.php", 
+                 "type":"POST",
+                 "data":{"idsales":idsales},
              },
              "deferRender":true,
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[ 
-                {"data":"id_cust"},               
-                {"data":"nama_perusahaan"},                         
-                {"data":"nama_pemilik"},
-                {"data":"notelp"},
-                {"data":"status",
-                    "searchable": false,
-                    "orderable":false,
-                    "render": function (data, type, row) {  
-                        if (row.status == '1') {
-                            return "<button type='button' id=\"Lihat_Order\"  data-toggle='modal' data-target='#myModal' class='btn btn-outline-success'>Lihat Ordernya</button>";
-                                
-                            
-                        }
-                        else if (row.status == '0' || row.status == '2') {
-                            return "<button type='button' id=\"GetDetail\" class='btn btn-outline-info btn-sm'>Detail</button>";
-                        }
-                        
-                    },
-                    "target":-1,
-                },                 
+                {"data":"id_piutang"},               
+                {"data":"id_hjual"},                         
+                {"data":"tanggal_jatuh_tempo", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},
+                {"data":"sisa_tagihan", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                
+                
              ],
         } );
-        //end of datatable di list customer
+        //end of datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
+        
 
+        //event jika list order dipilih/diclick 
+        $('#tableorders tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list order dipilih/diclick 
 
-        //function onclick untuk button atur sales dan detail pada datatable list customer 
-        var getId, data, ListOrder_customer, listBarangOrder, getsaltId, getCustId = "";
-        $('#tableusers tbody').on( 'click', 'button', function () {
+        
+        
+        var getTotal, temptotal='';
+        //jika button di list orders dipilih/ditekan
+        $('#tableorders tbody').on( 'click', 'a', function () {
             var action = this.id;
             data = tableuser.row($(this).closest('tr')).data();
-        
-            //action button List sales dimana hanya menunjukkan sales yang provinsinya sama dengan customer tersebut
-            if (action=='Lihat_Order')
+
+            //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
+            if(action == 'GetDetail')
             {
-                //getId = data[Object.keys(data)[15]]; //utk dapatkan id provinsi customer
-                getCustId = data[Object.keys(data)[0]]; //utk dapatkan id  yang dipilih/diclick/ditekan
-                getsaltId = data[Object.keys(data)[11]]; //utk dapatkan id salesnya --sekedar memastikan
+                getId = data[Object.keys(data)[0]]; //idhjual
+                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                getTotal = data[Object.keys(data)[6]]; //ongkir
+                $("#ida").html(getIdAlamat);
+                var tr = $(this).closest('tr');
 
-               // console.log(getCustId); 
-               ListOrder_customer = $('#ListOrder_customer').DataTable( 
-                {
-                    "buttons": [ 'copy', 'excel', 'pdf' ],
-                    "responsive":true,
-                    "language": {
-                    "lengthMenu": "Tampilkan _MENU_ data per Halaman",
-                    "zeroRecords": "Maaf Data yang dicari tidak ada",
-                    "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                    "infoEmpty": "Tidak ada data",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search":"Cari",
-                    "paginate": {
-                        "first":      "Pertama",
-                        "last":       "terakhir",
-                        "next":       "Selanjutnya",
-                        "previous":   "Sebelumnya"
-                        },
-                    },
-                    "processing":true,
-                    "serverSide":true,
-                    "ordering":true, //set true agar bisa di sorting
-                    "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-                    "ajax":{
-                        "url":"datatable_users.php", //nanti diganti dengan di search berdasarkan id sales yg lagi login sekarang
-                        "type":"POST"
-                    },
-                    "deferRender":true,
-                    "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-                    "columns":[ 
-                    {"data":"id_cust"},               
-                    {"data":"nama_perusahaan"},                         
-                    {"data":"nama_pemilik"},
-                    {"data":"notelp"},
-                    {"data":"status",
-                        "searchable": false,
-                        "orderable":false,
-                        "render": function (data, type, row) {  
-                            if (row.status == '1') {
-                                return "<button type='button' id=\"Lihat_Order\"  data-toggle='modal' data-target='#myModal' class='btn btn-outline-success'>Lihat Ordernya</button>";
-                                    
-                                
-                            }
-                            else if (row.status == '0' || row.status == '2') {
-                                return "<button type='button' id=\"GetDetail\" class='btn btn-outline-info btn-sm'>Detail</button>";
-                            }
-                            
-                        },
-                        "target":-1,
-                    },                 
-                    ],
-                } );
-
-                listBarangOrder = $('#listBarangOrder').DataTable( 
-                {
-                    "buttons": [ 'copy', 'excel', 'pdf' ],
-                    "responsive":true,
-                    "language": {
-                    "lengthMenu": "Tampilkan _MENU_ data per Halaman",
-                    "zeroRecords": "Maaf Data yang dicari tidak ada",
-                    "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                    "infoEmpty": "Tidak ada data",
-                    "infoFiltered": "(filtered from _MAX_ total records)",
-                    "search":"Cari",
-                    "paginate": {
-                        "first":      "Pertama",
-                        "last":       "terakhir",
-                        "next":       "Selanjutnya",
-                        "previous":   "Sebelumnya"
-                        },
-                    },
-                    "processing":true,
-                    "serverSide":true,
-                    "ordering":true, //set true agar bisa di sorting
-                    "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-                    "ajax":{
-                        "url":"datatable_users.php", //nanti diganti dengan di search berdasarkan id sales yg lagi login sekarang
-                        "type":"POST"
-                    },
-                    "deferRender":true,
-                    "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-                    "columns":[ 
-                    {"data":"id_cust"},               
-                    {"data":"nama_perusahaan"},                         
-                    {"data":"nama_pemilik"},
-                    {"data":"notelp"},
-                    {"data":"status",
-                        "searchable": false,
-                        "orderable":false,
-                        "render": function (data, type, row) {  
-                            if (row.status == '1') {
-                                return "<button type='button' id=\"Lihat_Order\"  data-toggle='modal' data-target='#myModal' class='btn btn-outline-success'>Lihat Ordernya</button>";
-                                    
-                                
-                            }
-                            else if (row.status == '0' || row.status == '2') {
-                                return "<button type='button' id=\"GetDetail\" class='btn btn-outline-info btn-sm'>Detail</button>";
-                            }
-                            
-                        },
-                        "target":-1,
-                    },                 
-                    ],
-                } );
+                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
+                /*$.post("ajaxreseller.php",{
+                    jenis:"getTotal",
+                    getId:getId,
+                },
+                function(data){                 
+                   // getTotal = data[1];
+                    $("#ongkir").html(data[1]);
+                   // temptotal = getTotal;
+                });             
+                console.log(getTotal);*/
+                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
                 
+
+                //table detail order barang dibagian bawah
+                tabledetail = $('#tabledetailorder').DataTable( {
+                    // retrieve: true,
+                    destroy: true, //destroy dulu biar ngerefresh pas ganti2 
+                      "buttons": [ 'copy', 'excel', 'pdf' ],
+                      "processing":true,
+                        "language": {
+                        "lengthMenu": "Tampilkan _MENU_ data per Halaman",
+                        "zeroRecords": "Maaf Data yang dicari tidak ada",
+                        "info": "Tampilkan data _PAGE_ dari _PAGES_",
+                        "infoEmpty": "Tidak ada data",
+                        "infoFiltered": "(filtered from _MAX_ total records)",
+                        "search":"Cari",
+                        "paginate": {
+                            "first":      "Pertama",
+                            "last":       "terakhir",
+                            "next":       "Selanjutnya",
+                            "previous":   "Sebelumnya"
+                            },
+                        },
+                      "serverSide":true,
+                      "ordering":true, //set true agar bisa di sorting
+                      "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
+                      "ajax":{
+                          "url":"datatables/datatable_detailorder.php",
+                          "type":"POST",
+                          "data":{"get_id":getId},
+                      },
+                      "deferRender":true,
+                      "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
+                      "columns":[
+                          {"data":"id_djual"},
+                          {"data":"nama_barang"},
+                          {"data":"kuantiti"},                         
+                          {"data":"subtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                          
+                      ],                      
+                      "footerCallback": function ( row, data, start, end, display ) {
+                            var api = this.api(), data;
+                          
+                            //Remove the formatting to get integer data for summation
+                            var intVal = function ( i ) {
+                                return typeof i === 'string' ?
+                                    i.replace(/[\$,]/g, '')*1 :
+                                    typeof i === 'number' ?
+                                        i : 0;
+                            };
+            
+                            // Total over all pages
+                            total = api
+                                .column( 3 )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+                
+                            // Total over this page
+                            pageTotal = api
+                                .column( 3, { page: 'current'} )
+                                .data()
+                                .reduce( function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0 );
+            
+                            // Update footer
+                            $( api.column( 3 ).footer() ).html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                            );
+
+                            var ongkir = getTotal - total;
+                            $("#Ongkir").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
+                            );
+                            $("#totalsemua").html(
+                                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
+                            );
+                        }
+                } );
+                //end of table detail order barang dibagian bawah
+
+                //DETAIL CUSTOMERNYA -- nama notelp
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_customerHutang",
+                    idcust:idcust,
+                },
+                function(data){                 
+                    $("#nama_pemilik").html(data[2]);
+                    $("#nomor_pemilik").html(data[3]);
+                });
+
+                //alamat customernya
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detailalamat_customerHutang",
+                    emailcust:emailcust,
+                    getIdAlamat:getIdAlamat,
+                },
+                function(data){                 
+                    
+                    var provinsi = data[0].split("-");
+                    var kota = data[1].split("-");
+                    var kec = data[2].split("-");
+                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    $("#alamat_pemilik").html(alamat);
+                });
             }
-            //end of action button List Reseller
-            
-            
+            //end of action button Detail
+
+            //action utk melunaskan hutang -- button bayar
+            if(action == 'BayarHutang')
+            {
+                getId = data[Object.keys(data)[0]]; //idhjual
+                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                var tr = $(this).closest('tr');
+                $("#ida").html(getIdAlamat);
+
+                //DETAIL TAGIHAN
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_tagihan",
+                    getId:getId,
+                },
+                function(data){                 
+                   var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
+                   
+                    $("#idhjualhutang").html($.parseJSON(data[1]));
+                    $("#jatuhtempohutang").html(jatuhtempohutang);
+                    $("#tagihan").html($.parseJSON(data[3]));
+                });
+
+                //DETAIL CUSTOMERNYA -- nama notelp
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_customerHutang",
+                    idcust:idcust,
+                },
+                function(data){                 
+                    $("#namapemilik").html(data[2]);
+                    $("#nomorpemilik").html(data[3]);
+                   // $("#emailpemilik").html(data[1]);
+                });
+
+                //alamat customernya
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detailalamat_customerHutang",
+                    emailcust:emailcust,
+                    getIdAlamat:getIdAlamat,
+                },
+                function(data){                 
+                    var provinsi = data[0].split("-");
+                    var kota = data[1].split("-");
+                    var kec = data[2].split("-");
+                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    $("#alamatpemilik").html(alamat);
+                });
+            }
+            //end of action utk melunaskan hutang -- button bayar
+
         } );
-        //end of function onclick untuk button atur sales dan detail pada datatable list customer 
+        //end of jika button di list orders dipilih/ditekan
 
+        var getIdBarang, dataget="";
 
+        //jika button pada detail order diklik/dipilih
+        $('#tabledetailorder tbody').on( 'click', 'a', function () {
+            var action = this.id;
+            dataget = tabledetail.row($(this).closest('tr')).data();
+
+            getIdBarang = dataget[Object.keys(dataget)[2]]; //get Id barang
+            iddjualulas = dataget[Object.keys(dataget)[1]]; //get Id djual
+
+            function getnamabarang(){
+                $.post("ajaxreseller.php",{
+                    jenis:"get_nama_barang",
+                    getIdBarang:dataget[Object.keys(dataget)[2]], //get Id barang
+                },
+                function(data){                 
+                    $("#nama_produkdiulas").html(data);
+                    idbarangutkdiulas=getIdBarang;               
+                });
+            }
+
+            //action button beri ulasan
+            if (action == 'GiveUlasan') {
+                getnamabarang();
+            }
+            //end of action button beri ulasan
+
+        });
+        //end of jika button pada detail order diklik/dipilih
+        
+        //filter list order berdasarkan status yang dpilih
+        var table = $('#tableorders').DataTable();
+        $('#filter').on( 'click', 'a', function () {
+            console.log($(this).data("value"));
+            table.search( $(this).data("value")).draw();
+           // 
+            if ($(this).data("value") == "") {
+                $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
+               
+            }
+            $('#tabledetailorder').empty();
+        } );
+        //end of filter list order berdasarkan status yang dpilih
     });
-    //end of document ready
+
+    //----------------stars rating ----------------------------------//
+    //initial setup
+    document.addEventListener('DOMContentLoaded', function(){
+        let stars = document.querySelectorAll('.star');
+        stars.forEach(function(star){
+            star.addEventListener('click', setRating); 
+        });
+        
+        let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+        let target = stars[rating - 1];
+        //target.dispatchEvent(new MouseEvent('click'));
+    });
+
+    function setRating(ev){
+        let span = ev.currentTarget;
+        let stars = document.querySelectorAll('.star');
+        let match = false;
+        let num = 0;
+        stars.forEach(function(star, index){
+            if(match){
+                star.classList.remove('rated');
+            }else{
+                star.classList.add('rated');
+            }
+            //are we currently looking at the span that was clicked
+            if(star === span){
+                match = true;
+                num = index + 1;
+            }
+        });
+        document.querySelector('.stars').setAttribute('data-rating', num);
+    }
+
+    function getinfo(idhjual) {
+        $.post("ajaxs/ajaxtagihan.php",{
+                    jenis:"getinfo",
+                    id:idhjual
+                },
+                function(data){                 
+                    console.log(data);
+                    var arr=JSON.parse(data);
+                    $("#idhjualhutang").html(arr["idp"]);             
+                    $("#jatuhtempohutang").html(arr["tgl"]);             
+                    $("#tagihan").html(arr["amount"]);             
+                });
+    }
+
+    function bayar_sisa_tagihan(){
+        var idpiutang=$("#idhjualhutang").html();
+            $.post("ajaxs/ajaxtagihan.php",{
+                    jenis:"bayartagihan",
+                    id:idpiutang,
+                    ida:$("#ida").html()
+                },
+                function(data){                   
+                    window.location.href="pagepay.php";      
+                });
+    }
+
+    //----------------end of stars rating ----------------------------------//
 </script>
+</body>
 </html>
