@@ -180,13 +180,13 @@ $row = $result->fetch_assoc();
 
                                 <div class="form-group">
                                 <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
-                                <!-- belum selesai -->
+                                
                                 <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
                                 <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
                                 <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
                                 </select>                               
                                 </div>
-                                <!-- belum selesai -->
+                                
                                 <div class="form-group">
                                 <label for="">Alamat</label>
                                 <textarea value="<?php echo $_SESSION["cb_prov"]; ?>" class="form-control" name="cb_prov" id="cb_prov" rows="3"></textarea>
@@ -399,7 +399,7 @@ $row = $result->fetch_assoc();
         noktp=noktp.replace("-","");
         noktp=noktp.replace("-","");
         noktp=noktp.replace("-","");
-        alert(noktp);
+        //alert(noktp);
         c = "";
         panjang = noktp.length;
         j = 0;
