@@ -153,6 +153,7 @@ function insertdatabaseLUN($orderid,$alam)
          $stat.="djual$i-gagal";
          $stat.=mysqli_error($conn);
       }
+      echo $stat;
       $conn->close();
    }
    
@@ -322,8 +323,8 @@ function insertdatabasePIU($orderid,$piu,$alam)
    $totalsemua=$_SESSION["totalsemua"];
    $iduser = $_SESSION["idcust"];
 
-   $sisa=$totalsemua*0.85; //sisa
-   $bayar=$totalsemua*0.15; //bayar
+   $sisa=intval($totalsemua*0.85); //sisa
+   $bayar=intval($totalsemua*0.15); //bayar
 
    $idsales="";
    $conn = getConn();
@@ -338,10 +339,10 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
    $conn->close();
 
-
+   $tglord=date("Y-m-d");
    //insert piutang
    $conn = getConn();
-   $q2="INSERT INTO `piutang`(`id_piutang`, `id_hjual`, `tanggal_jatuh_tempo`, `sisa_tagihan`,`tanggal_order`) VALUES ('$piu','$orderid','$tgljth','$sisa','$tgl')";
+   $q2="INSERT INTO `piutang`(`id_piutang`, `id_hjual`, `tanggal_jatuh_tempo`, `sisa_tagihan`,`tanggal_order`) VALUES ('$piu','$orderid','$tgljth','$sisa','$tglord')";
    if ($conn->query($q2)) {
       $stat.="piutang-berhasil";
    }else{
@@ -351,6 +352,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
    $conn = getConn();
    $tgl=date("Y-m-d");
+
    $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
@@ -418,7 +420,7 @@ function sessionpagepayPIU($orderid,$piu)
    $_SESSION["tobelanja"] = $totalbelanja;
 
 
-   $jumutang=-$totalsemua*0.85;//utang
+   $jumutang=-intval($totalsemua*0.85);//utang
    $totalsemua=$totalsemua*0.15;//bayar
    
    // Required  orderid hjual
