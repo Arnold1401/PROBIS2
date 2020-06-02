@@ -91,13 +91,11 @@ function insertdatabaseLUN($orderid,$alam)
 {
    $stat="";
    //insert hjual
-   $conn = getConn();
 
 
-   $tgl=date("Y-m-d");
    $kurir = $_POST["kurir"]; //paket dan kurir
    $totalsemua=$_SESSION["totalsemua"];
-   $iduser = $_SESSION["idcust"];
+   $iduser = $_SESSION["idcust"]; 
 
    $idsales="";
    $conn = getConn();
@@ -110,8 +108,9 @@ function insertdatabaseLUN($orderid,$alam)
    }
    $conn->close();
 
+   $tglord=date("Y-m-d");
    $conn = getConn();
-   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Hutang')";
+   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid','$tglord',' ','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Menunggu Pembayaran','0')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -351,13 +350,11 @@ function insertdatabasePIU($orderid,$piu,$alam)
    $conn->close();
 
    $conn = getConn();
-   $tgl=date("Y-m-d");
-
-   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang')";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid','$tglord','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang','0')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
-      $stat.="hjual-gagal";
+      $stat.="hjual-gagal ".$conn->error;
    }
    $conn->close();
 
