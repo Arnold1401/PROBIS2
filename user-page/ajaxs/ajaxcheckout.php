@@ -153,6 +153,7 @@ function insertdatabaseLUN($orderid,$alam)
          $stat.="djual$i-gagal";
          $stat.=mysqli_error($conn);
       }
+      echo $stat;
       $conn->close();
    }
    
@@ -351,6 +352,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
    $conn = getConn();
    $tgl=date("Y-m-d");
+
    $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`) VALUES ('$orderid','$tgl','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
