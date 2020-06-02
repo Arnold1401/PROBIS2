@@ -74,14 +74,15 @@ if ($_POST["jenis"] == "kirim_ulasan") {
 if ($_POST["jenis"] == "get_detail_tagihan") {
     $conn = getConn();
     $IdHjual=$_POST["getId"];
-    $sql = "select * from piutang where id_hjual=$IdHjual";
+    $sql = "select * from piutang where id_hjual='$IdHjual'";
     $query = mysqli_query($conn,$sql); // get the data from the db
     $result = array();
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
         $result [0] = $row['id_piutang'];
         $result [1] = $row['id_hjual'];
-        $result [2] = $row['tanggal_jatuh_tempo'];
-        $result [3] = $row['sisa_tagihan'];
+        $result [2] = $row['tanggal_order'];
+        $result [3] = $row['tanggal_jatuh_tempo'];
+        $result [4] = $row['sisa_tagihan'];
     }
     
     $conn->close();
@@ -143,4 +144,46 @@ if ($_POST["jenis"] == "getTotal") {
     echo json_encode($result); // return value of $result
 }
 
+//cek sisa waktu pelunasan untuk sales
+if ($_POST["jenis"] == "cek_sisa_waktupelunasan") {
+    $conn = getConn();
+    $CurrentDate = $_POST["CurrentDate"];
+    $res = 0;
+   
+    $kalid="";
+    $kaltgl="";
+    $sql1 = "select id_piutang, tanggal_jatuh_tempo from piutang";
+    $result1 = $conn->query($sql1);
+        if ($result1->num_rows > 0) 
+        {
+            while ($row1 = $result1->fetch_assoc()) 
+            {
+                $id=$row1["id_piutang"];
+                $tgl=$row1["tanggal_jatuh_tempo"];
+                $kalid =$id;
+                $kaltgl=$tgl;
+                $date1=new DateTime($CurrentDate);
+                $date2=new DateTime($kaltgl);
+                $diff=date_diff($date1,$date2);
+
+               // echo $diff->format("%R%a days");
+                $res = $diff->format("%a");
+
+                 $sql2 = "update piutang set sisa_waktu_pelunasan=$res where id_piutang='$id'";
+                 if ($conn->query($sql2)) 
+                 {
+                     echo "berhasil";
+                 }
+        
+                 else{
+                      echo $res;
+                 }
+            }
+        }
+        else{
+            $kal="no id";
+        }
+        //echo $kalid;
+    $conn->close();
+}
 ?>
