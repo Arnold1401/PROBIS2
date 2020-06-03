@@ -400,7 +400,7 @@ require_once("head.php");
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[ 
                 {"data":"id_hjual"},               
-                {"data":"tanggal_order", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},                         
+                {"data":"tanggal_order", render: $.fn.dataTable.render.moment('DD-MMMM-YYYY')},                         
                 {"data":"kurir"},
                 {"data":"nama_sales"},
                 {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
@@ -428,6 +428,10 @@ require_once("head.php");
                         else if (row.status_order == 'Batal') //hutang
                         {
                             return "<label class='text-danger font-weight-bold'>Batal</label>";
+                        }
+                        else if (row.status_order == '') //hutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>..</label>";
                         }
                         
                     },
@@ -457,7 +461,10 @@ require_once("head.php");
                         {
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark' '>Detail</a>  ";
                         }
-                        
+                        else if (row.status_order == '') //hutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>..</label>";
+                        }
                     },
                     "target":-1,
                 },

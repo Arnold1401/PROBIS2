@@ -336,7 +336,7 @@ require_once("head.php");
     }
     //end of button kirim ulasan di modal
 
-    //button bayar tagihan
+    //button bayar lunas hutang nya -- dari button bayar tagihan
     function bayar_sisa_tagihan(getId) {
         
         console.log(getId);
@@ -357,7 +357,7 @@ require_once("head.php");
 
     //document ready
     $(document).ready(function () {
-
+        console.log(idcust);
         //call event button kirim ulasan di modal
         $('#kirimulasansaya').click( function () {
             kirimulasansaya();
@@ -405,9 +405,9 @@ require_once("head.php");
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[ 
                 {"data":"id_hjual"},               
-                {"data":"tanggal_order", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},                         
+                {"data":"tanggal_order", render: $.fn.dataTable.render.moment('DD-MMMM-YYYY')},                         
                 {"data":"kurir"},
-                {"data":"nama_sales"},
+                {"data":"nama_sales"},//nama_sales
                 {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                 {"data":"status_order",
                     "searchable": true,
@@ -433,7 +433,11 @@ require_once("head.php");
                         else if (row.status_order == 'Piutang') //piutang
                         {
                             return "<label class='text-danger font-weight-bold'>Piutang</label>";
-                        }                       
+                        }   
+                        else if (row.status_order == '') //piutang
+                        {
+                            return "<label class='text-danger font-weight-bold'>..</label>";
+                        }                                           
                     },
                     "target":-1,
                 },
@@ -442,22 +446,28 @@ require_once("head.php");
                     "orderable":true,
                     "render": function (data, type, row) {  
                         
-                        if (row.status_pembayaran == 'Menunggu Pembayaran Hutang') //hutang
+                        if (row.status_pembayaran == 'Menunggu Pembayaran') //transksi biasa
                         {
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarHutang\" onclick=\"getinfo('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang'>Bayar Tagihan</a>";
+                            "<a id=\"BayarLunas\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
+                            // note : functionnya di if(action == "BayarLunas")
                         }
-                        else if(row.status_pembayaran == 'Menunggu Pembayaran'){// 
+                        else if(row.status_pembayaran == 'Hutang') //transaksi cicilan -- pembayaran pertama
+                        {
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
+                            "<a id=\"Pembayaran_pertama\" class='btn btn-primary text-dark' data-toggle='modal'  >Selesaikan Pembayaran</a>";
+                            // note : functionnya di if(action == "Pembayaran_pertama")
                         }
-                        else if(row.status_pembayaran == 'Hutang'){// 
+                        else if(row.status_pembayaran == 'Menunggu Pelunasan') //transaksi cicilan -- status ini muncul ketika sudah terbayar 15%
+                        {
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarHutang\" onclick=\"selesaikan('"+id+"')\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
+                            "<a id=\"BayarHutang_Lunas\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang' >Bayar Tagihan</a>";
+                            // note : functionnya di if(action == "BayarHutang_Lunas") -- nanti diarahkan ke function bayar_sisa_tagihan
                         }
+                        
                         
                         
                     },
@@ -613,53 +623,76 @@ require_once("head.php");
             }
             //end of action button Detail
 
-            //action utk melunaskan hutang -- button bayar
-            if(action == 'BayarHutang')
+            //action utk "selesaikan pembayaran" untk transaksi lunas dgn status Menunggu pembayaran
+            if(action == 'BayarLunas')
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
+                console.log("bayar lunas");
+                //kasih aja notif pembayaran berhasil.. alert
+            }
+            //end of utk "selesaikan pembayaran" untk transaksi lunas
+
+            //action utk "selesaikan pembayaran" untk transaksi cicilan dgn status hutang
+            if(action == 'Pembayaran_pertama')
+            {
+                getId = data[Object.keys(data)[0]]; //idhjual
+                console.log("pembayaran pertama");
+                //kasih aja notif pembayaran berhasil.. trus munculin sisa tagihannya terserah lah intinya mek alert tok
+            }
+            //end of action utk "selesaikan pembayaran" untk transaksi cicilan dgn status hutang
+
+            //action utk "selesaikan pembayaran" untk transaksi cicilan/hutang dgn status menunggu pelunasan
+            if(action == 'BayarHutang_Lunas')
+            {
+                getId = data[Object.keys(data)[0]]; //idhjual
+                console.log(getId);
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 var tr = $(this).closest('tr');
                 $("#ida").html(getIdAlamat);
 
-                //DETAIL TAGIHAN
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detail_tagihan",
-                    getId:getId,
-                },
-                function(data){                 
-                   var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
-                   
-                    $("#idhjualhutang").html($.parseJSON(data[1]));
-                    $("#jatuhtempohutang").html(jatuhtempohutang);
-                    $("#tagihan").html($.parseJSON(data[3]));
-                });
+                //ini untuk muncul di modal
+                    //DETAIL TAGIHAN
+                    $.post("ajaxreseller.php",{
+                        jenis:"get_detail_tagihan",
+                        getId:getId,
+                    },
+                    function(data){                 
+                    var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
+                    
+                        $("#idhjualhutang").html(data[1]);
+                        $("#jatuhtempohutang").html(jatuhtempohutang);
+                        $("#tagihan").html($.parseJSON(data[4]));
+                    });
 
-                //DETAIL CUSTOMERNYA -- nama notelp
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detail_customerHutang",
-                    idcust:idcust,
-                },
-                function(data){                 
-                    $("#namapemilik").html(data[2]);
-                    $("#nomorpemilik").html(data[3]);
-                   // $("#emailpemilik").html(data[1]);
-                });
+                    //DETAIL CUSTOMERNYA -- nama notelp
+                    $.post("ajaxreseller.php",{
+                        jenis:"get_detail_customerHutang",
+                        idcust:idcust,
+                    },
+                    function(data){                 
+                        $("#namapemilik").html(data[2]);
+                        $("#nomorpemilik").html(data[3]);
+                    // $("#emailpemilik").html(data[1]);
+                    });
 
-                //alamat customernya
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detailalamat_customerHutang",
-                    emailcust:emailcust,
-                    getIdAlamat:getIdAlamat,
-                },
-                function(data){                 
-                    var provinsi = data[0].split("-");
-                    var kota = data[1].split("-");
-                    var kec = data[2].split("-");
-                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
-                    $("#alamatpemilik").html(alamat);
-                });
+                    //alamat customernya
+                    $.post("ajaxreseller.php",{
+                        jenis:"get_detailalamat_customerHutang",
+                        emailcust:emailcust,
+                        getIdAlamat:getIdAlamat,
+                    },
+                    function(data){                 
+                        var provinsi = data[0].split("-");
+                        var kota = data[1].split("-");
+                        var kec = data[2].split("-");
+                        var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                        $("#alamatpemilik").html(alamat);
+                    });
+                //end of ini untuk muncul di modal
+
+                
             }
-            //end of action utk melunaskan hutang -- button bayar
+            //end of action utk "selesaikan pembayaran" untk transaksi cicilan/hutang dgn status menunggu pelunasan
 
         } );
         //end of jika button di list orders dipilih/ditekan
