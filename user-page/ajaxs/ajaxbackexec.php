@@ -10,63 +10,29 @@
 
         $conn=getConn();
 
-       
-
-
-        $sql1="select id_hjual from hjual where id_cust='$iduser'";
+        $sql1="select * from hjual where id_cust='$iduser'";
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
             $ctr=2;
             $role=0;
             while ($row1 = $result1->fetch_assoc()) {
                 $idhjual=$row1["id_hjual"];
-                $status=getstat($idhjual);
-                $statorder="";
-                if ($status=='cancel'||$status=='failure'||$status=='expire') {
-                    $status="Batal";
-                }else if ($status=='pending') {
-                    $status="Menunggu Pembayaran";
-                    $sql2="select * from piutang where id_hjual='$idhjual'";
-                    $result2 = $conn->query($sql2);
-                    if ($result2->num_rows > 0) {
-                        $status="Hutang";
-                    }
-                    
-                    $sql3="select * from piutang where id_hjual='$idhjual'";
-                    $result3 = $conn->query($sql3);
-                    if ($result3->num_rows > 0) {
-                        while($row3=$result3->fetch_assoc()){
-                            $idp=$row3["id_piutang"];
-                            $statorder=$row3["status_order"];
-                        }
-                        $status=getstat($idp);
-                        if ($status=="pending") {
-                            $status="Menunggu Pembayaran Hutang";
-                            $statorder="Proses";
-                        }else if($status=='cancel'||$status=='failure'||$status=='expire'){
-                            $status="Batal";
-                            $statorder="Batal";
-                            setnormal($idhjual);
-                        }else{
-                            $status="Hutang";
-                            $statorder="Proses";
-                        }
-                        $sql2="update hjual set status_pembayaran='$status',status_order='$staorder' where id_hjual='$idhjual'";
-                        if ($conn->query($sql2)) {
-                            $kal.="berhasil update-$idhjual \n";
-                        }
-        
-                    }
-                  
-                   
-                }else{//settlement
-                    $status="Lunas";
-                  
+
+                $statpemmidtrans=getstat($idhjual);
+                $statordb=$row1["status_order"];
+                $statpmdb=$row1["status_pembayaran"];
+                
+                
+                if ($statpemmidtrans=="failure"||$statpemmidtrans=="expire") {
+                    $statpmdb="Batal";
+                    $statordb="Batal";
                 }
 
-               
-                
 
+                $sql2="update hjual set status_pembayaran='$statpmdb',status_order='$statordb' where id_hjual='$idhjual'";
+                if ($conn->query($sql2)) {
+                    $kal.="berhasil update-$idhjual \n";
+                }
 
             }
         }
@@ -146,7 +112,7 @@
     $kal="";
     $conn=getConn();
     $arrhjual=[];
-    $sql="select * from hjual where status_pembayaran='Hutang'";
+    $sql="select * from hjual where status_pembayaran='Lunas'";
     $result=$conn->query($sql);
     if ($result->num_rows>0) {
         while ($row=$result->fetch_assoc()) {

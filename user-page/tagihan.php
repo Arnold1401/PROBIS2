@@ -450,21 +450,21 @@ require_once("head.php");
                         {
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarLunas\" class='btn btn-primary text-dark' data-toggle='modal' >Selesaikan Pembayaran</a>";
+                            "<a id='BayarLunas' class='btn btn-primary text-dark' onclick=\"selesaikan(\'"+id+"\')\" data-toggle='modal' >Selesaikan Pembayaran</a>";
                             // note : functionnya di if(action == "BayarLunas")
                         }
                         else if(row.status_pembayaran == 'Hutang') //transaksi cicilan -- pembayaran pertama
                         {
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"Pembayaran_pertama\" class='btn btn-primary text-dark' data-toggle='modal'  >Selesaikan Pembayaran</a>";
+                            "<a id='Pembayaran_pertama' class='btn btn-primary text-dark'  onclick=\"bayarhutang(\'"+id+"\')\"  data-toggle='modal'  >Selesaikan Pembayaran</a>";
                             // note : functionnya di if(action == "Pembayaran_pertama")
                         }
                         else if(row.status_pembayaran == 'Menunggu Pelunasan') //transaksi cicilan -- status ini muncul ketika sudah terbayar 15%
                         {
                             var id=row.id_hjual;
                             return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a id=\"BayarHutang_Lunas\" class='btn btn-primary text-dark' data-toggle='modal' data-target='#DetailBayarHutang' >Bayar Tagihan</a>";
+                            "<a id='BayarHutang_Lunas' class='btn btn-primary text-dark' onclick=\"selesaikanhutang(\'"+id+"\')\" data-toggle='modal'  >Bayar Tagihan</a>";
                             // note : functionnya di if(action == "BayarHutang_Lunas") -- nanti diarahkan ke function bayar_sisa_tagihan
                         }
                         
@@ -789,19 +789,39 @@ require_once("head.php");
                 });
     }
 
-    function bayar_sisa_tagihan(){
-        var idpiutang=$("#idhjualhutang").html();
+    function bayarhutang(id){
             $.post("ajaxs/ajaxtagihan.php",{
                     jenis:"bayartagihan",
-                    id:idpiutang,
-                    ida:$("#ida").html()
+                    idh:id,
                 },
                 function(data){                   
-                    window.location.href="pagepay.php";      
+                    window.location.href="pagepay.php";
                 });
     }
 
     //----------------end of stars rating ----------------------------------//
+
+    function selesaikan(id) {
+        $.post("ajaxs/ajaxtagihan.php",{
+                    jenis:"selesaikan",
+                    idhjual:id,
+                },
+                function(data){                     
+                });
+    }
+
+    function selesaikanhutang(id) {
+        $.post("ajaxs/ajaxtagihan.php",{
+                    jenis:"selesaikanhutang",
+                    idhjual:id,
+                },
+                function(data){      
+                                    
+                });
+    }
+
+
+
 </script>
 </body>
 </html>

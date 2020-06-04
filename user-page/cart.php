@@ -344,7 +344,8 @@ require_once("head.php");
 
 
         function lunas(){
-            var arrongkir=$("#isipaket").val().split('*');
+            if ($("#alamat").val()>0) {
+                var arrongkir=$("#isipaket").val().split('*');
             $.post("ajaxs/ajaxcheckout.php", {
                     jenis: "summar",
                     idalamat:$("#alamat").val(),
@@ -361,10 +362,15 @@ require_once("head.php");
                     
                    
             });
+            }else{
+                alert("Harus pilih kurir");
+            }
+            
         }
 
         function hutang(){
-            var arrongkir=$("#isipaket").val().split('*');
+            if ($("#alamat").val()>0) {
+                var arrongkir=$("#isipaket").val().split('*');
             $.post("ajaxs/ajaxcheckout.php", {
                     jenis: "piutang",
                     idalamat:$("#alamat").val(),
@@ -379,6 +385,11 @@ require_once("head.php");
                         alert(data);
                     }
             });
+            }else{
+                alert("Harus piih kurir !");
+            }
+                
+           
         }
     </script>
 </body>

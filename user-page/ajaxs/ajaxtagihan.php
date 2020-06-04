@@ -24,6 +24,7 @@
             }
         }
 
+
         echo json_encode($arr);
 
         $conn->close();
@@ -31,25 +32,27 @@
     }
 
     if ($_POST["jenis"]=="bayartagihan") {
-        $idp=$_POST["id"];
-        $idalamat=$_POST["ida"];
+        $idh=$_POST["idh"];
 
         $conn=getConn();
 
        
-        $sql="select * from piutang where id_piutang='$idp'";
+        $sql="select * from piutang where id_hjual='$idh'";
         $result = $conn->query($sql);
         if ($result->num_rows>0) {
             while($row = $result->fetch_assoc()) {
                 $tanggal=$row['tanggal_jatuh_tempo'];
                 $tagihan=$row['sisa_tagihan'];
-                $idhjual=$row['id_hjual'];
+                $idp=$row['id_piutang'];
 
               
             }
         }
         pelunasanfix($idalamat,$idp,$tagihan,$idhjual);
-        
+        $sql1="update hjual set status_pembayaran='Menunggu Pelunasan' where id_hjual='$idh'";
+        if ($conn->query($sql1)) {
+            
+        }
 
 
 
@@ -167,3 +170,65 @@
        //echo json_encode($transaction);
     }
     
+    
+   // get status 
+   function selesaikan($orderid){
+   $curl1 = curl_init();
+   curl_setopt_array($curl1, array(
+   CURLOPT_URL => "https://api.sandbox.midtrans.com/v2/$orderid/cancel",
+   CURLOPT_RETURNTRANSFER => true,
+   CURLOPT_ENCODING => "",
+   CURLOPT_MAXREDIRS => 10,
+   CURLOPT_TIMEOUT => 30,
+   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+   CURLOPT_CUSTOMREQUEST => "POST",
+   CURLOPT_HTTPHEADER => array(
+    "Authorization:Basic U0ItTWlkLXNlcnZlci04Tk44ZDlaZTNKNldWcElsQWdWbC1faHY= ,: ",
+    "Content-Type: application/json",
+    "Accept: application/json"
+   ),
+   ));
+ 
+   //dibawah ini sudah diencode dengan base64 dari server key nya merchan sendiri
+   //U0ItTWlkLXNlcnZlci04Tk44ZDlaZTNKNldWcElsQWdWbC1faHY= 
+ 
+   $response1 = curl_exec($curl1);
+   return $response1;
+ }
+
+ if ($_POST["jenis"]=="selesaikan") {
+    $idhjual=$_POST["idhjual"];
+    selesaikan($idhjual);
+    $conn=getConn();
+    $sql2="update hjual set status_pembayaran='Lunas' where id_hjual='$idhjual' ";
+   if ($conn->query($sql2)) {
+
+   }    
+   $conn->close();
+ }
+
+ 
+ if ($_POST["jenis"]=="selesaikanhutang") {
+   $idhjual=$_POST["idhjual"];
+
+   $conn=getConn();
+   $sql="select * from piutang where id_hjual='$idhjual'";
+   $result = $conn->query($sql);
+   if ($result->num_rows>0) {
+       while($row = $result->fetch_assoc()) {
+           $id=$row['id_piutang'];
+           selesaikan($id);
+       }
+   }
+   $sql2="update hjual set status_pembayaran='Lunas' where id_hjual='$idhjual' ";
+   if ($conn->query($sql2)) {
+
+   }    
+   $conn->close();
+
+}
+ 
+
+
+
+?>

@@ -537,7 +537,7 @@ function sessionpagepayPIU($orderid,$piu)
 }
 
 // get status 
-function getstat($orderid){
+function cancel($orderid){
   $curl1 = curl_init();
   curl_setopt_array($curl1, array(
   CURLOPT_URL => "https://api.sandbox.midtrans.com/v2/$orderid/cancel",
