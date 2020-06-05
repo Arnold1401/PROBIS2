@@ -241,7 +241,7 @@ $row = $result->fetch_assoc();
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
                                 <h4 class="mb-4">Alamat Pengiriman</h4> <hr>
-                                <form >
+                                <form action="#">
                                    
                                     <div class="form-group">
                                     <label for="">Alamat Pengiriman</label>
@@ -255,8 +255,8 @@ $row = $result->fetch_assoc();
                            <button type="submit" class="btn btn-warning btn-md my-2">
                                <i class="fa fa-ban"></i> Ubah Alamat
                            </button>
-                           <button type="button" class="btn btn-danger btn-md">
-                               <i class="fa fa-ban" onclick="hapusalamat()" ></i> Hapus Alamat
+                           <button type="button" class="btn btn-danger btn-md" onclick="hapusalamat()">
+                               <i class="fa fa-ban"  ></i> Hapus Alamat
                            </button>
                                     </div>
 
@@ -272,19 +272,19 @@ $row = $result->fetch_assoc();
                                     
                                     <div class="form-group">
                                       <label for="">Provinsi Tujuan</label>
-                                      <select class="form-control" name="cb_provinsi" id="cb_provinsi" onchange="cb_city()">
+                                      <select class="form-control" name="cb_provinsi" id="cb_provinsi" onchange="cb_city()" required>
                                       </select>
                                     </div>
 
                                     <div class="form-group">
                                       <label for="">Kota Tujuan</label>
-                                      <select class="form-control" name="cb_kota" id="cb_kota" onchange="cb_subdistrict()">
+                                      <select class="form-control" name="cb_kota" id="cb_kota" onchange="cb_subdistrict()" required>
                                       </select>
                                     </div>
 
                                     <div class="form-group">
                                       <label for="">Kecamatan Tujuan</label>
-                                      <select class="form-control" name="cb_kecamatan" id="cb_kecamatan">
+                                      <select class="form-control" name="cb_kecamatan" id="cb_kecamatan" required>
                                       </select>
                                     </div>
 
@@ -296,7 +296,7 @@ $row = $result->fetch_assoc();
 
                                     <div class="form-group">
                                       <label for="">Alamat Lengkap</label>
-                                        <input type="text" name="alamat_lengkap" id="alamat_lengkap" class="form-control" placeholder="" aria-describedby="helpId">
+                                        <input type="text" name="alamat_lengkap" id="alamat_lengkap" class="form-control" placeholder="" aria-describedby="helpId" required>
                                       
                                     </div>
 
@@ -370,16 +370,7 @@ $row = $result->fetch_assoc();
 
     cb_prov();//load prov
         
-    function hapusalamat(){
-        $.post("ajaxs/ajaxsetting.php",
-            {
-                jenis:"hapusalamat",
-                ida:$("#alamat").val(),
-            },
-            function(data){
-               alert(data);
-            });
-    }
+    
 
     function keluar(){
         $.post("ajaxs/ajaxlogin.php",
@@ -396,6 +387,25 @@ $row = $result->fetch_assoc();
     var status_akun = "<?php if(isset($_SESSION["status_akun"])){ echo $_SESSION["status_akun"];}?>";
     var verified_email = "<?php if(isset($_SESSION["verified"])){ echo $_SESSION["verified"];}?>";
     
+    function hapusalamat(){
+        $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"hapusalamat",
+                ida:$("#alamat").val(),
+            },
+            function(data){
+               alert(data);
+               alert(data);
+                $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"loadalamat",
+            },
+            function(data){
+                $("#alamat").html(data);
+            });
+            });
+    }
+
     function notif_akun() {
         //alert(role);
         if (role == "reseller") {
@@ -476,7 +486,7 @@ $row = $result->fetch_assoc();
         var kode = $("#kodepos").val();
         var camat = $("#cb_kecamatan").val();
         var alamatuser = $("#alamat_lengkap").val();
-
+        if(prov != null && kota != null && kode != null && camat != null && alamatuser != null){
         $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"simpanalamat",
@@ -496,6 +506,9 @@ $row = $result->fetch_assoc();
                 $("#alamat").html(data);
             });
             });
+        }else{
+            alert("Mohon semua field diisi terlebih dahulu");
+        }
     });
 
     $( "#nomor_ktp" ).keyup(function() {
