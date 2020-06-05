@@ -167,9 +167,9 @@ if ($_POST["jenis"] == "cek_sisa_waktupelunasan") {
                 $diff=date_diff($date1,$date2);
 
                // echo $diff->format("%R%a days");
-                $res = $diff->format("%a");
+                $res = $diff->format("%r%a");
 
-                 $sql2 = "update piutang set sisa_waktu_pelunasan=$res where id_piutang='$id'";
+                 $sql2 = "update piutang set sisa_waktu_pelunasan='$res' where id_piutang='$id'";
                  if ($conn->query($sql2)) 
                  {
                      echo "berhasil";
