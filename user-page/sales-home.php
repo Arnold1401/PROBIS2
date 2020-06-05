@@ -111,7 +111,7 @@ $id=$_SESSION["id_sales"];
                                 from  hjual h,sales s, customer c
 
 
-                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and s.id_sales='$id' and h.status_pembayaran != 'Menunggu Pembayaran' and h.status_order != 'Batal'
+                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and h.id_sales='$id' and h.status_pembayaran != 'Menunggu Pembayaran' and h.status_order != 'Batal'
                                 
                                 ";
                                             $data = mysqli_query(getConn(),$query);
@@ -250,6 +250,12 @@ $id=$_SESSION["id_sales"];
      
    <script>
 
+    //event jika list order dipilih/diclick 
+    $('#example tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+    } );
+    //end of event jika list order dipilih/diclick 
+
     $(".btn_detail").click(function(){
         
        // $("#details").empty();
@@ -259,8 +265,6 @@ $id=$_SESSION["id_sales"];
         $("#details").load(link);
 
     })
-
-
 
     $("#update_status").click(function(){
 
@@ -297,6 +301,7 @@ $id=$_SESSION["id_sales"];
 
 
     });
+
  
 
 
