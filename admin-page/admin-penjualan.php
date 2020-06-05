@@ -388,7 +388,7 @@ require_once("adminhead.php");
                     alert(data);
                     $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable
                     const btnkirimkan = document.getElementById("Kirimkan");
-                    this.button.disabled=true;
+                    //this.button.disabled=true;
                 });
             }
 

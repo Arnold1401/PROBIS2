@@ -298,7 +298,7 @@ require_once("head.php");
                         if (row.sisa_waktu_pelunasan <= 3 && row.sisa_waktu_pelunasan >= 0) {
                             var rowIndex = meta.row+1;
                             var id=row.id_piutang;
-                            return "<a id=\"tagihkan\" onclick=\"tagihkan(\'"+id+"\')\" class='btn btn-info text-dark'>Tagihkan</a>";
+                            return "<a id=\"tagihkan\" onclick=\"tagihkan(\'"+id+"\')\" class='btn btn-info text-dark'>Tagihkan</a> <a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  " ;
                             //note : berikan action ketika ditekan tagihkan dia akan mengirim email ke resellernya
                         }
                         else if (row.sisa_waktu_pelunasan < 0) {
@@ -307,7 +307,7 @@ require_once("head.php");
                             return "<label class='text-danger font-weight-bold'>Anda telah melewati (" + row.sisa_waktu_pelunasan + " hari) dari masa pembayaran </label>";
                         }
                         else if (row.sisa_waktu_pelunasan > 3) {
-                            return "<a id=\"\" class='btn btn-info text-dark disabled'>Tagihkan</a>";
+                            return "<a id=\"\" class='btn btn-info text-dark disabled'>Tagihkan</a> <a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a> " ;
                         }
                        
                     }
@@ -336,7 +336,7 @@ require_once("head.php");
             //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
             if(action == 'GetDetail')
             {
-                getId = data[Object.keys(data)[0]]; //idhjual
+                getId = data[Object.keys(data)[1]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 getTotal = data[Object.keys(data)[6]]; //ongkir
                 $("#ida").html(getIdAlamat);
