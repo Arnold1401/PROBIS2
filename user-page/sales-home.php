@@ -51,7 +51,7 @@ $id=$_SESSION["id_sales"];
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="#" class="nav-link">Pesanan</a></li>
                 <li class="nav-item "><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
-                <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
+                <!-- <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li> -->
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
