@@ -28,10 +28,10 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 				<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
 					<!--<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>-->
 					<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
-						<span><i class='ion-ios-cart'></i>Keranjang</span>
+						<span><i class='ion-ios-cart'></i></span>
 					</a>
 					<a onclick=\"addwish('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
-					<span><i class='ion-ios-heart'></i>Wishlist</span>
+					<span><i class='ion-ios-heart'></i></span>
 					</a>
 				</div>
 			</div>
@@ -98,7 +98,7 @@ if ($_POST["jenis"] == "filter") {
 			$fharga=number_format($harga,2);
 			$brand="";
 			$kal.="
-			<div class='col-md-6 col-lg-3 my-1'>
+			<div class='col-md-6 col-lg-4 my-1'>
 				<div class='product'>
 				<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
 				<div class='text py-3 pb-4 px-3 text-center'>
@@ -107,10 +107,10 @@ if ($_POST["jenis"] == "filter") {
 					<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>
 						<!--<a class='btn btn-primary' href='#' role='button' onclick=\"more('$id')\">shop</a>-->
 						<a onclick=\"addcart('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
-							<span><i class='ion-ios-cart'></i>Keranjang</span>
+							<span><i class='ion-ios-cart'></i></span>
 						</a>
-						<a onclick=\"addwish('$id')\"  class='buy-now d-flex justify-content-center align-items-center mx-3'>
-							<span><i class='ion-ios-heart'></i>Wishlist</span>
+						<a onclick=\"addwish('$id')\" href='#' class='buy-now d-flex justify-content-center align-items-center mx-3'>
+							<span><i class='ion-ios-heart'></i></span>
 						</a>
 					</div>
 				</div>
@@ -197,7 +197,7 @@ if ($_POST["jenis"] == "cari") {
 		<div class='col-md-6 col-lg-4 my-1'>
 			<div class='product'>
 			<a href='#' class='img-prod'><img class='img-fluid' src=\"$foto\" alt='Card image cap'></a>
-			<div class='text py-3 pb-4 px-2 text-center'>
+			<div class='text py-3 pb-4 px-3 text-center'>
 				<h3><strong><a href=\"detailproduk.php?pid=$id\">$nama</a></strong></h3>
 				<h3><strong><a >Rp$fharga</a></strong></h3> <br>
 				<div class='d-flex px-3 d-flex justify-content-center align-items-center text-center'>

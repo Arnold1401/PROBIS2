@@ -94,6 +94,7 @@ require_once("head.php");
                                     <th>Nama Produk</th>
                                     <th>Harga</th>
                                     <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody id="isiwish">
