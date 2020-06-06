@@ -344,7 +344,7 @@ require_once("head.php");
 
 
         function lunas(){
-            if ($("#alamat").val()>0) {
+            if ($("#isipaket").val()>0) {
                 var arrongkir=$("#isipaket").val().split('*');
             $.post("ajaxs/ajaxcheckout.php", {
                     jenis: "summar",
@@ -369,7 +369,7 @@ require_once("head.php");
         }
 
         function hutang(){
-            if ($("#alamat").val()>0) {
+            if ($("#isipaket").val()>0) {
                 var arrongkir=$("#isipaket").val().split('*');
             $.post("ajaxs/ajaxcheckout.php", {
                     jenis: "piutang",
