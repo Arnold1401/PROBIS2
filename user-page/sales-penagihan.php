@@ -33,8 +33,12 @@ require_once("head.php");
         }
 
         .lightRed {
-  background-color: #f0aaaa !important
-}
+            background-color: #f0aaaa !important
+        }
+
+        .lightyellow{
+            background-color: #f5e042;
+        }
     </style>
 </head>
 <body class="goto-here">
@@ -71,28 +75,16 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item">
-                    <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
-        echo $count;
-    }else{
-        echo 0;
-    }
- ?>]</a></li>
+                <li class="nav-item "><a href="sales-home.php" class="nav-link">Pesanan</a></li>
+                <li class="nav-item active"><a href="#" class="nav-link">Penagihan</a></li>
+                <!-- <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li> -->
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
-                    <a class="dropdown-item active" href="tagihan.php">Tagihan</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -284,11 +276,14 @@ require_once("head.php");
                     "searchable": false,
                     "orderable":false,
                     "render": function (data, type, row, meta) {  
-                        if (row.sisa_waktu_pelunasan <= 3) {
+                        if (row.sisa_waktu_pelunasan <= 3 && row.sisa_waktu_pelunasan >= 0) {
+                            var rowIndex = meta.row+1;
+                            return "<label class='text-warning font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
+                        }
+                        else if (row.sisa_waktu_pelunasan < 0) {
                             var rowIndex = meta.row+1;
                             $('#tableorders tbody tr:nth-child('+rowIndex+')').addClass('lightRed text-dark');
-                            return "<label class='text-danger font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
-                            
+                            return "<label class='text-danger font-weight-bold'>Anda telah melewati (" + row.sisa_waktu_pelunasan + " hari) dari masa pembayaran </label>";
                         }
                         else if (row.sisa_waktu_pelunasan > 3) {
                             return "<label class='text-info font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
@@ -296,18 +291,28 @@ require_once("head.php");
                        
                     }
                 },
-                {"data":"status_order",
+                {"data":"sisa_waktu_pelunasan",
                     "searchable": false,
                     "orderable":false,
-                    "render": function (data, type, row) {  
-                        if (row.status_order == "Hutang") {
-                            
-                            return "<button type='button' class='btn btn-success btn-sm'>Tagihkan</button>";
-                            
+                    "render": function (data, type, row, meta) {  
+                        if (row.sisa_waktu_pelunasan <= 3 && row.sisa_waktu_pelunasan >= 0) {
+                            var rowIndex = meta.row+1;
+                            var id=row.id_piutang;
+                            return "<a id=\"tagihkan\" onclick=\"tagihkan(\'"+id+"\')\" class='btn btn-info text-dark'>Tagihkan</a> <a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  " ;
+                            //note : berikan action ketika ditekan tagihkan dia akan mengirim email ke resellernya
                         }
-                        
+                        else if (row.sisa_waktu_pelunasan < 0) {
+                            var rowIndex = meta.row+1;
+                            $('#tableorders tbody tr:nth-child('+rowIndex+')').addClass('lightRed text-dark');
+                            return "<label class='text-danger font-weight-bold'>Anda telah melewati (" + row.sisa_waktu_pelunasan + " hari) dari masa pembayaran </label>";
+                        }
+                        else if (row.sisa_waktu_pelunasan > 3) {
+                            return "<a id=\"\" class='btn btn-info text-dark disabled'>Tagihkan</a> <a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a> " ;
+                        }
+                       
                     }
                 },
+                
              ],
     
         } );
@@ -331,7 +336,7 @@ require_once("head.php");
             //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
             if(action == 'GetDetail')
             {
-                getId = data[Object.keys(data)[0]]; //idhjual
+                getId = data[Object.keys(data)[1]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 getTotal = data[Object.keys(data)[6]]; //ongkir
                 $("#ida").html(getIdAlamat);
@@ -553,6 +558,14 @@ require_once("head.php");
         } );
         //end of filter list order berdasarkan status yang dpilih
     });
+
+    function tagihkan(id) {
+        $("#tagihkan"). html("Sedang ditagihkan");
+        $("#tagihkan").attr("disabled", true); 
+
+        //kirim email ke reseller
+        //status penagihan jadi 1 -- Sedang ditagihkan
+    }
 
     
 </script>

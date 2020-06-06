@@ -31,6 +31,10 @@ require_once("head.php");
         .stars::after{
             content: counter(rateme) '/5';
         }
+
+        .lightRed {
+  background-color: #f0aaaa !important
+}
     </style>
 </head>
 <body class="goto-here">
@@ -67,28 +71,16 @@ require_once("head.php");
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="home.php" class="nav-link">Beranda</a></li>
-               
-                <li class="nav-item"><a href="produk.php" class="nav-link">Produk</a></li>
-                <li class="nav-item">
-                    <a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[<?php if (isset($_SESSION["keranjang"])) {
-        $arrkeranjang=unserialize($_SESSION["keranjang"]);
-        $count=count($arrkeranjang);
-        echo $count;
-    }else{
-        echo 0;
-    }
- ?>]</a></li>
+                <li class="nav-item "><a href="sales-home.php" class="nav-link">Pesanan</a></li>
+                <li class="nav-item active"><a href="#" class="nav-link">Penagihan</a></li>
+                <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
                 <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_perusahaan"])){ echo $_SESSION["nama_perusahaan"];}?></a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="wishlist.php">Daftar Keinginan</a>
-                    <a class="dropdown-item" href="status-order.php">Daftar Pesanan</a>
-                    <a class="dropdown-item active" href="tagihan.php">Tagihan</a>
-                    <a class="dropdown-item" href="ulasan.php">Ulasan</a>
+                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
-                    <a onclick="keluar()" class="dropdown-item">Keluar</a>
+                    <a class="dropdown-item" onclick="keluar()">Keluar</a>
                 </div>
                 </li>
             </ul>
@@ -126,8 +118,7 @@ require_once("head.php");
                                     <tr>
                                         <th>No Pesanan</th>
                                         <th>Tanggal Pesanan</th>
-                                        <th>Kurir</th>
-                                        <th>Sales</th>
+                                        <th>Tanggal Jatuh tempo</th>
                                         <th>Total</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -200,148 +191,18 @@ require_once("head.php");
     </section>
     <!-- end cart -->
 
-    <!--Modal untuk rating dan review-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        
-        <div class="modal-body">
-        <form method="POST" action="" class="form-group" >
-
-            <h5 class="mb-4" id="nama_produkdiulas"></h5>
-            <h6 class="mb-4" id="id_barangdiulas"></h6><hr>
-            <img src="" alt="">
-
-            <div class="form-group">
-            <label for="">Bagaimana kualitas produk ini secara keseluruhan?</label>
-                <div class="stars" data-rating="0">
-                    <span class="star" data-rating="1">&nbsp;</span>
-                    <span class="star" data-rating="2">&nbsp;</span>
-                    <span class="star" data-rating="3">&nbsp;</span>
-                    <span class="star" data-rating="4">&nbsp;</span>
-                    <span class="star" data-rating="5">&nbsp;</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="">Berikan ulasan untuk produk ini</label>
-                <textarea value="" class="form-control" name="" id="isiUlasan" rows="3" placeholder="Tulis deskripsi Anda mengenai produk ini"></textarea>
-                <label class="col-form-label text-danger" id="warning"></label>
-            </div>
-
-            <div class="form-group">
-                <label for="">Bagikan foto produk yang Anda terima</label>
-                <div class="input-group mb-3">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile02">
-                    <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
-                </div>
-                <div class="input-group-append">
-                    <span class="input-group-text" id="">Upload</span>
-                </div>
-            </div>
-
-            </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-        <button type="button" id="kirimulasansaya" class="btn btn-primary">Kirim Ulasan</button>
-        </div>
-    </div>
-    </div>
-    </div>
-    <!--End Modal untuk rating dan review-->
-
     
-    <!-- modal untuk summary midtrans -->
-    <div class="modal fade " id="DetailBayarHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span id="ida" style="display:none;">0</span>
-                    <h5 class="modal-title">Detail Tagihan #<span id="idhjualhutang">[id hjual]</span> </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body " id="isisum">
-                    <div class="form-group">
-                        <h5 > Jatuh Tempo : <span id="jatuhtempohutang"> </span></h5>
-                        <h5>Total Tagihan <span> <h4 class="text-right font-weight-bold" id="tagihan">Rp[total]</h4> </span></h5>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h6>Nama</h6>
-                                <h6 id="namapemilik">[nama yg punya toko]</h6>
-                                <br>
-                                <h6>Nomor Telepon</h6>
-                                <h6 id="nomorpemilik">[Nomor Telepon toko]</h6>
-                                <br>
-                                
-                            </div>
-                            <div class="col-md-6">
-                                <h6>Alamat kirim</h6>
-                                <h6 id="alamatpemilik">[alamat toko]</h6> 
-                                <br>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" onclick="bayar_sisa_tagihan()" class="btn btn-outline-success">Bayar Sisa Tagihan</button> 
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- end of modal untuk summary midtrans -->
-
     <?php
     include_once('justfooter.php')
      ?>
 
 <script>
-    var idcust = "<?php if(isset($_SESSION["idcust"])){ echo $_SESSION["idcust"];}?>";
+    var idsales = "<?php if(isset($_SESSION["id_sales"])){ echo $_SESSION["id_sales"];}?>";
     var emailcust = "<?php if(isset($_SESSION["email_user"])){ echo $_SESSION["email_user"];}?>";
    // console.log(idcust);
     var idbarangutkdiulas, iddjualulas;
     var getId,tabledetail, data, getIdAlamat="";
 
-    //button kirim ulasan di modal
-    function kirimulasansaya() {
-        var isiulasan = document.getElementById("isiUlasan").value;
-
-         if (isiulasan == "") {
-             $('#warning').html("Ulasan belum terisi");
-         }
-         else if (isiulasan != ""){
-             $('#warning').html("");
-             $.post("ajaxreseller.php",{
-             jenis:"kirim_ulasan",
-             idbarang : idbarangutkdiulas,
-             idcust : idcust,
-             rating : parseInt(document.querySelector('.stars').getAttribute('data-rating')),
-             isiulasan :isiulasan,
-             iddjualulas:iddjualulas,
-             },
-             function(data){
-                 alert(data);
-                 $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
-                 document.getElementById("isiUlasan").value = "";
-                 document.querySelector('.stars').getAttribute('data-rating').value = "0";
-             })
-         }
-        
-    }
-    //end of button kirim ulasan di modal
-
-    //button bayar lunas hutang nya -- dari button bayar tagihan
-    function bayar_sisa_tagihan(getId) {
-        
-        console.log(getId);
-    }
-    //end of button bayar tagihan
 
     //logout
     function keluar(){
@@ -355,24 +216,23 @@ require_once("head.php");
     }
     //end of logout
 
+    //function sisa waktu pelunasan untuk semua piutang
+    function sisa_waktu_pelunasan() {
+        $.post("ajaxreseller.php",{
+            jenis:"cek_sisa_waktupelunasan",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                
+            })
+    }
+
     //document ready
     $(document).ready(function () {
-        console.log(idcust);
-        //call event button kirim ulasan di modal
-        $('#kirimulasansaya').click( function () {
-            kirimulasansaya();
-            $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
-        });
-        // end of call event button kirim ulasan di modal
-
-        //call event button bayar sisa tagihan di modal
-        $('#bayar_sisa_tagihan').click( function () {
-            bayar_sisa_tagihan();
-
-        });
-        // end of call event button bayar sisa tagihan di modal
-
         var tableuser="";
+        var sisa_jatuhtempo="";
+        sisa_waktu_pelunasan();
 
         //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
         tableuser = $('#tableorders').DataTable( 
@@ -397,84 +257,45 @@ require_once("head.php");
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
              "ajax":{
-                 "url":"datatables/datatable_tagihanall.php", 
+                 "url":"datatables/datatable_penagihan.php", 
                  "type":"POST",
-                 "data":{"idcust":idcust},
+                 "data":{"idsales":idsales},
              },
              "deferRender":true,
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[ 
-                {"data":"id_hjual"},               
-                {"data":"tanggal_order", render: $.fn.dataTable.render.moment('DD-MMMM-YYYY')},                         
-                {"data":"kurir"},
-                {"data":"nama_sales"},//nama_sales
-                {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                {"data":"id_piutang"},               
+                {"data":"id_hjual"},                         
+                {"data":"tanggal_jatuh_tempo", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},
+                {"data":"sisa_tagihan", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                {"data":"sisa_waktu_pelunasan",
+                    "searchable": false,
+                    "orderable":false,
+                    "render": function (data, type, row, meta) {  
+                        if (row.sisa_waktu_pelunasan <= 3) {
+                            var rowIndex = meta.row+1;
+                            $('#tableorders tbody tr:nth-child('+rowIndex+')').addClass('lightRed text-dark');
+                            return "<label class='text-danger font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
+                            
+                        }
+                        else if (row.sisa_waktu_pelunasan > 3) {
+                            return "<label class='text-info font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
+                        }
+                       
+                    }
+                },
                 {"data":"status_order",
-                    "searchable": true,
-                    "orderable":true,
+                    "searchable": false,
+                    "orderable":false,
                     "render": function (data, type, row) {  
-                        if (row.status_order == 'Proses') //proses
-                        {
-                            return "<label class='text-success font-weight-bold'>Proses</label> ";
+                        if (row.status_order == "Menunggu Pelunasan") {
+                            return "<button type='button' class='btn btn-success btn-sm'>Tagihkan</button>";
                         }
-                        else if (row.status_order == 'Pengiriman') //pengriman
-                        {
-                            return "<label class='text-warning font-weight-bold'>Pengiriman</label>";
-                        }
-                        else if (row.status_order == 'Sampai Tujuan') //piutang
-                        {
-                            return "<label class='text-info font-weight-bold'>Barang telah tiba</label>";
-                        }
-                        else if (row.status_order == 'Selesai') //selesai
-                        {
-                            return "<label class='text-info font-weight-bold'>Selesai</label> <br>"+
-                            "<small> Diterima : " + moment(row.tanggal_orderselesai).format("DD-MMMM-YYYY") + " </small>";
-                        }
-                        else if (row.status_order == 'Piutang') //piutang
-                        {
-                            return "<label class='text-danger font-weight-bold'>Piutang</label>";
-                        }   
-                        else if (row.status_order == '') //piutang
-                        {
-                            return "<label class='text-danger font-weight-bold'>..</label>";
-                        }                                           
-                    },
-                    "target":-1,
+                        
+                    }
                 },
-                {"data":"status_pembayaran",
-                    "searchable": true,
-                    "orderable":true,
-                    "render": function (data, type, row) {  
-                        
-                        if (row.status_pembayaran == 'Menunggu Pembayaran') //transksi biasa
-                        {
-                            var id=row.id_hjual;
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a class='btn btn-primary text-dark' onclick=\"selesaikan(\'"+id+"\')\" data-toggle='modal' >Selesaikan Pembayaran</a>";
-                            // note : functionnya di if(action == "BayarLunas")
-                        }
-                        else if(row.status_pembayaran == 'Hutang') //transaksi cicilan -- pembayaran pertama
-                        {
-                            var id=row.id_hjual;
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a class='btn btn-primary text-dark'  onclick=\"bayarhutang(\'"+id+"\')\"  data-toggle='modal'  >Selesaikan Pembayaran</a>";
-                            // note : functionnya di if(action == "Pembayaran_pertama")
-                        }
-                        else if(row.status_pembayaran == 'Menunggu Pelunasan') //transaksi cicilan -- status ini muncul ketika sudah terbayar 15%
-                        {
-                            var id=row.id_hjual;
-                            return "<a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  "+
-                            "<a class='btn btn-primary text-dark' onclick=\"selesaikanhutang(\'"+id+"\')\" data-toggle='modal'  >Bayar Tagihan</a>";
-                            // note : functionnya di if(action == "BayarHutang_Lunas") -- nanti diarahkan ke function bayar_sisa_tagihan
-                        }
-                        
-                        
-                        
-                    },
-                    "target":-1,
-                },
-                
              ],
+    
         } );
         //end of datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
         
@@ -623,76 +444,53 @@ require_once("head.php");
             }
             //end of action button Detail
 
-            //action utk "selesaikan pembayaran" untk transaksi lunas dgn status Menunggu pembayaran
-            /*if(action == 'BayarLunas')
+            //action utk melunaskan hutang -- button bayar
+            if(action == 'BayarHutang')
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
-                console.log("bayar lunas");
-                //kasih aja notif pembayaran berhasil.. alert
-            }
-            //end of utk "selesaikan pembayaran" untk transaksi lunas
-
-            //action utk "selesaikan pembayaran" untk transaksi cicilan dgn status hutang
-            if(action == 'Pembayaran_pertama')
-            {
-                getId = data[Object.keys(data)[0]]; //idhjual
-                console.log("pembayaran pertama");
-                //kasih aja notif pembayaran berhasil.. trus munculin sisa tagihannya terserah lah intinya mek alert tok
-            }
-            //end of action utk "selesaikan pembayaran" untk transaksi cicilan dgn status hutang
-
-            //action utk "selesaikan pembayaran" untk transaksi cicilan/hutang dgn status menunggu pelunasan
-            if(action == 'BayarHutang_Lunas')
-            {
-                getId = data[Object.keys(data)[0]]; //idhjual
-                console.log(getId);
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 var tr = $(this).closest('tr');
                 $("#ida").html(getIdAlamat);
 
-                //ini untuk muncul di modal
-                    //DETAIL TAGIHAN
-                    $.post("ajaxreseller.php",{
-                        jenis:"get_detail_tagihan",
-                        getId:getId,
-                    },
-                    function(data){                 
-                    var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
-                    
-                        $("#idhjualhutang").html(data[1]);
-                        $("#jatuhtempohutang").html(jatuhtempohutang);
-                        $("#tagihan").html($.parseJSON(data[4]));
-                    });
+                //DETAIL TAGIHAN
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_tagihan",
+                    getId:getId,
+                },
+                function(data){                 
+                   var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
+                   
+                    $("#idhjualhutang").html($.parseJSON(data[1]));
+                    $("#jatuhtempohutang").html(jatuhtempohutang);
+                    $("#tagihan").html($.parseJSON(data[3]));
+                });
 
-                    //DETAIL CUSTOMERNYA -- nama notelp
-                    $.post("ajaxreseller.php",{
-                        jenis:"get_detail_customerHutang",
-                        idcust:idcust,
-                    },
-                    function(data){                 
-                        $("#namapemilik").html(data[2]);
-                        $("#nomorpemilik").html(data[3]);
-                    // $("#emailpemilik").html(data[1]);
-                    });
+                //DETAIL CUSTOMERNYA -- nama notelp
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detail_customerHutang",
+                    idcust:idcust,
+                },
+                function(data){                 
+                    $("#namapemilik").html(data[2]);
+                    $("#nomorpemilik").html(data[3]);
+                   // $("#emailpemilik").html(data[1]);
+                });
 
-                    //alamat customernya
-                    $.post("ajaxreseller.php",{
-                        jenis:"get_detailalamat_customerHutang",
-                        emailcust:emailcust,
-                        getIdAlamat:getIdAlamat,
-                    },
-                    function(data){                 
-                        var provinsi = data[0].split("-");
-                        var kota = data[1].split("-");
-                        var kec = data[2].split("-");
-                        var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
-                        $("#alamatpemilik").html(alamat);
-                    });
-                //end of ini untuk muncul di modal
-
-                
-            }*/
-            //end of action utk "selesaikan pembayaran" untk transaksi cicilan/hutang dgn status menunggu pelunasan
+                //alamat customernya
+                $.post("ajaxreseller.php",{
+                    jenis:"get_detailalamat_customerHutang",
+                    emailcust:emailcust,
+                    getIdAlamat:getIdAlamat,
+                },
+                function(data){                 
+                    var provinsi = data[0].split("-");
+                    var kota = data[1].split("-");
+                    var kec = data[2].split("-");
+                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    $("#alamatpemilik").html(alamat);
+                });
+            }
+            //end of action utk melunaskan hutang -- button bayar
 
         } );
         //end of jika button di list orders dipilih/ditekan
@@ -742,87 +540,7 @@ require_once("head.php");
         //end of filter list order berdasarkan status yang dpilih
     });
 
-    //----------------stars rating ----------------------------------//
-    //initial setup
-    document.addEventListener('DOMContentLoaded', function(){
-        let stars = document.querySelectorAll('.star');
-        stars.forEach(function(star){
-            star.addEventListener('click', setRating); 
-        });
-        
-        let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
-        let target = stars[rating - 1];
-        //target.dispatchEvent(new MouseEvent('click'));
-    });
-
-    function setRating(ev){
-        let span = ev.currentTarget;
-        let stars = document.querySelectorAll('.star');
-        let match = false;
-        let num = 0;
-        stars.forEach(function(star, index){
-            if(match){
-                star.classList.remove('rated');
-            }else{
-                star.classList.add('rated');
-            }
-            //are we currently looking at the span that was clicked
-            if(star === span){
-                match = true;
-                num = index + 1;
-            }
-        });
-        document.querySelector('.stars').setAttribute('data-rating', num);
-    }
-
-    function getinfo(idhjual) {
-        $.post("ajaxs/ajaxtagihan.php",{
-                    jenis:"getinfo",
-                    id:idhjual
-                },
-                function(data){                 
-                    console.log(data);
-                    var arr=JSON.parse(data);
-                    $("#idhjualhutang").html(arr["idp"]);             
-                    $("#jatuhtempohutang").html(arr["tgl"]);             
-                    $("#tagihan").html(arr["amount"]);             
-                });
-    }
-
-    function bayarhutang(id){
-            $.post("ajaxs/ajaxtagihan.php",{
-                    jenis:"bayartagihan",
-                    idh:id,
-                },
-                function(data){                   
-                    window.location.href="pagepay.php";
-                });
-    }
-
-    //----------------end of stars rating ----------------------------------//
-
-    function selesaikan(id) {
-        $.post("ajaxs/ajaxtagihan.php",{
-                    jenis:"selesaikan",
-                    idhjual:id,
-                },
-                function(data){   
-                    $('#tableorders').DataTable().ajax.reload();                  
-                });
-    }
-
-    function selesaikanhutang(id) {
-        $.post("ajaxs/ajaxtagihan.php",{
-                    jenis:"selesaikanhutang",
-                    idhjual:id,
-                },
-                function(data){      
-                    $('#tableorders').DataTable().ajax.reload();        
-                });
-    }
-
-
-
+    
 </script>
 </body>
 </html>

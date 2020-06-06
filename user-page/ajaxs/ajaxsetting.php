@@ -65,8 +65,9 @@
                 $ida=$row1["id_alamat"];
                 $alamat=$row1["alamat_lengkap"];
                 $kota=$row1["kota"];
+                $kota = explode('-', $kota);
                 $provinsi=$row1["provinsi"];
-                $kal.="<option value='$ida'>$alamat,$kota,$provinsi</option>";
+                $kal.="<option value='$ida'>$alamat,$kota[1]</option>";
             }
         }else{
             $kal="<option value='-1'>Anda tidak memiliki alamat</option>";
@@ -96,11 +97,18 @@
         $kota = $_POST["kota"];
         $camat = $_POST["camat"];
         $kodepos = $_POST["kode"];
-
+        $largestNumber = 0;
+        $rowSQL = "SELECT MAX(no_prioritas) AS max FROM alamat_pengiriman where email ='$email_user' and no_prioritas != 0";
+        $result = $conn->query($rowSQL);
+        $row = $result->fetch_assoc();
+        if($row > 0){
+        $largestNumber = $row['max'];
+        }
         //kasih pengecekan dulu dia mau ubah alamat atau mau nambah alamat
         //kalau ubah alamat dilihat juga no prioritasnya -- update biasa
         //kalau nambah alamat, no prioritas terus bertambah 1, 2,3,4
-        $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas,kode_pos) values ('$email_user','$prov','$kota','$camat','$alamat_user','1','$kodepos')";
+        $largestNumber = $largestNumber+1;
+        $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas,kode_pos) values ('$email_user','$prov','$kota','$camat','$alamat_user',$largestNumber,'$kodepos')";
         if($conn->query($sql3)){
             echo "berhasil";
         }else{
