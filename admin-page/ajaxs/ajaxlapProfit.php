@@ -40,11 +40,11 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 
 ?>
-    <table>
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <td>tanggal</td>
-                <td>keuntungan</td>
+                <td>Tanggal</td>
+                <td>Keuntungan</td>
             </tr>
         </thead>
 
@@ -57,7 +57,7 @@ $akhir=$_REQUEST["tgl_akhir"];
         ?>
             <tr>
                 <td><?php echo $row[1];?></td>
-                <td><?php echo $row[0];?></td>
+                <td><?php echo "Rp ".number_format($row[0],0,",",".");?></td>
             </tr>
 
         <?php
@@ -73,8 +73,8 @@ $akhir=$_REQUEST["tgl_akhir"];
                  {
             ?>
             <tr>
-                <td>Total keuntungan</td>
-                <td><?php echo $row[0];?></td>
+                <td> <b>Total Keuntungan</b></td>
+                <td> <b> <?php echo "Rp ".number_format($row[0],0,",",".");?></b></td>
             <tr>
 
             <?php
