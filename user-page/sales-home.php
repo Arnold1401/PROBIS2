@@ -55,7 +55,7 @@ $id=$_SESSION["id_sales"];
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
+                    <a class="dropdown-item" href="sales-riwayatpenagihan.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
                     <a class="dropdown-item" onclick="keluar()">Keluar</a>
@@ -106,7 +106,7 @@ $id=$_SESSION["id_sales"];
                               
 
 
-                                select h.tanggal_order,h.id_hjual, c.nama_perusahaan,h.status_order
+                                select h.tanggal_order,h.id_hjual, c.nama_perusahaan,h.status_order,h.id_cust,h.id_alamatpengiriman
 
                                 from  hjual h,sales s, customer c
 
@@ -188,7 +188,7 @@ $id=$_SESSION["id_sales"];
                                                 <a id="update_status" class='btn btn-info text-dark disabled' id_pengiriman="<?php echo $row[1];?>" >Sampai Tujuan</a>
                                             <?php }
                                         ?>                                        
-                                        <a class="btn_detail btn btn-info text-dark"  id_pengiriman="<?php echo $row[1];?>"  >Details</a>
+                                        <a class="btn_detail btn btn-info text-dark"  id_pengiriman="<?php echo $row[1];?>" id_cust="<?php echo $row[4];?>" id_alamat="<?php echo $row[5];?>"  >Details</a>
                                     </td>
                                 </tr>
                         <?php
@@ -209,16 +209,31 @@ $id=$_SESSION["id_sales"];
                 
                 <div class="row my-4">              
                     <div class="col-md-12 ftco-animate" >
-                    <div class="cart-list">
-                        <div class="form-group">                    
-                            <h6> Details</h6>
+                    <div class="card">
+                        <div class="card-header" >
+                            <strong class="card-title">Detail Barang #<span id="idhjual"> </span></strong>
+                        </div>
+                    </div>
+                    <div class="card-body text-dark" >    
+                        <div class="row">
+                            <div class="col-md-6">
+                            <h6>Nama Pembeli</h6>
+                            <h6 id="namapemilik"></h6>
+                            <br>
+                            <h6>Nomor Telepon</h6>
+                            <h6 id="nomorpemilik"></h6>
+                            <br>
+                            </div>
+                            <div class="col-md-6">
+                            <h6>Alamat kirim</h6>
+                            <h6 id="alamatpemilik"></h6>                               
+                            </div>
                         </div>
                         <div class="table-responsive" id="details">
                         </div>
                     </div>
                     </div> <!-- end of col-md -->
                 </div> <!-- end of row -->
-                    
         </div> <!-- end of container -->
     </section>
     <!-- end cart -->
@@ -259,10 +274,38 @@ $id=$_SESSION["id_sales"];
     $(".btn_detail").click(function(){
         
        // $("#details").empty();
-        var x= $(this).attr("id_pengiriman");
+        var x= $(this).attr("id_pengiriman"); //no order
         console.log(x);
         var link= "tabledetail.php?id="+x;
         $("#details").load(link);
+
+        var idcust= $(this).attr("id_cust"); //idcust
+        var getIdAlamat = $(this).attr("id_alamat"); //id alamat
+        //dapatkan data customernya
+        $("#idhjual").html(x);
+        //DETAIL CUSTOMERNYA -- nama notelp
+        $.post("ajaxreseller.php",{
+            jenis:"get_detail_customerHutang",
+            idcust:idcust,
+        },
+        function(data){                 
+            $("#namapemilik").html(data[2]);
+            $("#nomorpemilik").html(data[3]);
+        });
+
+        //alamat customernya
+        $.post("ajaxreseller.php",{
+            jenis:"get_detailalamat_customerHutang",
+            getIdAlamat:getIdAlamat,
+        },
+        function(data){                 
+            var provinsi = data[0].split("-");
+            var kota = data[1].split("-");
+            var kec = data[2].split("-");
+            var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+            $("#alamatpemilik").html(alamat);
+        });
+        //end of dapatkan data customernya
 
     })
 

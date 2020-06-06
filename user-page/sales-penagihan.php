@@ -81,7 +81,7 @@ require_once("head.php");
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
+                    <a class="dropdown-item" href="sales-riwayatpenagihan.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
                     <a class="dropdown-item" onclick="keluar()">Keluar</a>
@@ -97,7 +97,7 @@ require_once("head.php");
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">TAGIHAN SAYA</h1>
+            <h1 class="mb-0 bread">YANG DITAGIHKAN</h1>
 
           </div>
         </div>
@@ -111,8 +111,8 @@ require_once("head.php");
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list" >
                         <div class="form-group">                    
-                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
-                            <small id="helpId" class="text-muted">*Tombol Bayar Tagihan - melunaskan sisa tagihan</small>
+                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli oleh pelanggan</small><br>
+                            <small id="helpId" class="text-muted">*Jika status tagihan <b> Tagihkan Pelanggan ini </b> maka sales perlu menagihkan langsung ke pelanggan</small>
                         </div>
                         
                         <div class="table-responsive" >
@@ -283,7 +283,7 @@ require_once("head.php");
                         else if (row.sisa_waktu_pelunasan < 0) {
                             var rowIndex = meta.row+1;
                             $('#tableorders tbody tr:nth-child('+rowIndex+')').addClass('lightRed text-dark');
-                            return "<label class='text-danger font-weight-bold'>Anda telah melewati (" + row.sisa_waktu_pelunasan + " hari) dari masa pembayaran </label>";
+                            return "<label class='text-danger font-weight-bold'>Tagihkan pelanggan ini!</label>";
                         }
                         else if (row.sisa_waktu_pelunasan > 3) {
                             return "<label class='text-info font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
@@ -295,21 +295,8 @@ require_once("head.php");
                     "searchable": false,
                     "orderable":false,
                     "render": function (data, type, row, meta) {  
-                        if (row.sisa_waktu_pelunasan <= 3 && row.sisa_waktu_pelunasan >= 0) {
-                            var rowIndex = meta.row+1;
-                            var id=row.id_piutang;
-                            return "<a id=\"tagihkan\" onclick=\"tagihkan(\'"+id+"\')\" class='btn btn-info text-dark'>Tagihkan</a> <a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a>  " ;
-                            //note : berikan action ketika ditekan tagihkan dia akan mengirim email ke resellernya
-                        }
-                        else if (row.sisa_waktu_pelunasan < 0) {
-                            var rowIndex = meta.row+1;
-                            $('#tableorders tbody tr:nth-child('+rowIndex+')').addClass('lightRed text-dark');
-                            return "<label class='text-danger font-weight-bold'>Anda telah melewati (" + row.sisa_waktu_pelunasan + " hari) dari masa pembayaran </label>";
-                        }
-                        else if (row.sisa_waktu_pelunasan > 3) {
-                            return "<a id=\"\" class='btn btn-info text-dark disabled'>Tagihkan</a> <a id=\"GetDetail\" class='btn btn-info text-dark'>Detail</a> " ;
-                        }
-                       
+                        
+                            return "<a id=\"GetDetail\" class='btn btn-info text-dark' id_cust=" + row.id_cust + " id_alamat=" + row.id_alamatpengiriman + "> Detail </a>"
                     }
                 },
                 
@@ -338,24 +325,11 @@ require_once("head.php");
             {
                 getId = data[Object.keys(data)[1]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
-                getTotal = data[Object.keys(data)[6]]; //ongkir
+                getTotal = data[Object.keys(data)[5]]; //ongkir
                 $("#ida").html(getIdAlamat);
                 var tr = $(this).closest('tr');
 
-                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
-                /*$.post("ajaxreseller.php",{
-                    jenis:"getTotal",
-                    getId:getId,
-                },
-                function(data){                 
-                   // getTotal = data[1];
-                    $("#ongkir").html(data[1]);
-                   // temptotal = getTotal;
-                });             
-                console.log(getTotal);*/
-                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
                 
-
                 //table detail order barang dibagian bawah
                 tabledetail = $('#tabledetailorder').DataTable( {
                     // retrieve: true,
@@ -436,6 +410,8 @@ require_once("head.php");
                 } );
                 //end of table detail order barang dibagian bawah
 
+                var idcust = $(this).attr("id_cust"); //idcust
+                var getIdAlamat = $(this).attr("id_alamat"); //id alamat pengiriman
                 //DETAIL CUSTOMERNYA -- nama notelp
                 $.post("ajaxreseller.php",{
                     jenis:"get_detail_customerHutang",
@@ -449,7 +425,6 @@ require_once("head.php");
                 //alamat customernya
                 $.post("ajaxreseller.php",{
                     jenis:"get_detailalamat_customerHutang",
-                    emailcust:emailcust,
                     getIdAlamat:getIdAlamat,
                 },
                 function(data){                 

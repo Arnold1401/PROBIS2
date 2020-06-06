@@ -33,8 +33,12 @@ require_once("head.php");
         }
 
         .lightRed {
-  background-color: #f0aaaa !important
-}
+            background-color: #f0aaaa !important
+        }
+
+        .lightyellow{
+            background-color: #f5e042;
+        }
     </style>
 </head>
 <body class="goto-here">
@@ -72,12 +76,12 @@ require_once("head.php");
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item "><a href="sales-home.php" class="nav-link">Pesanan</a></li>
-                <li class="nav-item active"><a href="#" class="nav-link">Penagihan</a></li>
-                <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li>
+                <li class="nav-item active"><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
+                <!-- <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li> -->
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="riwayat-trans.php">Riwayat Penagihan</a>
+                    <a class="dropdown-item" href="#.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
                     <a class="dropdown-item" onclick="keluar()">Keluar</a>
@@ -107,8 +111,8 @@ require_once("head.php");
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list" >
                         <div class="form-group">                    
-                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
-                            <small id="helpId" class="text-muted">*Tombol Bayar Tagihan - melunaskan sisa tagihan</small>
+                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli oleh pelanggan</small><br>
+                            <small id="helpId" class="text-muted">*Jika status tagihan <b> Tagihkan Pelanggan ini </b> maka sales perlu menagihkan langsung ke pelanggan</small>
                         </div>
                         
                         <div class="table-responsive" >
@@ -120,8 +124,7 @@ require_once("head.php");
                                         <th>Tanggal Pesanan</th>
                                         <th>Tanggal Jatuh tempo</th>
                                         <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -131,62 +134,6 @@ require_once("head.php");
                     </div> <!-- end cardlist -->
                 </div> <!-- end ftco-animate -->
             </div> <!-- end row -->
-            
-            <div class="row my-4">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <strong class="card-title">Detail Barang</strong>
-                            </div>
-                            <div class="card-body">    
-                                <div class="row text-dark">
-                                    <div class="col-md-6">
-                                        <h6>Nama Pembeli</h6>
-                                        <h6 id="nama_pemilik"></h6>
-                                        <br>
-                                        <h6>Nomor Telepon</h6>
-                                        <h6 id="nomor_pemilik"></h6>
-                                        <br>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6>Alamat kirim</h6>
-                                        <h6 id="alamat_pemilik"></h6>                               
-                                    </div>
-                                </div>                                
-                              <div class="table-responsive" id="table_detail">
-                                <table id="tabledetailorder" class="table table-striped table-bordered text-dark" width="100%">
-                                        <!-- <input type="text" name="datefilter" id="filterdate" value="" /> -->
-                                    <thead>
-                                        <tr >
-                                            <th>Produk</th>
-                                            <th>Nama Produk</th>
-                                            <th>Jumlah Beli</th>
-                                            <th>Subtotal</th>
-                                        </tr>
-                                        
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal :</th>
-                                            <th style="font-weight:bold"></th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
-                                            <th style="font-weight:bold" id="Ongkir"></th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
-                                            <th style="font-weight:bold" id="totalsemua"></th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                                </div>    <!-- end table responsive -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
         </div> <!-- end container -->
     </section>
     <!-- end cart -->
@@ -216,23 +163,12 @@ require_once("head.php");
     }
     //end of logout
 
-    //function sisa waktu pelunasan untuk semua piutang
-    function sisa_waktu_pelunasan() {
-        $.post("ajaxreseller.php",{
-            jenis:"cek_sisa_waktupelunasan",
-            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
-            },
-            function(data){
-                console.log(data);
-                
-            })
-    }
-
+    
     //document ready
     $(document).ready(function () {
         var tableuser="";
         var sisa_jatuhtempo="";
-        sisa_waktu_pelunasan();
+        
 
         //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
         tableuser = $('#tableorders').DataTable( 
@@ -257,7 +193,7 @@ require_once("head.php");
              "ordering":true, //set true agar bisa di sorting
              "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
              "ajax":{
-                 "url":"datatables/datatable_penagihan.php", 
+                 "url":"datatables/datatable_riwayatpenagihan.php", 
                  "type":"POST",
                  "data":{"idsales":idsales},
              },
@@ -268,32 +204,7 @@ require_once("head.php");
                 {"data":"id_hjual"},                         
                 {"data":"tanggal_jatuh_tempo", render: $.fn.dataTable.render.moment( 'DD-MMMM-YYYY' )},
                 {"data":"sisa_tagihan", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
-                {"data":"sisa_waktu_pelunasan",
-                    "searchable": false,
-                    "orderable":false,
-                    "render": function (data, type, row, meta) {  
-                        if (row.sisa_waktu_pelunasan <= 3) {
-                            var rowIndex = meta.row+1;
-                            $('#tableorders tbody tr:nth-child('+rowIndex+')').addClass('lightRed text-dark');
-                            return "<label class='text-danger font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
-                            
-                        }
-                        else if (row.sisa_waktu_pelunasan > 3) {
-                            return "<label class='text-info font-weight-bold'>Sisa waktu pelunasan " + row.sisa_waktu_pelunasan + " hari </label>";
-                        }
-                       
-                    }
-                },
-                {"data":"status_order",
-                    "searchable": false,
-                    "orderable":false,
-                    "render": function (data, type, row) {  
-                        if (row.status_order == "Menunggu Pelunasan") {
-                            return "<button type='button' class='btn btn-success btn-sm'>Tagihkan</button>";
-                        }
-                        
-                    }
-                },
+                
              ],
     
         } );
@@ -308,236 +219,7 @@ require_once("head.php");
 
         
         
-        var getTotal, temptotal='';
-        //jika button di list orders dipilih/ditekan
-        $('#tableorders tbody').on( 'click', 'a', function () {
-            var action = this.id;
-            data = tableuser.row($(this).closest('tr')).data();
-
-            //action button Detail -- menampilkan detail order barang yang dibeli di bagian table bawah
-            if(action == 'GetDetail')
-            {
-                getId = data[Object.keys(data)[0]]; //idhjual
-                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
-                getTotal = data[Object.keys(data)[6]]; //ongkir
-                $("#ida").html(getIdAlamat);
-                var tr = $(this).closest('tr');
-
-                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
-                /*$.post("ajaxreseller.php",{
-                    jenis:"getTotal",
-                    getId:getId,
-                },
-                function(data){                 
-                   // getTotal = data[1];
-                    $("#ongkir").html(data[1]);
-                   // temptotal = getTotal;
-                });             
-                console.log(getTotal);*/
-                //dapatkan total pembelian per Id yang dipilih -- utk cek ongkir
-                
-
-                //table detail order barang dibagian bawah
-                tabledetail = $('#tabledetailorder').DataTable( {
-                    // retrieve: true,
-                    destroy: true, //destroy dulu biar ngerefresh pas ganti2 
-                      "buttons": [ 'copy', 'excel', 'pdf' ],
-                      "processing":true,
-                        "language": {
-                        "lengthMenu": "Tampilkan _MENU_ data per Halaman",
-                        "zeroRecords": "Maaf Data yang dicari tidak ada",
-                        "info": "Tampilkan data _PAGE_ dari _PAGES_",
-                        "infoEmpty": "Tidak ada data",
-                        "infoFiltered": "(filtered from _MAX_ total records)",
-                        "search":"Cari",
-                        "paginate": {
-                            "first":      "Pertama",
-                            "last":       "terakhir",
-                            "next":       "Selanjutnya",
-                            "previous":   "Sebelumnya"
-                            },
-                        },
-                      "serverSide":true,
-                      "ordering":true, //set true agar bisa di sorting
-                      "order":[[0, 'asc']], //default sortingnya berdasarkan kolom, field ke 0 paling pertama
-                      "ajax":{
-                          "url":"datatables/datatable_detailorder.php",
-                          "type":"POST",
-                          "data":{"get_id":getId},
-                      },
-                      "deferRender":true,
-                      "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
-                      "columns":[
-                          {"data":"id_djual"},
-                          {"data":"nama_barang"},
-                          {"data":"kuantiti"},                         
-                          {"data":"subtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
-                          
-                      ],                      
-                      "footerCallback": function ( row, data, start, end, display ) {
-                            var api = this.api(), data;
-                          
-                            //Remove the formatting to get integer data for summation
-                            var intVal = function ( i ) {
-                                return typeof i === 'string' ?
-                                    i.replace(/[\$,]/g, '')*1 :
-                                    typeof i === 'number' ?
-                                        i : 0;
-                            };
-            
-                            // Total over all pages
-                            total = api
-                                .column( 3 )
-                                .data()
-                                .reduce( function (a, b) {
-                                    return intVal(a) + intVal(b);
-                                }, 0 );
-                
-                            // Total over this page
-                            pageTotal = api
-                                .column( 3, { page: 'current'} )
-                                .data()
-                                .reduce( function (a, b) {
-                                    return intVal(a) + intVal(b);
-                                }, 0 );
-            
-                            // Update footer
-                            $( api.column( 3 ).footer() ).html(
-                                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-                            );
-
-                            var ongkir = getTotal - total;
-                            $("#Ongkir").html(
-                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
-                            );
-                            $("#totalsemua").html(
-                                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
-                            );
-                        }
-                } );
-                //end of table detail order barang dibagian bawah
-
-                //DETAIL CUSTOMERNYA -- nama notelp
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detail_customerHutang",
-                    idcust:idcust,
-                },
-                function(data){                 
-                    $("#nama_pemilik").html(data[2]);
-                    $("#nomor_pemilik").html(data[3]);
-                });
-
-                //alamat customernya
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detailalamat_customerHutang",
-                    emailcust:emailcust,
-                    getIdAlamat:getIdAlamat,
-                },
-                function(data){                 
-                    
-                    var provinsi = data[0].split("-");
-                    var kota = data[1].split("-");
-                    var kec = data[2].split("-");
-                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
-                    $("#alamat_pemilik").html(alamat);
-                });
-            }
-            //end of action button Detail
-
-            //action utk melunaskan hutang -- button bayar
-            if(action == 'BayarHutang')
-            {
-                getId = data[Object.keys(data)[0]]; //idhjual
-                getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
-                var tr = $(this).closest('tr');
-                $("#ida").html(getIdAlamat);
-
-                //DETAIL TAGIHAN
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detail_tagihan",
-                    getId:getId,
-                },
-                function(data){                 
-                   var jatuhtempohutang = moment(data[2]).format("DD-MMMM-YYYY");
-                   
-                    $("#idhjualhutang").html($.parseJSON(data[1]));
-                    $("#jatuhtempohutang").html(jatuhtempohutang);
-                    $("#tagihan").html($.parseJSON(data[3]));
-                });
-
-                //DETAIL CUSTOMERNYA -- nama notelp
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detail_customerHutang",
-                    idcust:idcust,
-                },
-                function(data){                 
-                    $("#namapemilik").html(data[2]);
-                    $("#nomorpemilik").html(data[3]);
-                   // $("#emailpemilik").html(data[1]);
-                });
-
-                //alamat customernya
-                $.post("ajaxreseller.php",{
-                    jenis:"get_detailalamat_customerHutang",
-                    emailcust:emailcust,
-                    getIdAlamat:getIdAlamat,
-                },
-                function(data){                 
-                    var provinsi = data[0].split("-");
-                    var kota = data[1].split("-");
-                    var kec = data[2].split("-");
-                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
-                    $("#alamatpemilik").html(alamat);
-                });
-            }
-            //end of action utk melunaskan hutang -- button bayar
-
-        } );
-        //end of jika button di list orders dipilih/ditekan
-
-        var getIdBarang, dataget="";
-
-        //jika button pada detail order diklik/dipilih
-        $('#tabledetailorder tbody').on( 'click', 'a', function () {
-            var action = this.id;
-            dataget = tabledetail.row($(this).closest('tr')).data();
-
-            getIdBarang = dataget[Object.keys(dataget)[2]]; //get Id barang
-            iddjualulas = dataget[Object.keys(dataget)[1]]; //get Id djual
-
-            function getnamabarang(){
-                $.post("ajaxreseller.php",{
-                    jenis:"get_nama_barang",
-                    getIdBarang:dataget[Object.keys(dataget)[2]], //get Id barang
-                },
-                function(data){                 
-                    $("#nama_produkdiulas").html(data);
-                    idbarangutkdiulas=getIdBarang;               
-                });
-            }
-
-            //action button beri ulasan
-            if (action == 'GiveUlasan') {
-                getnamabarang();
-            }
-            //end of action button beri ulasan
-
-        });
-        //end of jika button pada detail order diklik/dipilih
         
-        //filter list order berdasarkan status yang dpilih
-        var table = $('#tableorders').DataTable();
-        $('#filter').on( 'click', 'a', function () {
-            console.log($(this).data("value"));
-            table.search( $(this).data("value")).draw();
-           // 
-            if ($(this).data("value") == "") {
-                $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
-               
-            }
-            $('#tabledetailorder').empty();
-        } );
-        //end of filter list order berdasarkan status yang dpilih
     });
 
     

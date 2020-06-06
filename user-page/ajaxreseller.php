@@ -110,9 +110,9 @@ if ($_POST["jenis"] == "get_detail_customerHutang") {
 
 if ($_POST["jenis"] == "get_detailalamat_customerHutang") {
     $conn = getConn();
-    $emailcust=$_POST["emailcust"];
+    //$emailcust=$_POST["emailcust"];
     $getIdAlamat = $_POST["getIdAlamat"];
-    $sql = "select provinsi, kota, kecamatan, alamat_lengkap from alamat_pengiriman where email='$emailcust' and id_alamat=$getIdAlamat";
+    $sql = "select provinsi, kota, kecamatan, alamat_lengkap from alamat_pengiriman where id_alamat=$getIdAlamat";
     $query = mysqli_query($conn,$sql); // get the data from the db
     $result = array();
     while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
