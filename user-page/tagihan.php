@@ -806,7 +806,8 @@ require_once("head.php");
                     jenis:"selesaikan",
                     idhjual:id,
                 },
-                function(data){                     
+                function(data){   
+                    $('#tableorders').DataTable().ajax.reload();                  
                 });
     }
 
@@ -816,7 +817,7 @@ require_once("head.php");
                     idhjual:id,
                 },
                 function(data){      
-                                    
+                    $('#tableorders').DataTable().ajax.reload();        
                 });
     }
 
