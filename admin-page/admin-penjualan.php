@@ -90,7 +90,7 @@ require_once("adminhead.php");
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Pengiriman">Pengiriman</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Selesai">Selesai</a></li>
-                                <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Piutang">Piutang</a></li>
+                                <!-- <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Piutang">Piutang</a></li> -->
                                 <li class="btn"><a class="btn btn btn-outline-dark" href="#card_header_penjualan" data-value="Batal">Batal</a></li>
                             </ul>
 
