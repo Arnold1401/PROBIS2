@@ -35,7 +35,7 @@
                             <h3>$nm</h3>
                         </td>
                         <td class='price'>Rp.$fhg</td>
-                        <td> <a href='#'> Masukkan ke keranjang</a> <td>
+                        <td> <a href='#' onclick=\"addtocart('$idb')\"> Masukkan ke keranjang</a> <td>
                         <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
                     </tr>";
                 }
@@ -44,9 +44,7 @@
           
            //$_SESSION['berat']= hitungberat();
         }else{
-            $kal="<tr class='text-center'>                                                           
-                  
-                    
+            $kal="<tr class='text-center'>             
                     <td class='product-name' colspan=4>
                         <h3>Daftar Keinginan Kosong</h3>
                     </td>

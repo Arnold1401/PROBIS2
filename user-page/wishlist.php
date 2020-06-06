@@ -151,6 +151,26 @@ require_once("head.php");
         });
     }
 
+    function addtocart(params) {
+      $.ajax({
+          url: "ajaxs/ajaxcart.php",
+          method: "POST",
+          data: {
+            jenis: 'additem',
+            idbarang:params,
+          },
+          success: function(data) {
+            remove(params);
+            alert("Barang telah masuk di keranjang !");
+            console.log(data);
+            window.location.href="produk.php";
+            
+          }
+        });
+    }
+
+
+
 </script>
    
 </body>
