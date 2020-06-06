@@ -56,7 +56,7 @@ $akhir=$_REQUEST["tgl_akhir"];
                {
         ?>
             <tr>
-                <td><?php echo $row[1];?></td>
+                <td><?php echo date("d-M-Y", strtotime($row[1]));?></td>
                 <td><?php echo "Rp ".number_format($row[0],0,",",".");?></td>
             </tr>
 
