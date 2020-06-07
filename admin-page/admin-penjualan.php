@@ -211,7 +211,7 @@ require_once("adminhead.php");
              "columns":[
 
                  {"data":"id_hjual"},
-                 {"data":"tanggal_order"},
+                 {"data":"tanggal_order", render: $.fn.dataTable.render.moment('DD-MMMM-YYYY')},
                  {"data":"nama_perusahaan"},
                  {"data":"status_order",
                     "searchable": false,
