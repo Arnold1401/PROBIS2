@@ -409,7 +409,7 @@ require_once("head.php");
                 jenis: "cekkredit",
             },
             function(data) {
-                alert(data);
+                console.log(data);
                 if (data.indexOf("masih")) {
                     return true;
                 }else{
