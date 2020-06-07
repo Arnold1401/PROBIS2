@@ -571,12 +571,10 @@ if ($_POST["jenis"]=="getnotif") {
 if ($_POST["jenis"]=="cekkredit") {
    $conn=getConn();
    $idcust=$_SESSION["idcust"];
-   $sql="select * from hjual where id_cust='$idcust' and status_pembayaran='Menunggu Pelunasan' or status_pembayaran='Hutang'";
+   $sql="select * from hjual where id_cust='$idcust' and id_hjual in (select id_hjual from hjual where status_pembayaran='Hutang' or status_pembayaran='Menunggu Pelunasan')";
    $result = $conn->query($sql);
    if ($result->num_rows > 0) {
      echo "masih";
-   }else{
-      echo "";
    }
    $conn->close();
 }

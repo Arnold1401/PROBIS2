@@ -223,6 +223,16 @@ require_once("head.php");
     ?>
     <script>
 
+        function cekkredit() {
+            $.post("ajaxs/ajaxcheckout.php", {
+                jenis: "cekkredit",
+            },
+            function(data) {
+                return data;
+            });
+        }
+
+        cekkredit();
                                     
         function load() {
             $.post("ajaxs/ajaxcart.php", {
@@ -346,7 +356,7 @@ require_once("head.php");
         function lunas(){
             if ($("#isipaket").val()!='-1') {
                 var arrongkir=$("#isipaket").val().split('*');
-                if (cekkredit()) {
+                if (cekkredit()!="masih") {
                     alert("Anda belum membayar tagihan sebelumnya !");
                 }else{
                    
@@ -374,7 +384,7 @@ require_once("head.php");
 
         function hutang(){
             if ($("#isipaket").val()!='-1') {
-                if (cekkredit()) {
+                if (cekkredit()!="masih") {
                     alert("Anda belum membayar tagihan sebelumnya !");
                 }else{
                     var arrongkir=$("#isipaket").val().split('*');
@@ -404,19 +414,8 @@ require_once("head.php");
         }
 
 
-        function cekkredit() {
-            $.post("ajaxs/ajaxcheckout.php", {
-                jenis: "cekkredit",
-            },
-            function(data) {
-                console.log(data);
-                if (data.indexOf("masih")) {
-                    return true;
-                }else{
-                    return false;
-                }
-            });
-        }
+        
+
 
     </script>
 </body>
