@@ -807,6 +807,7 @@ require_once("head.php");
                     idhjual:id,
                 },
                 function(data){   
+                    alert("berhasil melakukan pembayaran");
                     $('#tableorders').DataTable().ajax.reload();                  
                 });
     }
@@ -816,7 +817,8 @@ require_once("head.php");
                     jenis:"selesaikanhutang",
                     idhjual:id,
                 },
-                function(data){      
+                function(data){    
+                    alert("berhasil melakukan pelunasan tagihan");  
                     $('#tableorders').DataTable().ajax.reload();        
                 });
     }
