@@ -52,8 +52,14 @@
         $sql1="update hjual set status_pembayaran='Menunggu Pelunasan' where id_hjual='$idh'";
         if ($conn->query($sql1)) {
             
+            
         }
 
+        $tgl=date("Y-m-d");
+        $sql2="update piutang set tanggal_pelunasan='$tgl' where id_hjual='$idh'";
+        if ($conn->query($sql2)) {
+            
+        }
 
 
         $conn->close();

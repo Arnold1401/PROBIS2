@@ -344,24 +344,28 @@ require_once("head.php");
 
 
         function lunas(){
-            if ($("#isipaket").val()>0) {
+            if ($("#isipaket").val()!='-1') {
                 var arrongkir=$("#isipaket").val().split('*');
-            $.post("ajaxs/ajaxcheckout.php", {
-                    jenis: "summar",
-                    idalamat:$("#alamat").val(),
-                    ongkir:arrongkir[3],
-                    kurir:$("#isipaket").val(),
-                },
-                function(data) {
-                    console.log(data);
-                    if (data.search("pas")>0) {
-                        window.location.href="pagepay.php";
-                    }else{
-                        alert(data);
-                    }
-                    
+                if (cekkredit()) {
+                    alert("Anda belum membayar tagihan sebelumnya !");
+                }else{
                    
-            });
+                    var arrongkir=$("#isipaket").val().split('*');
+                    $.post("ajaxs/ajaxcheckout.php", {
+                            jenis: "summar",
+                            idalamat:$("#alamat").val(),
+                            ongkir:arrongkir[3],
+                            kurir:$("#isipaket").val(),
+                        },
+                        function(data) {
+                            console.log(data);
+                            if (data.search("pas")>0) {
+                                window.location.href="pagepay.php";
+                            }else{
+                                alert(data);
+                            }
+                    });
+                }
             }else{
                 alert("Harus pilih kurir");
             }
@@ -369,28 +373,51 @@ require_once("head.php");
         }
 
         function hutang(){
-            if ($("#isipaket").val()>0) {
-                var arrongkir=$("#isipaket").val().split('*');
-            $.post("ajaxs/ajaxcheckout.php", {
-                    jenis: "piutang",
-                    idalamat:$("#alamat").val(),
-                    ongkir:arrongkir[3],
-                    kurir:$("#isipaket").val(),
-                },
-                function(data) {
-                    console.log(data);
-                    if (data.search("pas")>0) {
-                        window.location.href="pagepay.php";
-                    }else{
-                        alert(data);
-                    }
-            });
+            if ($("#isipaket").val()!='-1') {
+                if (cekkredit()) {
+                    alert("Anda belum membayar tagihan sebelumnya !");
+                }else{
+                    var arrongkir=$("#isipaket").val().split('*');
+                    $.post("ajaxs/ajaxcheckout.php", {
+                            jenis: "piutang",
+                            idalamat:$("#alamat").val(),
+                            ongkir:arrongkir[3],
+                            kurir:$("#isipaket").val(),
+                        },
+                        function(data) {
+                            console.log(data);
+                            if (data.search("pas")>0) {
+                                window.location.href="pagepay.php";
+                            }else{
+                                alert(data);
+                            }
+                    });
+                   
+                }
+
+               
             }else{
                 alert("Harus piih kurir !");
             }
                 
            
         }
+
+
+        function cekkredit() {
+            $.post("ajaxs/ajaxcheckout.php", {
+                jenis: "cekkredit",
+            },
+            function(data) {
+                alert(data);
+                if (data.indexOf("masih")) {
+                    return true;
+                }else{
+                    return false;
+                }
+            });
+        }
+
     </script>
 </body>
 
