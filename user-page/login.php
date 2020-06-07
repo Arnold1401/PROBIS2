@@ -83,7 +83,7 @@ require_once("headlogin.php");
             function(data){
                 console.log(data);
                 if (data.search("admin salah password")>0||data.search("data tidak ditemukan")>0) {
-                    
+                    alert("Username atau Password Salah !");
                 }else{
                     window.location.href=data;
                 }
