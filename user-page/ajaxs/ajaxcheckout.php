@@ -110,7 +110,7 @@ function insertdatabaseLUN($orderid,$alam)
 
    $tglord=date("Y-m-d");
    $conn = getConn();
-   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid','$tglord',' ','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Menunggu Pembayaran','0')";
+   $q1="INSERT INTO `hjual`(`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`,`totalkeseluruhan`) VALUES ('$orderid','$tglord',' ','$kurir','$idsales','$alam','$totalsemua','$iduser','Proses','Menunggu Pembayaran','0','$totalsemua')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -336,6 +336,8 @@ function insertdatabasePIU($orderid,$piu,$alam)
    }
 
 
+
+
    $conn->close();
 
    $tglord=date("Y-m-d");
@@ -350,7 +352,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid','$tglord','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang','0')";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`,`totalkeseluruhan`) VALUES ('$orderid','$tglord','-','$kurir','$idsales','$alam','$bayar','$iduser','Proses','Hutang','0','$totalsemua')";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -563,6 +565,20 @@ function cancel($orderid){
 
 if ($_POST["jenis"]=="getnotif") {
    echo getstat("LUN20050200001");
+}
+
+
+if ($_POST["jenis"]=="cekkredit") {
+   $conn=getConn();
+   $idcust=$_SESSION["idcust"];
+   $sql="select * from hjual where id_cust='$idcust' and status_pembayaran='Menunggu Pelunasan' or status_pembayaran='Hutang'";
+   $result = $conn->query($sql);
+   if ($result->num_rows > 0) {
+     echo "masih";
+   }else{
+      echo "";
+   }
+   $conn->close();
 }
 
 ?>
