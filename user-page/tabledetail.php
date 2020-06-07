@@ -58,7 +58,7 @@
                                     <td><?php echo $row[1];?></td>
 
                                     <td><?php echo "Rp ".number_format($row[2],0,",",".") ;?></td>
-                                    <td><?php echo "Rp ".number_format($row[3],0,",",".") ;;?></td>
+                                    <td><?php echo "Rp ".number_format($row[3],0,",",".") ;?></td>
 </tr>
 
 <?php

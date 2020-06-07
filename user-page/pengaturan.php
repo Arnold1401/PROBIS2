@@ -252,7 +252,7 @@ $row = $result->fetch_assoc();
 
                                     <div class="form-group">
                                     
-                           <button type="submit" class="btn btn-warning btn-md my-2">
+                           <button type="submit" class="btn btn-warning btn-md my-2" onclick="ubahalamat()">
                                <i class="fa fa-ban"></i> Ubah Alamat
                            </button>
                            <button type="button" class="btn btn-danger btn-md" onclick="hapusalamat()">
@@ -318,15 +318,18 @@ $row = $result->fetch_assoc();
     <script>
 
         //load alamat
-        $.post("ajaxs/ajaxsetting.php",
+        function loadalamat(){
+            $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"loadalamat",
             },
             function(data){
                 $("#alamat").html(data);
             });
+        }
+        
 
-            function cb_prov(){
+        function cb_prov(){
         $.post("ajaxs/ajaxregister.php",
         {
             jenis:"getprovince",
@@ -368,7 +371,7 @@ $row = $result->fetch_assoc();
         
     }
 
-    cb_prov();//load prov
+    
         
     
 
@@ -458,6 +461,8 @@ $row = $result->fetch_assoc();
     }
 
     $(document).ready(function () {
+        cb_prov();//load prov
+        loadalamat();
         notif_profil();
         notif_akun();
     });
@@ -480,6 +485,13 @@ $row = $result->fetch_assoc();
             });
     }
 
+    function ubahalamat() {
+        //kalau tekan button ubah alamat itu alamat yang dipilih/diklik turun ke form dibawah semua
+        //bagian yg provinsi, kota, dll semua terselect dan terisi sesuai alamat yg dipilih
+        $("#alamat").val();
+        
+    }
+    
     $("#simpan_alamat").click(function(){
         var prov = $("#cb_provinsi").val();
         var kota = $("#cb_kota").val();
@@ -504,11 +516,14 @@ $row = $result->fetch_assoc();
             },
             function(data){
                 $("#alamat").html(data);
+                loadalamat();
+                reset();
             });
             });
         }else{
             alert("Mohon semua field diisi terlebih dahulu");
         }
+
     });
 
     $( "#nomor_ktp" ).keyup(function() {
@@ -572,8 +587,13 @@ $row = $result->fetch_assoc();
     }
 
     function reset(){
-        $("#pass").val()="";
-        $("#cpass").val()="";
+        $("#pass").val("");
+        $("#cpass").val("");
+        $("#cb_provinsi").val("");
+        $("#cb_kota").val("");
+        $("#kodepos").val("");
+        $("#cb_kecamatan").val("");
+        $("#alamat_lengkap").val("");
     }
 
     function gantipass() {

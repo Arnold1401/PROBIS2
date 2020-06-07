@@ -65,9 +65,15 @@
                 $ida=$row1["id_alamat"];
                 $alamat=$row1["alamat_lengkap"];
                 $kota=$row1["kota"];
-                $kota = explode('-', $kota);
                 $provinsi=$row1["provinsi"];
-                $kal.="<option value='$ida'>$alamat,$kota[1]</option>";
+                $kecamatan = $row1["kecamatan"];
+
+                $provinsi = explode('-', $provinsi);
+                $kota = explode('-', $kota);
+                $kecamatan = explode('-', $kecamatan);
+                
+                
+                $kal.="<option value='$ida'>$provinsi[1], $kota[1], $kecamatan[1], $alamat</option>";
             }
         }else{
             $kal="<option value='-1'>Anda tidak memiliki alamat</option>";
@@ -80,7 +86,8 @@
     if ($_POST["jenis"]=="hapusalamat") {
         $conn = getConn();
         $id=$_POST["ida"];
-        $sql = "update alamat_pengiriman set no_prioritas='0' where id_alamat ='$id' ";
+        $sql = "delete from alamat_pengiriman where id_alamat='$id'";
+       // $sql = "update alamat_pengiriman set no_prioritas='0' where id_alamat ='$id' ";
             if ($conn->query($sql)) {   
                 echo "berhasil";
             }else{
@@ -110,11 +117,31 @@
         $largestNumber = $largestNumber+1;
         $sql3 = "insert into alamat_pengiriman (email,provinsi,kota,kecamatan,alamat_lengkap,no_prioritas,kode_pos) values ('$email_user','$prov','$kota','$camat','$alamat_user',$largestNumber,'$kodepos')";
         if($conn->query($sql3)){
-            echo "berhasil";
+            echo "Anda berhasil menambah alamat pengiriman baru";
         }else{
             echo "gagal";
         }
       
+    }
+
+    if ($_POST["jenis"]=="ubahalamat") {
+        $idalamat = $_POST["idalamat"];
+        $conn = getConn();
+        $sql = "select * from alamat_pengiriman where id_alamat=$idalamat";
+        $query = mysqli_query($conn,$sql); // get the data from the db
+        $result = array();
+        while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+            $result [0] = $row['id_alamat'];
+            $result [1] = $row['provinsi'];
+            $result [2] = $row['kota'];
+            $result [3] = $row['kecamatan'];
+            $result [4] = $row['alamat_lengkap'];
+            $result [5] = $row['kode_pos'];
+        }
+        
+        $conn->close();
+        header('Content-Type: application/json');
+        echo json_encode($result); // return value of $result
     }
 
     

@@ -1,15 +1,17 @@
 <?php
-include "adminconn.php"; // Load file koneksi.php
+include "../conn.php"; // Load file koneksi.php
 $connect=getConn();
 
 $search = $_POST['search']['value']; // Ambil data yang di ketik user pada textbox pencarian
 $limit = $_POST['length']; // Ambil data limit per page
 $start = $_POST['start']; // Ambil data start
+$idsales = $_POST['idsales'];
 
-$sql = mysqli_query($connect, "SELECT id_hjual FROM hjual"); // Query untuk menghitung seluruh data siswa
+$sql = mysqli_query($connect, "SELECT id_hjual FROM hjual where id_sales=$idsales"); // Query untuk menghitung seluruh data siswa
 $sql_count = mysqli_num_rows($sql); // Hitung data yg ada pada query $sql
 
-$query = "SELECT * FROM hjual h, customer c WHERE (h.id_hjual LIKE '%".$search."%' OR h.tanggal_order LIKE '%".$search."%' OR h.tanggal_orderselesai LIKE '%".$search."%' OR h.status_order LIKE '%".$search."%' OR h.id_cust LIKE '%".$search."%') and c.id_cust=h.id_cust and h.status_pembayaran!='Menunggu Pembayaran' or h.status_pembayaran!='Hutang' GROUP BY h.id_hjual";
+$query = "SELECT * from piutang p, hjual h WHERE (p.id_hjual LIKE '%".$search."%' OR h.id_hjual LIKE '%".$search."%' OR h.tanggal_order LIKE '%".$search."%' OR p.tanggal_jatuh_tempo LIKE '%".$search."%' OR p.sisa_tagihan LIKE '%".$search."%' OR h.status_order LIKE '%".$search."%' OR h.status_pembayaran) and p.id_hjual=h.id_hjual and h.id_sales=$idsales and h.status_pembayaran='Lunas'";
+
 $order_field = $_POST['order'][0]['column']; // Untuk mengambil nama field yg menjadi acuan untuk sorting
 $order_ascdesc = $_POST['order'][0]['dir']; // Untuk menentukan order by "ASC" atau "DESC"
 $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;

@@ -632,7 +632,6 @@ require_once("head.php");
                 //alamat customernya
                 $.post("ajaxreseller.php",{
                     jenis:"get_detailalamat_customerHutang",
-                    emailcust:emailcust,
                     getIdAlamat:getIdAlamat,
                 },
                 function(data){                 
