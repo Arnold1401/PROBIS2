@@ -352,7 +352,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `totalkeselurahan`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid', '$tglord','', '$kurir', '$idsales', '$alam', '$bayar', '$totalsemua', '$iduser', 'Proses', 'Hutang', '0');";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `totalkeselurahan`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid', '$tglord','', '$kurir', '$idsales', '$alam', '$totalsemua', '$bayar', '$iduser', 'Proses', 'Hutang', '0');";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
