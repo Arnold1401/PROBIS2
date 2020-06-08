@@ -80,20 +80,20 @@ require_once("adminhead.php");
                     <form class="was-validated">
                         <div class="col-sm-6" style="border=10px;">
 
-                            
-                            <div class="input-group mb-3">
+                            <label for="" class="form-control-label">Pilih Barang</label>
+                            <div class="input-group mb-3"> 
                                 <select name="select" id="pilihbarang" class="form-control"  aria-describedby="helpcb_pilihbarang">                                  
                                 </select>
                                 <div class="input-group-append">
-                                    <button id="tambahbarang_ini" class="btn btn-outline-secondary" type="button" onclick="tambahbarangini()">Tambah barang ini</button>
+                                    <button id="tambahbarang_ini" class="btn btn-outline-primary" type="button" onclick="tambahbarangini()">Tambah barang ini</button>
                                 </div>
                             </div>
+                            <h6 class="text-center">atau</h6><br>
 
                             <div class="form-group">
-                            <button type="button" id="tambahbarang_baru" class="btn btn-info btn-md" onclick="tambahbarangbaru()">
-                                            <i class="fa fa-ban"></i> Tambah barang baru
-                                            </button>
-                                    </section>
+                                <button type="button" id="tambahbarang_baru" class="btn btn-info btn-md btn-block" onclick="tambahbarangbaru()">
+                                    Tambah barang baru
+                                </button>
                             </div>
 
                             <div class="form-group">
