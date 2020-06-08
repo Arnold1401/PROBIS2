@@ -80,6 +80,22 @@ require_once("adminhead.php");
                     <form class="was-validated">
                         <div class="col-sm-6" style="border=10px;">
 
+                            
+                            <div class="input-group mb-3">
+                                <select name="select" id="pilihbarang" class="form-control"  aria-describedby="helpcb_pilihbarang">                                  
+                                </select>
+                                <div class="input-group-append">
+                                    <button id="tambahbarang_ini" class="btn btn-outline-secondary" type="button" onclick="tambahbarangini()">Tambah barang ini</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                            <button type="button" id="tambahbarang_baru" class="btn btn-info btn-md" onclick="tambahbarangbaru()">
+                                            <i class="fa fa-ban"></i> Tambah barang baru
+                                            </button>
+                                    </section>
+                            </div>
+
                             <div class="form-group">
                             <img src="" id="img" width="200" height="100">
                             </div>
@@ -88,7 +104,10 @@ require_once("adminhead.php");
                             <input type="button" class="button btn btn-primary" onclick="upload()" value="Upload" id="but_upload">
                             </div>
                             <input type="hidden" class="form-control" id="url_user">
-                          
+
+                            
+
+
                             <div class="form-group">
                                 <label for="" class="form-control-label">Nama Barang</label>
                                 <input type="text" id="nama_barang" class="form-control" aria-describedby="helpnama_barang" required>
@@ -227,7 +246,7 @@ require_once("adminhead.php");
                                             <th>Nama Barang </th>
                                             <th>Jenis Barang</th>
                                             <th>Harga Jual</th>
-                                            <th>Status Barang</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -283,10 +302,70 @@ require_once("adminhead.php");
 
 <script>
 
+    var ket=0;
+    function pilihbarang() {
+        $.post("adminajax.php",
+        {
+            jenis:"loadbarang",
+        },
+        function(data){
+            $("#pilihbarang").html(data);
+            });
+    }
 
-    var saveIdbarangUpdate = "";
+    function tambahbarangini() {
+        var get= $("#pilihbarang").val();
+        console.log(get);
+
+        $.post("adminajax.php",{
+                    jenis:"detail_barang",
+                    getId : get, //id barang
+        },
+        function(data){
+            var res = $.parseJSON(data[0]);
+            var masuk = moment(data[1]).format("YYYY-MM-DD");
+            var kadaluarsa = moment(data[2]).format("YYYY-MM-DD");
+        
+            //document.getElementById("tgl_masuk").value = masuk;
+            //document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
+            //document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
+            document.getElementById("berat_barang").value =  $.parseJSON(data[5]);
+            document.getElementById("hrgbeli_barang").value = $.parseJSON(data[6]);
+            document.getElementById("hrgjual_barang").value = $.parseJSON(data[7]);
+             
+        });
+
+        $.post("adminajax.php",{
+                    jenis:"detail_barangini",
+                    getId : get, //id barang
+        },
+        function(data){
+            
+            document.getElementById("nama_barang").value = data[1];
+            document.getElementById("desk_barang").value =data[2];
+            document.getElementById("cb_jenisbarang").value = data[3];
+            document.getElementById("cb_satuanbarang").value = data[4];
+            document.getElementById("img").src = data[5];
+        });
+
+        $("#tambahbarang_baru").attr("disabled", true); 
+        ket=1; //tambah barang yg sudah ada 
+       
+    }
+
+    function tambahbarangbaru() {
+        $("#pilihbarang").attr("disabled", true); 
+        $("#tambahbarang_ini").attr("disabled", true); 
+        ket=0; //tambah barang baru
+    }
+
+
+    var getId, getNamaBarang,  getDeskBarang, getJenisBarang, getIdSatuan,getHargaBeli,getHargaJual,getFotoBarang, getStatusBarang, getRatingBarang, getBeratBarang, data, tablelistreseller = "";
+    var saveIdbarangUpdate, saveIddetailBarang = "";
+
     $(document).ready(function() {
         getdataSatuan();
+        pilihbarang();
 
         $('#tambahsatuanbaru').click( function () {
             tambahsatuanbaru();
@@ -330,9 +409,9 @@ require_once("adminhead.php");
              "aLengthMenu":[[10,20,50],[10,20,50]], //combobox limit
              "columns":[
                 
+                 {"data":"id_detail_barang"},
                  {"data":"id_barang"},
                  {"data":"nama_barang"},
-                 {"data":"jenis_barang"},
                  {"data":"harga_jual", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                  {"data":"status_barang",
                     "searchable": false,
@@ -356,7 +435,7 @@ require_once("adminhead.php");
         //end of datatble list barang
 
         //function onclick untuk button list reseller dan details pada datatable list sales 
-        var getId, getNamaBarang,  getDeskBarang, getJenisBarang, getIdSatuan,getHargaBeli,getHargaJual,getFotoBarang, getStatusBarang, getRatingBarang, getBeratBarang, data, tablelistreseller = "";
+
         $('#example tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = table.row($(this).closest('tr')).data();
@@ -371,47 +450,58 @@ require_once("adminhead.php");
                 btnTambah.disabled=true;
                 //ed of enabled button ubah
 
-                saveIdbarangUpdate = data[Object.keys(data)[0]]; //id barang
-                 getNamaBarang = data[Object.keys(data)[1]]; //nama barang
-                 getDeskBarang = data[Object.keys(data)[2]]; //deskripsi barang
-                 getJenisBarang = data[Object.keys(data)[3]]; //jenis barang
-                 getIdSatuan = data[Object.keys(data)[4]]; //id satuan barang
+                saveIddetailBarang = data[Object.keys(data)[0]], //id barang
+                saveIdbarangUpdate = data[Object.keys(data)[1]], //id barang
+                //  getNamaBarang = data[Object.keys(data)[1]]; //nama barang
+                //  getDeskBarang = data[Object.keys(data)[2]]; //deskripsi barang
+                //  getJenisBarang = data[Object.keys(data)[3]]; //jenis barang
+                //  getIdSatuan = data[Object.keys(data)[4]]; //id satuan barang
                
-                 getHargaBeli = data[Object.keys(data)[5]]; //harga beli barang
-                 getHargaJual = data[Object.keys(data)[6]]; //harga jual barang
-                 getFotoBarang = data[Object.keys(data)[7]]; //foto barang
-                 getStatusBarang = data[Object.keys(data)[8]]; //status barang
-                 getRatingBarang = data[Object.keys(data)[9]]; //rating barang
+                //  getHargaBeli = data[Object.keys(data)[5]]; //harga beli barang
+                //  getHargaJual = data[Object.keys(data)[6]]; //harga jual barang
+                //  getFotoBarang = data[Object.keys(data)[7]]; //foto barang
+                //  getStatusBarang = data[Object.keys(data)[8]]; //status barang
+                //  getRatingBarang = data[Object.keys(data)[9]]; //rating barang
                  //getBeratBarang = data[Object.keys(data)[9]]; //berat barang
                 
 
                 $.post("adminajax.php",{
                     jenis:"detail_barang",
-                    getId : data[Object.keys(data)[0]], //id barang
+                    getId : data[Object.keys(data)[1]], //id barang
                 },
                 function(data){
-                    var res = $.parseJSON(data[0]);
-                    var masuk = moment(data[1]).format("YYYY-MM-DD");
-                    var kadaluarsa = moment(data[2]).format("YYYY-MM-DD");
-                
-                    document.getElementById("tgl_masuk").value = masuk;
-                    document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
-                    document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
-                    document.getElementById("berat_barang").value =  $.parseJSON(data[5]);
+                var res = $.parseJSON(data[0]);
+                var masuk = moment(data[1]).format("YYYY-MM-DD");
+                var kadaluarsa = moment(data[2]).format("YYYY-MM-DD");
+
+                document.getElementById("tgl_masuk").value = masuk;
+                document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
+                document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
+                document.getElementById("berat_barang").value =  $.parseJSON(data[5]);
+                document.getElementById("hrgbeli_barang").value = $.parseJSON(data[6]);
+                document.getElementById("hrgjual_barang").value = $.parseJSON(data[7]);
+
                 });
 
-                document.getElementById("nama_barang").value = getNamaBarang;
-                document.getElementById("desk_barang").value = getDeskBarang;
-                document.getElementById("cb_jenisbarang").value = getJenisBarang;
-                document.getElementById("cb_satuanbarang").value = getIdSatuan;
-          
-                document.getElementById("hrgbeli_barang").value = getHargaBeli;
-                document.getElementById("hrgjual_barang").value = getHargaJual;
-                document.getElementById("img").src = getFotoBarang;
-                console.log(getFotoBarang);
+                $.post("adminajax.php",{
+                    jenis:"detail_barangini",
+                    getId : data[Object.keys(data)[1]], //id barang
+                },
+                function(data){
+
+                document.getElementById("nama_barang").value = data[1];
+                document.getElementById("desk_barang").value =data[2];
+                document.getElementById("cb_jenisbarang").value = data[3];
+                document.getElementById("cb_satuanbarang").value = data[4];
+                document.getElementById("img").src = data[5];
+                });
+
 
                 const btnReset = document.getElementById("btnReset");
                 btnReset.disabled=true;
+                $("#pilihbarang").attr("disabled", true); 
+                $("#tambahbarang_baru").attr("disabled", true); 
+                $("#tambahbarang_ini").attr("disabled", true); 
            
             }
             //end of action button Detail
@@ -504,6 +594,8 @@ require_once("adminhead.php");
 
 
     function tambahsatuanbaru() {
+
+        
         var inputan = document.getElementById("satuan_tambahan").value;
         if (inputan == "") {
             $('#warning').html("Masukkan satuan baru!");
@@ -548,12 +640,55 @@ require_once("adminhead.php");
             var CurrentDate = new Date();
             tglkadaluarsa = new Date(tglkadaluarsa);
             var files = $('#file')[0].files[0];
-            if(tglkadaluarsa > CurrentDate && files != null){
+
+            const btntambahbarang_baru = document.getElementById("tambahbarang_baru");
+            //btntambahbarang_baru.disabled=true;
+            
+            //tambah barang baru
+            if (ket == 0) {
+                if(tglkadaluarsa > CurrentDate && files != null)
+                {
+                    (function($){
+
+                        $.post("adminajax.php",
+                        {
+                            jenis:"insertbarang",
+                            namabarang:$("#nama_barang").val(),
+                            descbarang:$("#desk_barang").val(),
+                            jenisbarang:$("#cb_jenisbarang").val(),
+                            satuanbarang:$("#cb_satuanbarang").val(),
+                            tanggalmasuk:$("#tgl_masuk").val(),
+                            tanggalkadaluarsa:$("#tgl_kadaluarsa").val(),
+                            kuantiti:$("#jumlah_barang").val(),
+                            hargabeli:$("#hrgbeli_barang").val(),
+                            hargajual:$("#hrgjual_barang").val(),
+                            fotobarang:$("#url_user").val(),
+                            beratbarang:$("#berat_barang").val(),
+                    
+                        },
+                        function (data) {
+                            alert(data); 
+                            $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+                            reset();
+                        });
+                    }(jQuery))
+                }else if(files == null){
+                    alert('foto barang belum diupload');
+                }
+                    else{
+                    alert('Tanggal kadaluarsa lebih kecil dari hari ini');
+                }
+            }
+            //tambah barang yg udah ada
+            else if (ket == 1) {
+                var get= $("#pilihbarang").val();
+                if(tglkadaluarsa > CurrentDate){
                 (function($){
 
                     $.post("adminajax.php",
                     {
-                        jenis:"insertbarang",
+                        jenis:"insertbarang_detail",
+                        idbarang:get,
                         namabarang:$("#nama_barang").val(),
                         descbarang:$("#desk_barang").val(),
                         jenisbarang:$("#cb_jenisbarang").val(),
@@ -573,12 +708,14 @@ require_once("adminhead.php");
                         reset();
                     });
                 }(jQuery))
-            }else if(files == null){
-                alert('foto barang belum diupload');
             }
-                else{
+            else if(tglkadaluarsa < CurrentDate){
                 alert('Tanggal kadaluarsa lebih kecil dari hari ini');
             }
+            }
+            
+
+            
     }
     //end of function tambah barang
 
@@ -598,8 +735,9 @@ require_once("adminhead.php");
         document.getElementById("hrgjual_barang").value = null;
         document.getElementById("url_user").value = null;
         document.getElementById("berat_barang").value = null;
-
-        
+        $("#pilihbarang").attr("disabled", false); 
+        $("#tambahbarang_baru").attr("disabled", false); 
+        $("#tambahbarang_ini").attr("disabled", false); 
         
     }
     //end of function reset
@@ -621,6 +759,7 @@ require_once("adminhead.php");
             hargajual:$("#hrgjual_barang").val(),
             fotobarang:$("#url_user").val(),
             beratbarang:$("#berat_barang").val(),
+            iddetailbarang:saveIddetailBarang,
     
         },
         function (data) {
@@ -639,6 +778,17 @@ require_once("adminhead.php");
         //ed of enabled button ubah
     }
     //end of function update barang
+
+    function cekstatustampil() {
+        $.post("adminajax.php",{
+            jenis:"cekstatustampil",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+        },
+        function(data){
+            console.log(data);
+           // $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+        })
+    }
 
 
 

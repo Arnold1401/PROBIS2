@@ -184,6 +184,28 @@ if ($_POST["jenis"] == "jadikan_sales_utkcustini") {
     $conn->close();
 }
 
+if($_POST["jenis"]=="loadbarang"){
+    $kal="";
+    $conn=getConn();
+    
+    $sql1="select * from barang";
+    $result1 = $conn->query($sql1);
+    if ($result1->num_rows > 0) {
+        while ($row1 = $result1->fetch_assoc()) {
+            $idbarang=$row1["id_barang"];
+            $namabarang=$row1["nama_barang"];
+            
+            $kal.="<option value='$idbarang'>$idbarang - $namabarang</option>";
+        }
+    }else{
+        $kal="<option value='-1'>..</option>";
+    }
+    echo $kal;
+    $conn->close();
+    
+}
+
+
 //ngload satuan barang
 if ($_POST["jenis"]=="satuan_barang") {
     $sql = "select * from satuan";
@@ -246,13 +268,11 @@ if ($_POST["jenis"]=="insertbarang") {
     //$rating="0";
     $sisa = $kuantiti;
 
-    
-
-    $sql = "insert into barang (nama_barang, deskripsi_barang, jenis_barang, id_satuan, harga_beli, harga_jual, foto_barang, status_barang) values ('$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$hargabeli','$hargajual','$foto','$status')";
+    $sql = "insert into barang (nama_barang, deskripsi_barang, jenis_barang, id_satuan, foto_barang) values ('$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$foto')";
 
     if ($conn->query($sql)) {
 
-         $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual, berat) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual', $beratbarang)";
+         $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual, berat, status_barang, status_tampil) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual', $beratbarang, 1, 1)";
         
          if ($conn->query($sql2)) {
             echo "berhasil";
@@ -267,6 +287,63 @@ if ($_POST["jenis"]=="insertbarang") {
     $conn->close();
 }
 //end of untuk tambah barang
+
+if ($_POST["jenis"]=="insertbarang_detail") {
+    $conn=getConn();
+    $idbarang=$_POST["idbarang"];
+    $namabarang=strtoupper($_POST["namabarang"]);
+    $descbarang=$_POST["descbarang"];
+    $jenisbarang=$_POST["jenisbarang"];
+    $satuanbarang=$_POST["satuanbarang"];
+    $tanggalmasuk=$_POST["tanggalmasuk"];
+    $tanggalkadaluarsa=$_POST["tanggalkadaluarsa"];
+    $kuantiti=$_POST["kuantiti"];
+    $hargabeli=$_POST["hargabeli"];
+    $hargajual=$_POST["hargajual"];
+    $beratbarang = $_POST["beratbarang"];
+
+    $foto=$_POST["fotobarang"];
+    $status="1";  //inputan pertama pasti statusnya 1 (aktif) karena udh ada pengecekan kalau tgl kadaluarsa harus lebih besar dari tgl hari ini
+    //$rating="0";
+    $sisa = $kuantiti;
+
+    $sql = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual, berat, status_barang, status_tampil) values ($idbarang, '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual', $beratbarang, 1, 0)";
+
+    if ($conn->query($sql)) {
+
+        echo "berhasil masukkan barang";
+        
+    }else{
+        echo "gagal";
+    }
+
+    $conn->close();
+}
+
+//detail barang
+if ($_POST["jenis"]=="detail_barangini") {
+    $conn = getConn();
+    $IdBarang=$_POST["getId"];
+    $sql = "select * from barang where id_barang=$IdBarang";
+   // $sql = "Select * from barang"
+    $query = mysqli_query($conn,$sql); // get the data from the db
+    $result = array();
+    while ($row = $query->fetch_array(MYSQLI_ASSOC)) { // fetches a result row as an associative array
+        $result [0] = $row['id_barang'];
+        $result [1] = $row['nama_barang'];
+        $result [2] = $row['deskripsi_barang'];
+        $result [3] = $row['jenis_barang'];
+        $result [4] = $row['id_satuan'];
+        $result [5] = $row['foto_barang'];
+        
+        
+    }
+    
+    $conn->close();
+    header('Content-Type: application/json');
+    echo json_encode($result); // return value of $result
+}
+//end of detail barang
 
 //detail barang
 if ($_POST["jenis"]=="detail_barang") {
@@ -283,6 +360,9 @@ if ($_POST["jenis"]=="detail_barang") {
         $result [3] = $row['kuantiti'];
         $result [4] = $row['sisa'];
         $result [5] = $row['berat'];
+        $result [6] = $row['harga_beli'];
+        $result [7] = $row['harga_jual'];
+        
     }
     
     $conn->close();
@@ -306,19 +386,20 @@ if ($_POST["jenis"]=="UpdateBarang") {
     $hargabeli=$_POST["hargabeli"];
     $hargajual=$_POST["hargajual"];
     $beratbarang=$_POST["beratbarang"];
+    $iddetailbarang = $_POST["iddetailbarang"];
 
     $foto=$_POST["fotobarang"];
     $status="1";
     $rating="0";
     $sisa = $kuantiti;
 
-    $sql = "update barang set nama_barang='$namabarang', deskripsi_barang='$descbarang', jenis_barang='$jenisbarang', id_satuan='$satuanbarang', harga_beli='$hargabeli', harga_jual='$hargajual' where id_barang=$idbarang";
+    $sql = "update barang set nama_barang='$namabarang', deskripsi_barang='$descbarang', jenis_barang='$jenisbarang', id_satuan='$satuanbarang' where id_barang=$idbarang";
 
     if ($conn->query($sql)) {
 
        // $sql2 = "insert into detail_barang (id_barang, tanggal_masuk, tanggal_kadaluwarsa, kuantiti, sisa, harga_beli, harga_jual) values (LAST_INSERT_ID(), '$tanggalmasuk', '$tanggalkadaluarsa', '$kuantiti', '$sisa', '$hargabeli', '$hargajual')";
 
-         $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual', berat='$beratbarang' where id_barang=$idbarang";
+         $sql2 = "update detail_barang set tanggal_masuk='$tanggalmasuk', tanggal_kadaluwarsa='$tanggalkadaluarsa', kuantiti='$kuantiti', harga_beli='$hargabeli', harga_jual='$hargajual', berat='$beratbarang' where id_detail_barang=$iddetailbarang";
         
          if ($conn->query($sql2)) {
             echo "berhasil update barang";
@@ -338,26 +419,44 @@ if ($_POST["jenis"]=="UpdateBarang") {
 if ($_POST["jenis"]=="CekTglExpireSemuaBarang") {
    // tglkadaluarsa = $("#tgl_kadaluarsa").val();
    $conn=getConn();
-   $kal1=""; $kal2="";
+   $kal1=""; $kal2=""; $idbrg=""; $iddetailbrg="";
      $CurrentDate = $_POST["CurrentDate"];
      $statusexp = "";
-    $sqlexp = "select id_barang from detail_barang where tanggal_kadaluwarsa < '$CurrentDate'";
+    $sqlexp = "select id_detail_barang, id_barang from detail_barang where tanggal_kadaluwarsa < '$CurrentDate' or sisa=0";
     $result=$conn->query($sqlexp);
 		
     if($result->num_rows>0){
         while ($row=$result->fetch_assoc()){
-            $kal1 =$row['id_barang'];
-            $sql2 = "update barang set status_barang=2 where id_barang=$kal1";
-        if ($conn->query($sql2)) {
-            echo '1'.$kal1.$CurrentDate;
-        }
+            $kal1 =$row['id_detail_barang'];
+            $idbrg = $row['id_barang'];
+            $sql2 = "update detail_barang set status_barang=2, status_tampil=0 where id_detail_barang=$kal1";
+            if ($conn->query($sql2)) {
+                
+
+                $sqlminid = "Select min(id_detail_barang) as id_detail_barang from detail_barang where  id_barang=$idbrg and status_barang=1";
+                $result2 = $conn->query($sqlminid);
+
+                if ($result2->num_rows>0) {
+                    while ($row2=$result2->fetch_assoc()) {
+                        $iddetailbrg=$row2["id_detail_barang"];
+
+                    }
+                    echo $iddetailbrg;
+                    $sql3 = "update detail_barang set status_tampil=1 where id_detail_barang=$iddetailbrg and  id_barang=$idbrg and status_barang=1";
+                    if ($conn->query($sql3)) {
+                        echo "berhasil";
+                    }
+                }
+                
+
+            }
         else{
              "gagal";
         }
         }
         
     }
-
+    
     $conn->close();
 }
 
@@ -367,13 +466,13 @@ if ($_POST["jenis"]=="CekTglAvailableSemuaBarang") {
     $kal1=""; $kal2="";
       $CurrentDate = $_POST["CurrentDate"];
       $statusexp = "";
-     $sqlexp = "select id_barang from detail_barang where tanggal_kadaluwarsa > '$CurrentDate'";
+     $sqlexp = "select id_detail_barang from detail_barang where tanggal_kadaluwarsa > '$CurrentDate'";
      $result=$conn->query($sqlexp);
          
      if($result->num_rows>0){
          while ($row=$result->fetch_assoc()){
-             $kal1 =$row['id_barang'];
-             $sql2 = "update barang set status_barang=1 where id_barang=$kal1";
+             $kal1 =$row['id_detail_barang'];
+             $sql2 = "update detail_barang set status_barang=1 where id_detail_barang=$kal1";
          if ($conn->query($sql2)) {
              echo $kal1.$CurrentDate;
          }
@@ -387,6 +486,28 @@ if ($_POST["jenis"]=="CekTglAvailableSemuaBarang") {
      $conn->close();
  }
 //end of auto reload jika barang expire atau aktif di dataable
+
+if ($_POST["jenis"]=="cekstatustampil") {
+    // tglkadaluarsa = $("#tgl_kadaluarsa").val();
+    $conn=getConn();
+    $kal1=""; $kal2="";
+      $CurrentDate = $_POST["CurrentDate"];
+      $statusexp = "";
+     $sqlexp = "select id_detail_barang, id_barang from detail_barang where status_barang=2";
+     $result=$conn->query($sqlexp);
+         
+     if($result->num_rows>0){
+         while ($row=$result->fetch_assoc()){
+             $kal1 =$row['id_detail_barang'];
+             $sql2 = $kal1;
+         
+         }
+         
+     }
+ 
+     $conn->close();
+ }
+
 
 
 //admin-penjualan = ubah status proses ke pengiriman
@@ -403,4 +524,5 @@ if ($_POST["jenis"]=="kirimkan_barang") {
         echo "gagal";
     }
 }
+
 ?>
