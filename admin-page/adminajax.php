@@ -268,7 +268,7 @@ if ($_POST["jenis"]=="insertbarang") {
     //$rating="0";
     $sisa = $kuantiti;
 
-    $sql = "insert into barang (nama_barang, deskripsi_barang, jenis_barang, id_satuan, foto_barang) values ('$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$foto')";
+    $sql = "insert into barang (id_barang, nama_barang, deskripsi_barang, jenis_barang, id_satuan, foto_barang) values (null,'$namabarang', '$descbarang', '$jenisbarang', '$satuanbarang','$foto')";
 
     if ($conn->query($sql)) {
 
@@ -281,7 +281,7 @@ if ($_POST["jenis"]=="insertbarang") {
          }
         
     }else{
-        echo "gagal";
+        echo "gagal memasukkan barang";
     }
 
     $conn->close();
@@ -486,27 +486,6 @@ if ($_POST["jenis"]=="CekTglAvailableSemuaBarang") {
      $conn->close();
  }
 //end of auto reload jika barang expire atau aktif di dataable
-
-if ($_POST["jenis"]=="cekstatustampil") {
-    // tglkadaluarsa = $("#tgl_kadaluarsa").val();
-    $conn=getConn();
-    $kal1=""; $kal2="";
-      $CurrentDate = $_POST["CurrentDate"];
-      $statusexp = "";
-     $sqlexp = "select id_detail_barang, id_barang from detail_barang where status_barang=2";
-     $result=$conn->query($sqlexp);
-         
-     if($result->num_rows>0){
-         while ($row=$result->fetch_assoc()){
-             $kal1 =$row['id_detail_barang'];
-             $sql2 = $kal1;
-         
-         }
-         
-     }
- 
-     $conn->close();
- }
 
 
 

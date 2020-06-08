@@ -314,6 +314,11 @@ require_once("adminhead.php");
     }
 
     function tambahbarangini() {
+        $("#btnUbah").attr("disabled", true); 
+        $("#btnTambah").attr("disabled", false); 
+        $("#btnReset").attr("disabled", false); 
+
+        
         var get= $("#pilihbarang").val();
         console.log(get);
 
@@ -356,6 +361,11 @@ require_once("adminhead.php");
     function tambahbarangbaru() {
         $("#pilihbarang").attr("disabled", true); 
         $("#tambahbarang_ini").attr("disabled", true); 
+        
+        $("#btnUbah").attr("disabled", true); 
+        $("#btnTambah").attr("disabled", false); 
+        $("#btnReset").attr("disabled", false); 
+
         ket=0; //tambah barang baru
     }
 
@@ -364,6 +374,11 @@ require_once("adminhead.php");
     var saveIdbarangUpdate, saveIddetailBarang = "";
 
     $(document).ready(function() {
+        
+        $("#btnUbah").attr("disabled", true); 
+        $("#btnTambah").attr("disabled", true); 
+        $("#btnReset").attr("disabled", true); 
+
         getdataSatuan();
         pilihbarang();
 
@@ -417,10 +432,12 @@ require_once("adminhead.php");
                     "searchable": false,
                     "orderable":false,
                     "render": function (data, type, row) {  
-                        if (row.status_barang == '1') {
+                        if (row.status_barang == '1') //aktif blm expire
+                        {
                             return "<button type='button' class='btn btn-success btn-sm'>Aktif</button>";
                         }
-                        else if (row.status_barang == '2') {
+                        else if (row.status_barang == '2') //expire
+                        {
                             return "<button type='button' class='btn btn-warning btn-sm'>Expire</button>";
                         }
                        
@@ -452,34 +469,22 @@ require_once("adminhead.php");
 
                 saveIddetailBarang = data[Object.keys(data)[0]], //id barang
                 saveIdbarangUpdate = data[Object.keys(data)[1]], //id barang
-                //  getNamaBarang = data[Object.keys(data)[1]]; //nama barang
-                //  getDeskBarang = data[Object.keys(data)[2]]; //deskripsi barang
-                //  getJenisBarang = data[Object.keys(data)[3]]; //jenis barang
-                //  getIdSatuan = data[Object.keys(data)[4]]; //id satuan barang
-               
-                //  getHargaBeli = data[Object.keys(data)[5]]; //harga beli barang
-                //  getHargaJual = data[Object.keys(data)[6]]; //harga jual barang
-                //  getFotoBarang = data[Object.keys(data)[7]]; //foto barang
-                //  getStatusBarang = data[Object.keys(data)[8]]; //status barang
-                //  getRatingBarang = data[Object.keys(data)[9]]; //rating barang
-                 //getBeratBarang = data[Object.keys(data)[9]]; //berat barang
                 
-
                 $.post("adminajax.php",{
                     jenis:"detail_barang",
                     getId : data[Object.keys(data)[1]], //id barang
                 },
                 function(data){
-                var res = $.parseJSON(data[0]);
-                var masuk = moment(data[1]).format("YYYY-MM-DD");
-                var kadaluarsa = moment(data[2]).format("YYYY-MM-DD");
-
-                document.getElementById("tgl_masuk").value = masuk;
-                document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
-                document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
-                document.getElementById("berat_barang").value =  $.parseJSON(data[5]);
-                document.getElementById("hrgbeli_barang").value = $.parseJSON(data[6]);
-                document.getElementById("hrgjual_barang").value = $.parseJSON(data[7]);
+                    var res = $.parseJSON(data[0]);
+                    var masuk = moment(data[1]).format("YYYY-MM-DD");
+                    var kadaluarsa = moment(data[2]).format("YYYY-MM-DD");
+                    
+                    document.getElementById("tgl_masuk").value = masuk;
+                    document.getElementById("tgl_kadaluarsa").value = kadaluarsa;
+                    document.getElementById("jumlah_barang").value =  $.parseJSON(data[3]);
+                    document.getElementById("berat_barang").value =  $.parseJSON(data[5]);
+                    document.getElementById("hrgbeli_barang").value = $.parseJSON(data[6]);
+                    document.getElementById("hrgjual_barang").value = $.parseJSON(data[7]);
 
                 });
 
@@ -489,11 +494,11 @@ require_once("adminhead.php");
                 },
                 function(data){
 
-                document.getElementById("nama_barang").value = data[1];
-                document.getElementById("desk_barang").value =data[2];
-                document.getElementById("cb_jenisbarang").value = data[3];
-                document.getElementById("cb_satuanbarang").value = data[4];
-                document.getElementById("img").src = data[5];
+                    document.getElementById("nama_barang").value = data[1];
+                    document.getElementById("desk_barang").value =data[2];
+                    document.getElementById("cb_jenisbarang").value = data[3];
+                    document.getElementById("cb_satuanbarang").value = data[4];
+                    document.getElementById("img").src = data[5];
                 });
 
 
@@ -779,17 +784,6 @@ require_once("adminhead.php");
     }
     //end of function update barang
 
-    function cekstatustampil() {
-        $.post("adminajax.php",{
-            jenis:"cekstatustampil",
-            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
-        },
-        function(data){
-            console.log(data);
-           // $('#example').DataTable().ajax.reload(); //reload ajax datatable 
-        })
-    }
-
-
+    
 
 </script>
