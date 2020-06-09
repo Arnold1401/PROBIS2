@@ -131,9 +131,9 @@ function insertdatabaseLUN($orderid,$alam)
       $subtotal=$jum*$harga;
      
       $conn = getConn();
-      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
+      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_detail_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
       $stok=0;
-      $q3="select sisa as stok from detail_barang where id_barang='$idbarang'";
+      $q3="select sisa as stok from detail_barang where id_detail_barang='$idbarang'";
       $result3 = $conn->query($q3);
       if ($result3->num_rows > 0) {
          while ($row3 = $result3->fetch_assoc()) {
@@ -141,7 +141,7 @@ function insertdatabaseLUN($orderid,$alam)
          }
          $stok-=$jum;
       }
-      $q4="update detail_barang set sisa='$stok' where id_barang='$idbarang'";
+      $q4="update detail_barang set sisa='$stok' where id_detail_barang='$idbarang'";
       if ($conn->query($q4)) {
 
       }
@@ -376,7 +376,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
 
 
       $stok=0;
-      $q3="select sisa as stok from detail_barang where id_barang='$idbarang'";
+      $q3="select sisa as stok from detail_barang where id_detail_barang='$idbarang'";
       $result3 = $conn->query($q3);
       if ($result3->num_rows > 0) {
          while ($row3 = $result3->fetch_assoc()) {
@@ -384,12 +384,12 @@ function insertdatabasePIU($orderid,$piu,$alam)
          }
          $stok-=$jum;
       }
-      $q4="update detail_barang set sisa='$stok' where id_barang='$idbarang'";
+      $q4="update detail_barang set sisa='$stok' where id_detail_barang='$idbarang'";
       if ($conn->query($q4)) {
 
       }
 
-      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
+      $q2="INSERT INTO `djual`(`id_hjual`, `id_djual`, `id_detail_barang`, `kuantiti`, `subtotal`, `id_ulasan`) VALUES ('$orderid','','$idbarang','$jum','$subtotal','0')";
       
       if ($conn->query($q2)) {
          $stat.="djual$i-berhasil";

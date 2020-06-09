@@ -28,7 +28,7 @@ function set_jum($jum) {
   function get_nama(){
     $conn=getConn();
     $idb=$this->idbarang;
-    $sql="select upper(nama_barang) as nm from barang where id_barang='$idb'";
+    $sql="select upper(nama_barang) as nm from detail_barang db ,barang b where db.id_barang=b.id_barang and db.id_detail_barang='$idb'";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
       $nama=$row['nm'];
@@ -40,7 +40,7 @@ function set_jum($jum) {
   function get_harga(){
     $conn=getConn();
     $idb=$this->idbarang;
-    $sql="select harga_jual as hg from detail_barang where id_barang='$idb'";
+    $sql="select harga_jual as hg from barang b,detail_barang db where db.id_barang=b.id_barang and db.id_detail_barang='$idb'";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
       $harga=$row['hg'];
@@ -53,7 +53,7 @@ function set_jum($jum) {
   function get_gambar(){
     $conn=getConn();
     $idb=$this->idbarang;
-    $sql="select foto_barang as gmb from barang where id_barang='$idb'";
+    $sql="select b.foto_barang as gmb from barang b,detail_barang db where db.id_barang=b.id_barang and db.id_detail_barang='$idb' ";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
       $gambar1=$row['gmb'];
@@ -65,7 +65,7 @@ function set_jum($jum) {
   function get_berat(){
     $conn=getConn();
     $idb=$this->idbarang;
-    $sql="select berat as w from detail_barang where id_barang='$idb'";
+    $sql="select db.berat as w from barang b,detail_barang db where db.id_barang=b.id_barang and db.id_detail_barang='$idb' ";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
       $weight=$row['w'];
