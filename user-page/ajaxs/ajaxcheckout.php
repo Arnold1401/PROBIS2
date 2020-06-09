@@ -575,6 +575,8 @@ if ($_POST["jenis"]=="cekkredit") {
    $result = $conn->query($sql);
    if ($result->num_rows > 0) {
      echo "masih";
+   }else{
+      echo "boleh";
    }
    $conn->close();
 }

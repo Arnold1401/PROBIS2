@@ -40,7 +40,7 @@ function set_jum($jum) {
   function get_harga(){
     $conn=getConn();
     $idb=$this->idbarang;
-    $sql="select harga_jual as hg from barang where id_barang='$idb'";
+    $sql="select harga_jual as hg from detail_barang where id_barang='$idb'";
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {
       $harga=$row['hg'];

@@ -823,6 +823,15 @@ require_once("head.php");
                 });
     }
 
+    function hitunguntung(){
+        $.post("ajaxs/ajaxbackexec.php", {
+                    jenis: "untung",
+                },
+                function(data) {
+                    console.log(data);
+            });
+    }
+    hitunguntung();
 
 
 </script>

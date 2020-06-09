@@ -356,7 +356,7 @@ require_once("head.php");
         function lunas(){
             if ($("#isipaket").val()!='-1') {
                 var arrongkir=$("#isipaket").val().split('*');
-                if (cekkredit()!="masih") {
+                if (cekkredit()=="masih") {
                     alert("Anda belum membayar tagihan sebelumnya !");
                 }else{
                    
@@ -384,7 +384,7 @@ require_once("head.php");
 
         function hutang(){
             if ($("#isipaket").val()!='-1') {
-                if (cekkredit()!="masih") {
+                if (cekkredit()=="masih") {
                     alert("Anda belum membayar tagihan sebelumnya !");
                 }else{
                     var arrongkir=$("#isipaket").val().split('*');

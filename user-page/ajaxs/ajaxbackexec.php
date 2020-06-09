@@ -131,15 +131,18 @@
         $conn=getConn();
         $idhjual=$arrhjual[$i];
         
-        $sql1="select distinct d.id_hjual as hjual,sum(d.subtotal-(b.harga_beli*d.kuantiti)) as keuntungan
-        from djual d,barang b
-        where d.id_barang=b.id_barang and
+        $sql1="select distinct d.id_hjual as hjual,sum(d.subtotal-(db.harga_beli*d.kuantiti)) as keuntungan
+        from djual d,barang b,detail_barang db
+        where d.id_barang=b.id_barang and db.id_barang=b.id_barang and
         d.id_hjual in(select d.id_hjual from djual d
         where d.id_hjual='$idhjual')";
         $result1=$conn->query($sql1);
         if ($result1->num_rows>0) {
             while ($row1=$result1->fetch_assoc()) {
                 $keuntungan=$row1["keuntungan"];
+                if ($keuntungan<-1) {
+                    $keuntungan*=-1;
+                }
                 
             }
             $sql2="update hjual set keuntungan='$keuntungan' where id_hjual='$idhjual' ";

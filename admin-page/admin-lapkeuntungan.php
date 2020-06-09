@@ -29,7 +29,7 @@ include_once('adminconn.php');
             <div class="header-menu">
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
-                    <div class="header-left">                                                                                                     
+                    <div class="header-left">
                     </div>
                 </div>
 
@@ -37,14 +37,14 @@ include_once('adminconn.php');
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
-                        </a>    
+                        </a>
                         <div class="user-menu dropdown-menu">
-                           
+
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
 
                             <a onclick="keluar()" class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
-                        </div>                   
-                    </div>                   
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -63,9 +63,9 @@ include_once('adminconn.php');
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>      
-                            <li><a href="#">Laporan</a></li>                            
-                            <li><a href="#">Keuntungan</a></li>                                                  
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Laporan</a></li>
+                            <li><a href="#">Keuntungan</a></li>
                         </ol>
                     </div>
                 </div>
@@ -78,7 +78,7 @@ include_once('adminconn.php');
                 <div class="col-md-12">
                         <div class="card">
 
-                            
+
                         </div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ include_once('adminconn.php');
                                     </div>
                                 </div>
                             </div>
-                             <!--                             
+                             <!--
                               <div class="table-responsive">
                               <table id="tablebarang" class="table table-striped table-bordered">
                                     <thead>
@@ -114,13 +114,13 @@ include_once('adminconn.php');
                                             <th>Keuntungan</th>
                                         </tr>
                                     </thead>
-                                    <tbody>                                       
+                                    <tbody>
                                     </tbody>
                                 </table>
                               </div>
                             -->
                             <div class="table-responsive" id="nah">
-                             
+
                               </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ include_once('adminconn.php');
         </div><!-- .content -->
     </div><!-- /#right-panel -->
 
-    
+
 
     <!-- kumpulan script luar -->
     <?php      include_once('kumpulanscriptluar.php'); ?>
@@ -145,21 +145,21 @@ include_once('adminconn.php');
     //document ready
     $(document).ready(function () {
         var tablebarang="";
-        
+
         //datatable di list barang yang sering dibeli
-        tablebarang = $('#tablebarang').DataTable( 
+        tablebarang = $('#tablebarang').DataTable(
         {
-            
+
         } );
         //end of datatable di list barang yang sering dibeli
 
-        //event jika list barang dipilih/diclick 
+        //event jika list barang dipilih/diclick
         $('#tablebarang tbody').on('click', 'tr', function () {
             $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
         } );
-        //end of event jika list barang dipilih/diclick 
-        
-   
+        //end of event jika list barang dipilih/diclick
+
+
         var today= new Date();
         var tgl= today.getDate();
         var bulan= today.getMonth()+1;
@@ -173,9 +173,9 @@ include_once('adminconn.php');
         full=full.concat(tahun,'-',bulan,'-',tgl).toString()
         document.getElementById("tgl_awal").value =full;
         document.getElementById("tgl_akhir").value =full;
-   
-   
-   
+
+
+
         $("#tgl_akhir").change(function(){
 
         var awal= $("#tgl_awal").val();
@@ -198,7 +198,7 @@ include_once('adminconn.php');
         $("#nah").load(link);
 
     })
-   
+
     });
     //end of document ready
 
@@ -210,6 +210,17 @@ include_once('adminconn.php');
         function(data){
             window.location.href="../user-page/login.php";
         });
+
+
+        function hitunguntung(){
+        $.post("../user-page/ajaxs/ajaxbackexec.php", {
+                    jenis: "untung",
+                },
+                function(data) {
+                    console.log(data);
+            });
+    }
+    hitunguntung();
 
 }
 
