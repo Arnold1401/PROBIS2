@@ -119,7 +119,7 @@
         }else{
             $qty=checkganti($idbarang);
 
-            if ($jum<=$qty) {
+            if ($jum<=($qty-$jum)) {
                 $arrkeranjang[$idarray]->set_jum($jum);
                 $_SESSION["keranjang"]=serialize($arrkeranjang);
                 $_SESSION['berat']=hitungberat();
@@ -135,7 +135,7 @@
 
     function checkganti($id){
         $conn=getConn();
-        $sql="select sisa from detail_barang where id_barang='$id'";
+        $sql="select sisa from detail_barang where id_detail_barang='$id'";
         $result = $conn->query($sql);
         $qty=0;
 
