@@ -129,7 +129,7 @@ require_once("head.php");
                           },
                           function(data) {
                             console.log(data);
-                            window.location.href="status-order.php";
+                            window.location.href="tagihan.php";
                       });
                     },
                     // Optional
@@ -143,7 +143,7 @@ require_once("head.php");
                           },
                           function(data) {
                             console.log(data);
-                            window.location.href="status-order.php";
+                            window.location.href="tagihan.php";
                       });
                      
                     },
@@ -158,7 +158,7 @@ require_once("head.php");
                           },
                           function(data) {
                             console.log(data);
-                            window.location.href="status-order.php";
+                            window.location.href="tagihan.php";
                       });
                     }
                 });
