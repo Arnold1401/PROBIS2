@@ -17,7 +17,7 @@
     ";
 
     $queryx="
-        select grandtotal
+        select totalkeselurahan
 
 
         from hjual 
@@ -69,7 +69,7 @@
     <tr>
         <td colspan=2></td>
         <td>Grand total</td>
-        <td><?php echo "Rp ".number_format($resultarr["grandtotal"],0,",",".") ;?></td>
+        <td><?php echo "Rp ".number_format($resultarr["totalkeselurahan"],0,",",".") ;?></td>
     </tr>
 </tbody>
 

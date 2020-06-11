@@ -76,12 +76,12 @@ require_once("head.php");
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item "><a href="sales-home.php" class="nav-link">Pesanan</a></li>
-                <li class="nav-item active"><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
+                <li class="nav-item "><a href="sales-penagihan.php" class="nav-link">Penagihan</a></li>
                 <!-- <li class="nav-item"><a href="sales-listcustomer.php" class="nav-link">List CustomerKu</a></li> -->
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if(isset($_SESSION["nama_user"])){ echo $_SESSION["nama_user"];}?></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="#.php">Riwayat Penagihan</a>
+                    <a class="dropdown-item active" href="#.php">Riwayat Penagihan</a>
                     <hr>
                     <a class="dropdown-item" href="pengaturan.php">Akun Saya</a>
                     <a class="dropdown-item" onclick="keluar()">Keluar</a>
@@ -97,7 +97,7 @@ require_once("head.php");
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">         	
-            <h1 class="mb-0 bread">TAGIHAN SAYA</h1>
+            <h1 class="mb-0 bread">RIWAYAT PENAGIHAN SAYA</h1>
 
           </div>
         </div>
@@ -110,10 +110,7 @@ require_once("head.php");
             <div class="row" id="tableall">
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list" >
-                        <div class="form-group">                    
-                            <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli oleh pelanggan</small><br>
-                            <small id="helpId" class="text-muted">*Jika status tagihan <b> Tagihkan Pelanggan ini </b> maka sales perlu menagihkan langsung ke pelanggan</small>
-                        </div>
+                        
                         
                         <div class="table-responsive" >
                             <table id="tableorders" class="table table-striped table-bordered text-dark" width="100%">
