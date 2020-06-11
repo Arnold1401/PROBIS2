@@ -649,11 +649,12 @@ require_once("head.php");
             if (action == 'GetKonfirmasi') {
                 $.post("ajaxreseller.php",{
                     jenis:"konfirmasi_orderan_selesai",
-                    getId : data[Object.keys(data)[0]], //id barang
+                    getId : data[Object.keys(data)[0]], //id hjual
+                    CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
                 },
                 function(data){
                     alert(data);
-                    $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
+                   // $('#tabledetailorder').DataTable().ajax.reload(); //reload ajax datatable 
                     $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
                 });
             }

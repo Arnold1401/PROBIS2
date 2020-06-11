@@ -111,7 +111,7 @@ $id=$_SESSION["id_sales"];
                                 from  hjual h,sales s, customer c
 
 
-                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and h.id_sales='$id' and h.status_pembayaran != 'Menunggu Pembayaran' and h.status_order != 'Batal'
+                                where  c.id_cust=h.id_cust and s.id_sales=c.id_sales and h.id_sales='$id' and h.status_pembayaran != 'Menunggu Pembayaran' and h.status_order != 'Batal' and h.status_order != 'Selesai'
                                 
                                 ";
                                             $data = mysqli_query(getConn(),$query);
@@ -159,7 +159,8 @@ $id=$_SESSION["id_sales"];
                                                     
                                                 </select>
                                                 ";*/
-                                            }else if($row[3]=="Sampai Tujuan"){
+                                            }
+                                            else if($row[3]=="Sampai Tujuan"){
                                                 echo "<label class='text-info font-weight-bold'>Barang telah tiba</label>";
 
                                                 /*echo"
@@ -171,6 +172,7 @@ $id=$_SESSION["id_sales"];
                                                 </select>
                                                 ";*/
                                             }
+                                            
 
                                             
 

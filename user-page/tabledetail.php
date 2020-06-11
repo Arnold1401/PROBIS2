@@ -5,15 +5,15 @@
 
 
     $query="
-    select  b.nama_barang, d.kuantiti,b.harga_jual, d.subtotal
+    select  b.nama_barang, d.kuantiti,x.harga_jual, d.subtotal
 
 
-    from djual d,  barang b
+    from djual d,  barang b, detail_barang x
 
 
     where  d.id_hjual='$id'
-    and b.id_barang =d.id_barang
-
+    and b.id_barang =x.id_barang
+    and x.id_detail_barang=d.id_detail_barang
     ";
 
     $queryx="
