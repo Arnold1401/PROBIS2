@@ -13,10 +13,11 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
 if ($_POST["jenis"] == "konfirmasi_orderan_selesai") {
     $conn = getConn();
     $id_hjual = $_POST['getId'];
+    $CurrentDate = $_POST['CurrentDate'];
     $status = "Selesai";
-    $sql = "update hjual set status_order='$status' where id_hjual=$id_hjual";
+    $sql = "update hjual set tanggal_orderselesai='$CurrentDate', status_order='$status' where id_hjual='$id_hjual'";
     if ($conn->query($sql)) {
-        echo "Orderan Telah Selesai";
+        echo "Orderan Telah Selesai".$id_hjual;
     }else{
         echo "gagal validasi";
     }

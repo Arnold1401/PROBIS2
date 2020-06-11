@@ -808,7 +808,8 @@ require_once("head.php");
                 },
                 function(data){   
                     alert("berhasil melakukan pembayaran");
-                    $('#tableorders').DataTable().ajax.reload();                  
+                    $('#tableorders').DataTable().ajax.reload();  
+                    CekTglExpireSemuaBarang();                
                 });
     }
 
@@ -819,7 +820,8 @@ require_once("head.php");
                 },
                 function(data){    
                     alert("berhasil melakukan pelunasan tagihan");  
-                    $('#tableorders').DataTable().ajax.reload();        
+                    $('#tableorders').DataTable().ajax.reload();    
+                    CekTglExpireSemuaBarang();    
                 });
     }
 
@@ -829,9 +831,21 @@ require_once("head.php");
                 },
                 function(data) {
                     console.log(data);
+                    CekTglExpireSemuaBarang();
             });
     }
     hitunguntung();
+
+    function CekTglExpireSemuaBarang(){
+        $.post("ajaxs/ajaxtagihan.php",{
+            jenis:"CekTglExpireSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+    }
 
 
 </script>

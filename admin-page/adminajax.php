@@ -277,7 +277,7 @@ if ($_POST["jenis"]=="insertbarang") {
          if ($conn->query($sql2)) {
             echo "berhasil";
          }else {
-             echo "gagal insert detail";
+             echo "gagal memasukkan detail barang";
          }
         
     }else{
