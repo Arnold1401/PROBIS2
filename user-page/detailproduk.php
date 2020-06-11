@@ -154,7 +154,7 @@ $boleh = false;
           include_once "conn.php";
           $conn = getConn();
           if ($boleh) {
-            $sql = "select * from barang where id_barang='$pid'";
+            $sql = "select b.id_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang,b.deskripsi_barang as deskripsi_barang from barang b,detail_barang d where b.id_barang=d.id_barang and d.id_detail_barang='$pid'";
             $statement = $conn->prepare($sql);
             $statement->execute();
             $result = $statement->get_result();
@@ -340,7 +340,7 @@ $boleh = false;
         });
     }
 
-    function addcart(params) {
+    function addtocart(params) {
       $.ajax({
         url: "ajaxs/ajaxcart.php",
         method: "POST",

@@ -119,7 +119,7 @@
         }else{
             $qty=checkganti($idbarang);
 
-            if ($jum<=($qty-$jum)) {
+            if (($qty-$jum)>=0) {
                 $arrkeranjang[$idarray]->set_jum($jum);
                 $_SESSION["keranjang"]=serialize($arrkeranjang);
                 $_SESSION['berat']=hitungberat();
