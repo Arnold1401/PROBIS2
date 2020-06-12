@@ -18,7 +18,7 @@
     $query="
     select c.nama_perusahaan, avg(p.sisa_waktu_pelunasan)
     from customer c, hjual h, piutang p
-    where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir' and p.id_hjual=h.id_hjual and p.sisa_waktu_pelunasan < 0
+    where c.id_cust= h.id_cust and p.tanggal_pelunasan >= '$awal' and p.tanggal_pelunasan <= '$akhir' and p.id_hjual=h.id_hjual and p.sisa_waktu_pelunasan < 0
   
     GROUP by c.nama_perusahaan
     order by p.sisa_waktu_pelunasan desc limit 5
@@ -32,7 +32,7 @@
             <thead>
                 <tr>
                     <th>Nama Perusahaan</th>
-                    <th>Total keterlambatan</th>
+                    <th>Rata-rata keterlambatan</th>
                 </tr>
             </thead>
             <tbody>        

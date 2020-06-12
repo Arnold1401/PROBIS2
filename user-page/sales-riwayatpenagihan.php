@@ -160,12 +160,33 @@ require_once("head.php");
     }
     //end of logout
 
-    
+    function CekTglExpireSemuaBarang(){
+        $.post("ajaxs/ajaxexpire.php",{
+            jenis:"CekTglExpireSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+        }
+        function sisa_waktu_pelunasan() {
+        $.post("ajaxreseller.php",{
+            jenis:"cek_sisa_waktupelunasan",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                
+            })
+        }
+      
     //document ready
     $(document).ready(function () {
         var tableuser="";
         var sisa_jatuhtempo="";
-        
+        CekTglExpireSemuaBarang();
+        sisa_waktu_pelunasan();
 
         //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
         tableuser = $('#tableorders').DataTable( 

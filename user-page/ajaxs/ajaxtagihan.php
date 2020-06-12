@@ -217,7 +217,7 @@
  
  if ($_POST["jenis"]=="selesaikanhutang") {
    $idhjual=$_POST["idhjual"];
-
+   $currentDate = $_POST["CurrentDate"];
    $conn=getConn();
    $sql="select * from piutang where id_hjual='$idhjual'";
    $result = $conn->query($sql);
@@ -229,7 +229,10 @@
    }
    $sql2="update hjual set status_pembayaran='Lunas' where id_hjual='$idhjual' ";
    if ($conn->query($sql2)) {
-
+        $sqltglpelunasan = "update piutang set tanggal_pelunasan='$currentDate' where id_hjual='$idhjual'";
+        if ($conn->query($sqltglpelunasan)) {
+            # code...
+        }
    }    
    $conn->close();
 

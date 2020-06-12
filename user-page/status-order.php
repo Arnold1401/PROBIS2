@@ -359,6 +359,8 @@ require_once("head.php");
 
     //document ready
     $(document).ready(function () {
+        CekTglExpireSemuaBarang();
+        sisa_waktu_pelunasan();
 
         //call event button kirim ulasan di modal
         $('#kirimulasansaya').click( function () {
@@ -775,6 +777,17 @@ require_once("head.php");
             function(data){
                 console.log(data);
                 $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+    }
+
+    function sisa_waktu_pelunasan() {
+        $.post("ajaxreseller.php",{
+            jenis:"cek_sisa_waktupelunasan",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                
             })
     }
 </script>
