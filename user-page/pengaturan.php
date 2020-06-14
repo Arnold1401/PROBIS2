@@ -488,6 +488,7 @@ $row = $result->fetch_assoc();
     function ubahalamat() {
         //kalau tekan button ubah alamat itu alamat yang dipilih/diklik turun ke form dibawah semua
         //bagian yg provinsi, kota, dll semua terselect dan terisi sesuai alamat yg dipilih
+        
         $("#alamat").val();
         
     }
