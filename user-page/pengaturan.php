@@ -489,7 +489,24 @@ $row = $result->fetch_assoc();
         //kalau tekan button ubah alamat itu alamat yang dipilih/diklik turun ke form dibawah semua
         //bagian yg provinsi, kota, dll semua terselect dan terisi sesuai alamat yg dipilih
         
-        $("#alamat").val();
+        //$("#cb_provinsi").val("1-Bali");
+
+        //$('#cb_kota').append('<option>'+"1-Bali"+'</option>');
+        $.post("ajaxs/ajaxsetting.php",
+        {
+        jenis:"selectalamat",
+        id_alamat:$("#alamat").val(),
+        },
+        function(data){
+        var res = data.split("!");
+        $("#cb_provinsi").val(res[2]);
+        $nama_kota = res[3].split("-");
+        $nama_kecamatan = res[4].split("-");
+        $('#cb_kota').append('<option value="'+ res[3] +'">'+$nama_kota[1]+'</option>');
+        $('#cb_kecamatan').append('<option value="'+ res[4] +'">'+$nama_kecamatan[1]+'</option>');
+        $("#alamat_lengkap").val(res[5]);
+        $("#kodepos").val(res[7]);
+        });
         
     }
     
