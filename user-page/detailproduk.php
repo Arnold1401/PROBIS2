@@ -210,7 +210,7 @@ $boleh = false;
                   </div>
                 </div>
                 <div class="w-100"></div>
-                <div class="input-group col-md-6 d-flex mb-3">
+                <!-- <div class="input-group col-md-6 d-flex mb-3">
                   <span class="input-group-btn mr-2">
                     <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
                       <i class="ion-ios-remove"></i>
@@ -222,7 +222,7 @@ $boleh = false;
                       <i class="ion-ios-add"></i>
                     </button>
                   </span>
-                </div>
+                </div> -->
                 <div class="w-100"></div>
                 <div class="col-md-12">
                   <p style="color: #000;">Stok tersedia</p>
