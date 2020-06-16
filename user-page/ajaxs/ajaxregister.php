@@ -399,6 +399,32 @@
     }
     
 
+    if ($_POST["jenis"]=="getdetailalamat") {
+      $conn=getConn();
+      $ida=$_POST["ida"];
+      $sql="select * from alamat_pengiriman where id_alamat='$ida' ";
+      $result=$conn->query($sql);
+      if ($result->num_rows>0) {
+        while ($row=$result->fetch_assoc()) {
+          $aprov=$row['provinsi'];
+          //$prov=$aprov;
+          $akota=$row["kota"];
+          //$kota=$akota[0];
+          $akecam=$row["kecamatan"];
+          //$kecam=$akecam[0];
+        }
+      }
+      $conn->close();
+
+      $arr=array(
+        "prov"=>$aprov,
+        "kota"=>$akota,
+        "kecam"=>$akecam
+      );
+
+      echo json_encode($arr);
+    }
+
     use PHPMailer\PHPMailer\PHPMailer;
      use PHPMailer\PHPMailer\SMTP;
      use PHPMailer\PHPMailer\Exception;
@@ -461,5 +487,6 @@
           echo $err;
       }
    }
+
 
 ?>

@@ -113,7 +113,7 @@ $row = $result->fetch_assoc();
                                 if ($role == "reseller") { ?>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Profil</a>
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false">Alamat Pengiriman</a>
+                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false"></a>
                             <?php    }
                             if ($role == "salesman") { ?>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
@@ -240,12 +240,12 @@ $row = $result->fetch_assoc();
                                 </form>
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
-                                <h4 class="mb-4">Alamat Pengiriman</h4> <hr>
+                                <h4 class="mb-4"></h4> <hr>
                                 <form action="#">
                                    
                                     <div class="form-group">
-                                    <label for="">Alamat Pengiriman</label>
-                                    <select class="form-control" name="alamat" id="alamat">
+                                    <label for=""></label>
+                                    <select class="form-control" name="alamat" onclick="loaddetailalamat()" id="alamat">
                                         <!-- diisi ajax -->
                                     </select>             
                                     </div>
@@ -264,8 +264,8 @@ $row = $result->fetch_assoc();
                                     
 
                                     <div class="form-group"> 
-                                        <small>*Pilih Ubah Alamat untuk mengubah alamat pengiriman dengan memilih salah satu alamat</small> <br>
-                                        <small>*Pilih Hapus Alamat untuk menghapus alamat pengiriman dengan memilih salah satu alamat</small><br>
+                                        <small>*Pilih Ubah Alamat untuk mengubah  dengan memilih salah satu alamat</small> <br>
+                                        <small>*Pilih Hapus Alamat untuk menghapus  dengan memilih salah satu alamat</small><br>
                                     </div>
                                     
                                     <hr>
@@ -325,9 +325,52 @@ $row = $result->fetch_assoc();
             },
             function(data){
                 $("#alamat").html(data);
+                loaddetailalamat();
             });
         }
+
+        function loaddetailalamat(){
+            var idalamat=$("#alamat").val();
+            var alamats=[];
+
+            $.post("ajaxs/ajaxregister.php",
+            {
+                jenis:"getdetailalamat",
+                ida:idalamat
+            },
+            function(data){
+                console.log(data);
+                var arr=JSON.parse(data);
+                 var aprov=arr.prov;
+                 var prov=aprov.split('-')[1];
+                var akota=arr.kota;  
+                var kota=akota.split('-')[1];  
+                 var akecam=arr.kecam;
+                 var kecam=akecam.split('-')[1];
+
+                 $("#cb_provinsi").val(aprov);
+                 cb_city();
+                 setTimeout(() => {
+                    $("#cb_kota").val(akota);
+                    cb_subdistrict();
+                 }, 1000,
+                 setTimeout(() => {
+                    $("#cb_kecamatan").val(akecam);
+                 }, 2000));
+                 
+
+                //  $("#cb_provinsi").html("<option value='"+aprov+"'>"+prov+"</option>");
+                //  $("#cb_kota").html("<option value='"+akota+"'>"+kota+"</option>");
+                //  $("#cb_kecamatan").html("<option value='"+akecam+"'>"+kecam+"</option>");
+
+                
+
+                
+            });
+            
+        }
         
+    
 
         function cb_prov(){
         $.post("ajaxs/ajaxregister.php",
@@ -338,7 +381,6 @@ $row = $result->fetch_assoc();
             console.log(data);
             $("#cb_provinsi").html(data);
         });
-        $("#cb_provinsi").val(-1);
     }
 
     function cb_city() {
@@ -352,11 +394,9 @@ $row = $result->fetch_assoc();
             console.log(data);
             $("#cb_kota").html(data);
         });
-        $("#cb_kota").val(-1);
     }
 
     function cb_subdistrict() {
-        if ($("#cb_kota").val()!=null) {
             var kota=$("#cb_kota").val().split('-');
             $.post("ajaxs/ajaxregister.php",
             {
@@ -367,7 +407,7 @@ $row = $result->fetch_assoc();
                 console.log(data);
                 $("#cb_kecamatan").html(data);
             });
-        }
+        
         
     }
 
