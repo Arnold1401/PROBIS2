@@ -72,7 +72,9 @@
                     <li>
                         <a href="admin-lapkeuntungan.php"> <i class="menu-icon fa fa-th"></i>keuntungan </a>
                     </li>
-                    
+                    <li>
+                        <a href="admin-lappiutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

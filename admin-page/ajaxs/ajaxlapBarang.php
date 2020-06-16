@@ -11,8 +11,8 @@
 
     $query="
            select b.jenis_barang,b.nama_barang,avg(d.subtotal)
-           from djual d, barang b,hjual h
-           where d.id_barang=b.id_barang and h.id_hjual=d.id_hjual and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+           from djual d, barang b,hjual h, detail_barang x
+           where x.id_barang=b.id_barang and h.id_hjual=d.id_hjual and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir' and x.id_detail_barang=d.id_detail_barang
            GROUP by b.nama_barang 
            
            order by avg(d.subtotal) desc

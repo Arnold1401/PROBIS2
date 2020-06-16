@@ -83,6 +83,21 @@
         
     }
 
+    if($_POST["jenis"]=="selectalamat"){
+        $kal="";
+        $conn=getConn();
+        $id_alamat = $_POST["id_alamat"];
+        $sql1="select * from alamat_pengiriman where id_alamat='$id_alamat' and no_prioritas != '0'";
+        $result1 = $conn->query($sql1);
+        if ($result1->num_rows > 0) {
+
+        }else{
+            $kal="<option value='-1'>Anda tidak memiliki alamat</option>";
+        }
+        echo implode("!",$result1->fetch_assoc());
+        $conn->close();
+    }
+
     if ($_POST["jenis"]=="hapusalamat") {
         $conn = getConn();
         $id=$_POST["ida"];

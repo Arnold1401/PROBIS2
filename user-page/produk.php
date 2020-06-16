@@ -212,7 +212,8 @@ $conn = getConn();
 
     // document ready
     $(document).ready(function() {
-      
+      CekTglExpireSemuaBarang();
+        sisa_waktu_pelunasan();
 /*
       var type = <?php// echo json_encode($_REQUEST['type']); ?>;
       var selector =".common_selector brand:".type."th-child";
@@ -444,6 +445,27 @@ $conn = getConn();
       }
     }
 
+    function CekTglExpireSemuaBarang(){
+        $.post("ajaxs/ajaxexpire.php",{
+            jenis:"CekTglExpireSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+        }
+        function sisa_waktu_pelunasan() {
+        $.post("ajaxreseller.php",{
+            jenis:"cek_sisa_waktupelunasan",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                
+            })
+        }
+        
 
 
 

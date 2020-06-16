@@ -176,12 +176,9 @@ require_once("head.php");
                                             <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal :</th>
                                             <th style="font-weight:bold"></th>
                                         </tr>
+                                        
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
-                                            <th style="font-weight:bold" id="Ongkir"></th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total Tagihan :</th>
                                             <th style="font-weight:bold" id="totalsemua"></th>
                                         </tr>
                                     </tfoot>
@@ -221,7 +218,17 @@ require_once("head.php");
     //end of logout
 
     //function sisa waktu pelunasan untuk semua piutang
-    function sisa_waktu_pelunasan() {
+    function CekTglExpireSemuaBarang(){
+        $.post("ajaxs/ajaxexpire.php",{
+            jenis:"CekTglExpireSemuaBarang",
+            CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
+            },
+            function(data){
+                console.log(data);
+                $('#example').DataTable().ajax.reload(); //reload ajax datatable 
+            })
+        }
+        function sisa_waktu_pelunasan() {
         $.post("ajaxreseller.php",{
             jenis:"cek_sisa_waktupelunasan",
             CurrentDate:moment(new Date()).format("YYYY-MM-DD"),
@@ -230,13 +237,16 @@ require_once("head.php");
                 console.log(data);
                 
             })
-    }
+        }
+     
 
     //document ready
     $(document).ready(function () {
         var tableuser="";
         var sisa_jatuhtempo="";
+        CekTglExpireSemuaBarang();
         sisa_waktu_pelunasan();
+
 
         //datatable di list order -- semua order yang pernah ada atau yang sedang jalan 
         tableuser = $('#tableorders').DataTable( 
@@ -314,7 +324,7 @@ require_once("head.php");
 
         
         
-        var getTotal, temptotal='';
+        var getTotal, temptotal, getseluruh='';
         //jika button di list orders dipilih/ditekan
         $('#tableorders tbody').on( 'click', 'a', function () {
             var action = this.id;
@@ -325,6 +335,7 @@ require_once("head.php");
             {
                 getId = data[Object.keys(data)[1]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
+                getseluruh = data[Object.keys(data)[7]]; //ongkir
                 getTotal = data[Object.keys(data)[5]]; //ongkir
                 $("#ida").html(getIdAlamat);
                 var tr = $(this).closest('tr');
@@ -398,15 +409,10 @@ require_once("head.php");
                             $( api.column( 3 ).footer() ).html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(total)
                             );
-
-                            var ongkir = getTotal - total;
-                            $("#Ongkir").html(
-                                $.fn.dataTable.render.number('.','.','2','Rp').display(ongkir)
-                            );
+                            
                             $("#totalsemua").html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
-                            );
-                        }
+                            );                        }
                 } );
                 //end of table detail order barang dibagian bawah
 

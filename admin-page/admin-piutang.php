@@ -55,7 +55,7 @@ require_once("adminhead.php");
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>Master Piutang</h1>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@ require_once("adminhead.php");
                             <table id="piutangtabel" class="table table-striped table-bordered" width="100%" >
                                 <thead>
                                     <tr class="clickable-row">
-                                        <th>Nomor Pesanan</th>
+                                        <th>Id Hutang</th>
                                         <th>Nama Perusahaan</th>
                                         <th>Tanggal Jatuh Tempo</th>
                                         <th>Total Hutang</th>

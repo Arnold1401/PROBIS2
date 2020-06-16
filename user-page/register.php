@@ -131,7 +131,6 @@ require_once("headlogin.php");
                 </div>
 
                 <div class="form-group">
-                    
                     <input type='text' class="form-control" name="kodepos" id="kodepos" aria-describedby="helpkodepos" required>
               <!-- isi ajax subdistrict -->
                 </select>
