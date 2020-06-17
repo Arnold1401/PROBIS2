@@ -411,6 +411,8 @@
           $akota=$row["kota"];
           //$kota=$akota[0];
           $akecam=$row["kecamatan"];
+          $alamatlengkap=$row["alamat_lengkap"];
+          $kodepos=$row["kode_pos"];
           //$kecam=$akecam[0];
         }
       }
@@ -419,7 +421,9 @@
       $arr=array(
         "prov"=>$aprov,
         "kota"=>$akota,
-        "kecam"=>$akecam
+        "kecam"=>$akecam,
+        "alamat"=>$alamatlengkap,
+        "kodepos"=>$kodepos
       );
 
       echo json_encode($arr);

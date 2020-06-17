@@ -316,7 +316,16 @@ $row = $result->fetch_assoc();
         }
 
         function loaddetailalamat(){
-            var idalamat=$("#alamat").val();
+            if ($("#alamat").val()=="-1") {
+
+              
+                 $("#cb_kota").val(-1);
+                 $("#cb_kecamatan").val(-1);
+                 $("#kodepos").val("");
+                 $("#alamat_lengkap").val("");
+
+            }else{
+                var idalamat=$("#alamat").val();
             var alamats=[];
 
             $.post("ajaxs/ajaxregister.php",
@@ -333,6 +342,8 @@ $row = $result->fetch_assoc();
                 var kota=akota.split('-')[1];  
                  var akecam=arr.kecam;
                  var kecam=akecam.split('-')[1];
+                var kodepos=arr.kodepos;
+                var alamat=arr.alamat;
 
                  $("#cb_provinsi").val(aprov);
                  cb_city();
@@ -343,7 +354,8 @@ $row = $result->fetch_assoc();
                  setTimeout(() => {
                     $("#cb_kecamatan").val(akecam);
                  }, 2000));
-                 
+                 $("#kodepos").val(kodepos);
+                 $("#alamat_lengkap").val(alamat);
 
                 //  $("#cb_provinsi").html("<option value='"+aprov+"'>"+prov+"</option>");
                 //  $("#cb_kota").html("<option value='"+akota+"'>"+kota+"</option>");
@@ -353,6 +365,8 @@ $row = $result->fetch_assoc();
 
                 
             });
+            }
+           
             
         }
         
