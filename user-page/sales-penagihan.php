@@ -438,7 +438,7 @@ require_once("head.php");
                     var provinsi = data[0].split("-");
                     var kota = data[1].split("-");
                     var kec = data[2].split("-");
-                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    var alamat = data[3] + ", <br> Kecamatan " + kec[1] + ", <br> Kota " + kota[1] + ", <br> Provinsi "+ provinsi[1] ;
                     $("#alamat_pemilik").html(alamat);
                 });
             }

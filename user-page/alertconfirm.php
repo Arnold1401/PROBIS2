@@ -33,12 +33,12 @@ require_once("head.php");
         <div class="col-md-6 order-md-last d-flex">    
             <form action="" method="post" class="bg-white p-5 contact-form">
                 <div class="col-md-12 heading-section text-center ftco-animate">
-                    <h3 class="mb-3">Request Token</h3>
+                    <h3 class="mb-3">Verifikasi Akun Anda</h3>
           	        <span class="subheading">Hello pelanggan, Isi untuk konfirmasi email</span>            
                 </div>
 
                 <div class="form-group">                   
-                    <input type="text" class="form-control" id="txttoken" placeholder="Token">  
+                    <input type="text" class="form-control" id="txttoken" placeholder="Token Anda">  
                     <a href="#" onclick="kirimulang()" class="text-center">Kirim ulang email! </a>               
                 </div>
                

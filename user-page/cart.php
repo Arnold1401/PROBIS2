@@ -124,7 +124,7 @@ require_once("head.php");
                                    include_once "conn.php";
                                    $conn=getConn();
                                    $email=$_SESSION["email_user"];
-                                   $query="select a.id_alamat as id,a.alamat_lengkap as alamat,a.no_prioritas as def  from alamat_pengiriman a where a.email='$email'";
+                                   $query="select a.id_alamat as id,a.provinsi as provinsi, a.kota as kota, a.kecamatan as kecamatan, a.alamat_lengkap as alamat,a.no_prioritas as def  from alamat_pengiriman a where a.email='$email'";
                                     $statement = $conn->prepare($query);
                                     $statement->execute();
                                     $result = $statement->get_result();
@@ -134,11 +134,18 @@ require_once("head.php");
                                         {
                                             $id=$row["id"];
                                             $default=$row["def"];
+                                            $prov = $row["provinsi"];
+                                            $kota = $row["kota"];
+                                            $kec = $row["kecamatan"];
                                             $alamat=$row["alamat"];
+
+                                            $aprov = explode("-",$prov);
+                                            $akota = explode("-",$kota);
+                                            $akec =explode("-",$kec);
                                             if ($default=="1") {
-                                                $kal.=" <option value='$id'>$alamat.....[default]</option>";
+                                                $kal.=" <option value='$id'>$alamat, Kec.$akec[1], Kota.$akota[1], Prov.$aprov[1] .....[default]</option>";
                                             }else{
-                                                $kal.=" <option value='$id'>$alamat</option>";
+                                                $kal.=" <option value='$id'>$alamat, Kec.$akec[1], Kota.$akota[1], Prov.$aprov[1]</option>";
                                             }
                                             
                                             
@@ -164,17 +171,17 @@ require_once("head.php");
                     <div class="cart-total mb-3">
                         <h3>Total Keranjang</h3>
                         <p class="d-flex">
-                            <span>Subtotal</span>
-                            <span id="totorder">Rp. 0</span>
+                            <span>Total</span>
+                            <span id="totorder">Rp 0</span>
                         </p>
                         <p class="d-flex">
-                            <span>Ongkir</span>
-                            <span id="ongkir">Rp. 0</span>
+                            <span>Biaya Pengiriman</span>
+                            <span id="ongkir">Rp 0</span>
                         </p>
                         <hr>
                         <p class="d-flex total-price">
-                            <span>Total</span>
-                            <span id="totalsemua">Rp. 0</span>
+                            <span>Grandtotal</span>
+                            <span id="totalsemua">Rp 0</span>
                         </p>
                     </div>
                     <p><a data-toggle="modal" data-target="#mycheckout" class="text-light btn btn-primary py-3 px-4">Bayar Sekarang</a></p>
@@ -333,7 +340,7 @@ require_once("head.php");
                             ongkir:0
                         },
                         function(data) {
-                            $("#ongkir").html("Rp. "+0.00);
+                            $("#ongkir").html("Rp "+0.00);
                     });
             }
           
@@ -347,7 +354,7 @@ require_once("head.php");
                     jenis: "total",
                 },
                 function(data) {
-                    $("#totalsemua").html("Rp. "+data);
+                    $("#totalsemua").html("Rp "+data);
             });
         }
         hitungtotal();

@@ -91,8 +91,8 @@ $id=$_SESSION["id_sales"];
                     <table id="example" class="table table-striped table-bordered text-dark" >
                             <thead class="thead-primary">
                                 <tr>
-                                    <th>Tanggal Order</th>                                    
-                                    <th>No Order</th>
+                                    <th>Tanggal Pesan</th>                                    
+                                    <th>No Pesanan</th>
                                     <th>Pelanggan</th>
                                     <th>Status Pesanan</th>
                                     <th>Aksi</th>
@@ -304,7 +304,7 @@ $id=$_SESSION["id_sales"];
             var provinsi = data[0].split("-");
             var kota = data[1].split("-");
             var kec = data[2].split("-");
-            var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+            var alamat = data[3] + ", <br> Kecamatan " + kec[1] + ", <br> Kota " + kota[1] + ", <br> Provinsi "+ provinsi[1] ;
             $("#alamatpemilik").html(alamat);
         });
         //end of dapatkan data customernya
@@ -312,7 +312,7 @@ $id=$_SESSION["id_sales"];
     })
 
     $("#update_status").click(function(){
-
+        
 
         var x= $(this).attr("id_pengiriman");
         
@@ -320,7 +320,7 @@ $id=$_SESSION["id_sales"];
 
         var pilihan= $(y).children("option:selected").val();*/
         var pilihan = "Sampai Tujuan";
-        
+        console.log(x);
        
         
         

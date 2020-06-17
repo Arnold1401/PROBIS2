@@ -98,11 +98,11 @@ require_once("adminhead.php");
                               <table id="datatablePenjualan" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#ID </th>
-                                            <th>Tanggal Order</th>
-                                            <th>Customer</th>
-                                            <th>Status Order</th>
-                                            <th>Action</th>
+                                            <th>Nomor Pesanan </th>
+                                            <th>Tanggal Pesan</th>
+                                            <th>Pelanggan</th>
+                                            <th>Status Pesanan</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -124,13 +124,13 @@ require_once("adminhead.php");
                                 <strong class="card-title" id="id_resi"></strong>
                             </div> -->
                             <div class="card-body">
-                                No Order : <label id="id_hjual"></label>
+                                No Pesanan : <label id="id_hjual"></label>
                                 <div class="table-responsive">
                                 <table id="datatableDetailOrder" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>#ID detail</th>
-                                            <th>Barang</th>
+                                            <th>Nama Barang</th>
                                             <th>Kuantiti</th>
                                             <th>Subtotal</th>
                                         </tr>

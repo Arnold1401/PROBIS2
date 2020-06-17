@@ -33,16 +33,16 @@ require_once("head.php");
 <div class="container">
   <div class="card mt-5">
     <div class="card-header">
-      <h4>Bayar</h4>
+      <h4>Konfirmasi Pesanan Anda</h4>
     </div>
     <div class="card-body">
       <div class="row text-center pr-3">
         <table class="col-md-12 text-left" >
           <tr>
-            <th class="text-right">Id</th>
-            <th class="text-right">Nama</th>
-            <th class="text-right">Qty</th>
-            <th class="text-right">Harga</th>
+            <th class="text-right">#Id</th>
+            <th class="text-right">Nama Barang</th>
+            <th class="text-right">Jumlah</th>
+            <th class="text-right">Harga Barang</th>
             <th class="text-right">Subtotal</th>
           </tr>
          <!--difor nanti-->
@@ -87,13 +87,13 @@ require_once("head.php");
           <tr>
             <td></td>
             <td></td>
-            <td colspan="2" class="text-right"><b>Biaya Pegiriman</b></td>
+            <td colspan="2" class="text-right"><b>Biaya Pengiriman</b></td>
             <td class="text-right">Rp <?php echo number_format($_SESSION["ongkir"],2);?></td>
           </tr>
           <tr>
             <td></td>
             <td></td>
-            <td colspan="2" class="text-right"><b>Total Belanja+Biaya Pegiriman</b></td>
+            <td colspan="2" class="text-right"><b>Grandtotal</b></td>
             <td class="text-right">Rp <?php echo number_format($_SESSION["totalsemua"],2);?></td>
           </tr>
         </table>
@@ -101,11 +101,12 @@ require_once("head.php");
 
       <br>
       
-      <div class="text-right">
+      <div class="form-group text-right">
+        <label for=""></label>
         <a class='gray_btn' href="cart.php">Kembali ke Cart</a>
-        <button  class="btn btn-primary" onclick="bayar()">Bayar</button>
+        <button  class="btn btn-primary" onclick="bayar()">Konfirmasi</button>
       </div>
-
+      
     </div>
   </div>
 </div>

@@ -113,7 +113,7 @@ $row = $result->fetch_assoc();
                                 if ($role == "reseller") { ?>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-sports-tab" data-toggle="pill" href="#v-pills-sports" role="tab" aria-controls="v-pills-sports" aria-selected="false">Profil</a>
-                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false"></a>
+                                <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success" id="v-pills-address-tab" data-toggle="pill" href="#v-pills-address" role="tab" aria-controls="v-pills-address" aria-selected="false">Alamat Pengiriman</a>
                             <?php    }
                             if ($role == "salesman") { ?>
                                 <a class="col-lg-12 flex-sm-fill text-sm-center nav-link btn-outline-success active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all" role="tab" aria-controls="v-pills-all" aria-selected="false">Akun</a>
@@ -221,30 +221,16 @@ $row = $result->fetch_assoc();
                                 </div>
 
 
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Tanggal/Bulan/Tahun Lahir Anda</small>
-                                <input value="<?php echo $row["tanggal_lahir"]; ?>" type="date"  class="form-control" name="lahir_user" id="lahir_user">                        
-                                </div>
-
-                                <div class="form-group">
-                                <small id="helpId" class="form-text text-muted">Jenis Kelamin</small>
-                                
-                                <select class="form-control" name="jeniskelamin_user" id="jeniskelamin_user">
-                                <option value='1' <?php if($row['jenis_kelamin']=="1") echo 'selected="selected"'; ?>>Wanita</option>
-                                <option value='2' <?php if($row['jenis_kelamin']=="2") echo 'selected="selected"'; ?>>Pria</option>                                     
-                                </select>                               
-                                </div>
-            
                            
                                 <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
-                                <h4 class="mb-4"></h4> <hr>
+                                <h4 class="mb-4"> Alamat Pengiriman </h4> <hr>
                                 <form action="#">
                                    
                                     <div class="form-group">
-                                    <label for=""></label>
+                                    <label for="">Alamat Pengiriman Anda</label>
                                     <select class="form-control" name="alamat" onclick="loaddetailalamat()" id="alamat">
                                         <!-- diisi ajax -->
                                     </select>             
@@ -482,7 +468,7 @@ $row = $result->fetch_assoc();
         else if(status_akun == 1){
             //valid
            
-            $("#notif_valid").html("Data anda terverifikasi");
+            $("#notif_valid").html("Data anda terverifikasi <br> Anda hanya dapat mengubah <b> Nama Perusahaan dan Nomor telepon anda </b>");
             $("#notif_tdkvalid").removeClass('alert alert-danger');
             $("#notif_menunggu").removeClass('alert alert-warning');
 

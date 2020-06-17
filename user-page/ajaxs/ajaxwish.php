@@ -34,7 +34,7 @@
                         <td class='product-name'>
                             <h3>$nm</h3>
                         </td>
-                        <td class='price'>Rp.$fhg</td>
+                        <td class='price'>Rp $fhg</td>
                         <td> <a href='#' onclick=\"addtocart('$idb')\"> Masukkan ke keranjang</a> <td>
                         <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
                     </tr>";

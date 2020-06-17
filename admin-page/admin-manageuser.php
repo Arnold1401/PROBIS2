@@ -229,7 +229,7 @@ include_once('adminconn.php');
                 '<td> <img src="../user-page/'+d.foto_ktp+'" width:"100px" ></img></td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Tanggal Lahir</td>'+
+                '<td>Nomor KTP</td>'+
                 '<td>'+d.nomor_ktp+'</td>'+
             '</tr>'+
             '<tr>'+

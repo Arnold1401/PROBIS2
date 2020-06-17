@@ -27,16 +27,26 @@ if ($_POST["jenis"] == "konfirmasi_orderan_selesai") {
 
 if ($_POST["jenis"] == "get_nama_barang") {
     $conn=getConn();
-    $idbarang = $_POST['getIdBarang'];
+    $idbarang = $_POST['getIdBarang']; //id detail barang
     $temp="";
-    $sql = "select * from barang where id_barang=$idbarang";
+    $temp2="";
+    $sql = "select * from detail_barang where id_detail_barang=$idbarang";
     $result=$conn->query($sql);
 		
     if($result->num_rows>0){
         while ($row=$result->fetch_assoc()){
-            $temp =$row['nama_barang'];
+            $temp =$row['id_barang'];
         }
-        echo $temp;
+        //echo $temp;
+        $sql2 = "Select * from barang where id_barang=$temp";
+        $result2=$conn->query($sql2);
+        if($result2->num_rows>0){
+            while ($row2=$result2->fetch_assoc()){
+                $temp2 =$row2['nama_barang'];
+            }
+            echo $temp2;
+        }
+        
     }else{
         echo "salah";
     }
@@ -53,16 +63,16 @@ if ($_POST["jenis"] == "kirim_ulasan") {
     $iddjualulas = $_POST['iddjualulas'];
 
     $temp="";
-    $sql = "insert into ulasan(id_barang, id_cust, rating, isi_review) values($idbarang,$idcust,$rating,'$isiulasan')";
+    $sql = "insert into ulasan(id_ulasan, id_detail_barang, id_cust, rating, isi_review) values(null, $idbarang,$idcust,$rating,'$isiulasan')";
     if ($conn->query($sql)) {
         echo "berhasil beri ulasan";
 
         $sql2 = "update djual set id_ulasan=LAST_INSERT_ID() where id_djual=$iddjualulas";
 
         if ($conn->query($sql2)) {
-            echo "berhasil";
+           
          }else {
-             echo "gagal update detail";
+             echo $iddjualulas;
          }
    }else{
        echo "gagal";

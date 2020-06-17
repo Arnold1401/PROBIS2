@@ -252,60 +252,6 @@ require_once("head.php");
     <!--End Modal untuk rating dan review-->
 
     
-    <!-- modal untuk summary midtrans -->
-    <!--<div class="modal fade bd-example-modal-lg" id="DetailHutang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Detail Tagihan <span id="idhjualhutang">[id hjual]</span> </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body " id="isisum">
-                    <div class="form-group">
-                        <h5 id="jatuhtempohutang"> Jatuh Tempo : </h5>
-                        <h5>Total Tagihan <span> <h4 class="text-right font-weight-bold">Rp[total]</h4> </span></h5>
-                        <hr>
-                       
-                        <nav>
-                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link" id="nav-detailkirim-tab" data-toggle="tab" href="#nav-detailkirim" role="tab" aria-controls="nav-ulasan" aria-selected="false">Detail Pengiriman</a>
-                            </div>
-                        </nav>
-                        <div class="tab-content my-4" id="nav-tabContent">
-                            
-                            <div class="tab-pane fade show" id="nav-detailkirim" role="tabpanel" aria-labelledby="nav-detailkirim-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h6>Nama</h6>
-                                        <h6 class="namapemilik"></h6>
-                                        <br>
-                                        <h6>Nomor Telepon</h6>
-                                        <h6 class="nomorpemilik"></h6>
-                                        <br>
-                                        <h6>Email</h6>
-                                        <h6 class="emailpemilik"></h6>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h6>Alamat kirim</h6>
-                                        <h6 class="alamatpemilik">[alamat toko]</h6>
-                                        <br>
-                                        <h6>Status Pesanan Sekarang</h6>
-                                        <h6 class="alamatpemilik">[alamat toko]</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="" class="btn btn-outline-success">Selanjutnya</button> 
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- end of modal untuk summary midtrans -->
 
     <?php
     include_once('justfooter.php')
@@ -554,25 +500,16 @@ require_once("head.php");
                                 }
                                 else if (row.status_order == 'Selesai') //selesai
                                 {
+                                    //return row.id_ulasan;
                                     if (row.id_ulasan == "0") {
                                         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
                                     }
-                                    else if (row.id_ulasan != "0") {
+                                    if (row.id_ulasan != 0) {
                                         return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
                                     }
                                     
                                 }
-                                // else if (row.status_order == '') //selesai
-                                // {
-                                //     if (row.id_ulasan == "0") {
-                                //         return "<a id=\"GiveUlasan\" class='btn btn-outline-primary text-dark' data-toggle='modal' data-target='#myModal'>Beri Ulasan</a>";
-                                //     }
-                                //     else if (row.id_ulasan != "0") {
-                                //         return "<a class='btn btn-outline-primary text-dark' href='ulasan.php'>Lihat Ulasan</a>";
-                                //     }
-                                    
-                                // }
-                                        
+                               
                             },
                             "target":-1,
                         },
@@ -640,7 +577,7 @@ require_once("head.php");
                     var provinsi = data[0].split("-");
                     var kota = data[1].split("-");
                     var kec = data[2].split("-");
-                    var alamat = data[3] + ", <br>" + kec[1] + ", <br>" + kota[1] + ", <br>"+ provinsi[1] ;
+                    var alamat = data[3] + ", <br> Kecamatan " + kec[1] + ", <br> Kota " + kota[1] + ", <br> Provinsi "+ provinsi[1] ;
                     $("#alamatpemilik").html(alamat);
                 });
                 //end of dapatkan data customernya
@@ -673,13 +610,14 @@ require_once("head.php");
             var action = this.id;
             dataget = tabledetail.row($(this).closest('tr')).data();
 
-            getIdBarang = dataget[Object.keys(dataget)[2]]; //get Id barang
-            iddjualulas = dataget[Object.keys(dataget)[1]]; //get Id djual
+            getIdBarang = dataget[Object.keys(dataget)[7]]; //get Id detail barang
+            console.log(getIdBarang);
+            iddjualulas = dataget[Object.keys(dataget)[0]]; //get Id djual
 
             function getnamabarang(){
                 $.post("ajaxreseller.php",{
                     jenis:"get_nama_barang",
-                    getIdBarang:dataget[Object.keys(dataget)[2]], //get Id barang
+                    getIdBarang:dataget[Object.keys(dataget)[7]], //get Id detail barang
                 },
                 function(data){                 
                     $("#nama_produkdiulas").html(data);

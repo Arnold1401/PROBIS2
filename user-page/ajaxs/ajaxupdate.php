@@ -19,7 +19,7 @@ $sql="update hjual set status_order='$status' where id_hjual='$id';";
 
 if($conn->query($sql)){
 
-    echo true;
+    echo "Berhasil konfirmasi bahwa barang telah sampai tujuan";
 
 }
 

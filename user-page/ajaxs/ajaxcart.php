@@ -41,11 +41,11 @@
                         
                         <td class='quantity'>
                             <div class='input-group mb-3'>
-                            <input type='text' name='quantity' class='quantity form-control input-number' id=\"jum$idb\" onchange=\"gtjum('$idb')\" value='$jum' min='1' max='100'>
+                            <input type='number' name='quantity' class='quantity form-control input-number' id=\"jum$idb\" onchange=\"gtjum('$idb')\" value='$jum' min='1' max='100'>
                         </div>
                         </td>
                     
-                        <td class='total'>Rp. $fstotal</td>
+                        <td class='total'>Rp $fstotal</td>
                         <td class='product-remove'><a href='' onclick=\"remove('$idb')\"><span class='ion-ios-close'></span></a></td>
                     </tr>";
                 }
