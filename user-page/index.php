@@ -55,50 +55,35 @@
     <!-- END nav -->
 
     <section id="home-section" class="hero">
-		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+        <div class="home-slider owl-carousel">
+            <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                    </div>
+                </div>
+            </div>
 
-	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-
-	      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
-	      	<div class="overlay"></div>
-	        <div class="container">
-	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
-
-	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
-	            </div>
-
-	          </div>
-	        </div>
-	      </div>
-	    </div>
+            <div class="slider-item" style="background-image: url(images/bg_3.jpg);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
     <section class="ftco-section">
         <div class="container">
             <div class="row no-gutters ftco-services">
     <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
         <div class="media block-6 services mb-md-0 mb-4">
         <div class="icon bg-color-1 active d-flex justify-content-center align-items-center mb-2">
-                <span class="flaticon-correct"></span>
+                <span class="flaticon-customer-service"></span>
         </div>
         <div class="media-body">
-            <h3 class="heading">Free Shipping</h3>
-            <span>On order over $100</span>
+            <h3 class="heading">Salesman terpercaya</h3>
+            <span>Setiap Reseller memiliki sales yang dekat dengan wilayahnya</span>
         </div>
         </div>      
     </div>
@@ -108,8 +93,8 @@
                 <span class="flaticon-diet"></span>
         </div>
         <div class="media-body">
-            <h3 class="heading">Always Fresh</h3>
-            <span>Product well package</span>
+            <h3 class="heading">Terkirim Secara Baik</h3>
+            <span>Produk akan dipaketkan dengan baik</span>
         </div>
         </div>    
     </div>
@@ -119,8 +104,8 @@
                 <span class="flaticon-award"></span>
         </div>
         <div class="media-body">
-            <h3 class="heading">High Quality Product</h3>
-            <span>Good Products from reliable company</span>
+            <h3 class="heading">Produk Berkualitas Tinggi</h3>
+            <span>Semua produk berasal dari perusahaan terpercaya</span>
         </div>
         </div>      
     </div>
@@ -139,21 +124,22 @@
         </div>
     </section>
 
+
     <!-- Jenis Product -->
     <section class="ftco-section">
-    	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Produk Unggulan</span>
-            <h2 class="mb-4">Produk tersedia</h2>
-          </div>
-        </div>   		
-    	</div>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-                        <a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.png" alt="Colorlib Template">
+        <div class="container">
+            <div class="row justify-content-center mb-3 pb-3">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">Produk Unggulan</span>
+                    <h2 class="mb-4">Produk tersedia</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 ftco-animate">
+                    <div class="product">
+                        <a href="#" class="img-prod"><img class="img-fluid" src="images/product-8.jpg" alt="Colorlib Template" width="500px">
                         <div></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -162,46 +148,46 @@
     							<div class="pricing"></div>
 	    					</div>
 	    					<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=1" role="button">Lihat Produk</a>	    						
     						</div>
     					</div>
     				</div>
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/category-4.jpg" alt="Colorlib Template" width="500px" height="200px">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Barang Konsumsi</a></h3>
+    						<h3><a href="#">Makanan Ringan</a></h3>
     						<div class="d-flex">
     							<div class="pricing"></div>
 	    					</div>
     						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=2" role="button">Lihat Produk</a>	    						
     						</div>
     					</div>
     				</div>
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpeg" alt="Colorlib Template" width="500px">
 	    					<div class="overlay"></div>
 	    				</a>
     					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Perawatan Pribadi</a></h3>
+    						<h3><a href="#">Perawatan Diri</a></h3>
     						<div class="d-flex">
     							<div class="pricing"></div>
 	    					</div>
     						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">Shop</a>
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=3" role="button">Lihat Produk</a>
     						</div>
     					</div>
     				</div>
     			</div>
     			<div class="col-md-6 col-lg-3 ftco-animate">
     				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-5.jpg" alt="Colorlib Template" width="500px">
     						<div class="overlay"></div>
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
@@ -210,7 +196,7 @@
     							<div class="pricing"></div>
 	    					</div>
     						<div class="d-flex px-3 d-flex justify-content-center align-items-center text-center">
-                                <a name="" id="" class="btn btn-primary" href="#" role="button">shop</a>	    						
+                                <a name="" id="" class="btn btn-primary" href="produk.php?type=4" role="button">Lihat Produk</a>	    						
     						</div>
     					</div>
     				</div>
