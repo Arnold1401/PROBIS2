@@ -102,11 +102,12 @@
                 
                
                 $kal.="<option value='$ida'>$provinsi[1], $kota[1], $kecamatan[1], $alamat</option>";
-                $kal.="<option value='-1'>+ Tambah alamat</option>";
+                
             }
         }else{
             $kal.="<option value='-1'>Anda tidak memiliki alamat</option>";
         }
+        $kal.="<option value='-1'>+ Tambah alamat</option>";
         echo $kal;
         $conn->close();
         
