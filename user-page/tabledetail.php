@@ -34,7 +34,7 @@
 ?>
 
 
-<table id="example" class="table table-striped table-bordered text-dark" >
+<table id="exampless" class="table table-striped table-bordered text-dark" >
                             <thead class="thead-primary">
                                 <tr>
                                     <th>Nama Barang</th>                                    

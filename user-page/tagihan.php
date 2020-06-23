@@ -411,7 +411,7 @@ require_once("head.php");
                 {"data":"tanggal_order", render: $.fn.dataTable.render.moment('DD-MMMM-YYYY')},                         
                 {"data":"kurir"},
                 {"data":"nama_sales"},//nama_sales
-                {"data":"grandtotal", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
+                {"data":"totalkeselurahan", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                 {"data":"status_order",
                     "searchable": true,
                     "orderable":true,
