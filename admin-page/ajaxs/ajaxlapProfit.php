@@ -16,7 +16,7 @@ $akhir=$_REQUEST["tgl_akhir"];
         from  hjual 
 
 
-        where tanggal_order >= '$awal' and tanggal_order <= '$akhir'
+        where tanggal_order >= '$awal' and tanggal_order <= '$akhir' and status_order != 'Batal' and status_pembayaran != 'Menunggu Pelunasan'
 
 
     ";

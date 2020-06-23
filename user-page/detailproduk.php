@@ -247,7 +247,7 @@ $boleh = false;
                          $result2 = $statement2->get_result();
                          foreach ($result2 as $row2) {
                            $ulasan = $row2["ulasan"];                          
-                           $rate = ceil($row2["rate"]);
+                           $rate = round($row2["rate"],2);
                            $bintang="";
                            $pad=5-$rate;
                            if ($rate == 0) {

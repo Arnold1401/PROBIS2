@@ -87,7 +87,7 @@ $id=$_SESSION["id_sales"];
                       <small id="helpId" class="text-muted">*Tombol Sampai Tujuan -- Mengubah status order barang jika barang telah sampai di tujuan</small><br>
                       <small id="helpId" class="text-muted">*Tombol Detail -- Melihat detail barang yang dipesan oleh pelanggan</small>
                     </div>
-                    <div class="table-responsive" id="example"> <!-- end of class responsive -->
+                        <div class="table-responsive" id="example"> </div><!-- end of class responsive -->
                         
                     </div> <!-- end of card list -->
                 </div> <!-- end of col-md-12 ftco-animate -->

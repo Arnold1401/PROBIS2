@@ -86,7 +86,7 @@ include_once('adminconn.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Keuntungan</strong>
+                                <strong class="card-title">List Keuntungan Setiap Transaksi</strong>
                             </div>
                             <div class="card-body">
 
@@ -125,9 +125,9 @@ include_once('adminconn.php');
                             </div>
                         </div>
                     </div>
-
-
                 </div>
+
+                
             </div><!-- .animated -->
         </div><!-- .content -->
     </div><!-- /#right-panel -->
