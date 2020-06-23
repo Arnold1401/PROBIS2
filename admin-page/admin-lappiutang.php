@@ -86,7 +86,7 @@ include_once('adminconn.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">List Sales</strong>
+                                <strong class="card-title">List Pelanggan dan Rata-rata keterlambatan</strong>
                             </div>
                             <div class="card-body">
                             <div class="row">

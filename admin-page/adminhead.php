@@ -70,7 +70,7 @@
                         <a href="admin-lapsales.php"> <i class="menu-icon fa fa-id-badge"></i>Sales</a>
                     </li>
                     <li>
-                        <a href="admin-lapkeuntungan.php"> <i class="menu-icon fa fa-th"></i>keuntungan </a>
+                        <a href="admin-lapkeuntungan.php"> <i class="menu-icon fa fa-th"></i>Keuntungan </a>
                     </li>
                     <li>
                         <a href="admin-lappiutang.php"> <i class="menu-icon fa fa-th"></i>Piutang </a>
