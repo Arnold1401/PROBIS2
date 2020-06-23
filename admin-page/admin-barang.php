@@ -425,8 +425,8 @@ require_once("adminhead.php");
              "columns":[
                 
                  {"data":"id_detail_barang"},
-                 {"data":"id_barang"},
                  {"data":"nama_barang"},
+                 {"data":"jenis_barang"},
                  {"data":"harga_jual", render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )},
                  {"data":"status_barang",
                     "searchable": false,

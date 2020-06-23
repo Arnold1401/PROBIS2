@@ -343,7 +343,7 @@ function register() {
     }
     if(namaperusahaan != "" && namauser != "" && nomorktp != "" && fotoktp != "" && telpuser != "" && 
     lahiruser != "" && jeniskelaminuser != "" && alamatuser != "" && emailuser != "" &&
-    passworduser != "" && nomorktp.length == 19){
+    passworduser != "" && nomorktp.length == 19 && telpuser.length <12){
 
         if (konpassword == passworduser) {
         $.post("ajaxs/ajaxregister.php",
@@ -380,11 +380,17 @@ function register() {
 
         }
         else{
-        alert('tidak sama');
+        alert('Password dan Konfirmasi password tidak sama');
         }
 
     }else{
-        alert("input tidak valid");
+        if (nomorktp.length > 19) {
+            alert("Cek kembali Nomor KTP anda");
+        }
+        else if (telpuser.length > 12) {
+            alert("Cek kembali nomor telepon anda");
+        }
+        
     }
 }
 

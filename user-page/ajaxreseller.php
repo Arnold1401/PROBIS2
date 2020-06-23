@@ -56,27 +56,40 @@ if ($_POST["jenis"] == "get_nama_barang") {
 
 if ($_POST["jenis"] == "kirim_ulasan") {
     $conn=getConn();
-    $idbarang = $_POST['idbarang'];
+    $idbarang = $_POST['idbarang']; //id detail barang
     $idcust = $_POST['idcust'];
     $rating = $_POST['rating'];
     $isiulasan = $_POST['isiulasan'];
     $iddjualulas = $_POST['iddjualulas'];
 
-    $temp="";
-    $sql = "insert into ulasan(id_ulasan, id_detail_barang, id_cust, rating, isi_review) values(null, $idbarang,$idcust,$rating,'$isiulasan')";
-    if ($conn->query($sql)) {
-        echo "berhasil beri ulasan";
+    $temp=""; $saveidbarang="";
+    //select id barang terlebih dahulu
+    $sqlcekbarang = "select id_barang from detail_barang where id_detail_barang=$idbarang";
+    $result=$conn->query($sqlcekbarang);
+		
+    if($result->num_rows>0){
+        while ($row=$result->fetch_assoc()){
+            $saveidbarang =$row['id_barang'];
+        }
 
-        $sql2 = "update djual set id_ulasan=LAST_INSERT_ID() where id_djual=$iddjualulas";
+        $sql = "insert into ulasan(id_ulasan, id_barang, id_cust, rating, isi_review) values(null, $saveidbarang,$idcust,$rating,'$isiulasan')";
+        if ($conn->query($sql)) {
+            echo "berhasil beri ulasan";
 
-        if ($conn->query($sql2)) {
-           
-         }else {
-             echo $iddjualulas;
-         }
-   }else{
-       echo "gagal";
-   }
+            $sql2 = "update djual set id_ulasan=LAST_INSERT_ID() where id_djual=$iddjualulas";
+
+            if ($conn->query($sql2)) {
+            
+            }else {
+                echo $iddjualulas;
+            }
+        }else{
+            echo "gagal";
+        }
+
+    }
+
+    
 
    $conn->close();
 }

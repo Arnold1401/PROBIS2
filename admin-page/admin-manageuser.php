@@ -216,6 +216,7 @@ include_once('adminconn.php');
         var provinsi = d.provinsi.split("-");     
         var kota = d.kota.split("-");   
         var kecamatan = d.kecamatan.split("-");
+        var $tampil="";
         
 
         if(d.jenis_kelamin == "0"){
@@ -223,7 +224,8 @@ include_once('adminconn.php');
         }else{
             jenis_kelamin = "Pria";
         }
-        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%;">'+
+        if (d.status != 2) {
+            $tampil = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%;">'+
             '<tr>'+
                 '<td>Foto KTP</td>'+
                 '<td> <img src="../user-page/'+d.foto_ktp+'" width:"100px" ></img></td>'+
@@ -263,6 +265,47 @@ include_once('adminconn.php');
             
             '</tr>'+
         '</table>';
+        }
+        else if (d.status == 2) {
+            $tampil = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%;">'+
+            '<tr>'+
+                '<td>Foto KTP</td>'+
+                '<td> <img src="../user-page/'+d.foto_ktp+'" width:"100px" ></img></td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Nomor KTP</td>'+
+                '<td>'+d.nomor_ktp+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Tanggal Lahir</td>'+
+                '<td>'+lahir +'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Jenis Kelamin</td>'+
+                '<td>'+ jenis_kelamin+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>No Telepon</td>'+
+                '<td>'+d.notelp+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Email</td>'+
+                '<td>'+d.email+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Alamat</td>'+
+                '<td>'+ provinsi[1]  + ', ' + kota[1] + ', ' + kecamatan[1] + ', ' + d.alamat_lengkap +'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Keterangan</td>'+
+                '<td>'+
+                    'Menunggu Perubahan Data'
+                '</td>'+
+            
+            '</tr>'+
+        '</table>';
+        }
+        return $tampil;
     }
     //end of function detail di list customer
 

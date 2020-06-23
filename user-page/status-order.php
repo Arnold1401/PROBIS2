@@ -274,7 +274,7 @@ require_once("head.php");
              $('#warning').html("");
              $.post("ajaxreseller.php",{
              jenis:"kirim_ulasan",
-             idbarang : idbarangutkdiulas,
+             idbarang : idbarangutkdiulas, //id detail
              idcust : idcust,
              rating : parseInt(document.querySelector('.stars').getAttribute('data-rating')),
              isiulasan :isiulasan,
@@ -645,6 +645,9 @@ require_once("head.php");
                
             }
             $('#tabledetailorder').empty();
+            $("#namapemilik").empty();
+            $("#nomorpemilik").empty();
+            $("#alamatpemilik").empty();
         } );
         //end of filter list order berdasarkan status yang dpilih
     });

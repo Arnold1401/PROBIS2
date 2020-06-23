@@ -10,21 +10,49 @@
     $telp_user = $_POST['telp_user'];
     $lahir_user = $_POST['lahir_user'];
     $jeniskelamin_user = $_POST['jeniskelamin_user'];
+    $status=0;
     $conn = getConn();
-    $sql = "update customer set nama_perusahaan = '$nama_perusahaan', nama_pemilik = '$nama_user', nomor_ktp = '$nomor_ktp', notelp = '$telp_user', tanggal_lahir = '$lahir_user', jenis_kelamin = '$jeniskelamin_user' where email = '".$_SESSION['email_user']."'";
+    $sql = "update customer set nama_perusahaan = '$nama_perusahaan', nama_pemilik = '$nama_user', nomor_ktp = '$nomor_ktp', notelp = '$telp_user', tanggal_lahir = '$lahir_user', jenis_kelamin = '$jeniskelamin_user', status=$status where email = '".$_SESSION['email_user']."'";
     //$sql = "update customer set nama_pemilik='$nama_user' where email = '".$_SESSION['email_user']."'";
     //echo $nama_user;
         if ($conn->query($sql)) {   
-            echo "berhasil";
+            echo "Berhasil Ubah Data";
             $_SESSION["nama_user"] = $nama_user;
             $_SESSION["nomor_ktp"] = $nomor_ktp;
             $_SESSION["telp_user"] = $telp_user;
             $_SESSION["lahir_user"] = $lahir_user;
             $_SESSION["jeniskelamin_user"] = $jeniskelamin_user;
             $_SESSION["nama_perusahaan"] = $nama_perusahaan;
+            $_SESSION["status_akun"] = $status;
         }
     $conn->close();
     }
+
+    if ($_POST['jenis'] == "updateNama_Nomor_Perusahaan") {
+        // (0 - admin) (1 - reseller)(2 - sales) -- role
+        // (0 - menunggu ) (1 - valid ) (2 - tidak valid) -- status akun
+        $nama_user = $_POST['nama_user'];
+        $nama_perusahaan = $_POST['nama_perusahaan'];
+        $nomor_ktp = $_POST['nomor_ktp'];
+        $telp_user = $_POST['telp_user'];
+        $lahir_user = $_POST['lahir_user'];
+        $jeniskelamin_user = $_POST['jeniskelamin_user'];
+        $conn = getConn();
+        $sql = "update customer set nama_perusahaan = '$nama_perusahaan', nama_pemilik = '$nama_user', nomor_ktp = '$nomor_ktp', notelp = '$telp_user', tanggal_lahir = '$lahir_user', jenis_kelamin = '$jeniskelamin_user' where email = '".$_SESSION['email_user']."'";
+        //$sql = "update customer set nama_pemilik='$nama_user' where email = '".$_SESSION['email_user']."'";
+        //echo $nama_user;
+            if ($conn->query($sql)) {   
+                echo "Berhasil Ubah Data";
+                $_SESSION["nama_user"] = $nama_user;
+                $_SESSION["nomor_ktp"] = $nomor_ktp;
+                $_SESSION["telp_user"] = $telp_user;
+                $_SESSION["lahir_user"] = $lahir_user;
+                $_SESSION["jeniskelamin_user"] = $jeniskelamin_user;
+                $_SESSION["nama_perusahaan"] = $nama_perusahaan;
+            }
+        $conn->close();
+        }
+    
 
     if ($_POST['jenis'] == "gantipass") {
         $id=$_SESSION["idcust"];

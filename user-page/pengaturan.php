@@ -222,7 +222,7 @@ $row = $result->fetch_assoc();
 
 
                            
-                                <button type="button" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
+                                <button type="button" id="simpanperubahan" onclick="simpan()" class="btn btn-outline-success">Simpan Perubahan</button>                      
                                 </form>
                             </div>
                             <div class="tab-pane fade bg-white p-3 contact-form" id="v-pills-address" role="tabpanel" aria-labelledby="v-pills-address-tab">
@@ -478,6 +478,14 @@ $row = $result->fetch_assoc();
             $("#notif_menunggu").html("Data anda belum diverifikasi oleh Admin. Silakan menunggu 2-3 hari kerja");
             $("#notif_tdkvalid").removeClass('alert alert-danger');
             $("#notif_valid").removeClass('alert alert-success');
+
+            $("#nama_perusahaan").prop( "disabled", true );
+            $("#telp_user").prop( "disabled", true );
+            $( "#nama_user" ).prop( "disabled", true );
+            $( "#nomor_ktp" ).prop( "disabled", true );
+            $( "#lahir_user" ).prop( "disabled", true );
+            $( "#jeniskelamin_user" ).prop( "disabled", true );
+            $("#simpanperubahan").prop( "disabled", true );
         }
         else if(status_akun == 1){
             //valid
@@ -486,10 +494,13 @@ $row = $result->fetch_assoc();
             $("#notif_tdkvalid").removeClass('alert alert-danger');
             $("#notif_menunggu").removeClass('alert alert-warning');
 
+            $("#nama_perusahaan").prop( "disabled", false );
+            $("#telp_user").prop( "disabled", false );
             $( "#nama_user" ).prop( "disabled", true );
             $( "#nomor_ktp" ).prop( "disabled", true );
             $( "#lahir_user" ).prop( "disabled", true );
             $( "#jeniskelamin_user" ).prop( "disabled", true );
+            $("#simpanperubahan").prop( "disabled", false );
             
         }
         else if(status_akun == 2){
@@ -508,8 +519,26 @@ $row = $result->fetch_assoc();
     });
 
     function simpan() {
-        
-        alert(status_akun);
+       // alert(status_akun);
+        if (status_akun == 1) //hanya dapat mengubah nama perusahaan dan nomor telepon, status tetap 1
+        {
+            $.post("ajaxs/ajaxsetting.php",
+            {
+                jenis:"updateNama_Nomor_Perusahaan",
+                nama_perusahaan:$("#nama_perusahaan").val(),
+                nama_user:$("#nama_user").val(),
+                nomor_ktp:$("#nomor_ktp").val(),
+                telp_user:$("#telp_user").val(),
+                lahir_user:$("#lahir_user").val(),
+                jeniskelamin_user:$("#jeniskelamin_user").val(),
+            },
+            function(data){
+                alert(data);
+                notif_profil();
+            });
+        }
+        else if (status_akun == 2) //kondisi data tdk valid -- dan melakukan perubahan maka status menajdi 0
+        {
             $.post("ajaxs/ajaxsetting.php",
             {
                 jenis:"update",
@@ -522,7 +551,11 @@ $row = $result->fetch_assoc();
             },
             function(data){
                 alert(data);
+                notif_profil();
             });
+        }
+        
+            
     }
 
     function ubahalamat() {
