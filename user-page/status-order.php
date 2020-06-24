@@ -31,6 +31,7 @@ require_once("head.php");
         .stars::after{
             content: counter(rateme) '/5';
         }
+        
     </style>
 </head>
 <body class="goto-here">
@@ -118,15 +119,33 @@ require_once("head.php");
                             <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
                             <small id="helpId" class="text-muted">*Tombol Selesai - konfirmasi order Anda bahwa orderan telah selesai</small>
                         </div>
-                        
+
                         <ul id="filter">
                             <li class="btn"> <label class="font-weight-bold"> Filter Status > </label> </li>
-                            <li class="btn"><a href="#tableall" data-value="" active>Semua</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Proses">Proses</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Pengiriman">Pengiriman</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Sampai Tujuan">Sampai Tujuan</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Selesai">Selesai</a></li>
-                            <li class="btn"><a href="#tableall" data-value="Batal">Batal</a></li>
+                            <li class="btn">
+                                <a href="#tableall" data-value="" id="pilih1" class="active btn btn-outline-success" onclick="dipilih1()">Semua
+                                <span class="badge badge-secondary">New</span> </a>
+                            </li>
+                            <li class="btn">
+                                <a id="pilih2" href="#tableall" data-value="Proses" class="btn btn-outline-success" onclick="dipilih2()">Proses
+                                <span class="badge badge-secondary">New</span> </a>
+                            </li>
+                            <li class="btn">
+                                <a id="pilih3"  href="#tableall" data-value="Pengiriman" class="btn btn-outline-success" onclick="dipilih3()">Pengiriman
+                                </a>
+                            </li>
+                            <li class="btn">
+                                <a id="pilih4" href="#tableall" data-value="Sampai Tujuan" class="btn btn-outline-success" onclick="dipilih4()" >Sampai Tujuan
+                                </a>
+                            </li>
+                            <li class="btn">
+                                <a id="pilih5" href="#tableall" data-value="Selesai" class="btn btn-outline-success" onclick="dipilih5()" >Selesai
+                                </a>
+                            </li>
+                            <li class="btn">
+                                <a id="pilih6" href="#tableall" data-value="Batal" class="btn btn-outline-success" onclick="dipilih6()" >Batal
+                                </a>
+                            </li>
                         </ul>
                         
                         <div class="table-responsive" >
@@ -303,11 +322,75 @@ require_once("head.php");
     }
     //end of logout
 
+    // button ubah classss
+    function dipilih1() {
+        $("#pilih1").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+
+        $("#pilih2").removeClass();
+        $("#pilih3").removeClass();
+        $("#pilih4").removeClass();
+        $("#pilih5").removeClass();
+        $("#pilih6").removeClass();
+    }
+
+    function dipilih2() {
+        $("#pilih2").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+
+        $("#pilih1").removeClass();
+        $("#pilih3").removeClass();
+        $("#pilih4").removeClass();
+        $("#pilih5").removeClass();
+        $("#pilih6").removeClass();
+    }
+
+    function dipilih3() {
+        $("#pilih3").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+
+        $("#pilih1").removeClass();
+        $("#pilih2").removeClass();
+        $("#pilih4").removeClass();
+        $("#pilih5").removeClass();
+        $("#pilih6").removeClass();
+    }
+
+    function dipilih4() {
+        $("#pilih4").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+
+        $("#pilih1").removeClass();
+        $("#pilih2").removeClass();
+        $("#pilih3").removeClass();
+        $("#pilih5").removeClass();
+        $("#pilih6").removeClass();
+    }
+
+    function dipilih5() {
+        $("#pilih5").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+
+        $("#pilih1").removeClass();
+        $("#pilih2").removeClass();
+        $("#pilih3").removeClass();
+        $("#pilih4").removeClass();
+        $("#pilih6").removeClass();
+    }
+
+    function dipilih6() {
+        $("#pilih6").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+
+        $("#pilih1").removeClass();
+        $("#pilih2").removeClass();
+        $("#pilih3").removeClass();
+        $("#pilih4").removeClass();
+        $("#pilih5").removeClass();
+    }
+    // button ubah classss
+    
     //document ready
     $(document).ready(function () {
+        $("#pilih1").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
         CekTglExpireSemuaBarang();
         sisa_waktu_pelunasan();
 
+       
         //call event button kirim ulasan di modal
         $('#kirimulasansaya').click( function () {
             kirimulasansaya();
@@ -637,9 +720,13 @@ require_once("head.php");
         //filter list order berdasarkan status yang dpilih
         var table = $('#tableorders').DataTable();
         $('#filter').on( 'click', 'a', function () {
+           // $(this).addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
             console.log($(this).data("value"));
             table.search( $(this).data("value")).draw();
-           // 
+            //table.filter($(this).data("value")).draw();
+           
+            
+
             if ($(this).data("value") == "") {
                 $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
                
@@ -650,6 +737,20 @@ require_once("head.php");
             $("#alamatpemilik").empty();
         } );
         //end of filter list order berdasarkan status yang dpilih
+
+       
+
+         if (document.querySelector(".btn")) {
+            $(this).addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
+         //document.querySelector(".btn").className = document.querySelector(".btn").className.replace(" active",""); 
+         }
+
+        // document.querySelectorAll('.btn').forEach(function(e) {
+        // e.addEventListener('click', function() {
+        // this.style.backgroundColor = "red";
+        // })
+        // });
+
     });
 
     //----------------stars rating ----------------------------------//
