@@ -743,6 +743,7 @@ require_once("adminhead.php");
         $("#pilihbarang").attr("disabled", false); 
         $("#tambahbarang_baru").attr("disabled", false); 
         $("#tambahbarang_ini").attr("disabled", false); 
+        document.getElementById("img").src="upload/noimage.png";
         
     }
     //end of function reset

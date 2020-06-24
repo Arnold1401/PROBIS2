@@ -173,7 +173,7 @@ $conn = getConn();
         </div>
         <!-- end row Jenis Product -->
 
-        <div class="row mt-5">
+        <!-- <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
@@ -187,7 +187,7 @@ $conn = getConn();
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
