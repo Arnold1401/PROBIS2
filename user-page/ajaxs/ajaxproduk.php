@@ -6,7 +6,7 @@ if ($_POST["jenis"] == "show_product_catalog_semua") {
     $conn = getConn();
 
     $kal="";
-    $sql = "select d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from barang b,detail_barang d where d.id_barang=b.id_barang and d.status_tampil='1' ";
+    $sql = "select distinct d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from barang b,detail_barang d where d.id_barang=b.id_barang and d.status_tampil='1' ";
     $statement = $conn->prepare($sql);
     $statement->execute();
     $result = $statement->get_result();
@@ -49,7 +49,7 @@ if ($_POST["jenis"] == "filter") {
 	$conn=getConn();
 
 	$bolehfilter=false;
-    $query = "SELECT d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from barang b,detail_barang d where d.id_barang=b.id_barang and d.status_tampil='1'";
+    $query = "SELECT distinct d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from barang b,detail_barang d where d.id_barang=b.id_barang and d.status_tampil='1'";
 	$kal="";
 	$minprice=0;
 
@@ -73,7 +73,7 @@ if ($_POST["jenis"] == "filter") {
 		if (count($_POST["brand"])>0) {
 			$query.= " and b.jenis_barang IN ('$brand_filter')";
 		}else{
-			$query .= "SELECT d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from detail_barang d,barang b where d.id_barang=b.id_barang";
+			$query .= "SELECT d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from detail_barang d,barang b where d.id_barang=b.id_barang and d.status_tampil='1'";
 		}
 	}
 
@@ -182,7 +182,7 @@ if ($_POST["jenis"] == "cari") {
 
 	$kal="";
 	$cari=$_POST["cari"];
-    $sql = "select d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from barang b,detail_barang d where d.id_barang=b.id_barang and b.nama_barang like '%$cari%'";
+    $sql = "select d.id_detail_barang as id_barang,b.nama_barang as nama_barang,d.harga_jual as harga_jual,b.foto_barang as foto_barang from barang b,detail_barang d where d.id_barang=b.id_barang and b.nama_barang like '%$cari%' and d.status_tampil='1' group by b.id_barang";
     $statement = $conn->prepare($sql);
     $statement->execute();
     $result = $statement->get_result();
