@@ -173,7 +173,7 @@ $pages = ceil($total/$isi);
                             </div>
                             <div class="form-group">
                                 <small>*Pilih tombol Tambahkan untuk menambah sales baru</small><br>
-                                <small>*Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
+                                <small>**Pilih tombol Reset untuk mereset isi inputan diatas</small><br>
                                
                             </div>
                         </div>
@@ -190,8 +190,8 @@ $pages = ceil($total/$isi);
                             </div>
                             <div class="card-body">
                               <small>*Tombol List Reseller - list reseller yang dibebani oleh setiap sales</small><br>
-                              <small>*Tombol Detail - Detail dari setiap sales</small><br>
-                              <small>*Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
+                              <small>**Tombol Detail - Detail dari setiap sales</small><br>
+                              <small>***Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
                               <div class="table-responsive">
                               <table id="example" class="table table-striped table-bordered">
                                     <thead>

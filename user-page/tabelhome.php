@@ -28,12 +28,12 @@
     $data = mysqli_query(getConn(),$query);
 ?>
 
-
+<div class="table-responsive">
 <table id="example" class="table table-striped table-bordered text-dark" >
                             <thead class="thead-primary">
                             <tr>
+                                <th>No Pesanan</th>
                                     <th>Tanggal Pesan</th>                                    
-                                    <th>No Pesanan</th>
                                     <th>Pelanggan</th>
                                     <th>Status Pesanan</th>
                                     <th>Aksi</th>
@@ -49,11 +49,11 @@
 
         ?>
         <tr>
+            <td><?php echo $row[1];?></td>
             <td><?php 
             echo date("d-M-Y", strtotime($row['0']));
             
             ?></td>
-            <td><?php echo $row[1];?></td>
 
             <td><?php echo $row[2];?></td>
 
@@ -121,7 +121,7 @@
                         <a class='btn btn-info text-dark disabled' id_pengiriman="<?php echo $row[1];?>" >Sampai Tujuan</a>
                     <?php }
                 ?>                                        
-                <a class="btn_detail btn btn-info text-dark"  id_pengiriman="<?php echo $row[1];?>" id_cust="<?php echo $row[4];?>" id_alamat="<?php echo $row[5];?>"  >Details</a>
+                <a class="btn_detail btn btn-info text-dark"  id_pengiriman="<?php echo $row[1];?>" id_cust="<?php echo $row[4];?>" id_alamat="<?php echo $row[5];?>"  >Detail</a>
             </td>
         </tr>
 <?php
@@ -132,7 +132,7 @@
 </tbody>
 
 </table>
-
+</div>
 
 <script>
 var $id = "<?php if(isset($_SESSION["id_sales"])){ echo $_SESSION["id_sales"];}?>";

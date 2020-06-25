@@ -260,7 +260,7 @@ include_once('adminconn.php');
                     '<button onclick="datavalid('+d.id_cust+')" type="submit" class="btn btn-success btn-md"><i class="fa fa-dot-circle-o"></i> Valid </button>' + '  ' +
                     '<button onclick="datatdkvalid('+d.id_cust+')" type="submit" class="btn btn-danger btn-md"><i class="fa fa fa-ban"></i> Tidak Valid </button> <br>' +
                     '<small>*Pilih tombol Valid untuk mengubah status user jika data yang diinputkan sesuai KTP</small><br>'+
-                    '<small>*Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>' +
+                    '<small>**Pilih tombol Tidak Valid jika data yang diinputkan user tidak sesuai KTP</small><br>' +
                 '</td>'+
             
             '</tr>'+

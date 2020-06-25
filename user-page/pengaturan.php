@@ -250,8 +250,8 @@ $row = $result->fetch_assoc();
                                     
 
                                     <div class="form-group"> 
-                                        <small>*Pilih Ubah Alamat untuk mengubah  dengan memilih salah satu alamat</small> <br>
-                                        <small>*Pilih Hapus Alamat untuk menghapus  dengan memilih salah satu alamat</small><br>
+                                        <small>*Pilih Ubah Alamat untuk mengubah dengan memilih salah satu alamat</small> <br>
+                                        <small>**Pilih Hapus Alamat untuk menghapus dengan memilih salah satu alamat</small><br>
                                     </div>
                                     
                                     <hr>

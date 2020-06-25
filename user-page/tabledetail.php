@@ -17,7 +17,7 @@
     ";
 
     $queryx="
-        select totalkeselurahan
+        select totalkeselurahan, grandtotal
 
 
         from hjual 
@@ -66,11 +66,25 @@
     }
 
 ?>
-    <tr>
-        <td colspan=2></td>
-        <td>Grand total</td>
-        <td><?php echo "Rp ".number_format($resultarr["totalkeselurahan"],0,",",".") ;?></td>
-    </tr>
+    
 </tbody>
+<tfoot>
+    <tr>
+        <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal :</th>
+        <th style="font-weight:bold"><?php echo "Rp ".number_format($resultarr["totalkeselurahan"],0,",",".") ;?></th>
+    </tr>
+    <tr>
+        <th colspan="3" style="text-align:right; font-weight:bold">Sisa Tagihan (Jika pembayaran cicilan) :</th>
+        <th style="font-weight:bold"><?php 
+                if ($resultarr["grandtotal"] == $resultarr["totalkeselurahan"]) {
+                    echo "-";
+                }
+                elseif ($resultarr["grandtotal"] < $resultarr["totalkeselurahan"]) {
+                    $sisatag = $resultarr["totalkeselurahan"] - $resultarr["grandtotal"];
+                    echo "Rp ".number_format($sisatag,0,",",".") ;
+                }
+        ?></th>
+    </tr>
+</tfoot>
 
 </table>

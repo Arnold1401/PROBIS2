@@ -117,14 +117,14 @@ require_once("head.php");
                     <div class="cart-list" >
                         <div class="form-group">                    
                             <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli</small><br>
-                            <small id="helpId" class="text-muted">*Tombol Selesai - konfirmasi order Anda bahwa orderan telah selesai</small>
+                            <small id="helpId" class="text-muted">**Tombol Selesai - konfirmasi order Anda bahwa orderan telah selesai</small>
                         </div>
 
                         <ul id="filter">
                             <li class="btn"> <label class="font-weight-bold"> Filter Status > </label> </li>
                             <li class="btn">
                                 <a href="#tableall" data-value="" id="pilih1" class="active btn btn-outline-success" onclick="dipilih1()">Semua
-                                <span class="badge badge-secondary">New</span> </a>
+                                </a>
                             </li>
                             <li class="btn">
                                 <a id="pilih2" href="#tableall" data-value="Proses" class="btn btn-outline-success" onclick="dipilih2()">Proses
@@ -132,7 +132,7 @@ require_once("head.php");
                             </li>
                             <li class="btn">
                                 <a id="pilih3"  href="#tableall" data-value="Pengiriman" class="btn btn-outline-success" onclick="dipilih3()">Pengiriman
-                                </a>
+                                <span class="badge badge-secondary">New</span> </a>
                             </li>
                             <li class="btn">
                                 <a id="pilih4" href="#tableall" data-value="Sampai Tujuan" class="btn btn-outline-success" onclick="dipilih4()" >Sampai Tujuan
@@ -208,7 +208,7 @@ require_once("head.php");
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Total:</th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total Pembelian:</th>
                                             <th style="font-weight:bold"></th>
                                         </tr>
                                         <tr>
@@ -216,8 +216,16 @@ require_once("head.php");
                                             <th style="font-weight:bold" id="Ongkir"></th>
                                         </tr>
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Total :</th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal (Total Pembelian + Biaya Pengiriman) :</th>
                                             <th style="font-weight:bold" id="totalsemua"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Uang muka 15% dari Grandtotal (Jika pembayaran cicilan) :</th>
+                                            <th style="font-weight:bold" id="uangmuka"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal - uang muka 15% (Sisa tagihan untuk pembayarn cicilan) : </th>
+                                            <th style="font-weight:bold" id="sisatagihanpesanan"></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -511,7 +519,7 @@ require_once("head.php");
         //end of event jika list order dipilih/diclick 
 
         
-        var getId,tabledetail, data, getTotal="";
+        var getId,tabledetail, data, getTotal,getUangmuka="";
 
         //jika button di list orders dipilih/ditekan
         $('#tableorders tbody').on( 'click', 'a', function () {
@@ -523,7 +531,8 @@ require_once("head.php");
             {
                 getId = data[Object.keys(data)[0]]; //idhjual
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
-                getTotal = data[Object.keys(data)[6]]; //ongkir
+                getTotal = data[Object.keys(data)[6]]; //total keseluruhan
+                getUangmuka = data[Object.keys(data)[7]]; //field grandtotal - 15% dari total keseluruhan
                 var tr = $(this).closest('tr');
 
                 //table detail order barang dibagian bawah
@@ -635,6 +644,23 @@ require_once("head.php");
                             $("#totalsemua").html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
+                            if (getUangmuka == getTotal) 
+                            {
+                                $("#uangmuka").html("-");
+                                var sisatag = getTotal - getUangmuka;
+                                $("#sisatagihanpesanan").html("-");
+                            }
+                            else if (getUangmuka < getTotal) 
+                            {
+                                $("#uangmuka").html(
+                                    $.fn.dataTable.render.number('.','.','2','Rp').display(getUangmuka)
+                                );
+
+                                var sisatag = getTotal - getUangmuka;
+                                $("#sisatagihanpesanan").html(
+                                    $.fn.dataTable.render.number('.','.','2','Rp').display(sisatag)
+                                );
+                            }
                         }
                 } );
                 //end of table detail order barang dibagian bawah
@@ -722,14 +748,14 @@ require_once("head.php");
         $('#filter').on( 'click', 'a', function () {
            // $(this).addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
             console.log($(this).data("value"));
-            table.search( $(this).data("value")).draw();
+            //table.search( $(this).data("value")).draw();
             //table.filter($(this).data("value")).draw();
            
-            
+            $('#tableorders').DataTable().search($(this).data("value")).draw();
 
             if ($(this).data("value") == "") {
                 $('#tableorders').DataTable().ajax.reload(); //reload ajax datatable 
-               
+                $(this).removeClass();
             }
             $('#tabledetailorder').empty();
             $("#namapemilik").empty();
@@ -740,10 +766,10 @@ require_once("head.php");
 
        
 
-         if (document.querySelector(".btn")) {
-            $(this).addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
-         //document.querySelector(".btn").className = document.querySelector(".btn").className.replace(" active",""); 
-         }
+        //  if (document.querySelector(".btn")) {
+        //     $(this).addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
+        //  //document.querySelector(".btn").className = document.querySelector(".btn").className.replace(" active",""); 
+        //  }
 
         // document.querySelectorAll('.btn').forEach(function(e) {
         // e.addEventListener('click', function() {

@@ -112,7 +112,7 @@ require_once("head.php");
                     <div class="cart-list" >
                         <div class="form-group">                    
                             <small id="helpId" class="text-muted">*Tombol Detail - melihat detail barang yang dibeli oleh pelanggan</small><br>
-                            <small id="helpId" class="text-muted">*Jika status tagihan <b> Tagihkan Pelanggan ini </b> maka sales perlu menagihkan langsung ke pelanggan</small>
+                            <small id="helpId" class="text-muted">**Jika status tagihan <b> Tagihkan Pelanggan ini </b> maka sales perlu menagihkan langsung ke pelanggan</small>
                         </div>
                         
                         <div class="table-responsive" >
@@ -125,7 +125,7 @@ require_once("head.php");
                                         <th>Tanggal Jatuh tempo</th>
                                         <th>Total</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

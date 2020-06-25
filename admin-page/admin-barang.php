@@ -220,8 +220,8 @@ require_once("adminhead.php");
                             </div>
                             <div class="form-group">
                                 <small>*Pilih Tombol Tambahkan untuk menambah barang baru</small><br>
-                                <small>*Pilih Tombol Reset untuk mereset isi inputan diatas</small><br>
-                                <small>*Pilih Tombol Ubah untuk mengubah/megupdate data yang telah dipilih</small><br>
+                                <small>**Pilih Tombol Reset untuk mereset isi inputan diatas</small><br>
+                                <small>***Pilih Tombol Ubah untuk mengubah/megupdate data yang telah dipilih</small><br>
                             </div>
                         </div>
                         <!-- end col 6 -->
@@ -237,7 +237,7 @@ require_once("adminhead.php");
                             </div>
                             <div class="card-body">                           
                               <small>*Tombol Detail - Detail dari setiap barang</small><br>
-                              <small>*Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
+                              <small>**Pencarian dapat dilakukan pada textbox yang disediakan</small><br>
                               <div class="table-responsive">
                               <table id="example" class="table table-striped table-bordered">
                                     <thead>
