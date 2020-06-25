@@ -16,7 +16,7 @@
     
 
     $query="
-    select c.nama_pemilik,c.nama_perusahaan,avg(h.grandtotal)
+    select c.nama_pemilik,c.nama_perusahaan,avg(h.grandtotal),c.id_cust
     from customer c, hjual h 
     where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
   
@@ -26,13 +26,40 @@
 
 ?>
 
+<script src="vendors/jquery/dist/jquery.js"></script>
 
+
+<script>
+     $(document).ready(function() {
+
+      $('.detilPelanggan').click( function () {
+
+
+          //console.log($(this).attr("id"));
+          //alert($(this).attr("id"))
+          
+          var wal=$(this).attr("twal");
+          var hir=$(this).attr("tkhir");
+          var id=$(this).attr("id");
+          var link="./detilLaporan/dLapPelanggan.php?id="+id+"&&tawal="+wal+"&&takhir="+hir;
+
+
+          $("#detil").load(link);
+
+      });
+
+
+
+
+     })
+</script>
       
         <table id="tablepelanggan" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Nama customer</th>
                     <th>Nama Perusahaan</th>
+                    <th>Action</th>
                     <!--<th>Alamat</th>-->
                     <!---<th>Tingkat Keuntungan</th>-->
                 </tr>
@@ -47,6 +74,7 @@
                 <tr>
                     <td><?php echo $row[0];?></td>
                     <td><?php echo $row[1];?></td>
+                    <td><button class="detilPelanggan" id="<?php echo $row[3];  ?>"   twal="<?php echo $awal ;?>"  tkhir="<?php echo $akhir ;?>"  >detil</button></td>
                 </tr>
             <?php
                   }
@@ -54,6 +82,11 @@
             ?>                          
             </tbody>
         </table>
+
+        <table id="detil"  >
+
+        </table>
+
 
 <?php
 

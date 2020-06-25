@@ -88,6 +88,25 @@ include_once('adminconn.php');
                             <div class="card-header">
                                 <strong class="card-title">List Sales</strong>
                             </div>
+
+                            <div class="card-header">
+                                <strong class="card-title" id="ctk" >
+                                <!--
+                                <form>
+
+                                    <input type="submit"  >
+                                </form>
+                               --->
+
+
+
+
+                                <button><a id="cc" href="exportLaporan/laporanBarang.php"> Mencetak laporan </a>
+                                </button>
+                                
+                                </strong>
+                            </div>
+
                             <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
@@ -198,7 +217,9 @@ $("#nah").load(link);
 })
 
 
-
+        var linkk="exportLaporan/laporanSales.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
+        
+        $("#cc").attr("href",linkk)
 
     });
     //end of document ready

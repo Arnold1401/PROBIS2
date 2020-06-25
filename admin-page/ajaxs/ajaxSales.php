@@ -12,7 +12,7 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 $query="
 
-        select s.nama_sales,s.alamat,count(s.id_sales)
+        select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
 
 
         from hjual h, customer c,sales s
@@ -28,11 +28,40 @@ $query="
 
 ?>
 
+<script src="vendors/jquery/dist/jquery.js"></script>
+
+
+<script>
+     $(document).ready(function() {
+
+      $('.detilSales').click( function () {
+
+
+          //console.log($(this).attr("id"));
+          //alert($(this).attr("id"))
+          
+          var wal=$(this).attr("twal");
+          var hir=$(this).attr("tkhir");
+          var id=$(this).attr("id");
+          var link="./detilLaporan/dLapSales.php?id="+id+"&&tawal="+wal+"&&takhir="+hir;
+
+
+          $("#detil").load(link);
+
+      });
+
+
+
+
+     })
+</script>
+
 <table id="tablesales" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Nama Sales</th>
             <th>Alamat</th>
+            <th>Action</th>
            <!-- <th>Tingkat Kinerja</th>-->
         </tr>
     </thead>
@@ -46,6 +75,7 @@ $query="
                                             <tr>  
                                             <td><?php echo $row[0];?></td>
                                             <td><?php echo $row[1];?></td>
+                                            <td><button class="detilSales" id="<?php echo $row[3];  ?>"   twal="<?php echo $awal ;?>"  tkhir="<?php echo $akhir ;?>"  >detil</button></td>
                                             </tr>
                                         <?php
                                                 }
@@ -53,4 +83,10 @@ $query="
                                         ?>   
                                
         </tbody>
+</table>
+
+
+<table id="detil"> 
+
+
 </table>
