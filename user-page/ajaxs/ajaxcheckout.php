@@ -110,7 +110,7 @@ function insertdatabaseLUN($orderid,$alam)
 
    $tglord=date("Y-m-d");
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `totalkeselurahan`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid', '$tglord','', '$kurir', '$idsales', '$alam', '$totalsemua', '$totalsemua', '$iduser', 'Proses', 'Menunggu Pembayaran', '0');";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `totalkeselurahan`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`, `notifikasi`) VALUES ('$orderid', '$tglord','', '$kurir', '$idsales', '$alam', '$totalsemua', '$totalsemua', '$iduser', 'Proses', 'Menunggu Pembayaran', '0','0');";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{
@@ -352,7 +352,7 @@ function insertdatabasePIU($orderid,$piu,$alam)
    $conn->close();
 
    $conn = getConn();
-   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `totalkeselurahan`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`) VALUES ('$orderid', '$tglord','', '$kurir', '$idsales', '$alam', '$totalsemua', '$bayar', '$iduser', 'Proses', 'Hutang', '0');";
+   $q1="INSERT INTO `hjual` (`id_hjual`, `tanggal_order`, `tanggal_orderselesai`, `kurir`, `id_sales`, `id_alamatpengiriman`, `totalkeselurahan`, `grandtotal`, `id_cust`, `status_order`, `status_pembayaran`, `keuntungan`,`notifikasi`) VALUES ('$orderid', '$tglord','', '$kurir', '$idsales', '$alam', '$totalsemua', '$bayar', '$iduser', 'Proses', 'Hutang', '0','0');";
    if ($conn->query($q1)) {
       $stat.="hjual-berhasil";
    }else{

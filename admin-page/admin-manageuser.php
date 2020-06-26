@@ -104,8 +104,8 @@ include_once('adminconn.php');
 
                             <div class="form-group">
                                 <small>*Status Menunggu - data user belum dicek/diperiksa</small><br>
-                              <small>*Status Valid - data user sesuai</small><br>
-                              <small>*Status Tidak Valid - data user tidak sesuai</small><br>
+                              <small>**Status Valid - data user sesuai</small><br>
+                              <small>***Status Tidak Valid - data user tidak sesuai</small><br>
                             </div>
                               
                               <div class="table-responsive">
@@ -117,7 +117,7 @@ include_once('adminconn.php');
                                             <th>Nama Pemilik</th>
                                             <th>Asal</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

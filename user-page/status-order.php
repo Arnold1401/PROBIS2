@@ -1,5 +1,6 @@
 <?php
 require_once("head.php");
+include("conn.php");
 ?>
 
 <!DOCTYPE html>
@@ -128,23 +129,83 @@ require_once("head.php");
                             </li>
                             <li class="btn">
                                 <a id="pilih2" href="#tableall" data-value="Proses" class="btn btn-outline-success" onclick="dipilih2()">Proses
-                                <span class="badge badge-secondary">New</span> </a>
+                                 </a>
                             </li>
                             <li class="btn">
-                                <a id="pilih3"  href="#tableall" data-value="Pengiriman" class="btn btn-outline-success" onclick="dipilih3()">Pengiriman
-                                <span class="badge badge-secondary">New</span> </a>
+                                <?php
+                                    $kal="";
+                                    $conn=getConn();
+                                    $sql2 = "select count(id_hjual) as notif from hjual where notifikasi='2' and status_order='Pengiriman'";
+                                    $statement2 = $conn->prepare($sql2);
+                                    $statement2->execute();
+                                    $result2 = $statement2->get_result();
+                                    foreach ($result2 as $row2) {
+                                        $notif = $row2["notif"];
+                                        $kal.=" $notif";
+                                    }
+                                    if ($kal != "0") { ?>
+                                        <a id="pilih3"  href="#tableall" data-value="Pengiriman" class="btn btn-outline-success" onclick="dipilih3()">Pengiriman
+                                            <span id="badge3" class="badge badge-secondary"> <?php echo $kal; ?> </span>
+                                        </a>
+                                    <?php }
+                                    else if ($kal == 0) { ?>
+                                        <a id="pilih3"  href="#tableall" data-value="Pengiriman" class="btn btn-outline-success" onclick="dipilih3()">Pengiriman
+                                        </a>
+                                    <?php }
+                                ?>
+                               
                             </li>
                             <li class="btn">
-                                <a id="pilih4" href="#tableall" data-value="Sampai Tujuan" class="btn btn-outline-success" onclick="dipilih4()" >Sampai Tujuan
-                                </a>
+                                <?php
+                                    $kal="";
+                                    $conn=getConn();
+                                    $sql2 = "select count(id_hjual) as notif from hjual where notifikasi='3' and status_order='Sampai Tujuan'";
+                                    $statement2 = $conn->prepare($sql2);
+                                    $statement2->execute();
+                                    $result2 = $statement2->get_result();
+                                    foreach ($result2 as $row2) {
+                                        $notif = $row2["notif"];
+                                        $kal.=" $notif";
+                                    }
+                                    if ($kal != "0") { ?>
+                                        <a id="pilih4" href="#tableall" data-value="Sampai Tujuan" class="btn btn-outline-success" onclick="dipilih4()" >Sampai Tujuan
+                                            <span id="badge4" class="badge badge-secondary"> <?php echo $kal; ?> </span>
+                                        </a>
+                                    <?php }
+                                    else if ($kal == 0) { ?>
+                                        <a id="pilih4" href="#tableall" data-value="Sampai Tujuan" class="btn btn-outline-success" onclick="dipilih4()" >Sampai Tujuan
+                                        </a>
+                                    <?php }
+                                ?>
+                                
                             </li>
                             <li class="btn">
                                 <a id="pilih5" href="#tableall" data-value="Selesai" class="btn btn-outline-success" onclick="dipilih5()" >Selesai
                                 </a>
                             </li>
                             <li class="btn">
-                                <a id="pilih6" href="#tableall" data-value="Batal" class="btn btn-outline-success" onclick="dipilih6()" >Batal
-                                </a>
+                                <?php
+                                    $kal="";
+                                    $conn=getConn();
+                                    $sql2 = "select count(id_hjual) as notif from hjual where notifikasi='-1' and status_order='Batal'";
+                                    $statement2 = $conn->prepare($sql2);
+                                    $statement2->execute();
+                                    $result2 = $statement2->get_result();
+                                    foreach ($result2 as $row2) {
+                                        $notif = $row2["notif"];
+                                        $kal.=" $notif";
+                                    }
+                                    if ($kal != "0") { ?>
+                                        <a id="pilih6" href="#tableall" data-value="Batal" class="btn btn-outline-success" onclick="dipilih6()" >Batal
+                                            <span id="badge6" class="badge badge-secondary"> <?php echo $kal; ?> </span>
+                                        </a>
+                                    <?php }
+                                    else if ($kal == 0) { ?>
+                                        <a id="pilih6" href="#tableall" data-value="Batal" class="btn btn-outline-success" onclick="dipilih6()" >Batal
+                                        </a>
+                                    <?php }
+                                ?>
+                                
                             </li>
                         </ul>
                         
@@ -220,7 +281,7 @@ require_once("head.php");
                                             <th style="font-weight:bold" id="totalsemua"></th>
                                         </tr>
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Uang muka 15% dari Grandtotal (Jika pembayaran cicilan) :</th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Uang muka (15% dari Grandtotal jika pembayaran cicilan) :</th>
                                             <th style="font-weight:bold" id="uangmuka"></th>
                                         </tr>
                                         <tr>
@@ -329,10 +390,11 @@ require_once("head.php");
         });
     }
     //end of logout
+    var statusfilter="";
 
     // button ubah classss
     function dipilih1() {
-        $("#pilih1").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+        $("#pilih1").addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
 
         $("#pilih2").removeClass();
         $("#pilih3").removeClass();
@@ -342,37 +404,44 @@ require_once("head.php");
     }
 
     function dipilih2() {
-        $("#pilih2").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+        $("#pilih2").addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
 
         $("#pilih1").removeClass();
         $("#pilih3").removeClass();
         $("#pilih4").removeClass();
         $("#pilih5").removeClass();
         $("#pilih6").removeClass();
+        
     }
 
     function dipilih3() {
-        $("#pilih3").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+        $("#pilih3").addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
 
         $("#pilih1").removeClass();
         $("#pilih2").removeClass();
         $("#pilih4").removeClass();
         $("#pilih5").removeClass();
         $("#pilih6").removeClass();
+        statusfilter="Pengiriman";
+        notifempty(statusfilter);
+        $("#badge3").removeClass().html("");
     }
 
     function dipilih4() {
-        $("#pilih4").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+        $("#pilih4").addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
 
         $("#pilih1").removeClass();
         $("#pilih2").removeClass();
         $("#pilih3").removeClass();
         $("#pilih5").removeClass();
         $("#pilih6").removeClass();
+        statusfilter="Sampai Tujuan";
+        notifempty(statusfilter);
+        $("#badge4").removeClass().html("");
     }
 
     function dipilih5() {
-        $("#pilih5").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+        $("#pilih5").addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
 
         $("#pilih1").removeClass();
         $("#pilih2").removeClass();
@@ -382,15 +451,31 @@ require_once("head.php");
     }
 
     function dipilih6() {
-        $("#pilih6").addClass('active btn btn-success').siblings().removeClass('active btn btn-outline-success');
+        $("#pilih6").addClass('active btn btn-outline-success').siblings().removeClass('active btn btn-outline-success');
 
         $("#pilih1").removeClass();
         $("#pilih2").removeClass();
         $("#pilih3").removeClass();
         $("#pilih4").removeClass();
         $("#pilih5").removeClass();
+        statusfilter="Batal";
+        notifempty(statusfilter);
+        $("#badge6").removeClass().html("");
     }
     // button ubah classss
+
+    function notifempty(statusfilter) {
+
+        $.post("ajaxreseller.php",{
+                jenis:"ubah_statusnotif",
+                getstatus:statusfilter,
+            },
+        function(data){
+        // alert(data);
+            $('#datatablePenjualan').DataTable().ajax.reload(); //reload ajax datatable
+            //this.button.disabled=true;
+        });
+        }
     
     //document ready
     $(document).ready(function () {
@@ -644,23 +729,14 @@ require_once("head.php");
                             $("#totalsemua").html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
-                            if (getUangmuka == getTotal) 
-                            {
-                                $("#uangmuka").html("-");
-                                var sisatag = getTotal - getUangmuka;
-                                $("#sisatagihanpesanan").html("-");
-                            }
-                            else if (getUangmuka < getTotal) 
-                            {
-                                $("#uangmuka").html(
+                            var sisatag = getTotal - getUangmuka;
+                            $("#uangmuka").html(
                                     $.fn.dataTable.render.number('.','.','2','Rp').display(getUangmuka)
                                 );
 
-                                var sisatag = getTotal - getUangmuka;
                                 $("#sisatagihanpesanan").html(
                                     $.fn.dataTable.render.number('.','.','2','Rp').display(sisatag)
                                 );
-                            }
                         }
                 } );
                 //end of table detail order barang dibagian bawah

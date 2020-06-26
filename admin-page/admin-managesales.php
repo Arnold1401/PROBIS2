@@ -201,7 +201,7 @@ $pages = ceil($total/$isi);
                                             <th>Email</th>
                                             <th>No KTP</th>
                                             <th>Nomor Telepon</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
