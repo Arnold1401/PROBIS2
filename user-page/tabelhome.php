@@ -185,7 +185,7 @@ $('#example tbody').on('click', 'tr', function () {
  
      $("#update_status").click(function(){
          
-        alert('satu');
+        //alert('satu');
          var x= $(this).attr("id_pengiriman");
          
          /*var y='#'+x;

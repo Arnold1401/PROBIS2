@@ -15,7 +15,7 @@ if ($_POST["jenis"] == "konfirmasi_orderan_selesai") {
     $id_hjual = $_POST['getId'];
     $CurrentDate = $_POST['CurrentDate'];
     $status = "Selesai";
-    $sql = "update hjual set tanggal_orderselesai='$CurrentDate', status_order='$status' where id_hjual='$id_hjual'";
+    $sql = "update hjual set tanggal_orderselesai='$CurrentDate', status_order='$status', notifikasi='0' where id_hjual='$id_hjual'";
     if ($conn->query($sql)) {
         echo "Orderan Telah Selesai".$id_hjual;
     }else{
@@ -209,5 +209,18 @@ if ($_POST["jenis"] == "cek_sisa_waktupelunasan") {
         }
         //echo $kalid;
     $conn->close();
+}
+
+//notifikasi
+if ($_POST["jenis"]=="ubah_statusnotif") {
+    $conn=getConn();
+    $getstatus = $_POST['getstatus'];
+    $sql = "update hjual set notifikasi='0' where status_order='$getstatus'";
+    if ($conn->query($sql)) {
+        echo "berhasil";
+    }
+    else{
+        echo "gagal";
+    }
 }
 ?>

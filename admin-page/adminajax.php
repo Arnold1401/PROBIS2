@@ -495,7 +495,7 @@ if ($_POST["jenis"]=="kirimkan_barang") {
     $getIdhjual = $_POST['getIdhjual'];
     $status = "Pengiriman";
 
-    $sql = "update hjual set status_order='$status' where id_hjual='$getIdhjual'";
+    $sql = "update hjual set status_order='$status', notifikasi='2' where id_hjual='$getIdhjual'";
     if ($conn->query($sql)) {
         echo "Barang berhasil dikirim";
     }
@@ -504,4 +504,17 @@ if ($_POST["jenis"]=="kirimkan_barang") {
     }
 }
 
+
+//notifikasi
+if ($_POST["jenis"]=="ubah_statusnotif") {
+    $conn=getConn();
+    $getstatus = $_POST['getstatus'];
+    $sql = "update hjual set notifikasi='0' where status_order='$getstatus'";
+    if ($conn->query($sql)) {
+        echo "berhasil";
+    }
+    else{
+        echo "gagal";
+    }
+}
 ?>

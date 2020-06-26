@@ -91,7 +91,7 @@ require_once("adminhead.php");
                                         <th>Nama Perusahaan</th>
                                         <th>Tanggal Jatuh Tempo</th>
                                         <th>Total Hutang</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -127,6 +127,28 @@ require_once("adminhead.php");
                                 </thead>
                                 <tbody>
                                 </tbody>
+                                <tfoot>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Total Pembelian:</th>
+                                            <th style="font-weight:bold"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Biaya Pengiriman :</th>
+                                            <th style="font-weight:bold" id="Ongkir"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal (Total Pembelian + Biaya Pengiriman) :</th>
+                                            <th style="font-weight:bold" id="totalsemua"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Uang muka (15% dari Grandtotal jika pembayaran cicilan) :</th>
+                                            <th style="font-weight:bold" id="uangmuka"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Grandtotal - uang muka 15% (Sisa tagihan untuk pembayarn cicilan) : </th>
+                                            <th style="font-weight:bold" id="sisatagihanpesanan"></th>
+                                        </tr>
+                                    </tfoot>
                             </table>
                                 </div>
                                 
@@ -209,7 +231,7 @@ $(document).ready(function () {
         } );
         //end of event jika list barang dipilih/diclick 
 
-    var tabledetail, getIdhjual, getTotal="";
+    var tabledetail, getIdhjual, getTotal, getUangmuka="";
     $('#piutangtabel tbody').on( 'click', 'button', function () {
             var action = this.id;
             data = piutangtabel.row($(this).closest('tr')).data();
@@ -217,7 +239,8 @@ $(document).ready(function () {
             if(action == 'GetDetail') {
                 
                 getIdhjual =data[Object.keys(data)[1]];
-                getTotal = data[Object.keys(data)[6]]; //ongkir
+                getTotal = data[Object.keys(data)[11]]; //total keseluruhan
+                getUangmuka = data[Object.keys(data)[12]]; //field grandtotal - 15% dari total keseluruhan
                 $("#ket").html(getIdhjual);
                 
 
@@ -295,6 +318,14 @@ $(document).ready(function () {
                             $("#totalsemua").html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
+                            var sisatag = getTotal - getUangmuka;
+                            $("#uangmuka").html(
+                                    $.fn.dataTable.render.number('.','.','2','Rp').display(getUangmuka)
+                                );
+
+                                $("#sisatagihanpesanan").html(
+                                    $.fn.dataTable.render.number('.','.','2','Rp').display(sisatag)
+                                );
                         }
                 } );
                 //end of table detail order barang dibagian bawah

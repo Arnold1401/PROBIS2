@@ -191,7 +191,7 @@ require_once("head.php");
                                             <th style="font-weight:bold" id="totalsemua"></th>
                                         </tr>
                                         <tr>
-                                            <th colspan="3" style="text-align:right; font-weight:bold">Uang muka 15% dari Grandtotal (Jika pembayaran cicilan) :</th>
+                                            <th colspan="3" style="text-align:right; font-weight:bold">Uang muka (15% dari Grandtotal jika pembayaran cicilan) :</th>
                                             <th style="font-weight:bold" id="uangmuka"></th>
                                         </tr>
                                         <tr>
@@ -512,7 +512,7 @@ require_once("head.php");
                 getIdAlamat = data[Object.keys(data)[5]]; //id alamat pengiriman
                 getTotal = data[Object.keys(data)[6]]; //total keseluruhan
                 getUangmuka = data[Object.keys(data)[7]]; //field grandtotal - 15% dari total keseluruhan
-
+                console.log(getUangmuka);
                 $("#ida").html(getIdAlamat);
                 var tr = $(this).closest('tr');
 
@@ -606,24 +606,16 @@ require_once("head.php");
                             $("#totalsemua").html(
                                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
                             );
-                            if (getUangmuka == getTotal) 
-                            {
-                                $("#uangmuka").html("-");
-                                var sisatag = getTotal - getUangmuka;
-                                $("#sisatagihanpesanan").html("-");
-                            }
-                            else if (getUangmuka < getTotal) 
-                            {
-                                $("#uangmuka").html(
+                            
+                            var sisatag = getTotal - getUangmuka;
+                            $("#uangmuka").html(
                                     $.fn.dataTable.render.number('.','.','2','Rp').display(getUangmuka)
                                 );
 
-                                var sisatag = getTotal - getUangmuka;
                                 $("#sisatagihanpesanan").html(
                                     $.fn.dataTable.render.number('.','.','2','Rp').display(sisatag)
                                 );
-                            }
-                            
+                           
                         }
                 } );
                 //end of table detail order barang dibagian bawah

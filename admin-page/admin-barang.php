@@ -247,7 +247,7 @@ require_once("adminhead.php");
                                             <th>Jenis Barang</th>
                                             <th>Harga Jual</th>
                                             <th>Status</th>
-                                            <th>Action</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
