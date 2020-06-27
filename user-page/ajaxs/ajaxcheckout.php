@@ -165,6 +165,7 @@ function sessionpagepayLUN($orderid)
    $biaya=$_POST["ongkir"];
   
 
+
    $totalbelanja = hitungsubtotalorderan();//total belanja
    $biayapengiriman = $biaya;//total ongkir
    $totalsemua = $biayapengiriman + $totalbelanja;//total semua
@@ -172,7 +173,7 @@ function sessionpagepayLUN($orderid)
    $_SESSION["ongkir"] = $biaya;
    $_SESSION["tobelanja"] = $totalbelanja;
 
-   
+    $_SESSION["jenisbayar"]="lunas";
    // Required  orderid hjual
    $transaction_details = array(
       'order_id' => $orderid,
@@ -422,6 +423,10 @@ function sessionpagepayPIU($orderid,$piu)
    $jumutang=-intval($totalsemua*0.85);//utang
    $totalsemua=$totalsemua*0.15;//bayar
    
+   $_SESSION["hutangnya"]=$jumutang;
+   $_SESSION["baysek"]=$totalsemua;
+   $_SESSION["jenisbayar"]="hutang";
+
    // Required  orderid hjual
    $transaction_details = array(
       'order_id' => $orderid,
@@ -455,12 +460,13 @@ function sessionpagepayPIU($orderid,$piu)
       array_push($arritem, $newrow0);
    }
 
+
    //hutang
    $hutang = array(
       "id" => $piu,
       "price" => $jumutang,
       "quantity" => 1,
-      "name" => "-85% dari jumlah grossamount",
+      "name" => "Jumlah pembayaran berikutnya 85%",
       //"subtotal"=>$subtotal,
    );
    array_push($arritem, $hutang);
