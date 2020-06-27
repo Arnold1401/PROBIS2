@@ -71,6 +71,17 @@ require_once("head.php");
                 <td class='text-right'>Rp $fsubtotal</td>
               </tr>";
              }
+
+             if (isset($_SESSION["jenisbayar"])&&$_SESSION["jenisbayar"]=="hutang") {
+               $hutangnya=$_SESSION["hutangnya"];
+              $kal.="<tr>
+              <td class='text-right'>01</td>
+               <td class='text-right'>Jumlah yang harus dibayar penagihan berikutnya</td>
+               <td class='text-right'>1</td>
+               <td class='text-right'>Rp $hutangnya</td>
+               <td class='text-right'>Rp $hutangnya</td>
+             </tr>";
+             }
              
              echo $kal;
           }else{
@@ -90,12 +101,41 @@ require_once("head.php");
             <td colspan="2" class="text-right"><b>Biaya Pengiriman</b></td>
             <td class="text-right">Rp <?php echo number_format($_SESSION["ongkir"],2);?></td>
           </tr>
-          <tr>
+
+        <?php
+          if (isset($_SESSION["jenisbayar"])&&$_SESSION["jenisbayar"]=="hutang") {
+               $hutangnya=$_SESSION["hutangnya"];
+              ?>
+
+<tr>
+            <td></td>
+            <td></td>
+            <td colspan="2" class="text-right"><b>Hutang</b></td>
+            <td class="text-right">Rp <?php echo number_format($_SESSION["hutangnya"],2);?></td>
+          </tr>
+
+                <tr>
+            <td></td>
+            <td></td>
+            <td colspan="2" class="text-right"><b>Grandtotal</b></td>
+            <td class="text-right">Rp <?php echo number_format($_SESSION["baysek"],2);?></td>
+          </tr>
+              <?php
+             }
+             else{
+               ?>
+               
+               <tr>
             <td></td>
             <td></td>
             <td colspan="2" class="text-right"><b>Grandtotal</b></td>
             <td class="text-right">Rp <?php echo number_format($_SESSION["totalsemua"],2);?></td>
           </tr>
+               <?php
+             }
+            ?>
+
+          
         </table>
       </div>
 

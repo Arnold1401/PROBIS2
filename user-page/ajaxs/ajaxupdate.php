@@ -12,7 +12,7 @@ $id=$_POST["id"];
 
 
 
-$sql="update hjual set status_order='$status' where id_hjual='$id';";
+$sql="update hjual set status_order='$status', notifikasi='3' where id_hjual='$id';";
 
 
 

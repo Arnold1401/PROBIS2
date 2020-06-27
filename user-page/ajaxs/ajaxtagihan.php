@@ -206,7 +206,7 @@
     $idhjual=$_POST["idhjual"];
     selesaikan($idhjual);
     $conn=getConn();
-    $sql2="update hjual set status_pembayaran='Lunas' where id_hjual='$idhjual' ";
+    $sql2="update hjual set status_pembayaran='Lunas', notifikasi='1' where id_hjual='$idhjual' ";
    if ($conn->query($sql2)) {
 
    }    
