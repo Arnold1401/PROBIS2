@@ -100,7 +100,8 @@ include_once('adminconn.php');
 
 
 
-                                <button><a id="cc" href="exportLaporan/laporanBarang.php"> Mencetak laporan </a>
+                                <button id="cc2">
+                                    <a id="cc" > Mencetak laporan </a>
                                 </button>
                                 
                                 </strong>
@@ -188,11 +189,23 @@ include_once('adminconn.php');
         document.getElementById("tgl_akhir").value =full;
         
 
+        $("#cc2").click(function(){
+            var linkk="exportLaporan/laporanBarang.php?"+"tgl_awal="+document.getElementById("tgl_awal").value+"&&tgl_akhir="+document.getElementById("tgl_akhir").value;
+            window.location.href = linkk;
+        })
+        /*
 
-        var linkk="exportLaporan/laporanBarang.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
+        
         
         $("#cc").attr("href",linkk)
-      
+        
+
+        */
+
+
+
+
+
         var link="ajaxs/ajaxlapBarang.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
 
         $("#nah").load(link);
@@ -212,10 +225,6 @@ include_once('adminconn.php');
     })
 
 
-   
-
-
-
 
     $("#tgl_awal").change(function(){
 
@@ -226,6 +235,7 @@ include_once('adminconn.php');
         $("#nah").load(link);
 
     })
+
 
 
         

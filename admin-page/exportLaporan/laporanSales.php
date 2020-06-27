@@ -1,67 +1,68 @@
 <?php
 
-session_start();
+          session_start();
 
-include_once "../../user-page/conn.php";
+          include_once "../../user-page/conn.php";
 
-$awal=$_REQUEST["tgl_awal"];
-$akhir=$_REQUEST["tgl_akhir"];
+          $awal=$_REQUEST["tgl_awal"];
+          $akhir=$_REQUEST["tgl_akhir"];
 
-$query="
-
-
-
-select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
+          $query="
 
 
-from hjual h, customer c,sales s
+
+               select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
 
 
-where h.id_cust=c.id_cust and c.id_sales=s.id_sales and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+               from hjual h, customer c,sales s
 
-GROUP by s.nama_sales 
+
+               where h.id_cust=c.id_cust and c.id_sales=s.id_sales and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+
+               GROUP by s.nama_sales 
    
 
 
 
-";
+          ";
 
-$query2="
+          
+          $query2="
 
-select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
-
-
-from hjual h, customer c,sales s
+               select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
 
 
-where h.id_cust=c.id_cust and c.id_sales=s.id_sales and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+               from hjual h, customer c,sales s
 
-GROUP by s.nama_sales 
+
+               where h.id_cust=c.id_cust and c.id_sales=s.id_sales and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+
+               GROUP by s.nama_sales 
    
-order by count(s.id_sales) desc
-limit 1
-";
+               order by count(s.id_sales) desc
+               limit 1
+          ";
 
-$query3="
+          $query3="
 
-select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
-
-
-from hjual h, customer c,sales s
+               select s.nama_sales,s.alamat,count(s.id_sales),s.id_sales
 
 
-where h.id_cust=c.id_cust and c.id_sales=s.id_sales and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+               from hjual h, customer c,sales s
 
-GROUP by s.nama_sales 
+
+               where h.id_cust=c.id_cust and c.id_sales=s.id_sales and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
+
+               GROUP by s.nama_sales 
    
-order by count(s.id_sales) asc
-limit 1
-";
+               order by count(s.id_sales) asc
+               limit 1
+          ";
 
+          
 
-
-header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=Data Pegawai.xls");
+          header("Content-type: application/vnd-ms-excel");
+          header("Content-Disposition: attachment; filename=Laporan Sales.xls");
 
 ?>
 
@@ -72,9 +73,9 @@ header("Content-Disposition: attachment; filename=Data Pegawai.xls");
 
      <thead>
           <td>Nama Sales</td>
-          <td>Nama Perusahaan</td>
-
           <td>Alamat</td>
+
+          <td>Frekuensi pekerjaan</td>
           
      </thead>
 <?php

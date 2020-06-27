@@ -101,7 +101,7 @@ include_once('adminconn.php');
 
 
 
-                                <button><a id="cc" href="exportLaporan/laporanBarang.php"> Mencetak laporan </a>
+                                <button id="cc2"> Mencetak laporan 
                                 </button>
                                 
                                 </strong>
@@ -183,45 +183,60 @@ include_once('adminconn.php');
 
         $("#nah").load(link);
 
-
-
-
-
-
-$("#tgl_akhir").change(function(){
-
-  var awal= $("#tgl_awal").val();
-var akhir=  $("#tgl_akhir").val();
-
-
-
-
-var link="ajaxs/ajaxSales.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
-
-$("#nah").load(link);
-})
-
-
-
-
-
-$("#tgl_awal").change(function(){
-
-var awal= $("#tgl_awal").val();
-var akhir=  $("#tgl_akhir").val();
-
-var link="ajaxs/ajaxSales.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
-
-$("#nah").load(link);
-
-})
-
-
-        var linkk="exportLaporan/laporanSales.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
         
-        $("#cc").attr("href",linkk)
+
+
+
+
+        $("#tgl_akhir").change(function(){
+
+            var awal= $("#tgl_awal").val();
+            var akhir=  $("#tgl_akhir").val();
+
+
+
+
+            var link="ajaxs/ajaxSales.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+            $("#nah").load(link);
+        })
+
+
+
+
+
+        $("#tgl_awal").change(function(){
+
+            var awal= $("#tgl_awal").val();
+            var akhir=  $("#tgl_akhir").val();
+
+            var link="ajaxs/ajaxSales.php?"+"tgl_awal="+awal+"&&tgl_akhir="+akhir;
+
+            $("#nah").load(link);
+
+        })
+
+        
+
+        $("#cc2").click(function(){
+            //alert("a")
+            
+            var linkk="exportLaporan/laporanSales.php?"+"tgl_awal="+document.getElementById("tgl_awal").value+"&&tgl_akhir="+document.getElementById("tgl_akhir").value;
+            window.location.href = linkk;
+            
+        })
+      
+     
+        
+     
+      
 
     });
+
+     
+           
+            
+
     //end of document ready
 
     function keluar(){

@@ -101,7 +101,7 @@ include_once('adminconn.php');
 
 
 
-                                <button><a id="cc" href="exportLaporan/laporanBarang.php"> Mencetak laporan </a>
+                                <button id="cc2"> Mencetak laporan 
                                 </button>
                                 
                                 </strong>
@@ -228,9 +228,12 @@ include_once('adminconn.php');
     })
 
 
-    var linkk="exportLaporan/laporanPelanggan.php?"+"tgl_awal="+full+"&&tgl_akhir="+full;
+
         
-        $("#cc").attr("href",linkk)
+    $("#cc2").click(function(){
+            var linkk="exportLaporan/laporanPelanggan.php?"+"tgl_awal="+document.getElementById("tgl_awal").value+"&&tgl_akhir="+document.getElementById("tgl_akhir").value;
+            window.location.href = linkk;
+        })
 
 
 

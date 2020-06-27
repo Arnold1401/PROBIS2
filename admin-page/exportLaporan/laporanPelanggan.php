@@ -33,7 +33,7 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 
      header("Content-type: application/vnd-ms-excel");
-     header("Content-Disposition: attachment; filename=Data Pegawai.xls");
+     header("Content-Disposition: attachment; filename=Laporan Pelanggan.xls");
     
 
    

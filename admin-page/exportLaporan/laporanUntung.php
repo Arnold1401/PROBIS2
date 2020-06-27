@@ -2,51 +2,50 @@
 
 session_start();
 
-
 include_once "../../user-page/conn.php";
+
+
 
 $awal=$_REQUEST["tgl_awal"];
 $akhir=$_REQUEST["tgl_akhir"];
 
 
-    $query="
+$query="
 
-        select keuntungan,tanggal_order
+select keuntungan,tanggal_order
 
-        from  hjual 
-
-
-        where tanggal_order >= '$awal' and tanggal_order <= '$akhir' and status_order != 'Batal' and status_pembayaran != 'Menunggu Pelunasan'
+from  hjual 
 
 
-    ";
-
-    /*
-    $n=0;
-    function total($x){
-        $n+=$x;
-
-    }
-
-    function ttl(){
-        return $n;
-    }
-    */
+where tanggal_order >= '$awal' and tanggal_order <= '$akhir' and status_order != 'Batal' and status_pembayaran != 'Menunggu Pelunasan'
 
 
-    $t="
-	 select sum(keuntungan),tanggal_order
-
-        from  hjual 
+";
 
 
-        where tanggal_order >= '$awal' and tanggal_order <= '$akhir' and status_order != 'Batal' and status_pembayaran != 'Menunggu Pelunasan'
-           
-    ";
+
+
+$t="
+
+select sum(keuntungan),tanggal_order
+
+from  hjual 
+
+
+where tanggal_order >= '$awal' and tanggal_order <= '$akhir' and status_order != 'Batal' and status_pembayaran != 'Menunggu Pelunasan'
+
+";
+
+
+
+header("Content-type: application/vnd-ms-excel");
+header("Content-Disposition: attachment; filename=Laporan Keuntungan.xls");
+
 
 
 ?>
-    <table class="table table-striped table-bordered">
+<h1>Laporan keuntungan</h1>
+  <table border=2>
         <thead>
             <tr>
                 <td>Tanggal</td>
@@ -92,8 +91,3 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 
 
-<?php
-
-    
-            
-?>
