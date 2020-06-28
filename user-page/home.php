@@ -54,7 +54,7 @@ require_once("head.php");
     }
  ?>]</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php if (isset($_SESSION["nama_perusahaan"])) {
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selamat Datang Pelanggan, <?php if (isset($_SESSION["nama_perusahaan"])) {
                                                                                                                                                             echo $_SESSION["nama_perusahaan"];
                                                                                                                                                         } ?></a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
