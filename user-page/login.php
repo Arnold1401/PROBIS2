@@ -45,6 +45,7 @@ require_once("headlogin.php");
                     <input type="password" class="form-control" name="password_user" id="txt_pass" placeholder="Password">  
                     <a href="lupa-password.php" class="text-center">Lupa Password? Klik disini! </a>               
                 </div>
+                
                
                 <div class="form-group justify-content-center">
                    <button type="button" onclick="login()" class="btn btn-primary py-2 px-5">Login</button>

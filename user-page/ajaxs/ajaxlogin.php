@@ -30,7 +30,7 @@
                 $_SESSION["role"]="reseller";
                 $_SESSION["nama_perusahaan"]=$row1["nama_perusahaan"];
                 $_SESSION["nama_user"]=$row1["nama_pemilik"];
-                $_SESSION["email_user"]=$row1["email"];
+                $_SESSION["email_user"]=$row1["email"];//1
                 $_SESSION["status_akun"]=$row1["status"];
                 $_SESSION["token"]=$row1["token"];
                 $_SESSION["idcust"]=$row1["id_cust"];
