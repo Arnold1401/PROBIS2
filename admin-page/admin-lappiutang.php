@@ -87,9 +87,29 @@ include_once('adminconn.php');
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">List Pelanggan dan Rata-rata keterlambatan</strong>
+                                
+                            </div>
+                            <div class="card-header">
+                                <strong class="card-title" id="ctk" >
+                                <!--
+                                <form>
+
+                                    <input type="submit"  >
+                                </form>
+                               --->
+
+
+
+
+                                <button id="cc2">
+                                    <a id="cc" > Mencetak laporan </a>
+                                </button>
+                                
+                                </strong>
                             </div>
                             <div class="card-body">
                             <div class="row">
+                            
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class=" form-control-label">Tanggal Awal</label>
@@ -164,7 +184,10 @@ include_once('adminconn.php');
 
         $("#nah").load(link);
 
-
+        $("#cc2").click(function(){
+            var linkk="exportLaporan/laporanPiutang.php?"+"tgl_awal="+document.getElementById("tgl_awal").value+"&&tgl_akhir="+document.getElementById("tgl_akhir").value;
+            window.location.href = linkk;
+        })
 
 
 

@@ -51,7 +51,7 @@ $akhir=$_REQUEST["tgl_akhir"];
      <thead>
           <td>Nama Pemilik</td>
           <td>Nama Perusahaan</td>
-
+          <th>Tanggal Order</th>
           <td>Grandtotal</td>
           
      </thead>
@@ -62,14 +62,14 @@ while($row = mysqli_fetch_array($data))
 {
 
 ?>
-
+     <tbody>
      <tr>
           <td><?php echo $row[0];?></td>
-
           <td><?php echo $row[1];?></td>
-          <td><?php echo $row[2];?></td>
+          <td><?php echo date("d-M-Y", strtotime($row[3]));?></td>
+          <td><?php echo "Rp ".number_format($row[2],0,",",".");?></td>
      </tr>
-
+     </tbody>
 
 <?php
 

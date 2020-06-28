@@ -59,7 +59,7 @@
                 <tr>
                     <th>Nama customer</th>
                     <th>Nama Perusahaan</th>
-                    <th>Action</th>
+                    <th>Aksi</th>
                     <!--<th>Alamat</th>-->
                     <!---<th>Tingkat Keuntungan</th>-->
                 </tr>
@@ -74,7 +74,7 @@
                 <tr>
                     <td><?php echo $row[0];?></td>
                     <td><?php echo $row[1];?></td>
-                    <td><button class="detilPelanggan" id="<?php echo $row[3];  ?>"   twal="<?php echo $awal ;?>"  tkhir="<?php echo $akhir ;?>"  >detil</button></td>
+                    <td><button class="detilPelanggan" id="<?php echo $row[3];  ?>"   twal="<?php echo $awal ;?>"  tkhir="<?php echo $akhir ;?>"  >Detail</button></td>
                 </tr>
             <?php
                   }
@@ -91,3 +91,11 @@
 <?php
 
 ?>
+
+<script>
+//event jika list pelanggan dipilih/diclick 
+$('#tablepelanggan tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list pelanggan dipilih/diclick 
+</script>

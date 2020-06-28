@@ -10,9 +10,9 @@ $akhir=$_REQUEST["tgl_akhir"];
 
      $query="
      
-     select b.jenis_barang,b.nama_barang,d.subtotal,x.id_barang
-     from djual d, barang b,hjual h, detail_barang x
-     where x.id_barang=b.id_barang and h.id_hjual=d.id_hjual and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir' and x.id_detail_barang=d.id_detail_barang
+     select b.jenis_barang,b.nama_barang,d.subtotal,x.id_barang, c.nama_perusahaan, d.kuantiti
+     from djual d, barang b,hjual h, detail_barang x, customer c
+     where x.id_barang=b.id_barang and h.id_hjual=d.id_hjual and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir' and x.id_detail_barang=d.id_detail_barang and c.id_cust=h.id_cust
  
      
      ";
@@ -53,9 +53,10 @@ $akhir=$_REQUEST["tgl_akhir"];
 
      <thead>
           <td>Kategori Barang</td>
-          <td>Nama Barang</td>
-
-          <td>Subtotal</td>
+        <td>Nama Barang</td>
+        <td>Pembeli</td>
+        <td>Kuantiti</td>
+        <td>Subtotal</td>
      </thead>
 <?php
 
@@ -67,9 +68,10 @@ while($row = mysqli_fetch_array($data))
 
      <tr>
           <td><?php echo $row[0];?></td>
-
           <td><?php echo $row[1];?></td>
-          <td><?php echo $row[2];?></td>
+          <td><?php echo $row[4];?></td>
+          <td><?php echo $row[3];?></td>
+          <td><?php echo "Rp ".number_format($row[2],0,",",".");?></td>
      </tr>
 
 

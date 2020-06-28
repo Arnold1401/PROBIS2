@@ -74,7 +74,6 @@
      <thead>
           <td>Nama Sales</td>
           <td>Alamat</td>
-
           <td>Frekuensi pekerjaan</td>
           
      </thead>
@@ -106,7 +105,7 @@ while($row = mysqli_fetch_array($data))
                {
           ?>
           <tr>
-               <td>Maksimum:</td>
+               <td>Sales Dengan Frekuensi Terbanyak :</td>
                <td colspan=2 ><?php echo $row[0];?></td>
           </tr>
 
@@ -121,7 +120,7 @@ while($row = mysqli_fetch_array($data))
 
 
           <tr>
-               <td>Minimum:</td>
+               <td>Sales Dengan Frekuensi minimum :</td>
                <td colspan=2 ><?php echo $row[0];?></td>
           </tr>
 

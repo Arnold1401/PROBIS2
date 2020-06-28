@@ -61,7 +61,7 @@ $query="
         <tr>
             <th>Nama Sales</th>
             <th>Alamat</th>
-            <th>Action</th>
+            <th>Aksi</th>
            <!-- <th>Tingkat Kinerja</th>-->
         </tr>
     </thead>
@@ -75,7 +75,7 @@ $query="
                                             <tr>  
                                             <td><?php echo $row[0];?></td>
                                             <td><?php echo $row[1];?></td>
-                                            <td><button class="detilSales" id="<?php echo $row[3];  ?>"   twal="<?php echo $awal ;?>"  tkhir="<?php echo $akhir ;?>"  >detil</button></td>
+                                            <td><button class="detilSales" id="<?php echo $row[3];  ?>"   twal="<?php echo $awal ;?>"  tkhir="<?php echo $akhir ;?>"  >Detail</button></td>
                                             </tr>
                                         <?php
                                                 }
@@ -90,3 +90,12 @@ $query="
 
 
 </table>
+
+<script>
+//event jika list pelanggan dipilih/diclick 
+$('#tablesales tbody').on('click', 'tr', function () {
+            $(this).addClass('bg-dark text-white').siblings().removeClass('bg-dark text-white');
+        } );
+        //end of event jika list pelanggan dipilih/diclick 
+</script>
+

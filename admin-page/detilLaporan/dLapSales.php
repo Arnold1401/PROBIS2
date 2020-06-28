@@ -11,7 +11,7 @@ $akhir=$_REQUEST["takhir"];
 
 $query="
 
-        select s.nama_sales,s.alamat,c.nama_pemilik
+        select s.nama_sales,s.alamat,c.nama_perusahaan, h.tanggal_order
 
 
         from hjual h, customer c,sales s
@@ -23,20 +23,15 @@ $query="
 ";
 
 ?>
-
-<style>
-table, th, td {
-  border: 1px solid black;
-}
-</style>
-
-
-<table border=2 >
+<br>
+<h4>Detail Laporan Sales</h4> <br>
+<div class="table-responsive">
+<table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <td>Nama Sales</td>
-        <td>Alamat</td>
-        <td>Nama pemilik</td>
+        <th>Nama Sales</th>
+        <th>Bertanggung Jawab atas Pelanggan</th>
+        <th>Tanggal Pesanan</th>
       </tr>
     </thead>
     <?php
@@ -45,11 +40,13 @@ table, th, td {
     {
             
     ?>   
+    <tbody>
      <tr>  
                                             <td><?php echo $row[0];?></td>
-                                            <td><?php echo $row[1];?></td>
+                                            
                                             <td><?php echo $row[2];?></td>
-                                            </tr>
+                                            <td><?php echo date("d-M-Y", strtotime($row[3]));?></td>
+                                            </tr></tbody>
 <?php
 
     }
@@ -58,3 +55,5 @@ table, th, td {
 ?>
 
 </table>
+</div>
+<script src="vendors/jquery/dist/jquery.js"></script>
