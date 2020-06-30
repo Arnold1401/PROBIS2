@@ -11,7 +11,7 @@ $akhir=$_REQUEST["tgl_akhir"];
      
 
      $query="
-     select c.nama_pemilik,c.nama_perusahaan,h.grandtotal,c.id_cust
+     select c.nama_pemilik,c.nama_perusahaan,h.totalkeselurahan,c.id_cust, h.tanggal_order
      from customer c, hjual h 
      where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
    
@@ -19,13 +19,13 @@ $akhir=$_REQUEST["tgl_akhir"];
      ";
 
      $query2="
-     select c.nama_pemilik,c.nama_perusahaan,max(h.grandtotal),c.id_cust
+     select c.nama_pemilik,c.nama_perusahaan,max(h.totalkeselurahan),c.id_cust
      from customer c, hjual h 
      where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
      ";
 
      $query3="
-     select c.nama_pemilik,c.nama_perusahaan,min(h.grandtotal),c.id_cust
+     select c.nama_pemilik,c.nama_perusahaan,min(h.totalkeselurahan),c.id_cust
      from customer c, hjual h 
      where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
      ";
@@ -46,13 +46,13 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 <h1>Detail Perihal Laporan Pelanggan</h1>
 
-<table border=2 >
+<table border=1 >
 
      <thead>
-          <td>Nama Pemilik</td>
-          <td>Nama Perusahaan</td>
+          <th>Nama Pemilik</th>
+          <th>Nama Perusahaan</th>
           <th>Tanggal Order</th>
-          <td>Grandtotal</td>
+          <th>Grandtotal</th>
           
      </thead>
 <?php
@@ -66,7 +66,7 @@ while($row = mysqli_fetch_array($data))
      <tr>
           <td><?php echo $row[0];?></td>
           <td><?php echo $row[1];?></td>
-          <td><?php echo date("d-M-Y", strtotime($row[3]));?></td>
+          <td><?php echo date("d-M-Y", strtotime($row[4]));?></td>
           <td><?php echo "Rp ".number_format($row[2],0,",",".");?></td>
      </tr>
      </tbody>
@@ -83,30 +83,28 @@ while($row = mysqli_fetch_array($data))
                {
           ?>
           <tr>
-               <td>Maksimum:</td>
-               <td colspan=2 ><?php echo $row[1];?></td>
+               <td>Pelanggan Menguntungkan</td>
+               <td colspan=3 ><?php echo $row[1];?></td>
           </tr>
 
           <?php
                }
 
-               $data = mysqli_query(getConn(),$query3);
-               while($row = mysqli_fetch_array($data))
-                    {
+               // $data = mysqli_query(getConn(),$query3);
+               // while($row = mysqli_fetch_array($data))
+               //      {
           ?>
 
 
 
-          <tr>
+          <!-- <tr>
                <td>Minimum:</td>
-               <td colspan=2 ><?php echo $row[1];?></td>
+               <td colspan=2 ></td>
           </tr>
 
 
-          <?php
-                    }
-          ?>
-          <!--
+          
+          
           <tr>
                <td>Rata-rata:</td>
                <td></td>

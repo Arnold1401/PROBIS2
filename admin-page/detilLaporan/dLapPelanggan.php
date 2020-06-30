@@ -10,7 +10,7 @@
     
 
     $query="
-    select c.nama_pemilik,c.nama_perusahaan,h.grandtotal, h.tanggal_order
+    select c.nama_pemilik,c.nama_perusahaan,h.totalkeselurahan, h.tanggal_order
     from customer c, hjual h 
     where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
   

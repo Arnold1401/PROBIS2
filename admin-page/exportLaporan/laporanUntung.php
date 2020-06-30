@@ -12,7 +12,7 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 $query="
 
-select keuntungan,tanggal_order
+select keuntungan,tanggal_order,id_hjual
 
 from  hjual 
 
@@ -45,11 +45,12 @@ header("Content-Disposition: attachment; filename=Laporan Keuntungan.xls");
 
 ?>
 <h1>Laporan keuntungan</h1>
-  <table border=2>
+  <table border=1>
         <thead>
             <tr>
-                <td>Tanggal</td>
-                <td>Keuntungan</td>
+                <th>Nomor Pesanan </th>
+                <th>Tanggal</th>
+                <th>Keuntungan</th>
             </tr>
         </thead>
 
@@ -61,6 +62,7 @@ header("Content-Disposition: attachment; filename=Laporan Keuntungan.xls");
                {
         ?>
             <tr>
+                <td><?php echo $row[2]; ?>
                 <td><?php echo date("d-M-Y", strtotime($row[1]));?></td>
                 <td><?php echo "Rp ".number_format($row[0],0,",",".");?></td>
             </tr>
