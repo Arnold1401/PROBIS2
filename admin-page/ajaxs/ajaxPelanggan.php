@@ -16,12 +16,12 @@
     
 
     $query="
-    select c.nama_pemilik,c.nama_perusahaan,avg(h.grandtotal),c.id_cust
+    select c.nama_pemilik,c.nama_perusahaan,avg(h.totalkeselurahan),c.id_cust
     from customer c, hjual h 
     where c.id_cust= h.id_cust and h.tanggal_order >= '$awal' and h.tanggal_order <= '$akhir'
   
     GROUP by c.nama_pemilik 
-    order by avg(h.grandtotal) desc limit 5
+    order by avg(h.totalkeselurahan) desc limit 5
     ";
 
 ?>

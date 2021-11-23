@@ -46,7 +46,7 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 <h1>Detail Laporan Piutang Keterlambatan</h1>
 
-<table border=2 >
+<table border=1 >
 
      <thead>
         <th>Nama Perusahaan</th>

@@ -69,12 +69,12 @@
 
 <h1>Detail Perihal Laporan Sales</h1>
 
-<table border=2 >
+<table border=1 >
 
      <thead>
-          <td>Nama Sales</td>
-          <td>Alamat</td>
-          <td>Frekuensi pekerjaan</td>
+          <th>Nama Sales</th>
+          <th>Alamat</th>
+          <th>Frekuensi pekerjaan</th>
           
      </thead>
 <?php
@@ -87,7 +87,6 @@ while($row = mysqli_fetch_array($data))
 
      <tr>
           <td><?php echo $row[0];?></td>
-
           <td><?php echo $row[1];?></td>
           <td><?php echo $row[2];?></td>
      </tr>

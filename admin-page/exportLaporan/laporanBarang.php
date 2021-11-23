@@ -49,14 +49,14 @@ $akhir=$_REQUEST["tgl_akhir"];
 
 <h1>Detail Perihal Laporan Barang</h1>
 
-<table border=2 >
+<table border=1 >
 
      <thead>
-          <td>Kategori Barang</td>
-        <td>Nama Barang</td>
-        <td>Pembeli</td>
-        <td>Kuantiti</td>
-        <td>Subtotal</td>
+          <th>Kategori Barang</th>
+          <th>Nama Barang</th>
+          <th>Pembeli</th>
+          <th>Kuantiti</th>
+          <th>Subtotal</th>
      </thead>
 <?php
 
@@ -87,8 +87,8 @@ while($row = mysqli_fetch_array($data))
                {
           ?>
           <tr>
-               <td>Maksimum:</td>
-               <td colspan=2 ><?php echo $row[1];?></td>
+               <td>Barang Sering Dibeli :</td>
+               <td colspan=4 ><?php echo $row[1];?></td>
           </tr>
 
           <?php
